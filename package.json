@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "libs/*",
+    "configs/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --no-cache --parallel --continue",
+    "clean": "turbo run clean && rm -rf node_modules"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "axios": "^0.25",
+    "react-query": "^3.34.14",
+    "htm": "^3.1.0",
+    "nanoid": "^3.1.20"
+  },
+  "devDependencies": {
+    "turbo": "latest",
+    "@types/react": "^17.0.39"
+  },
+  "packageManager": "npm@8.4.1"
+}

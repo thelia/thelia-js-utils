@@ -1,0 +1,14 @@
+{
+  "name": "@thelia/tsconfig",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "base.json",
+    "node14.json",
+    "react-library.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
