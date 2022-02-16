@@ -80,3 +80,7 @@ export type LibraryImage = {
     target?: string;
   };
 };
+
+export type Video = {
+  url: string | null;
+};

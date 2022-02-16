@@ -3,7 +3,7 @@ import * as React from "react";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../types";
 
 export type BlockTitleData = {
-  level: Number;
+  level: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   text: string;
 };
 
@@ -101,7 +101,7 @@ function BlockTitleComponent({
   );
 }
 
-const initialData = {
+const initialData: BlockTitleData = {
   level: 0,
   text: "",
 };

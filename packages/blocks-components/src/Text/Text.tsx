@@ -17,7 +17,7 @@ function BlockTextComponent({
   }, [data]);
 
   return (
-    <div className="BlockText cursor-text">
+    <div className="BlockText">
       {data !== undefined ? (
         <textarea
           onChange={(e) => {
@@ -33,7 +33,7 @@ function BlockTextComponent({
   );
 }
 
-const initialData = {
+const initialData: BlockTextData = {
   value: "",
 };
 
