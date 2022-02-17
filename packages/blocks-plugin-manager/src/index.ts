@@ -10,8 +10,6 @@ import { useEffect, useState } from "react";
 
 import { nanoid } from "nanoid";
 
-export { nanoid as generatePluginId };
-
 export const TB_DEFAULT_PLUGINS: any[] = [
   { id: nanoid(), ...Text },
   { id: nanoid(), ...Title },

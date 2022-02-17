@@ -16,12 +16,12 @@
   },
   "dependencies": {
     "@thelia/blocks-components": "*",
-    "react": "*"
+    "react": "*",
+    "nanoid": "^3.1.20"
   },
   "devDependencies": {
     "tsup": "^5.10.1",
-    "typescript": "^4.5.3",
-    "nanoid": "^3.1.20"
+    "typescript": "^4.5.3"
   },
   "publishConfig": {
     "access": "public"
