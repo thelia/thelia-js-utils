@@ -7,7 +7,8 @@
   "sideEffects": false,
   "license": "MIT",
   "files": [
-    "dist/**"
+    "dist/**",
+    "package.json"
   ],
   "scripts": {
     "build": "tsup src/index.tsx --format esm --dts --sourcemap --env.NODE_ENV production",
