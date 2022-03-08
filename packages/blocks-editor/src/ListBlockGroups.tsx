@@ -1,15 +1,9 @@
 import useSWR from "swr";
 import React from "react";
+import { IBlock } from "./types";
 
-export default function ListBlockGroups({ setSelectedBlock }) {
+export default function ListBlockGroups() {
   const { data = [] } = useSWR("/block_group/list");
-  console.log("data :", data);
 
-  return (
-    <>
-      {data.map((block) => {
-        <button onClick={() => setSelectedBlock(block.id)}>{block.id}</button>;
-      })}
-    </>
-  );
+  return <div>list: {data.length}</div>;
 }

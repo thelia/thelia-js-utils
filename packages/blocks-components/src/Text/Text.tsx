@@ -25,9 +25,8 @@ function BlockTextComponent({
               value: e.target.value,
             });
           }}
-        >
-          {localData}
-        </textarea>
+          defaultValue={localData}
+        />
       ) : null}
     </div>
   );

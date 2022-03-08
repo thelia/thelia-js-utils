@@ -1,16 +1,14 @@
 import * as React from "react";
 
 import { usePlugins } from "@thelia/blocks-plugin-manager";
-import { atomWithImmer } from "jotai/immer";
-import { BlockContext } from "./BlockContext";
+import { useBlocksContext } from "./BlockContext";
 
 import { nanoid } from "nanoid";
-import { atom } from "jotai";
 
 export default function AddComponent() {
   const response = usePlugins();
 
-  const { setBlocks } = React.useContext(BlockContext);
+  const { addBlock } = useBlocksContext();
 
   return (
     <ol>
@@ -18,14 +16,12 @@ export default function AddComponent() {
         return (
           <button
             onClick={() =>
-              setBlocks((blocks) => [
-                ...blocks,
-                atom({
-                  id: nanoid(),
-                  data: item.initialData,
-                  type: { id: item.type.id },
-                }),
-              ])
+              addBlock({
+                id: nanoid(),
+                data: item.initialData,
+                parent: null,
+                type: { id: item.type.id },
+              })
             }
             key={item.id}
           >
