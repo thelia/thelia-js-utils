@@ -1,3 +1,5 @@
+import { PrimitiveAtom } from "jotai";
+
 export type ErrorType = {
   message: string;
   statusCode: number;
@@ -80,3 +82,9 @@ export type LibraryImage = {
     target?: string;
   };
 };
+
+export type BlockAtomType = PrimitiveAtom<{
+  title: {
+    default: string;
+  };
+}>;
