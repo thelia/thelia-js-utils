@@ -16,18 +16,26 @@ function BlockTextComponent({
     setData(data.value);
   }, [data]);
 
+  const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setData(e.target.value);
+  };
+
+  const onBlurText = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+    if (e.target.value) {
+      onUpdate({
+        value: e.target.value,
+      });
+    }
+  };
+
   return (
     <div className="BlockText">
       {data !== undefined ? (
         <textarea
-          onChange={(e) => {
-            onUpdate({
-              value: e.target.value,
-            });
-          }}
-        >
-          {localData}
-        </textarea>
+          onChange={onChangeText}
+          onBlur={onBlurText}
+          defaultValue={localData}
+        />
       ) : null}
     </div>
   );

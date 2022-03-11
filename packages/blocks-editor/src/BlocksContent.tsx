@@ -36,7 +36,7 @@ const Block = ({ block }: { block: IBlock }) => {
           margin: "1rem 0",
         }}
       >
-        <div>Block non supporté</div>
+        <div>Unsupported Block</div>
         <Controls block={block} />
       </div>
     );
@@ -65,18 +65,32 @@ const Block = ({ block }: { block: IBlock }) => {
 };
 
 const Controls = ({ block }: { block: IBlock }) => {
-  const { removeBlock, moveBlockUp, moveBlockDown } = useBlocksContext();
+  // prettier-ignore
+  const { removeBlock, moveBlockUp, moveBlockDown, moveBlockTo } = useBlocksContext();
+  const { blocks } = useContext(BlockContext);
 
   return (
-    <>
-      <button onClick={() => removeBlock(block)}>Supprimer</button>
+    <div style={{ marginTop: "2rem" }}>
+      <button onClick={() => removeBlock(block.id)}>Delete</button>
       <button
-        style={{ margin: "0 0.5rem" }}
+        disabled={blocks.findIndex((item) => item.id === block.id) === 0}
         onClick={() => moveBlockUp(block.id)}
       >
         Up
       </button>
-      <button onClick={() => moveBlockDown(block.id)}>Down</button>
-    </>
+      <button
+        disabled={
+          blocks.findIndex((item) => item.id === block.id) === blocks.length - 1
+        }
+        onClick={() => moveBlockDown(block.id)}
+      >
+        Down
+      </button>
+      <input
+        style={{ margin: "0 0.5rem" }}
+        placeholder="Move block to index"
+        onBlur={(e) => moveBlockTo(block.id, +e.target.value)}
+      />
+    </div>
   );
 };

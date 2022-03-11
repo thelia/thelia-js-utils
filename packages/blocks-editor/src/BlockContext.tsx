@@ -1,4 +1,4 @@
-import {
+import React, {
   createContext,
   Dispatch,
   ReactElement,
@@ -43,19 +43,17 @@ export const BlockContextProvider = ({
 export const useBlocksContext = () => {
   const { blocks, setBlocks } = useContext(BlockContext);
 
-  const addBlock = (block: IBlock) => {
-    setBlocks((blocks: IBlock[]) => [...blocks, block]);
+  const addBlock = (newBlock: IBlock) => {
+    setBlocks((blocks) => [...blocks, newBlock]);
   };
 
-  const removeBlock = (block: IBlock) => {
-    setBlocks((blocks: any) => blocks.filter((item: any) => item !== block));
+  const removeBlock = (blockId: string) => {
+    setBlocks((blocks) => blocks.filter((block) => block.id !== blockId));
   };
 
   const updateBlock = (blockId: string, data: {}) => {
-    setBlocks((blocks: IBlock[]) =>
-      blocks.map((block: IBlock) =>
-        block.id === blockId ? { ...block, data } : block
-      )
+    setBlocks((blocks) =>
+      blocks.map((block) => (block.id === blockId ? { ...block, data } : block))
     );
   };
 
@@ -63,7 +61,7 @@ export const useBlocksContext = () => {
     const index = blocks.findIndex((block) => block.id === blockId);
 
     if (index !== -1 && index !== 0) {
-      setBlocks((blocks: IBlock[]) => [...reorder(blocks, index, index - 1)]);
+      setBlocks((blocks) => [...reorder(blocks, index, index - 1)]);
     }
   };
 
@@ -71,9 +69,24 @@ export const useBlocksContext = () => {
     const index = blocks.findIndex((block) => block.id === blockId);
 
     if (index !== -1 && index < blocks.length) {
-      setBlocks((blocks: IBlock[]) => [...reorder(blocks, index, index + 1)]);
+      setBlocks((blocks) => [...reorder(blocks, index, index + 1)]);
     }
   };
 
-  return { addBlock, removeBlock, updateBlock, moveBlockUp, moveBlockDown };
+  const moveBlockTo = (blockId: string, to: number) => {
+    const index = blocks.findIndex((block) => block.id === blockId);
+
+    if (typeof to === "number" && to <= blocks.length) {
+      setBlocks((blocks) => [...reorder(blocks, index, to)]);
+    }
+  };
+
+  return {
+    addBlock,
+    removeBlock,
+    updateBlock,
+    moveBlockUp,
+    moveBlockDown,
+    moveBlockTo,
+  };
 };

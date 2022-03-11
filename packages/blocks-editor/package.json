@@ -13,7 +13,8 @@
   "scripts": {
     "build": "tsup src/index.tsx --format esm --dts --sourcemap --env.NODE_ENV production",
     "dev": "tsup src/index.tsx --format esm --watch --dts",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "test": "jest"
   },
   "dependencies": {
     "react": "*",
@@ -24,6 +25,15 @@
     "nanoid": "^3.1.20"
   },
   "devDependencies": {
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@babel/preset-typescript": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "ts-node": "^10.7.0",
+    "@types/jest": "^27.4.1",
+    "jest": "^27.5.1",
     "tailwindcss": "*",
     "postcss": "*",
     "postcss-import": "^14.0.2",

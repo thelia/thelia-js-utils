@@ -9,13 +9,12 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --no-cache --parallel --continue",
-    "clean": "turbo run clean && rm -rf node_modules"
+    "clean": "turbo run clean && rm -rf node_modules",
+    "test": "turbo run test"
   },
   "dependencies": {
     "axios": "^0.25",
     "htm": "^3.1.0",
-    "immer": "^9.0.12",
-    "jotai": "^1.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-query": "^3.34.14"
@@ -23,9 +22,9 @@
   "devDependencies": {
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
-    "turbo": "latest",
+    "postcss": "*",
     "tailwindcss": "*",
-    "postcss": "*"
+    "turbo": "latest"
   },
   "packageManager": "npm@8.4.1"
 }
