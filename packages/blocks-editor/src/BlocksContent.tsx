@@ -1,18 +1,18 @@
 import { usePlugins } from "@thelia/blocks-plugin-manager";
-import { useContext } from "react";
-import { BlockContext, useBlocksContext } from "./BlockContext";
+import * as React from "react";
+import { BlockContext } from "./BlockContext";
+import { useBlocksContext } from "./hooks/useBlockContext";
 import { IBlock } from "./types";
 
 export default function BlocksContent() {
-  const { blocks } = useContext(BlockContext);
+  const { blockList } = useBlocksContext();
+  console.log("Liste :", blockList);
 
-  console.log("Liste :", blocks);
-
-  if (!blocks || !blocks.length) return null;
+  if (!blockList || !blockList.length) return null;
 
   return (
     <div className="BlocksContent">
-      {blocks.map((block, index) => (
+      {blockList.map((block, index) => (
         <Block key={index} block={block} />
       ))}
     </div>
@@ -20,9 +20,11 @@ export default function BlocksContent() {
 }
 
 const Block = ({ block }: { block: IBlock }) => {
-  const { updateBlock } = useBlocksContext();
-  const plugins = usePlugins();
+  const { findBlockIndex, updateBlock } = useBlocksContext();
 
+  const blockIndex = findBlockIndex(block.id);
+
+  const plugins = usePlugins();
   const currentPlugin = plugins.find(
     (plugin) => plugin.type.id === block.type.id
   );
@@ -37,7 +39,7 @@ const Block = ({ block }: { block: IBlock }) => {
         }}
       >
         <div>Unsupported Block</div>
-        <Controls block={block} />
+        <Controls blockIndex={blockIndex} blockId={block.id} />
       </div>
     );
   }
@@ -59,37 +61,41 @@ const Block = ({ block }: { block: IBlock }) => {
         data={block.data}
         onUpdate={(data: {}) => updateBlock(block.id, data)}
       />
-      <Controls block={block} />
+      <Controls blockIndex={blockIndex} blockId={block.id} />
     </div>
   );
 };
 
-const Controls = ({ block }: { block: IBlock }) => {
+const Controls = ({
+  blockId,
+  blockIndex,
+}: {
+  blockId: string;
+  blockIndex: number;
+}) => {
   // prettier-ignore
-  const { removeBlock, moveBlockUp, moveBlockDown, moveBlockTo } = useBlocksContext();
-  const { blocks } = useContext(BlockContext);
+  const { blockList, removeBlock, moveBlockUp, moveBlockDown, moveBlockTo } = useBlocksContext();
 
   return (
-    <div style={{ marginTop: "2rem" }}>
-      <button onClick={() => removeBlock(block.id)}>Delete</button>
+    <div style={{ margin: "0.5rem 0" }}>
+      <button onClick={() => removeBlock(blockId)}>Delete</button>
       <button
-        disabled={blocks.findIndex((item) => item.id === block.id) === 0}
-        onClick={() => moveBlockUp(block.id)}
+        style={{ margin: "0 0.5rem" }}
+        disabled={blockIndex === 0}
+        onClick={() => moveBlockUp(blockIndex)}
       >
         Up
       </button>
       <button
-        disabled={
-          blocks.findIndex((item) => item.id === block.id) === blocks.length - 1
-        }
-        onClick={() => moveBlockDown(block.id)}
+        disabled={blockIndex === blockList.length - 1}
+        onClick={() => moveBlockDown(blockIndex)}
       >
         Down
       </button>
       <input
         style={{ margin: "0 0.5rem" }}
         placeholder="Move block to index"
-        onBlur={(e) => moveBlockTo(block.id, +e.target.value)}
+        onBlur={(e) => moveBlockTo(blockIndex, +e.target.value)}
       />
     </div>
   );

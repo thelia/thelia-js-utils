@@ -11,8 +11,8 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx --format esm --dts --env.NODE_ENV production",
-    "dev": "tsup src/index.tsx --format esm --watch --dts",
+    "build": "tsup src/index.tsx --format esm,cjs --dts --env.NODE_ENV production",
+    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {

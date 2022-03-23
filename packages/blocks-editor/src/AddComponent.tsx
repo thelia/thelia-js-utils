@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import { usePlugins } from "@thelia/blocks-plugin-manager";
-import { useBlocksContext } from "./BlockContext";
 
 import { nanoid } from "nanoid";
+import { useBlocksContext } from "./hooks/useBlockContext";
 
 export default function AddComponent() {
   const response = usePlugins();
