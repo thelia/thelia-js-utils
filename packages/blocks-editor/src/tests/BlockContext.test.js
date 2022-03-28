@@ -1,6 +1,6 @@
 import * as React from "react";
 import { renderHook, act } from "@testing-library/react-hooks";
-import { BlockContextProvider } from "../BlockContext";
+import { BlockContextProvider } from "../providers/BlockContext";
 import { useBlocksContext } from "../hooks/useBlockContext";
 
 const wrapper = ({ children }) => (

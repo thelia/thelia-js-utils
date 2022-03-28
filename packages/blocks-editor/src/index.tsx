@@ -2,11 +2,11 @@ import "./index.css";
 
 import React from "react";
 
-import AddComponent from "./AddComponent";
-import { BlocksEditorProvider } from "./queries";
-import ListBlockGroups from "./ListBlockGroups";
-import BlocksContent from "./BlocksContent";
-import { BlockContextProvider } from "./BlockContext";
+import AddBlocks from "./components/AddBlocks";
+import { BlocksEditorProvider } from "./utils/queries";
+import ListBlockGroups from "./components/ListBlockGroups/ListBlockGroups";
+import BlocksContent from "./components/BlocksContent/BlocksContent";
+import { BlockContextProvider } from "./providers/BlockContext";
 
 export function BlocksEditor({ apiUrl }: { apiUrl: string }) {
   if (!apiUrl) return null;
@@ -35,7 +35,7 @@ export function BlocksEditor({ apiUrl }: { apiUrl: string }) {
         <BlockContextProvider>
           <>
             <div className="BlocksEditor-content">
-              <AddComponent />
+              <AddBlocks />
             </div>
 
             <BlocksContent />
