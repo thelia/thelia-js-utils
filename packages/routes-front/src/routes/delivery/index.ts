@@ -1,10 +1,10 @@
 // DELIVERY MODULES
 
-import { fetcher } from '../../fetcher';
+import { fetcher } from "../../fetcher";
 
 export function getDeliveryModules(addressId: number | null) {
   return fetcher(`/delivery/modules`, {
-    method: 'GET',
+    method: "GET",
     params: {
       addressId,
     },
@@ -25,6 +25,6 @@ export async function getDeliveryModes() {
 
 export function getSimpleDeliveryModules() {
   return fetcher(`/delivery/simple-modules`, {
-    method: 'GET'
+    method: "GET",
   });
 }

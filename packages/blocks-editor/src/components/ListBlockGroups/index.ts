@@ -1,1 +1,1 @@
-export { default } from './ListBlockGroups'
+export { default } from "./ListBlockGroups";

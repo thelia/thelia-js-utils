@@ -3,20 +3,20 @@ import {
   addressDelete,
   addressQuery,
   addressUpdate,
-} from '../../routes/address';
-import { useMutation, useQuery } from 'react-query';
+} from "../../routes/address";
+import { useMutation, useQuery } from "react-query";
 
-import { queryClient } from '../../queryClient';
+import { queryClient } from "../../queryClient";
 
 // ADDRESS
 export function useAddressQuery() {
-  return useQuery('addresses', () => addressQuery());
+  return useQuery("addresses", () => addressQuery());
 }
 
 export function useAddressCreate() {
   return useMutation((data: any) => addressCreate(data), {
     onSuccess: () => {
-      queryClient.invalidateQueries('addresses');
+      queryClient.invalidateQueries("addresses");
     },
   });
 }
@@ -27,7 +27,7 @@ export function useAddressUpdate() {
       addressUpdate(id, data),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('addresses');
+        queryClient.invalidateQueries("addresses");
       },
     }
   );
@@ -36,7 +36,7 @@ export function useAddressUpdate() {
 export function useAddressDelete() {
   return useMutation((id: number) => addressDelete(id), {
     onSuccess: () => {
-      queryClient.invalidateQueries('addresses');
+      queryClient.invalidateQueries("addresses");
     },
   });
 }

@@ -1,4 +1,4 @@
-import { fetcher } from '../../fetcher';
+import { fetcher } from "../../fetcher";
 
 // CART
 export function cartQuery() {
@@ -16,7 +16,7 @@ export async function addToCart({
 }) {
   try {
     const cartResponse = await fetcher(`/cart/add`, {
-      method: 'POST',
+      method: "POST",
       data: {
         pseId,
         quantity,
@@ -31,7 +31,7 @@ export async function addToCart({
 
 export function cartItemUpdate(id: number, quantity: number) {
   return fetcher(`/cart/${id}`, {
-    method: 'PATCH',
+    method: "PATCH",
     data: {
       quantity,
     },
@@ -40,6 +40,6 @@ export function cartItemUpdate(id: number, quantity: number) {
 
 export function cartItemDelete(id: number) {
   return fetcher(`/cart/${id}`, {
-    method: 'DELETE',
+    method: "DELETE",
   });
 }

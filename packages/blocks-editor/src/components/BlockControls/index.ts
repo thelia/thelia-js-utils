@@ -1,1 +1,1 @@
-export { default } from './BlockControls'
+export { default } from "./BlockControls";

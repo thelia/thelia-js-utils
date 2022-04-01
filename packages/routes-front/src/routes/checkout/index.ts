@@ -1,15 +1,15 @@
-import { fetcher } from '../../fetcher';
+import { fetcher } from "../../fetcher";
 
 export function getCheckout(params = {}) {
   return fetcher(`/checkout`, {
-    method: 'GET',
+    method: "GET",
     params,
   });
 }
 
 export function setCheckout(data = {}) {
   return fetcher(`/checkout`, {
-    method: 'POST',
+    method: "POST",
     data,
   });
 }
