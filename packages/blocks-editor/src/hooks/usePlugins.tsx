@@ -1,21 +1,21 @@
 import {
+  Column,
+  Columns,
+  Group,
   Image,
   List,
   Raw,
+  Separator,
   Text,
   Title,
   Video,
-  Separator,
-  Columns,
-  Column,
-  Group,
 } from "../blocks";
-
 import { useEffect, useState } from "react";
 
+import { Plugin } from "../types/types";
 import { nanoid } from "nanoid";
 
-export const TB_DEFAULT_PLUGINS: any[] = [
+export const TB_DEFAULT_PLUGINS: Plugin[] = [
   { id: nanoid(), ...Text },
   { id: nanoid(), ...Title },
   { id: nanoid(), ...Image },
@@ -34,13 +34,13 @@ window.eventTBPlugins = new CustomEvent("update-tb-plugins");
 export function registerPlugin(plugin: any) {
   if (!window.TB__PLUGINS) window.TB__PLUGINS = [];
 
-  window.TB__PLUGINS.push({ ...plugin, id: nanoid() } as any);
+  window.TB__PLUGINS.push({ ...plugin, id: nanoid() } as Plugin);
 
   document.dispatchEvent(window.eventTBPlugins);
 }
 
 export function usePlugins() {
-  const [plugins, setPlugins] = useState([
+  const [plugins, setPlugins] = useState<Plugin[]>([
     ...TB_DEFAULT_PLUGINS,
     ...(window.TB__PLUGINS || []),
   ]);

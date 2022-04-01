@@ -1,8 +1,9 @@
 import * as React from "react";
+
+import BlockControls from "../BlockControls";
+import { IBlock } from "../../types/types";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
-import { IBlock } from "../../types/types";
-import BlockControls from "../BlockControls";
 
 const Block = ({ block }: { block: IBlock }) => {
   const { findBlockIndex, updateBlock } = useBlocksContext();
@@ -40,7 +41,7 @@ const Block = ({ block }: { block: IBlock }) => {
       }}
     >
       <div style={{ fontWeight: "bolder" }}>{currentPlugin.title.default}</div>
-      <div>{currentPlugin.description.default}</div>
+      <div>{currentPlugin?.description?.default}</div>
 
       <Component
         data={block.data}

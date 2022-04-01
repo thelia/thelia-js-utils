@@ -23,4 +23,15 @@ const Columns = {
   SixColumns,
 };
 
-export { Image, List, Raw, Text, Title, Video, Column, Columns, Separator, Group };
+export {
+  Image,
+  List,
+  Raw,
+  Text,
+  Title,
+  Video,
+  Column,
+  Columns,
+  Separator,
+  Group,
+};

@@ -1,17 +1,12 @@
-import { BlockModuleComponentProps, IBlock } from "../../types/types";
-import { nanoid } from "nanoid";
-import { usePlugins } from "../../hooks/usePlugins";
-import BlockGroup from "../Group";
 import * as React from "react";
+
+import { BlockModuleComponentProps, IBlock } from "../../types/types";
+
 import Block from "../../components/Block";
-import AddBlocks from "../../components/AddBlocks";
 
-type MultiColumnsData = Array<ColumnData>;
+type MultiColumnsData = ColumnData[];
 
-type ColumnData = {
-  id: string;
-  group: IBlock;
-};
+type ColumnData = IBlock[];
 
 export type MultiColumnsComponentProps = {
   data: MultiColumnsData;
@@ -21,14 +16,15 @@ const MultiColumnsComponent = ({
   data,
   onUpdate,
 }: BlockModuleComponentProps<MultiColumnsData>) => {
+  console.log(data);
   return (
     <div style={{ display: "flex" }}>
-      {data.map((columns, index) => {
+      {data.map((column, index) => {
         return (
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div>Column number {index}</div>
-            {columns.map((column) => (
-              <Block block={column} />
+            {column.map((component) => (
+              <Block block={component} />
             ))}
           </div>
         );

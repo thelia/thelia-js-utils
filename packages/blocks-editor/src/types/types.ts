@@ -59,6 +59,7 @@ export type BlockPluginDefinition<TProp = { [key: string]: any }> =
       [key: string]: any;
     }) => JSX.Element;
     initialData: TProp;
+    layout?: string;
   };
 
 export type uiStoreType = {
@@ -83,4 +84,12 @@ export type LibraryImage = {
 
 export type Video = {
   url: string | null;
+};
+
+export type Plugin = BlockModuleI18n & {
+  id: string;
+  readonly type: BlockModuleType;
+  readonly component: Function;
+  initialData: Record<string, any>;
+  layout?: string;
 };
