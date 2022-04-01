@@ -1,6 +1,7 @@
 import * as React from "react";
-import useSWR from "swr";
+
 import { IBlock } from "../types/types";
+import useSWR from "swr";
 
 export const BlockContext = React.createContext<{
   blocks: IBlock[];
@@ -9,18 +10,12 @@ export const BlockContext = React.createContext<{
 
 export const BlockContextProvider = ({
   children,
+  defaultBlocks,
 }: {
   children: React.ReactElement;
+  defaultBlocks?: IBlock[];
 }) => {
-  const [blocks, setBlocks] = React.useState<IBlock[]>([]);
-
-  /* const { data = [] } = useSWR("/block_group?id=24");
-
-  React.useEffect(() => {
-    if (data.jsonContent) {
-      setBlocks(JSON.parse(data.jsonContent));
-    }
-  }, [data]); */
+  const [blocks, setBlocks] = React.useState<IBlock[]>(defaultBlocks || []);
 
   return (
     <BlockContext.Provider value={{ blocks, setBlocks }}>

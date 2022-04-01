@@ -28,6 +28,7 @@ export type IBlock = {
   readonly id: string;
   readonly type: BlockModuleType;
   parent: IBlock["id"] | null;
+  layout?: string;
   data: any;
 };
 

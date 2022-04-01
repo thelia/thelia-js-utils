@@ -1,8 +1,8 @@
 import * as React from "react";
 
+import { IBlock, Plugin } from "../../types/types";
 import { groupBy, keys, partition } from "lodash";
 
-import { Plugin } from "../../types/types";
 import { nanoid } from "nanoid";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
@@ -26,10 +26,24 @@ function AddButton({ plugin }: { plugin: Plugin }) {
   );
 }
 
-export default function AddBlock() {
+export default function AddBlock({
+  excludeLayout,
+}: {
+  excludeLayout?: IBlock["layout"][];
+}) {
   const plugins = usePlugins();
+  let availablePLugins = plugins;
 
-  const [commontBlocks, layoutPlugins] = partition(plugins, (i) => !i.layout);
+  if (excludeLayout) {
+    availablePLugins = plugins.filter(
+      (plugin) => !excludeLayout.includes(plugin.layout)
+    );
+  }
+
+  const [commontBlocks, layoutPlugins] = partition(
+    availablePLugins,
+    (i) => !i.layout
+  );
   const layoutPluginsByType = groupBy(layoutPlugins, "layout");
 
   return (
