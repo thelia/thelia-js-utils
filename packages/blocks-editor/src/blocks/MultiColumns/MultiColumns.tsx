@@ -34,35 +34,42 @@ function NestedColumn({ onUpdate }: { onUpdate: Function }) {
   );
 }
 
-const MultiColumnsComponent = ({
-  data,
-  onUpdate,
-}: BlockModuleComponentProps<MultiColumnsData>) => {
-  return (
-    <div style={{ display: "flex" }}>
-      {data.map((column, index) => {
-        return (
-          <div key={index} style={{ display: "flex", flexDirection: "column" }}>
-            <BlockContextProvider defaultBlocks={column}>
-              <div>
-                <div>Column number {index}</div>
-                <AddBlocks excludeLayout={["Column"]} />
-                <NestedColumn
-                  onUpdate={(columnNewData: IBlock[]) => {
-                    const nextState = produce(data, (draft) => {
-                      draft[index] = columnNewData;
-                    });
-                    onUpdate(nextState);
-                  }}
-                />
-              </div>
-            </BlockContextProvider>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+const MultiColumnsComponent =
+  (cols = 1) =>
+  ({ data, onUpdate }: BlockModuleComponentProps<MultiColumnsData>) => {
+    return (
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${cols}, 1fr)`,
+          gap: "2rem",
+        }}
+      >
+        {data.map((column, index) => {
+          return (
+            <div
+              key={index}
+              style={{ display: "flex", flexDirection: "column" }}
+            >
+              <BlockContextProvider defaultBlocks={column}>
+                <>
+                  <AddBlocks excludeLayout={["Column"]} />
+                  <NestedColumn
+                    onUpdate={(columnNewData: IBlock[]) => {
+                      const nextState = produce(data, (draft) => {
+                        draft[index] = columnNewData;
+                      });
+                      onUpdate(nextState);
+                    }}
+                  />
+                </>
+              </BlockContextProvider>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
 
 const moduleLayout = "Column";
 
@@ -72,7 +79,7 @@ const moduleType = {
 
 const Column = {
   type: moduleType,
-  component: MultiColumnsComponent,
+  component: MultiColumnsComponent(),
   initialData: [[]],
   layout: moduleLayout,
   title: {
@@ -90,6 +97,7 @@ const Column = {
 
 const TwoColumns = {
   ...Column,
+  component: MultiColumnsComponent(2),
   type: { id: "2cols" },
   title: {
     default: "2 Columns",
@@ -126,21 +134,19 @@ const TwoColumns = {
 
 const ThreeColumns = {
   ...Column,
+  component: MultiColumnsComponent(3),
   type: { id: "3cols" },
   layout: moduleLayout,
   title: {
     default: "3 Columns",
     fr_FR: "3 Colonnes",
   },
-  childs: {
-    max: 3,
-    exclude: [moduleType, "2cols", "3cols", "4cols", "5cols", "6cols"],
-  },
   initialData: [[], [], []],
 };
 
 const FourColumns = {
   ...Column,
+  component: MultiColumnsComponent(4),
   type: { id: "4cols" },
   layout: moduleLayout,
   title: {
@@ -153,6 +159,7 @@ const FourColumns = {
 
 const FiveColumns = {
   ...Column,
+  component: MultiColumnsComponent(5),
   type: { id: "5cols" },
   layout: moduleLayout,
   title: {
@@ -165,6 +172,7 @@ const FiveColumns = {
 
 const SixColumns = {
   ...Column,
+  component: MultiColumnsComponent(6),
   type: { id: "6cols" },
   layout: moduleLayout,
   title: {

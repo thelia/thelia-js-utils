@@ -1,5 +1,7 @@
 import * as React from "react";
-import { renderHook, act } from "@testing-library/react-hooks";
+
+import { act, renderHook } from "@testing-library/react-hooks";
+
 import { BlockContextProvider } from "../providers/BlockContext";
 import { useBlocksContext } from "../hooks/useBlockContext";
 
@@ -7,7 +9,7 @@ const wrapper = ({ children }) => (
   <BlockContextProvider>{children}</BlockContextProvider>
 );
 
-test("should add blocks to the list", () => {
+test("should add blocks from the list", () => {
   const { result } = renderHook(() => useBlocksContext(), { wrapper });
 
   act(() => {
@@ -19,7 +21,7 @@ test("should add blocks to the list", () => {
   expect(result.current.blockList[1].id).toBe("2");
 });
 
-test("should remove blocks to the list", () => {
+test("should remove blocks from the list", () => {
   const { result } = renderHook(() => useBlocksContext(), { wrapper });
 
   act(() => {

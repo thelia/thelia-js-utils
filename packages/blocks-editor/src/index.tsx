@@ -1,12 +1,10 @@
 import "./index.css";
 
-import React from "react";
-
 import AddBlocks from "./components/AddBlocks";
+import { BlockContextProvider } from "./providers/BlockContext";
+import BlocksContent from "./components/BlocksContent/BlocksContent";
 import { BlocksEditorProvider } from "./utils/queries";
 import ListBlockGroups from "./components/ListBlockGroups/ListBlockGroups";
-import BlocksContent from "./components/BlocksContent/BlocksContent";
-import { BlockContextProvider } from "./providers/BlockContext";
 
 export function BlocksEditor({ apiUrl }: { apiUrl: string }) {
   if (!apiUrl) return null;

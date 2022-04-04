@@ -1,7 +1,5 @@
-import * as React from "react";
-
 import { IBlock, Plugin } from "../../types/types";
-import { groupBy, keys, partition } from "lodash";
+import { groupBy, partition } from "lodash";
 
 import { nanoid } from "nanoid";
 import { useBlocksContext } from "../../hooks/useBlockContext";
@@ -11,6 +9,7 @@ function AddButton({ plugin }: { plugin: Plugin }) {
   const { addBlock } = useBlocksContext();
   return (
     <button
+      className="BlocksEditor-btn border-slate-500 text-slate-500 px-2 py-1 border hover:bg-slate-900 hover:text-slate-100 hover:border-slate-900"
       onClick={() =>
         addBlock({
           id: nanoid(),
@@ -47,8 +46,8 @@ export default function AddBlock({
   const layoutPluginsByType = groupBy(layoutPlugins, "layout");
 
   return (
-    <div>
-      <ol>
+    <div className="BlocksEditor-AddBlocks flex gap-4">
+      <ol className="flex gap-2">
         {commontBlocks.map((plugin) => {
           return <AddButton plugin={plugin} />;
         })}
@@ -57,9 +56,11 @@ export default function AddBlock({
         {Object.entries(layoutPluginsByType).map(
           ([layoutType, layoutPluginsByType]) => {
             return (
-              <li>
-                <div>{layoutType}</div>
-                <ol>
+              <li className="BlocksEditor-dropdown group inline-block relative">
+                <button className="BlocksEditor-btn border-slate-500 text-slate-500 px-2 py-1 border hover:bg-slate-900 hover:text-slate-100 hover:border-slate-900">
+                  {layoutType}
+                </button>
+                <ol className="BlocksEditor-dropdown__content hidden group-hover:block absolute">
                   {layoutPluginsByType.map((plugin) => (
                     <AddButton plugin={plugin} />
                   ))}

@@ -33,13 +33,7 @@ const Block = ({ block }: { block: IBlock }) => {
   const Component = currentPlugin.component;
 
   return (
-    <div
-      style={{
-        backgroundColor: "lightBlue",
-        padding: "1rem",
-        margin: "1rem 0",
-      }}
-    >
+    <div className="Block border-b py-4 mb-4">
       <div style={{ fontWeight: "bolder" }}>{currentPlugin.title.default}</div>
       <div>{currentPlugin?.description?.default}</div>
 

@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import { IBlock } from "../types/types";
-import useSWR from "swr";
 
 export const BlockContext = React.createContext<{
   blocks: IBlock[];
