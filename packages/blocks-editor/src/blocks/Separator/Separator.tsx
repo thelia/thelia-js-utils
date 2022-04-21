@@ -51,30 +51,38 @@ const BlockSeparatorComponent = ({
   return (
     <div className="BlockSeparator" data-type={type}>
       <div className="BlockSeparator-field">
-        <label htmlFor="separator-type">Type</label>
-        <select
-          name="separator-type"
-          id="separator-type"
-          onChange={onChangeType}
-          value={type.toString()}
-        >
-          {types.map(({ label, value }) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
+        <div className="flex justify-between">
+          <div className="flex flex-col w-2/5 mb-6">
+            <label htmlFor="separator-type">Style du séparateur</label>
+            <select
+              className="rounded-md"
+              name="separator-type"
+              id="separator-type"
+              onChange={onChangeType}
+              value={type.toString()}
+            >
+              {types.map(({ label, value }) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+
+            <label htmlFor="separator-size">Size</label>
+            <input
+              type="number"
+              className="rounded-md"
+              name="separator-size"
+              id="separator-size"
+              value={size.toString()}
+              onChange={onChangeSize}
+              onBlur={onBlurSize}
+            />
+          </div>
+        </div>
       </div>
-      <div className="BlockSeparator-field">
-        <label htmlFor="separator-size">Size</label>
-        <input
-          type="number"
-          name="separator-size"
-          id="separator-size"
-          value={size.toString()}
-          onChange={onChangeSize}
-          onBlur={onBlurSize}
-        />
+      <div className="border-dotted border rounded-md p-4 mt-4 border-black">
+        {type === "hr" ? <div className="bg-black h-px"></div> : null}
       </div>
     </div>
   );

@@ -35,6 +35,9 @@ function BlockTextComponent({
     <div className="BlockText">
       {data !== undefined ? (
         <textarea
+          className="w-full rounded-md"
+          placeholder="Votre texte ici"
+          rows={8}
           onChange={onChangeText}
           onBlur={onBlurText}
           defaultValue={localData}

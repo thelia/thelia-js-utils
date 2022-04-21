@@ -7,9 +7,10 @@ import { usePlugins } from "../../hooks/usePlugins";
 
 function AddButton({ plugin }: { plugin: Plugin }) {
   const { addBlock } = useBlocksContext();
+
   return (
     <button
-      className="BlocksEditor-btn border-slate-500 text-slate-500 px-2 py-1 border hover:bg-slate-900 hover:text-slate-100 hover:border-slate-900"
+      className="BlocksEditor-btn bg-white border-slate-500 text-slate-500 px-2 py-1 border hover:bg-slate-900 hover:text-slate-100 hover:border-slate-900"
       onClick={() =>
         addBlock({
           id: nanoid(),
@@ -20,7 +21,7 @@ function AddButton({ plugin }: { plugin: Plugin }) {
       }
       key={plugin.id}
     >
-      {plugin.title.default}
+      {plugin.title.fr_FR}
     </button>
   );
 }
@@ -46,23 +47,26 @@ export default function AddBlock({
   const layoutPluginsByType = groupBy(layoutPlugins, "layout");
 
   return (
-    <div className="BlocksEditor-AddBlocks flex gap-4">
+    <div className="BlocksEditor-AddBlocks flex justify-center gap-2">
       <ol className="flex gap-2">
-        {commontBlocks.map((plugin) => {
-          return <AddButton plugin={plugin} />;
+        {commontBlocks.map((plugin, index) => {
+          return <AddButton key={index} plugin={plugin} />;
         })}
       </ol>
       <ol>
         {Object.entries(layoutPluginsByType).map(
-          ([layoutType, layoutPluginsByType]) => {
+          ([layoutType, layoutPluginsByType], index) => {
             return (
-              <li className="BlocksEditor-dropdown group inline-block relative">
+              <li
+                key={index}
+                className="BlocksEditor-dropdown group inline-block relative"
+              >
                 <button className="BlocksEditor-btn border-slate-500 text-slate-500 px-2 py-1 border hover:bg-slate-900 hover:text-slate-100 hover:border-slate-900">
                   {layoutType}
                 </button>
                 <ol className="BlocksEditor-dropdown__content hidden group-hover:block absolute">
-                  {layoutPluginsByType.map((plugin) => (
-                    <AddButton plugin={plugin} />
+                  {layoutPluginsByType.map((plugin, index) => (
+                    <AddButton key={index} plugin={plugin} />
                   ))}
                 </ol>
               </li>

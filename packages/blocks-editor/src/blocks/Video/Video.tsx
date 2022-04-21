@@ -23,12 +23,12 @@ const blockVideo: BlockPluginDefinition<Video> = {
   component: BlockVideoComponent,
   initialData,
   title: {
-    default: "Image",
-    fr_FR: "Image",
+    default: "Video",
+    fr_FR: "Vidéo",
   },
   description: {
-    default: "Display an image",
-    fr_FR: "Affiche une image",
+    default: "Display a video",
+    fr_FR: "Affiche une vidéo",
   },
   image: {
     default: "",

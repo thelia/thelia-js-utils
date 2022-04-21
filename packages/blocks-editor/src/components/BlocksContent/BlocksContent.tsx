@@ -9,7 +9,7 @@ export default function BlocksContent() {
   if (!blockList || !blockList.length) return null;
 
   return (
-    <div className="BlocksContent">
+    <div className="BlocksContent px-60 py-28">
       {blockList.map((block, index) => (
         <Block key={index} block={block} />
       ))}

@@ -7,6 +7,11 @@ import Block from "../../components/Block";
 import { BlockContextProvider } from "../../providers/BlockContext";
 import produce from "immer";
 import { useBlocksContext } from "../../hooks/useBlockContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronDown,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 type MultiColumnsData = ColumnData[];
 
@@ -16,7 +21,7 @@ export type MultiColumnsComponentProps = {
   data: MultiColumnsData;
 };
 
-function NestedColumn({ onUpdate }: { onUpdate: Function }) {
+const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
   const { blockList } = useBlocksContext();
 
   React.useEffect(() => {
@@ -25,51 +30,117 @@ function NestedColumn({ onUpdate }: { onUpdate: Function }) {
 
   return (
     <div>
-      <div>
-        {blockList.map((component) => {
-          return <Block block={component} />;
-        })}
+      {blockList.map((component) => {
+        return (
+          <Block
+            inLayout={true}
+            key={component.id}
+            className="border-l-8 border-l-red-400"
+            block={component}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+const ColumnIcon = ({
+  cols,
+  currentCol,
+}: {
+  cols: number;
+  currentCol: number;
+}) => {
+  return (
+    <div className="h-3 rounded-full flex overflow-hidden border bg-white border-white mr-3">
+      {[...Array(cols)].map((_, index) => (
+        <div
+          key={index}
+          className={`w-6 
+            ${index !== cols - 1 && "mr-px"} 
+            ${currentCol === index ? "bg-white" : "bg-slate-900"}`}
+        ></div>
+      ))}
+    </div>
+  );
+};
+
+const ColumnComponent = ({
+  column,
+  index,
+  data,
+  onUpdate,
+}: BlockModuleComponentProps<MultiColumnsData>) => {
+  const [open, setOpen] = React.useState(true);
+
+  return (
+    <div
+      key={index}
+      className="flex flex-col rounded-md shadow-md border-l-8 border-l-red-600 bg-white"
+    >
+      <div className="py-4 px-8 bg-slate-900 text-white rounded-tr-md flex justify-between items-center">
+        <div className="flex items-center">
+          <ColumnIcon cols={data.length} currentCol={index} />
+          <span className="text-xl font-bold">{`Colonne #${index + 1}`}</span>
+        </div>
+        <button onClick={() => setOpen(!open)} className="p-2 flex">
+          <div className="bg-red-500 px-2 rounded-l-sm">
+            {open ? (
+              <FontAwesomeIcon icon={faChevronDown} />
+            ) : (
+              <FontAwesomeIcon icon={faChevronRight} />
+            )}
+          </div>
+          <div className="bg-red-600 px-2 rounded-r-sm">
+            {open ? "Replier" : "Déplier"}
+          </div>
+        </button>
+      </div>
+      <div className={`py-8 px-11 ${!open ? "hidden" : null}`}>
+        <BlockContextProvider defaultBlocks={column}>
+          <>
+            <NestedColumn
+              onUpdate={(columnNewData: IBlock[]) => {
+                const nextState = produce(data, (draft) => {
+                  draft[index] = columnNewData;
+                });
+                onUpdate(nextState);
+              }}
+            />
+            <div className="border-dotted rounded-md border border-slate-600 py-6 flex flex-col">
+              <span className="text-center mb-4">
+                Glissez-déposez le type de contenu souhaité depuis le menu de
+                droite
+              </span>
+              <AddBlocks excludeLayout={["Column"]} />
+            </div>
+          </>
+        </BlockContextProvider>
       </div>
     </div>
   );
-}
+};
 
-const MultiColumnsComponent =
-  (cols = 1) =>
-  ({ data, onUpdate }: BlockModuleComponentProps<MultiColumnsData>) => {
-    return (
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${cols}, 1fr)`,
-          gap: "2rem",
-        }}
-      >
-        {data.map((column, index) => {
-          return (
-            <div
-              key={index}
-              style={{ display: "flex", flexDirection: "column" }}
-            >
-              <BlockContextProvider defaultBlocks={column}>
-                <>
-                  <AddBlocks excludeLayout={["Column"]} />
-                  <NestedColumn
-                    onUpdate={(columnNewData: IBlock[]) => {
-                      const nextState = produce(data, (draft) => {
-                        draft[index] = columnNewData;
-                      });
-                      onUpdate(nextState);
-                    }}
-                  />
-                </>
-              </BlockContextProvider>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
+const MultiColumnsComponent = ({
+  data,
+  onUpdate,
+}: BlockModuleComponentProps<MultiColumnsData>) => {
+  return (
+    <div className="flex flex-col gap-5 justify-between">
+      {data.map((column, index) => {
+        return (
+          <ColumnComponent
+            key={index}
+            data={data}
+            onUpdate={onUpdate}
+            column={column}
+            index={index}
+          />
+        );
+      })}
+    </div>
+  );
+};
 
 const moduleLayout = "Column";
 
@@ -79,7 +150,7 @@ const moduleType = {
 
 const Column = {
   type: moduleType,
-  component: MultiColumnsComponent(),
+  component: MultiColumnsComponent,
   initialData: [[]],
   layout: moduleLayout,
   title: {
@@ -97,44 +168,19 @@ const Column = {
 
 const TwoColumns = {
   ...Column,
-  component: MultiColumnsComponent(2),
+  component: MultiColumnsComponent,
   type: { id: "2cols" },
   title: {
     default: "2 Columns",
     fr_FR: "2 Colonnes",
   },
   layout: "Column",
-  initialData: [
-    [
-      {
-        data: {
-          level: 2,
-          text: "No direct sales, but a carefully selected distributor network",
-        },
-
-        id: "ZJLZwmg32okqYC-3KSEYT",
-        parent: null,
-        type: { id: "blockTitle" },
-      },
-    ],
-    [
-      {
-        data: {
-          level: 3,
-          text: "SECOND TEXT",
-        },
-
-        id: "g4r06WYkL8fYJ-BrVPC9W",
-        parent: null,
-        type: { id: "blockTitle" },
-      },
-    ],
-  ],
+  initialData: [[], []],
 };
 
 const ThreeColumns = {
   ...Column,
-  component: MultiColumnsComponent(3),
+  component: MultiColumnsComponent,
   type: { id: "3cols" },
   layout: moduleLayout,
   title: {
@@ -146,7 +192,7 @@ const ThreeColumns = {
 
 const FourColumns = {
   ...Column,
-  component: MultiColumnsComponent(4),
+  component: MultiColumnsComponent,
   type: { id: "4cols" },
   layout: moduleLayout,
   title: {
@@ -159,7 +205,7 @@ const FourColumns = {
 
 const FiveColumns = {
   ...Column,
-  component: MultiColumnsComponent(5),
+  component: MultiColumnsComponent,
   type: { id: "5cols" },
   layout: moduleLayout,
   title: {
@@ -172,7 +218,7 @@ const FiveColumns = {
 
 const SixColumns = {
   ...Column,
-  component: MultiColumnsComponent(6),
+  component: MultiColumnsComponent,
   type: { id: "6cols" },
   layout: moduleLayout,
   title: {
@@ -183,11 +229,4 @@ const SixColumns = {
   initialData: [[], [], [], [], [], []],
 };
 
-export {
-  Column,
-  TwoColumns,
-  ThreeColumns,
-  FourColumns,
-  FiveColumns,
-  SixColumns,
-};
+export { TwoColumns, ThreeColumns, FourColumns, FiveColumns, SixColumns };

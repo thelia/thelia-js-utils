@@ -75,23 +75,27 @@ function BlockTitleComponent({
   return (
     <div className="BlockTitle">
       <div className="BlockTitle-field">
-        <label htmlFor="title-level">Niveau</label>
-        <select
-          name="title-level"
-          id="title-level"
-          onChange={onChangeLevel}
-          value={level.toString()}
-        >
-          {levels.map(({ label, value }) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
+        <div className="flex flex-col w-2/5">
+          <label htmlFor="title-level">Style</label>
+          <select
+            name="title-level"
+            id="title-level"
+            className="rounded-md"
+            onChange={onChangeLevel}
+            value={level.toString()}
+          >
+            {levels.map(({ label, value }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <div className="flex-grow BlockTitle-field">
-        <label htmlFor="title-text">Texte</label>
         <input
+          className="w-full mt-4 rounded-md"
+          placeholder="Votre titre ici"
           type="text"
           name="title-text"
           id="title-text"

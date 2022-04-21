@@ -1,5 +1,4 @@
 import {
-  Column,
   Columns,
   Group,
   Image,
@@ -9,6 +8,7 @@ import {
   Text,
   Title,
   Video,
+  Button,
 } from "../blocks";
 import { useEffect, useState } from "react";
 
@@ -19,12 +19,12 @@ export const TB_DEFAULT_PLUGINS: Plugin[] = [
   { id: nanoid(), ...Text },
   { id: nanoid(), ...Title },
   { id: nanoid(), ...Image },
+  { id: nanoid(), ...Button },
   { id: nanoid(), ...List },
   { id: nanoid(), ...Video },
   { id: nanoid(), ...Raw },
   { id: nanoid(), ...Separator },
   { id: nanoid(), ...Group },
-  { id: nanoid(), ...Column },
   ...Object.values(Columns).map((colType) => ({ id: nanoid(), ...colType })),
 ];
 
