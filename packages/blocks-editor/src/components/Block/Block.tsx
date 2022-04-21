@@ -54,7 +54,6 @@ const Block = ({
           </div>
 
           <FontAwesomeIcon className="cursor-help" icon={faInfoCircle} />
-          <i className="fa-solid fa-arrow-down"></i>
         </div>
         <BlockControls
           blockIndex={blockIndex}
