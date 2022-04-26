@@ -1,8 +1,5 @@
 import * as React from "react";
-import {
-  BlockModuleComponentProps,
-  BlockPluginDefinition,
-} from "../../types/types";
+import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 
 export type BlockButtonData = {
   label: string;

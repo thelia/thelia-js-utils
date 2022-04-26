@@ -1,9 +1,7 @@
 import * as React from "react";
+import Editor from "../../components/Editor";
 
-import {
-  BlockModuleComponentProps,
-  BlockPluginDefinition,
-} from "../../types/types";
+import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 
 export type BlockTextData = {
   value: string;
@@ -33,11 +31,12 @@ function BlockTextComponent({
 
   return (
     <div className="BlockText">
+      {/* {data !== undefined ? <Editor /> : null} */}
       {data !== undefined ? (
         <textarea
           className="w-full rounded-md"
           placeholder="Votre texte ici"
-          rows={8}
+          rows={5}
           onChange={onChangeText}
           onBlur={onBlurText}
           defaultValue={localData}

@@ -35,7 +35,7 @@ function BlockRawComponent({
       <textarea
         className="w-full rounded-md"
         placeholder="Value"
-        rows={8}
+        rows={5}
         onChange={onChangeValue}
         onBlur={onBlurValue}
         value={value}

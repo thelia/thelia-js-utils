@@ -40,7 +40,7 @@ export default function AddBlock({
     );
   }
 
-  const [commontBlocks, layoutPlugins] = partition(
+  const [commonBlocks, layoutPlugins] = partition(
     availablePLugins,
     (i) => !i.layout
   );
@@ -49,11 +49,11 @@ export default function AddBlock({
   return (
     <div className="BlocksEditor-AddBlocks flex justify-center gap-2">
       <ol className="flex gap-2">
-        {commontBlocks.map((plugin, index) => {
+        {commonBlocks.map((plugin, index) => {
           return <AddButton key={index} plugin={plugin} />;
         })}
       </ol>
-      <ol>
+      <ol className="flex gap-2">
         {Object.entries(layoutPluginsByType).map(
           ([layoutType, layoutPluginsByType], index) => {
             return (

@@ -13,9 +13,9 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-type MultiColumnsData = ColumnData[];
-
 type ColumnData = IBlock[];
+
+type MultiColumnsData = ColumnData[];
 
 export type MultiColumnsComponentProps = {
   data: MultiColumnsData;
@@ -112,7 +112,7 @@ const ColumnComponent = ({
                 Glissez-déposez le type de contenu souhaité depuis le menu de
                 droite
               </span>
-              <AddBlocks excludeLayout={["Column"]} />
+              <AddBlocks excludeLayout={["Column", "Accordion"]} />
             </div>
           </>
         </BlockContextProvider>
@@ -174,7 +174,7 @@ const TwoColumns = {
     default: "2 Columns",
     fr_FR: "2 Colonnes",
   },
-  layout: "Column",
+  layout: moduleLayout,
   initialData: [[], []],
 };
 

@@ -7,6 +7,8 @@ import Video from "./Video";
 import Separator from "./Separator";
 import Group from "./Group";
 import Button from "./Button";
+import Accordion from "./Accordion";
+import Product from "./Product";
 import {
   Column,
   TwoColumns,
@@ -35,5 +37,7 @@ export {
   Columns,
   Separator,
   Group,
-  Button
+  Button,
+  Accordion,
+  Product,
 };

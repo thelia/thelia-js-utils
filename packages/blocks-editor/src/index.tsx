@@ -11,8 +11,8 @@ export function BlocksEditor({ apiUrl }: { apiUrl: string }) {
 
   return (
     <BlocksEditorProvider api={apiUrl}>
-      <ListBlockGroups />
-      <hr />
+      {/* <ListBlockGroups />
+      <hr /> */}
       <div className="BlocksEditor">
         <div className="BlocksEditor-header">
           <div className="BlocksEditor-title">
