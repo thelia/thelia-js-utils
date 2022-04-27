@@ -1,0 +1,32 @@
+{
+  "name": "test-module",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "browser": "./dist/esm/index.js",
+  "type": "module",
+  "node": ">=14.16",
+  "sideEffects": false,
+  "license": "MIT",
+  "files": [
+    "dist/**",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "rm -rf ./dist && NODE_ENV=production rollup --config rollup.config.js",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.2.1",
+    "@rollup/plugin-replace": "^4.0.0",
+    "@rollup/plugin-typescript": "^8.3.2",
+    "@types/react": "^18.0.8",
+    "@vinicius73/rollup-plugin-skypack-resolver": "^2.1.2",
+    "rollup": "^2.70.2",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-url-resolve": "^0.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
