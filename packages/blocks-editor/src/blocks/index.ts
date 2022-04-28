@@ -1,22 +1,22 @@
+import {
+  FiveColumns,
+  FourColumns,
+  SixColumns,
+  ThreeColumns,
+  TwoColumns,
+} from "./MultiColumns";
+
+import Accordion from "./Accordion";
+import Button from "./Button";
+import Group from "./Group";
 import Image from "./Image";
 import List from "./List";
+import Product from "./Product";
 import Raw from "./Raw";
+import Separator from "./Separator";
 import Text from "./Text";
 import Title from "./Title";
 import Video from "./Video";
-import Separator from "./Separator";
-import Group from "./Group";
-import Button from "./Button";
-import Accordion from "./Accordion";
-import Product from "./Product";
-import {
-  Column,
-  TwoColumns,
-  ThreeColumns,
-  FourColumns,
-  FiveColumns,
-  SixColumns,
-} from "./MultiColumns";
 
 const Columns = {
   TwoColumns,
@@ -33,7 +33,6 @@ export {
   Text,
   Title,
   Video,
-  Column,
   Columns,
   Separator,
   Group,

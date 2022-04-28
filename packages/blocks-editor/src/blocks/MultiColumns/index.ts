@@ -1,5 +1,4 @@
 export {
-  Column,
   TwoColumns,
   ThreeColumns,
   FourColumns,
