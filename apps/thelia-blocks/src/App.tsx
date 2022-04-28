@@ -1,4 +1,4 @@
-import "@thelia/blocks-editor/src/index.css";
+import "@thelia/blocks-editor/dist/index.css";
 
 import { BlocksEditor } from "@thelia/blocks-editor";
 

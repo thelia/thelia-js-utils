@@ -2,7 +2,7 @@
   "name": "@thelia/media-library",
   "version": "0.0.0",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./src/index.tsx",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
@@ -12,7 +12,6 @@
   ],
   "scripts": {
     "build": "tsup src/index.tsx --format esm --dts --env.NODE_ENV production",
-    "dev": "tsup src/index.tsx --format esm --watch --dts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
