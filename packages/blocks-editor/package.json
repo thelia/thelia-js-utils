@@ -1,6 +1,7 @@
 {
   "name": "@thelia/blocks-editor",
   "version": "0.0.0",
+  "type": "module",
   "main": "./dist/index.js",
   "module": "./src/index.tsx",
   "types": "./dist/index.d.ts",
@@ -14,7 +15,7 @@
   "scripts": {
     "build": "tsup src/index.tsx --format esm --dts --sourcemap --env.NODE_ENV production",
     "build:css": "NODE_ENV=production tailwindcss -c ./tailwind.config.cjs -i ./src/index.css -o ./dist/index.css",
-    "dev": "tailwindcss -c ./tailwind.config.cjs -i ./src/index.css -o ./dist/index.css --watch",
+    "dev": "tsup-node src/index.tsx --watch --format esm",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "test": "jest"
   },
