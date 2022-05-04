@@ -9,8 +9,10 @@ import { useMutation, useQuery } from "react-query";
 import { queryClient } from "../../queryClient";
 
 // CUSTOMER
-export function useCustomer() {
-  return useQuery("customer", () => getCustomer());
+export function useCustomer({ enabled = false }) {
+  return useQuery("customer", () => getCustomer(), {
+    enabled,
+  });
 }
 
 export function useCustomerUpdate() {
