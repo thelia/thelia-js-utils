@@ -1,7 +1,4 @@
-import {
-  faChevronDown,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import produce from "immer";
 import * as React from "react";
@@ -9,6 +6,7 @@ import AddBlocks from "../../components/AddBlocks";
 import Block from "../../components/Block";
 
 import { useBlocksContext } from "../../hooks/useBlockContext";
+import useDragAndDrop from "../../hooks/useDragAndDrop";
 import { BlockContextProvider } from "../../providers/BlockContext";
 import { BlockModuleComponentProps, IBlock } from "../../types/types";
 
@@ -17,24 +15,38 @@ type AccordionContentData = IBlock[];
 type AccordionData = AccordionContentData[];
 
 const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
-  const { blockList } = useBlocksContext();
+  const { blockList, moveBlockTo } = useBlocksContext();
+  const { DndWrapper, DndWrapElement } = useDragAndDrop();
 
   React.useEffect(() => {
     onUpdate(blockList);
   }, [blockList]);
 
+  const onDragEnd = (e: any) => {
+    if (e.destination) {
+      moveBlockTo(e.source.index, e.destination.index);
+    }
+  };
+
   return (
     <div>
-      {blockList.map((component) => {
-        return (
-          <Block
-            inLayout={true}
-            key={component.id}
-            className="border-l-8 border-l-red-400"
-            block={component}
-          />
-        );
-      })}
+      {blockList.length > 0 && (
+        <DndWrapper id="main" onDragEnd={onDragEnd}>
+          {blockList.map((block, index) => (
+            <DndWrapElement key={block.id} id={block.id} index={index}>
+              {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
+                <Block
+                  DndDragHandle={DndDragHandle}
+                  inLayout={true}
+                  key={index}
+                  className="border-l-8 border-l-red-400"
+                  block={block}
+                />
+              )}
+            </DndWrapElement>
+          ))}
+        </DndWrapper>
+      )}
     </div>
   );
 };
@@ -82,8 +94,7 @@ const AccordionContentComponent = ({
             />
             <div className="border-dotted rounded-md border border-slate-600 py-6 flex flex-col">
               <span className="text-center mb-4">
-                Glissez-déposez le type de contenu souhaité depuis le menu de
-                droite
+                Glissez-déposez le type de contenu souhaité depuis le menu de droite
               </span>
               <AddBlocks excludeLayout={["Column", "Accordion"]} />
             </div>

@@ -8,10 +8,8 @@ import { BlockContextProvider } from "../../providers/BlockContext";
 import produce from "immer";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronDown,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import useDragAndDrop from "../../hooks/useDragAndDrop";
 
 type ColumnData = IBlock[];
 
@@ -22,41 +20,53 @@ export type MultiColumnsComponentProps = {
 };
 
 const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
-  const { blockList } = useBlocksContext();
+  const { blockList, moveBlockTo } = useBlocksContext();
+  const { DndWrapper, DndWrapElement } = useDragAndDrop();
 
   React.useEffect(() => {
     onUpdate(blockList);
   }, [blockList]);
 
+  const onDragEnd = (e: any) => {
+    if (e.destination) {
+      moveBlockTo(e.source.index, e.destination.index);
+    }
+  };
+
   return (
     <div>
-      {blockList.map((component) => {
-        return (
-          <Block
-            inLayout={true}
-            key={component.id}
-            className="border-l-8 border-l-red-400"
-            block={component}
-          />
-        );
-      })}
+      {blockList.length > 0 && (
+        <DndWrapper id="main" onDragEnd={onDragEnd}>
+          {blockList.map((block, index) => (
+            <DndWrapElement key={block.id} id={block.id} index={index}>
+              {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
+                <Block
+                  DndDragHandle={DndDragHandle}
+                  inLayout={true}
+                  key={index}
+                  className="border-l-8 border-l-red-400"
+                  block={block}
+                />
+              )}
+            </DndWrapElement>
+          ))}
+        </DndWrapper>
+      )}
     </div>
   );
 };
 
-const ColumnIcon = ({
-  cols,
-  currentCol,
-}: {
-  cols: number;
-  currentCol: number;
-}) => {
+const ColumnIcon = ({ cols, currentCol }: { cols: number; currentCol: number }) => {
   return (
-    <div className="h-3 rounded-full flex overflow-hidden border bg-white border-white mr-3">
+    <div
+      className="h-3 rounded-full flex overflow-hidden border bg-white border-white mr-3"
+      style={{ minWidth: "80px" }}
+    >
       {[...Array(cols)].map((_, index) => (
         <div
           key={index}
-          className={`w-6 
+          style={{ width: 100 / cols + "%" }}
+          className={` 
             ${index !== cols - 1 && "mr-px"} 
             ${currentCol === index ? "bg-white" : "bg-slate-900"}`}
         ></div>
@@ -109,8 +119,7 @@ const ColumnComponent = ({
             />
             <div className="border-dotted rounded-md border border-slate-600 py-6 flex flex-col">
               <span className="text-center mb-4">
-                Glissez-déposez le type de contenu souhaité depuis le menu de
-                droite
+                Glissez-déposez le type de contenu souhaité depuis le menu de droite
               </span>
               <AddBlocks excludeLayout={["Column", "Accordion"]} />
             </div>

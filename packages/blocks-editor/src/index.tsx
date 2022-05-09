@@ -4,7 +4,7 @@ import AddBlocks from "./components/AddBlocks";
 import { BlockContextProvider } from "./providers/BlockContext";
 import BlocksContent from "./components/BlocksContent/BlocksContent";
 import { BlocksEditorProvider } from "./utils/queries";
-import ListBlockGroups from "./components/ListBlockGroups/ListBlockGroups";
+import "tippy.js/dist/tippy.css";
 
 export function BlocksEditor({ apiUrl }: { apiUrl: string }) {
   if (!apiUrl) return null;

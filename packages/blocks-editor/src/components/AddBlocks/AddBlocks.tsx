@@ -4,25 +4,36 @@ import { groupBy, partition } from "lodash";
 import { nanoid } from "nanoid";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
+import Tippy from "@tippyjs/react";
+import BlockTooltip from "../BlockTooltip";
 
 function AddButton({ plugin }: { plugin: Plugin }) {
   const { addBlock } = useBlocksContext();
 
   return (
-    <button
-      className="BlocksEditor-btn bg-white border-slate-500 text-slate-500 px-2 py-1 border hover:bg-slate-900 hover:text-slate-100 hover:border-slate-900"
-      onClick={() =>
-        addBlock({
-          id: nanoid(),
-          data: plugin.initialData,
-          parent: null,
-          type: { id: plugin.type.id },
-        })
+    <Tippy
+      content={
+        <BlockTooltip
+          title={plugin.title.fr_FR}
+          description={plugin?.description?.fr_FR}
+        />
       }
-      key={plugin.id}
     >
-      {plugin.title.fr_FR}
-    </button>
+      <button
+        className="BlocksEditor-btn bg-white border-slate-500 text-slate-500 px-2 py-1 border hover:bg-slate-900 hover:text-slate-100 hover:border-slate-900"
+        onClick={() =>
+          addBlock({
+            id: nanoid(),
+            data: plugin.initialData,
+            parent: null,
+            type: { id: plugin.type.id },
+          })
+        }
+        key={plugin.id}
+      >
+        {plugin.title.fr_FR}
+      </button>
+    </Tippy>
   );
 }
 
@@ -35,15 +46,10 @@ export default function AddBlock({
   let availablePLugins = plugins;
 
   if (excludeLayout) {
-    availablePLugins = plugins.filter(
-      (plugin) => !excludeLayout.includes(plugin.layout)
-    );
+    availablePLugins = plugins.filter((plugin) => !excludeLayout.includes(plugin.layout));
   }
 
-  const [commonBlocks, layoutPlugins] = partition(
-    availablePLugins,
-    (i) => !i.layout
-  );
+  const [commonBlocks, layoutPlugins] = partition(availablePLugins, (i) => !i.layout);
   const layoutPluginsByType = groupBy(layoutPlugins, "layout");
 
   return (
@@ -57,10 +63,7 @@ export default function AddBlock({
         {Object.entries(layoutPluginsByType).map(
           ([layoutType, layoutPluginsByType], index) => {
             return (
-              <li
-                key={index}
-                className="BlocksEditor-dropdown group inline-block relative"
-              >
+              <li key={index} className="BlocksEditor-dropdown group inline-block">
                 <button className="BlocksEditor-btn border-slate-500 text-slate-500 px-2 py-1 border hover:bg-slate-900 hover:text-slate-100 hover:border-slate-900">
                   {layoutType}
                 </button>

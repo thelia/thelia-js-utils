@@ -6,15 +6,18 @@ import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import Tippy from "@tippyjs/react";
 
 const Block = ({
   block,
   inLayout = false,
   className,
+  DndDragHandle,
 }: {
   block: IBlock;
   inLayout?: boolean;
   className?: string;
+  DndDragHandle: () => JSX.Element;
 }) => {
   const { findBlockIndex, updateBlock } = useBlocksContext();
 
@@ -22,9 +25,7 @@ const Block = ({
 
   const plugins = usePlugins();
 
-  const currentPlugin = plugins.find(
-    (plugin) => plugin.type.id === block.type.id
-  );
+  const currentPlugin = plugins.find((plugin) => plugin.type.id === block.type.id);
 
   if (!currentPlugin) {
     return (
@@ -44,27 +45,20 @@ const Block = ({
   const Component = currentPlugin.component;
 
   return (
-    <div
-      className={`Block mb-3 bg-slate-100 p-8 rounded-md shadow-md ${className}`}
-    >
+    <div className={`Block mb-3 p-8 bg-slate-100 shadow-md rounded-md ${className}`}>
       <div className="flex justify-between mb-6">
         <div className="flex items-center">
-          <div className="font-bold text-xl mr-4">
-            {currentPlugin.title.fr_FR}
-          </div>
-
-          <FontAwesomeIcon className="cursor-help" icon={faInfoCircle} />
+          {DndDragHandle && <DndDragHandle />}
+          <div className="font-bold text-xl mx-4">{currentPlugin.title.fr_FR}</div>
+          <Tippy content={<span>{currentPlugin?.description?.fr_FR}</span>}>
+            <div>
+              <FontAwesomeIcon className="cursor-help" icon={faInfoCircle} />
+            </div>
+          </Tippy>
         </div>
-        <BlockControls
-          blockIndex={blockIndex}
-          inLayout={inLayout}
-          blockId={block.id}
-        />
+        <BlockControls blockIndex={blockIndex} inLayout={inLayout} blockId={block.id} />
       </div>
-      <Component
-        data={block.data}
-        onUpdate={(data: {}) => updateBlock(block.id, data)}
-      />
+      <Component data={block.data} onUpdate={(data: {}) => updateBlock(block.id, data)} />
     </div>
   );
 };

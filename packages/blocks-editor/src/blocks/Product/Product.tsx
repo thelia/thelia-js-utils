@@ -126,9 +126,9 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
         );
       })}
 
-      <div className="bg-white border-l-8 border-red-600 rounded-md shadow-md px-20 py-14">
+      <div className="bg-white border-l-8 border-red-600 rounded-md shadow-md px-14 py-8">
         <span className="text-2xl font-bold">Ajouter un produit</span>
-        <div className="mt-4 w-2/3">
+        <div className="mt-4 w-2/3 relative">
           <label htmlFor="product-field">Rechercher</label>
           <input
             name="product-field"
@@ -143,7 +143,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
             }}
           />
 
-          <ul className="top-full bg-white rounded-md shadow-xl overflow-hidden">
+          <ul className="top-full bg-white rounded-md shadow-xl overflow-hidden w-full absolute">
             {isValidating ? (
               <li className="text-center py-4 text-2xl text-red-500">
                 <FontAwesomeIcon icon={faCircleNotch} spin />
@@ -164,7 +164,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
                             });
                             setQuery("");
                           }}
-                          className="px-8 py-4 cursor-pointer hover:bg-gray-300 flex flex-col"
+                          className="px-8 py-4 cursor-pointer hover:bg-gray-200 flex flex-col"
                         >
                           <span>{product.i18n.title}</span>
                           <span className="text-gray-400 text-sm">
@@ -182,7 +182,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
                           pour "
                           <span
                             className={`font-bold ${
-                              searchByRef ? "text-blue-500" : "text-gray-500"
+                              searchByRef ? "text-blue-500" : "text-red-500"
                             }`}
                           >
                             {query}
