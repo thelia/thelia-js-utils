@@ -11,7 +11,7 @@ function App() {
   if (!apiUrl) return <div>No API endpoint is defined in .env</div>;
 
   return (
-    <div className="App">
+    <div className="App py-8" style={{ backgroundColor: "#EDEDED" }}>
       <BlocksEditor apiUrl={apiUrl} />
     </div>
   );

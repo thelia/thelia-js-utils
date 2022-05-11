@@ -1,16 +1,9 @@
-import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
-
 import * as React from "react";
-import useSWR from "swr";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowDown,
-  faArrowRight,
-  faArrowUp,
-  faCircleNotch,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+
+import Input from "../../components/Input";
+import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { reorder } from "../../utils/array";
+import useSWR from "swr";
 
 export type BlockProductData = {
   productList: string[];
@@ -32,19 +25,28 @@ const Product = ({
   const { data: product } = useSWR(`/product/search?id=${productId}`);
 
   return (
-    <div className="w-full flex justify-between bg-white rounded-md gap-8 p-2 my-4 items-center h-20">
+    <div className="w-full flex justify-between bg-white rounded-md gap-4 md:gap-8 p-2 mb-4 items-center sm:h-20">
       {product?.[0]?.images.length > 0 ? (
-        <img className="h-full" src={product?.[0]?.images[0].url} alt="product image" />
+        <img
+          className="h-full hidden sm:block"
+          src={product?.[0]?.images[0].url}
+          alt="product image"
+        />
       ) : (
         <img
-          className="h-full"
+          className="h-full hidden sm:block"
           src="https://via.placeholder.com/150"
           alt="product image"
         />
       )}
-      <div className="font-semibold w-1/5 text-left">{product?.[0]?.i18n.title}</div>
-      <div className="w-1/5 text-left text-gray-400"># {product?.[0]?.reference}</div>
-      <div className="border-x border-gray-400 flex gap-8 px-4">
+      <div className="flex flex-col md:flex-row md:w-1/5 md:justify-between md:gap-4">
+        <div className="font-semibold text-left">{product?.[0]?.i18n.title}</div>
+        <div className="text-sm md:text-base text-left text-gray-400">
+          #{product?.[0]?.reference}
+        </div>
+      </div>
+
+      <div className="md:border-x md:border-gray-400 flex gap-8 px-2 md:px-4">
         <button
           className={`${productIndex === 0 && "text-gray-400"}`}
           disabled={productIndex === 0}
@@ -55,7 +57,7 @@ const Product = ({
             })
           }
         >
-          <FontAwesomeIcon icon={faArrowUp} />
+          <i className="fa fa-arrow-up"></i>
         </button>
 
         <button
@@ -68,20 +70,20 @@ const Product = ({
             })
           }
         >
-          <FontAwesomeIcon icon={faArrowDown} />
+          <i className="fa fa-arrow-down"></i>
         </button>
       </div>
       <a
         target="_blank"
         rel="noopener noreferrer"
         href={product?.[0]?.url}
-        className="border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white inline-block px-4 py-1 rounded-md text-center"
+        className="hidden border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-2 md:px-4 md:py-1 rounded-md text-center lg:flex items-center"
       >
-        <span className="mr-4">Voir la fiche produit</span>
-        <FontAwesomeIcon icon={faArrowRight} />
+        <span className="md:mr-2">Fiche produit</span>
+        <i className="fa fa-arrow-right hidden md:block"></i>
       </a>
       <button
-        className="self-start hover:text-red-500"
+        className="md:self-start hover:text-red-500 pr-1"
         onClick={() =>
           onUpdate({
             ...data,
@@ -89,7 +91,7 @@ const Product = ({
           })
         }
       >
-        <FontAwesomeIcon icon={faXmark} />
+        <i className="fa fa-xmark"></i>
       </button>
     </div>
   );
@@ -113,7 +115,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
   );
 
   return (
-    <div className="p-4 BlockProduct">
+    <div className="BlockProduct">
       {data.productList.map((productId: any, index) => {
         return (
           <Product
@@ -126,27 +128,25 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
         );
       })}
 
-      <div className="bg-white border-l-8 border-red-600 rounded-md shadow-md px-14 py-8">
-        <span className="text-2xl font-bold">Ajouter un produit</span>
-        <div className="mt-4 w-2/3 relative">
-          <label htmlFor="product-field">Rechercher</label>
-          <input
+      <div className="bg-white border-l-8 border-red-600 rounded-md shadow-md px-4 md:px-14 py-4 md:py-8">
+        <span className="md:text-xl font-bold">Ajouter un produit</span>
+        <div className="mt-4 xl:w-2/3 relative">
+          <Input
+            onChange={(e) => setQuery(e.target.value)}
+            value={query}
+            placeholder="Référence, nom, ..."
             name="product-field"
             type="text"
-            value={query}
-            className={`w-full rounded-md placeholder-gray-400 ${
-              searchByRef ? "text-blue-500" : ""
-            }`}
-            placeholder="Référence, nom, ..."
-            onChange={(e) => {
-              setQuery(e.target.value);
-            }}
+            className={searchByRef ? "text-blue-500" : ""}
+            icon={<i className="fa fa-search text-red-500"></i>}
+            iconAlignment="right"
+            label="Rechercher"
           />
 
           <ul className="top-full bg-white rounded-md shadow-xl overflow-hidden w-full absolute">
             {isValidating ? (
               <li className="text-center py-4 text-2xl text-red-500">
-                <FontAwesomeIcon icon={faCircleNotch} spin />
+                <i className="fa fa-circle-notch fa-spin"></i>
               </li>
             ) : (
               <>
@@ -168,7 +168,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
                         >
                           <span>{product.i18n.title}</span>
                           <span className="text-gray-400 text-sm">
-                            # {product.reference}
+                            #{product.reference}
                           </span>
                         </li>
                       ))}

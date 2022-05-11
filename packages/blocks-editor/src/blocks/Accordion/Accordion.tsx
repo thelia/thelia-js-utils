@@ -1,12 +1,10 @@
-import { faChevronDown, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import produce from "immer";
 import * as React from "react";
+
+import produce from "immer";
 import AddBlocks from "../../components/AddBlocks";
 import Block from "../../components/Block";
-
-import { useBlocksContext } from "../../hooks/useBlockContext";
 import useDragAndDrop from "../../hooks/useDragAndDrop";
+import { useBlocksContext } from "../../hooks/useBlockContext";
 import { BlockContextProvider } from "../../providers/BlockContext";
 import { BlockModuleComponentProps, IBlock } from "../../types/types";
 
@@ -64,16 +62,16 @@ const AccordionContentComponent = ({
       key={index}
       className="flex flex-col rounded-md shadow-md border-l-8 border-l-red-600 bg-white"
     >
-      <div className="py-4 px-8 bg-slate-900 text-white rounded-tr-md flex justify-between items-center">
+      <div className="py-2 md:py-4 px-4 md:px-8 bg-slate-900 text-white rounded-tr-md flex justify-between items-center">
         <div className="flex items-center">
-          <span className="text-xl font-bold">Accordion</span>
+          <span className="md:text-xl font-bold">Accordion</span>
         </div>
         <button onClick={() => setOpen(!open)} className="p-2 flex">
           <div className="bg-red-500 px-2 rounded-l-sm">
             {open ? (
-              <FontAwesomeIcon icon={faChevronDown} />
+              <i className="fa fa-chevron-down"></i>
             ) : (
-              <FontAwesomeIcon icon={faChevronRight} />
+              <i className="fa fa-chevron-right"></i>
             )}
           </div>
           <div className="bg-red-600 px-2 rounded-r-sm">
@@ -81,7 +79,7 @@ const AccordionContentComponent = ({
           </div>
         </button>
       </div>
-      <div className={`py-8 px-11 ${!open ? "hidden" : null}`}>
+      <div className={`p-4 md:py-8 md:px-11 ${!open ? "hidden" : null}`}>
         <BlockContextProvider defaultBlocks={blocks}>
           <>
             <NestedBlocks
@@ -92,12 +90,8 @@ const AccordionContentComponent = ({
                 onUpdate(nextState);
               }}
             />
-            <div className="border-dotted rounded-md border border-slate-600 py-6 flex flex-col">
-              <span className="text-center mb-4">
-                Glissez-déposez le type de contenu souhaité depuis le menu de droite
-              </span>
-              <AddBlocks excludeLayout={["Column", "Accordion"]} />
-            </div>
+
+            <AddBlocks excludeLayout={["Column", "Accordion"]} />
           </>
         </BlockContextProvider>
       </div>

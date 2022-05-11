@@ -1,9 +1,7 @@
 import * as React from "react";
+import Input from "../../components/Input";
 
-import {
-  BlockModuleComponentProps,
-  BlockPluginDefinition,
-} from "../../types/types";
+import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 
 export type BlockTitleData = {
   level: 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -74,8 +72,8 @@ function BlockTitleComponent({
 
   return (
     <div className="BlockTitle">
-      <div className="BlockTitle-field">
-        <div className="flex flex-col w-2/5">
+      <div className="BlockTitle-field md:w-1/2">
+        <div className="flex flex-col">
           <label htmlFor="title-level">Style</label>
           <select
             name="title-level"
@@ -92,16 +90,16 @@ function BlockTitleComponent({
           </select>
         </div>
       </div>
-      <div className="flex-grow BlockTitle-field">
-        <input
-          className="w-full mt-4 rounded-md"
-          placeholder="Votre titre ici"
+      <div className="flex-grow BlockTitle-field mt-4 md:w-1/2">
+        <Input
           type="text"
           name="title-text"
           id="title-text"
+          className="rounded-md"
           value={text}
           onChange={onChangeText}
           onBlur={onBlurText}
+          placeholder="Votre titre ici"
         />
       </div>
     </div>

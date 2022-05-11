@@ -5,6 +5,7 @@ import { BlockContextProvider } from "./providers/BlockContext";
 import BlocksContent from "./components/BlocksContent/BlocksContent";
 import { BlocksEditorProvider } from "./utils/queries";
 import "tippy.js/dist/tippy.css";
+import Sidebar from "./components/Sidebar";
 
 export function BlocksEditor({ apiUrl }: { apiUrl: string }) {
   if (!apiUrl) return null;
@@ -14,7 +15,7 @@ export function BlocksEditor({ apiUrl }: { apiUrl: string }) {
       {/* <ListBlockGroups />
       <hr /> */}
       <div className="BlocksEditor">
-        <div className="BlocksEditor-header">
+        {/* <div className="BlocksEditor-header">
           <div className="BlocksEditor-title">
             <label htmlFor="title">Title</label>
             <input type="text" name="title" id="title" />
@@ -29,14 +30,18 @@ export function BlocksEditor({ apiUrl }: { apiUrl: string }) {
               <label htmlFor="locale-en">en</label>
             </div>
           </div>
-        </div>
+        </div> */}
         <BlockContextProvider>
           <>
-            <div className="BlocksEditor-content">
-              <AddBlocks />
-            </div>
+            {/* <Sidebar /> */}
 
-            <BlocksContent />
+            <div className="BlocksContent">
+              <div className="px-4 md:px-12 xl:px-44 2xl:px-60">
+                <AddBlocks />
+
+                <BlocksContent />
+              </div>
+            </div>
           </>
         </BlockContextProvider>
       </div>

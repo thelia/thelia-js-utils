@@ -1,8 +1,5 @@
 import * as React from "react";
 
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import {
   DragDropContext,
   Draggable,
@@ -10,7 +7,6 @@ import {
   Droppable,
   DropResult,
 } from "react-beautiful-dnd";
-import Tippy from "@tippyjs/react";
 
 const DndDragHandle = ({
   dragHandleProps,
@@ -19,7 +15,7 @@ const DndDragHandle = ({
 }) => {
   return (
     <div className="BlockWrapper-dragHandle" {...dragHandleProps}>
-      <FontAwesomeIcon icon={faBars} />
+      <i className="fa fa-bars"></i>
     </div>
   );
 };

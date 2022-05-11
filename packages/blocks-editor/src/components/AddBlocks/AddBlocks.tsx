@@ -18,6 +18,7 @@ function AddButton({ plugin }: { plugin: Plugin }) {
           description={plugin?.description?.fr_FR}
         />
       }
+      delay={[500, 0]}
     >
       <button
         className="BlocksEditor-btn bg-white border-slate-500 text-slate-500 px-2 py-1 border hover:bg-slate-900 hover:text-slate-100 hover:border-slate-900"
@@ -53,30 +54,35 @@ export default function AddBlock({
   const layoutPluginsByType = groupBy(layoutPlugins, "layout");
 
   return (
-    <div className="BlocksEditor-AddBlocks flex justify-center gap-2">
-      <ol className="flex gap-2">
-        {commonBlocks.map((plugin, index) => {
-          return <AddButton key={index} plugin={plugin} />;
-        })}
-      </ol>
-      <ol className="flex gap-2">
-        {Object.entries(layoutPluginsByType).map(
-          ([layoutType, layoutPluginsByType], index) => {
-            return (
-              <li key={index} className="BlocksEditor-dropdown group inline-block">
-                <button className="BlocksEditor-btn border-slate-500 text-slate-500 px-2 py-1 border hover:bg-slate-900 hover:text-slate-100 hover:border-slate-900">
-                  {layoutType}
-                </button>
-                <ol className="BlocksEditor-dropdown__content hidden group-hover:block absolute">
-                  {layoutPluginsByType.map((plugin, index) => (
-                    <AddButton key={index} plugin={plugin} />
-                  ))}
-                </ol>
-              </li>
-            );
-          }
-        )}
-      </ol>
+    <div className="border-dotted rounded-md border border-slate-600 p-4 flex flex-col">
+      <span className="text-center mb-4">
+        Glissez-déposez le type de contenu souhaité depuis le menu de droite
+      </span>
+      <div className="BlocksEditor-AddBlocks flex flex-wrap justify-center gap-2">
+        <ol className="flex gap-2 flex-wrap justify-center">
+          {commonBlocks.map((plugin, index) => {
+            return <AddButton key={index} plugin={plugin} />;
+          })}
+        </ol>
+        <ol className="flex gap-2">
+          {Object.entries(layoutPluginsByType).map(
+            ([layoutType, layoutPluginsByType], index) => {
+              return (
+                <li key={index} className="BlocksEditor-dropdown group inline-block">
+                  <button className="BlocksEditor-btn bg-white border-slate-500 text-slate-500 px-2 py-1 border hover:bg-slate-900 hover:text-slate-100 hover:border-slate-900">
+                    {layoutType}
+                  </button>
+                  <ol className="BlocksEditor-dropdown__content hidden group-hover:block absolute">
+                    {layoutPluginsByType.map((plugin, index) => (
+                      <AddButton key={index} plugin={plugin} />
+                    ))}
+                  </ol>
+                </li>
+              );
+            }
+          )}
+        </ol>
+      </div>
     </div>
   );
 }

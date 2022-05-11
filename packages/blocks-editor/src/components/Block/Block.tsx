@@ -4,8 +4,6 @@ import BlockControls from "../BlockControls";
 import { IBlock } from "../../types/types";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import Tippy from "@tippyjs/react";
 
 const Block = ({
@@ -45,15 +43,15 @@ const Block = ({
   const Component = currentPlugin.component;
 
   return (
-    <div className={`Block mb-3 p-8 bg-slate-100 shadow-md rounded-md ${className}`}>
+    <div
+      className={`Block mb-4 p-4 md:p-8 bg-slate-100 shadow-md rounded-md ${className}`}
+    >
       <div className="flex justify-between mb-6">
         <div className="flex items-center">
           {DndDragHandle && <DndDragHandle />}
-          <div className="font-bold text-xl mx-4">{currentPlugin.title.fr_FR}</div>
+          <div className="font-bold md:text-xl mx-4">{currentPlugin.title.fr_FR}</div>
           <Tippy content={<span>{currentPlugin?.description?.fr_FR}</span>}>
-            <div>
-              <FontAwesomeIcon className="cursor-help" icon={faInfoCircle} />
-            </div>
+            <i className="fa fa-info-circle cursor-help"></i>
           </Tippy>
         </div>
         <BlockControls blockIndex={blockIndex} inLayout={inLayout} blockId={block.id} />

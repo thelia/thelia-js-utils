@@ -1,4 +1,5 @@
 import * as React from "react";
+import Input from "../../components/Input";
 import { BlockModuleComponentProps } from "../../types/types";
 
 export type BlockSeparatorData = {
@@ -52,10 +53,10 @@ const BlockSeparatorComponent = ({
     <div className="BlockSeparator" data-type={type}>
       <div className="BlockSeparator-field">
         <div className="flex justify-between">
-          <div className="flex flex-col w-2/5 mb-6">
+          <div className="flex flex-col w-full md:w-1/2 mb-6">
             <label htmlFor="separator-type">Style du séparateur</label>
             <select
-              className="rounded-md"
+              className="rounded-md mb-4"
               name="separator-type"
               id="separator-type"
               onChange={onChangeType}
@@ -68,20 +69,20 @@ const BlockSeparatorComponent = ({
               ))}
             </select>
 
-            <label htmlFor="separator-size">Size</label>
-            <input
+            <Input
               type="number"
-              className="rounded-md"
               name="separator-size"
               id="separator-size"
+              className="rounded-md"
               value={size.toString()}
               onChange={onChangeSize}
               onBlur={onBlurSize}
+              label="Taille du séparateur"
             />
           </div>
         </div>
       </div>
-      <div className="border-dotted border rounded-md p-4 mt-4 border-black">
+      <div className="border-dotted border rounded-md p-4 border-black">
         {type === "hr" ? <div className="bg-black h-px"></div> : null}
       </div>
     </div>
@@ -105,8 +106,7 @@ const BlockSeparator = {
     fr_FR: "Affiche un séparateur",
   },
   image: {
-    default:
-      "https://source.unsplash.com/featured/300x250?nature&blockSeparator",
+    default: "https://source.unsplash.com/featured/300x250?nature&blockSeparator",
   },
 };
 

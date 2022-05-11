@@ -1,6 +1,7 @@
-import { faArrowDown, faArrowUp, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
+
+import Tippy from "@tippyjs/react";
+import useWindowSize from "../../hooks/useWindowSize";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 
 const BlockControls = ({
@@ -14,39 +15,55 @@ const BlockControls = ({
 }) => {
   // prettier-ignore
   const { blockList, removeBlock, moveBlockUp, moveBlockDown } = useBlocksContext();
+  const { width } = useWindowSize();
 
   return (
-    <div>
-      <button
-        className={`${!inLayout ? "border-y-2 border-l-2 px-6 py-1" : "px-3"} ${
-          blockIndex === 0 && "text-gray-400"
-        }`}
-        disabled={blockIndex === 0}
-        onClick={() => moveBlockUp(blockIndex)}
+    <div className="flex">
+      <Tippy
+        delay={[700, 0]}
+        disabled={!inLayout && width > 768}
+        content={"Monter l'élément"}
       >
-        <FontAwesomeIcon icon={faArrowUp} />
-        {!inLayout ? " Monter" : ""}
-      </button>
+        <button
+          className={`${
+            !inLayout && width > 768
+              ? "border-y-2 border-l-2 px-2 md:px-6"
+              : "px-2 sm:px-3"
+          } ${blockIndex === 0 && "text-gray-400"}`}
+          disabled={blockIndex === 0}
+          onClick={() => moveBlockUp(blockIndex)}
+        >
+          <i className="fa fa-arrow-up"></i>
+          {!inLayout && width > 768 ? " Monter" : ""}
+        </button>
+      </Tippy>
 
-      <button
-        className={`${!inLayout ? "border-2 px-6 py-1" : "px-3"} ${
-          blockIndex === blockList.length - 1 && "text-gray-400"
-        }`}
-        disabled={blockIndex === blockList.length - 1}
-        onClick={() => moveBlockDown(blockIndex)}
+      <Tippy
+        delay={[700, 0]}
+        disabled={!inLayout && width > 768}
+        content={"Descendre l'élément"}
+        placement={"bottom"}
       >
-        <FontAwesomeIcon icon={faArrowDown} />
-        {!inLayout ? " Descendre" : ""}
-      </button>
+        <button
+          className={`${
+            !inLayout && width > 768 ? "border-2 px-2 md:px-6" : "px-2 sm:px-3"
+          } ${blockIndex === blockList.length - 1 && "text-gray-400"}`}
+          disabled={blockIndex === blockList.length - 1}
+          onClick={() => moveBlockDown(blockIndex)}
+        >
+          <i className="fa fa-arrow-down"></i>
+          {!inLayout && width > 768 ? " Descendre" : ""}
+        </button>
+      </Tippy>
 
       <button
         className={`${
-          !inLayout ? "border-y-2 border-r-2 px-6 py-1" : "px-3"
+          !inLayout && width > 768 ? "border-y-2 border-r-2 px-2 md:px-6" : "px-2 sm:px-3"
         } text-red-500`}
         onClick={() => removeBlock(blockId)}
       >
-        <FontAwesomeIcon icon={faTrashAlt} />
-        {!inLayout ? " Supprimer" : ""}
+        <i className="fa fa-trash-alt"></i>
+        {!inLayout && width > 768 ? " Supprimer" : ""}
       </button>
     </div>
   );

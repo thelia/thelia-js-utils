@@ -1,7 +1,8 @@
 import * as React from "react";
-import { useBlocksContext } from "../../hooks/useBlockContext";
-import useDragAndDrop from "../../hooks/useDragAndDrop";
+
 import Block from "../Block";
+import useDragAndDrop from "../../hooks/useDragAndDrop";
+import { useBlocksContext } from "../../hooks/useBlockContext";
 
 export default function BlocksContent() {
   const { blockList, moveBlockTo } = useBlocksContext();
@@ -17,7 +18,7 @@ export default function BlocksContent() {
   };
 
   return (
-    <div className="BlocksContent px-60 py-28">
+    <div className="BlocksContent my-12">
       {blockList.length > 0 && (
         <DndWrapper id="main" onDragEnd={onDragEnd}>
           {blockList.map((block, index) => (
