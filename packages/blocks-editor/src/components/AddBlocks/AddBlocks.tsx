@@ -2,15 +2,22 @@ import * as React from "react";
 
 import { IBlock, Plugin } from "../../types/types";
 import { groupBy, partition } from "lodash";
+
+import BlockTooltip from "../BlockTooltip";
+import ButtonIcon from "../../blocks/Button/assets/button.svg";
+import Modal from "react-modal";
+import Tippy from "@tippyjs/react";
 import { nanoid } from "nanoid";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
-import Tippy from "@tippyjs/react";
-import BlockTooltip from "../BlockTooltip";
-import Modal from "react-modal";
-import ButtonIcon from "../../../assets/svg/button.svg";
 
-const AddButton = ({ plugin, setIsOpen }: { plugin: Plugin; setIsOpen: Function }) => {
+const AddButton = ({
+  plugin,
+  setIsOpen,
+}: {
+  plugin: Plugin;
+  setIsOpen: Function;
+}) => {
   const { addBlock } = useBlocksContext();
 
   return (
@@ -36,7 +43,7 @@ const AddButton = ({ plugin, setIsOpen }: { plugin: Plugin; setIsOpen: Function 
         }}
         key={plugin.id}
       >
-        <img src={ButtonIcon} alt="" />
+        <ButtonIcon />
         {plugin.title.fr_FR}
       </button>
     </Tippy>
@@ -116,10 +123,15 @@ const ModalContent = ({
   let availablePLugins = plugins;
 
   if (excludeLayout) {
-    availablePLugins = plugins.filter((plugin) => !excludeLayout.includes(plugin.layout));
+    availablePLugins = plugins.filter(
+      (plugin) => !excludeLayout.includes(plugin.layout)
+    );
   }
 
-  const [commonBlocks, layoutPlugins] = partition(availablePLugins, (i) => !i.layout);
+  const [commonBlocks, layoutPlugins] = partition(
+    availablePLugins,
+    (i) => !i.layout
+  );
   const layoutPluginsByType = groupBy(layoutPlugins, "layout");
 
   return (
@@ -131,9 +143,15 @@ const ModalContent = ({
       {Object.entries(layoutPluginsByType).map(
         ([layoutType, layoutPluginsByType], index) => {
           return (
-            <li key={index} className="BlocksEditor-dropdown group inline-block">
+            <li
+              key={index}
+              className="BlocksEditor-dropdown group inline-block"
+            >
               {layoutPluginsByType.length === 1 ? (
-                <AddButton plugin={layoutPluginsByType[0]} setIsOpen={setIsOpen} />
+                <AddButton
+                  plugin={layoutPluginsByType[0]}
+                  setIsOpen={setIsOpen}
+                />
               ) : (
                 <>
                   <button className="BlocksEditor-btn bg-pearlLight hover:bg-pearlMedium h-24 w-24 md:h-28 md:w-28 rounded-md flex flex-col justify-center items-center gap-2">
@@ -141,7 +159,11 @@ const ModalContent = ({
                   </button>
                   <ol className="BlocksEditor-dropdown__content hidden group-hover:flex absolute gap-2">
                     {layoutPluginsByType.map((plugin, index) => (
-                      <AddButton key={index} plugin={plugin} setIsOpen={setIsOpen} />
+                      <AddButton
+                        key={index}
+                        plugin={plugin}
+                        setIsOpen={setIsOpen}
+                      />
                     ))}
                   </ol>
                 </>
