@@ -8,7 +8,6 @@ import { usePlugins } from "../../hooks/usePlugins";
 import Tippy from "@tippyjs/react";
 import BlockTooltip from "../BlockTooltip";
 import Modal from "react-modal";
-import ButtonIcon from "../../../assets/svg/button.svg";
 
 const AddButton = ({ plugin, setIsOpen }: { plugin: Plugin; setIsOpen: Function }) => {
   const { addBlock } = useBlocksContext();
@@ -36,7 +35,6 @@ const AddButton = ({ plugin, setIsOpen }: { plugin: Plugin; setIsOpen: Function 
         }}
         key={plugin.id}
       >
-        <img src={ButtonIcon} alt="" />
         {plugin.title.fr_FR}
       </button>
     </Tippy>
