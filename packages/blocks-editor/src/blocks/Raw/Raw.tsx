@@ -1,17 +1,11 @@
-import {
-  BlockModuleComponentProps,
-  BlockPluginDefinition,
-} from "../../types/types";
+import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import React, { ChangeEvent, FocusEvent } from "react";
 
 export type BlockRawData = {
   value: string;
 };
 
-function BlockRawComponent({
-  data,
-  onUpdate,
-}: BlockModuleComponentProps<BlockRawData>) {
+function BlockRawComponent({ data, onUpdate }: BlockModuleComponentProps<BlockRawData>) {
   const [value, setValue] = React.useState<string>("");
 
   React.useEffect(() => {
@@ -60,6 +54,7 @@ const blockRaw: BlockPluginDefinition<BlockRawData> = {
     default: "HTML",
     fr_FR: "HTML",
   },
+  icon: "html.svg",
   description: {
     default: "Raw HTML content",
     fr_FR: "Contenu libre HTML",

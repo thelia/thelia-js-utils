@@ -8,6 +8,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 import { BlockModuleComponentProps, IBlock } from "../../types/types";
 import { BlockContextProvider } from "../../providers/BlockContext";
 import { useBlocksContext } from "../../hooks/useBlockContext";
+import LayoutHeader from "../../components/LayoutHeader";
 
 type ColumnData = IBlock[];
 
@@ -42,7 +43,7 @@ const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
                   DndDragHandle={DndDragHandle}
                   inLayout={true}
                   key={index}
-                  className="border-l-8 border-l-red-400"
+                  className="border-l-8 border-l-lighterVermillon"
                   block={block}
                 />
               )}
@@ -54,7 +55,13 @@ const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
   );
 };
 
-const ColumnIcon = ({ cols, currentCol }: { cols: number; currentCol: number }) => {
+export const ColumnIcon = ({
+  cols,
+  currentCol,
+}: {
+  cols: number;
+  currentCol: number;
+}) => {
   const { width } = useWindowSize();
 
   return (
@@ -68,7 +75,7 @@ const ColumnIcon = ({ cols, currentCol }: { cols: number; currentCol: number }) 
           style={{ width: 100 / cols + "%" }}
           className={` 
             ${index !== cols - 1 && "mr-px"} 
-            ${currentCol === index ? "bg-white" : "bg-slate-900"}`}
+            ${currentCol === index ? "bg-white" : "bg-mediumCharbon"}`}
         ></div>
       ))}
     </div>
@@ -87,22 +94,26 @@ const ColumnComponent = ({
   return (
     <div
       key={index}
-      className="flex flex-col rounded-md shadow-md border-l-8 border-l-red-600 bg-white"
+      className="flex flex-col rounded-md shadow-md border-l-8 border-l-vermillon bg-white"
     >
-      <div className="py-2 md:py-4 px-4 md:px-8 bg-slate-900 text-white rounded-tr-md flex justify-between items-center">
+      <div
+        className={`py-2 md:py-4 px-4 md:px-8 bg-mediumCharbon text-white rounded-tr-md ${
+          !open && "rounded-br-md"
+        } flex justify-between items-center`}
+      >
         <div className="flex items-center">
           {width > 400 && <ColumnIcon cols={data.length} currentCol={index} />}
           <span className="md:text-xl font-bold">{`Colonne #${index + 1}`}</span>
         </div>
-        <button onClick={() => setOpen(!open)} className="p-2 flex">
-          <div className="bg-red-500 px-2 rounded-l-sm">
+        <button onClick={() => setOpen(!open)} className="flex">
+          <div className="bg-lightVermillon px-2 py-1 rounded-l-md">
             {open ? (
               <i className="fa fa-chevron-down"></i>
             ) : (
               <i className="fa fa-chevron-right"></i>
             )}
           </div>
-          <div className="bg-red-600 px-2 rounded-r-sm">
+          <div className="bg-vermillon px-2 py-1 rounded-r-md">
             {open ? "Replier" : "Déplier"}
           </div>
         </button>
@@ -163,6 +174,7 @@ const Column = {
     default: "Columns",
     fr_FR: "Colonnes",
   },
+  icon: "column.svg",
   description: {
     default: "Display blocks in multiple columns",
     fr_FR: "Affiche des blocks dans différentes colonnes",

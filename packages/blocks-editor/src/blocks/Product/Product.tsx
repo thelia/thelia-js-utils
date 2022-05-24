@@ -22,7 +22,10 @@ const Product = ({
   data: any;
   onUpdate: Function;
 }) => {
-  const { data: product } = useSWR(`/product/search?id=${productId}`);
+  const { data: product } = useSWR(`/product/search?id=${productId}`, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+  });
 
   return (
     <div className="w-full flex justify-between bg-white rounded-md gap-4 md:gap-8 p-2 mb-4 items-center sm:h-20">
@@ -77,13 +80,13 @@ const Product = ({
         target="_blank"
         rel="noopener noreferrer"
         href={product?.[0]?.url}
-        className="hidden border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-2 md:px-4 md:py-1 rounded-md text-center lg:flex items-center"
+        className="hidden font-semibold tracking-wider border-2 border-vermillon text-vermillon hover:bg-vermillon hover:text-white px-2 md:px-4 md:py-1 rounded-md text-center lg:flex items-center"
       >
         <span className="md:mr-2">Fiche produit</span>
         <i className="fa fa-arrow-right hidden md:block"></i>
       </a>
       <button
-        className="md:self-start hover:text-red-500 pr-1"
+        className="md:self-start hover:text-vermillon pr-1"
         onClick={() =>
           onUpdate({
             ...data,
@@ -128,8 +131,8 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
         );
       })}
 
-      <div className="bg-white border-l-8 border-red-600 rounded-md shadow-md px-4 md:px-14 py-4 md:py-8">
-        <span className="md:text-xl font-bold">Ajouter un produit</span>
+      <div className="bg-white border-l-8 border-vermillon rounded-md shadow-md px-4 md:px-14 py-4 md:py-8">
+        <span className="md:text-xl font-extrabold">Ajouter un produit</span>
         <div className="mt-4 xl:w-2/3 relative">
           <Input
             onChange={(e) => setQuery(e.target.value)}
@@ -137,15 +140,15 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
             placeholder="Référence, nom, ..."
             name="product-field"
             type="text"
-            className={searchByRef ? "text-blue-500" : ""}
-            icon={<i className="fa fa-search text-red-500"></i>}
+            className={searchByRef ? "text-vermillon" : ""}
+            icon={<i className="fa fa-search text-vermillon"></i>}
             iconAlignment="right"
             label="Rechercher"
           />
 
           <ul className="top-full bg-white rounded-md shadow-xl overflow-hidden w-full absolute">
             {isValidating ? (
-              <li className="text-center py-4 text-2xl text-red-500">
+              <li className="text-center py-4 text-2xl text-vermillon">
                 <i className="fa fa-circle-notch fa-spin"></i>
               </li>
             ) : (
@@ -180,14 +183,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
                       {query.length > 0 ? (
                         <span>
                           pour "
-                          <span
-                            className={`font-bold ${
-                              searchByRef ? "text-blue-500" : "text-red-500"
-                            }`}
-                          >
-                            {query}
-                          </span>
-                          "
+                          <span className={`font-bold text-vermillon`}>{query}</span>"
                         </span>
                       ) : (
                         ""
@@ -220,6 +216,7 @@ const blockProduct: BlockPluginDefinition<BlockProductData> = {
     default: "Product",
     fr_FR: "Produit",
   },
+  icon: "product.svg",
   description: {
     default: "Display a product",
     fr_FR: "Affiche des produits du catalogue",

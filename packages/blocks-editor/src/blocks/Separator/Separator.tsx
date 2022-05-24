@@ -101,6 +101,7 @@ const BlockSeparator = {
     default: "Separator",
     fr_FR: "Séparateur",
   },
+  icon: "separator.svg",
   description: {
     default: "Display a separator",
     fr_FR: "Affiche un séparateur",

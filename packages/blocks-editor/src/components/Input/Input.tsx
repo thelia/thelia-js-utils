@@ -24,11 +24,11 @@ const Input = ({
   return (
     <>
       {label && <label className="text-sm md:text-base">{label}</label>}
-      <div className="relative mt-1 w-full flex flex-wrap items-stretch">
+      <div className="relative w-full flex flex-wrap items-stretch">
         <input
           value={value}
           onChange={onChange}
-          className={`relative w-full rounded-md shadow outline-none placeholder-gray-400 ${
+          className={`relative w-full rounded-md shadow outline-none placeholder-mediumGrey ${
             iconAlignment === "left" && isValid
               ? "px-10"
               : iconAlignment === "left"
@@ -49,7 +49,7 @@ const Input = ({
         {icon && isValid && iconAlignment === "left" && (
           <Icon
             className="right-0"
-            icon={<i className="fas fa-check text-green-700"></i>}
+            icon={<i className="fas fa-check text-greenDark"></i>}
           />
         )}
       </div>
@@ -60,7 +60,7 @@ const Input = ({
 const Icon = ({ icon, className }: { icon: React.ReactNode; className?: string }) => {
   return (
     <span
-      className={`absolute z-10 py-1 px-5 w-8 h-full leading-snug rounded text-base font-normal text-center flex items-center justify-center ${className}`}
+      className={`absolute py-1 px-5 w-8 h-full leading-snug rounded text-base font-normal text-center flex items-center justify-center ${className}`}
     >
       {icon}
     </span>

@@ -62,6 +62,7 @@ const Blocktext: BlockPluginDefinition<BlockTextData> = {
     default: "Text",
     fr_FR: "Texte",
   },
+  icon: "text.svg",
   description: {
     default: "Display a formated text",
     fr_FR: "Affiche un texte mis en forme",

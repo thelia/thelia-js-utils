@@ -44,12 +44,16 @@ const Block = ({
 
   return (
     <div
-      className={`Block mb-4 p-4 md:p-8 bg-slate-100 shadow-md rounded-md ${className}`}
+      className={`Block mb-4 p-4 md:p-8 rounded-md ${className} ${
+        inLayout ? "bg-pearlLight shadow-md" : ""
+      }`}
     >
       <div className="flex justify-between mb-6">
         <div className="flex items-center">
           {DndDragHandle && <DndDragHandle />}
-          <div className="font-bold md:text-xl mx-4">{currentPlugin.title.fr_FR}</div>
+          <div className={`${inLayout ? "font-bold" : "font-extrabold"} md:text-xl mx-4`}>
+            {currentPlugin.title.fr_FR}
+          </div>
           <Tippy content={<span>{currentPlugin?.description?.fr_FR}</span>}>
             <i className="fa fa-info-circle cursor-help"></i>
           </Tippy>

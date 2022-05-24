@@ -1,3 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* .BlocksEditor {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.BlocksContent { grid-area: 1 / 1 / 2 / 7; }
+.Sidebar { grid-area: 1 / 7 / 2 / 8; } */
+
+label {
+  @apply tracking-wider mb-1;
+}
+
+.Modal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: max-content;
+  width: 60%;
+  border-radius: 8px;
+  background-color: white;
+} 
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color : rgba(0,0,0,0.5);
+}
+
+@media screen and (max-width: 768px) {
+  .Modal {
+    width: 90%;
+    height: 50%;
+    overflow: scroll;
+  }
+}

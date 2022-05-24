@@ -33,6 +33,7 @@ const blockImage: BlockPluginDefinition<LibraryImage> = {
     default: "Display an image",
     fr_FR: "Affiche une image",
   },
+  icon: "image_block.svg",
   image: {
     default: "",
   },

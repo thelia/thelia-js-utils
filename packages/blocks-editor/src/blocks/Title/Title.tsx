@@ -82,6 +82,9 @@ function BlockTitleComponent({
             onChange={onChangeLevel}
             value={level.toString()}
           >
+            <option value="ede" selected disabled>
+              Sélectionner votre style de titre
+            </option>
             {levels.map(({ label, value }) => (
               <option key={value} value={value}>
                 {label}
@@ -107,7 +110,7 @@ function BlockTitleComponent({
 }
 
 const initialData: BlockTitleData = {
-  level: 0,
+  level: 2,
   text: "",
 };
 
@@ -123,6 +126,7 @@ const BlockTitle: BlockPluginDefinition<BlockTitleData> = {
     default: "Title",
     fr_FR: "Titre",
   },
+  icon: "title.svg",
   description: {
     default: "Display a title",
     fr_FR: "Affiche un titre",

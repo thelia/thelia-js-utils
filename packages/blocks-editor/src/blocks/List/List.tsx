@@ -1,7 +1,4 @@
-import {
-  BlockModuleComponentProps,
-  BlockPluginDefinition,
-} from "../../types/types";
+import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import BlockText, { BlockTextData } from "../Text";
 import React, { ChangeEvent } from "react";
 
@@ -53,17 +50,12 @@ function BlockListComponent({
   };
 
   const deleteLine = (id: string) => {
-    const newListItems = listItems.filter(
-      ({ id: currentId }) => currentId !== id
-    );
+    const newListItems = listItems.filter(({ id: currentId }) => currentId !== id);
     setListItems(newListItems);
     onUpdate({ ...data, values: newListItems.map(({ value }) => value) });
   };
 
-  const handleUpdateText = (
-    listItem: listItemType,
-    textData: BlockTextData
-  ) => {
+  const handleUpdateText = (listItem: listItemType, textData: BlockTextData) => {
     const newListItems = listItems.map(({ id, value }) => ({
       id,
       value: id === listItem.id ? textData.value : value,
@@ -139,6 +131,7 @@ const BlockList: BlockPluginDefinition<BlockListData> = {
     default: "List",
     fr_FR: "Liste",
   },
+  icon: "",
   description: {
     default: "Display a list",
     fr_FR: "Affiche une liste",

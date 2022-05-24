@@ -51,7 +51,6 @@ const BlockButtonComponent = ({
           type="text"
           name="field-text"
           id="field-text"
-          className="rounded-md"
           placeholder="Indiquez le texte du bouton"
           value={label}
           onChange={onChangeLabel}
@@ -64,10 +63,9 @@ const BlockButtonComponent = ({
           type="text"
           name="field-url"
           id="field-url"
-          className="rounded-md"
           placeholder="Indiquez le lien du bouton"
           value={url}
-          icon={<i className="fa fa-link text-gray-700"></i>}
+          icon={<i className="fa fa-link text-darkCharbon"></i>}
           iconAlignment="left"
           onChange={onChangeUrl}
           onBlur={onBlurUrl}
@@ -95,6 +93,7 @@ const blockButton: BlockPluginDefinition<BlockButtonData> = {
     default: "Button",
     fr_FR: "Bouton",
   },
+  icon: "button.svg",
   description: {
     default: "Link to an URL",
     fr_FR: "Lien vers une URL",

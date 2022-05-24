@@ -27,9 +27,9 @@ const BlockControls = ({
         <button
           className={`${
             !inLayout && width > 768
-              ? "border-y-2 border-l-2 px-2 md:px-6"
+              ? "border-y-2 border-l-2 border-mediumGrey px-2 md:px-6"
               : "px-2 sm:px-3"
-          } ${blockIndex === 0 && "text-gray-400"}`}
+          } ${blockIndex === 0 ? "text-gray-400" : "text-darkCharbon"}`}
           disabled={blockIndex === 0}
           onClick={() => moveBlockUp(blockIndex)}
         >
@@ -46,8 +46,12 @@ const BlockControls = ({
       >
         <button
           className={`${
-            !inLayout && width > 768 ? "border-2 px-2 md:px-6" : "px-2 sm:px-3"
-          } ${blockIndex === blockList.length - 1 && "text-gray-400"}`}
+            !inLayout && width > 768
+              ? "border-2 border-mediumGrey px-2 md:px-6"
+              : "px-2 sm:px-3"
+          } ${
+            blockIndex === blockList.length - 1 ? "text-gray-400" : "text-darkCharbon"
+          }`}
           disabled={blockIndex === blockList.length - 1}
           onClick={() => moveBlockDown(blockIndex)}
         >
@@ -58,8 +62,10 @@ const BlockControls = ({
 
       <button
         className={`${
-          !inLayout && width > 768 ? "border-y-2 border-r-2 px-2 md:px-6" : "px-2 sm:px-3"
-        } text-red-500`}
+          !inLayout && width > 768
+            ? "border-y-2 border-r-2 border-mediumGrey px-2 md:px-6"
+            : "px-2 sm:px-3"
+        } text-error`}
         onClick={() => removeBlock(blockId)}
       >
         <i className="fa fa-trash-alt"></i>

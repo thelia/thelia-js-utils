@@ -8,7 +8,7 @@ import {
 } from "../../types/types";
 import { getYouTubeID } from "../../utils/youtube";
 
-const YouTube = ({
+const YouTubeFrame = ({
   url,
   className,
   ...props
@@ -45,13 +45,14 @@ const BlockVideoComponent = ({ data, onUpdate }: BlockModuleComponentProps<Video
 
   return (
     <div className="BlockVideo">
-      <YouTube
-        url={getYouTubeID(url)?.trim()}
-        className="w-full lg:w-1/3"
-        style={{ aspectRatio: "16/9" }}
-      />
-
-      <div className="bg-white border-l-8 border-red-600 rounded-md shadow-md p-4 md:px-14 md:py-8 mt-8">
+      {url.length > 0 && isUrlValid ? (
+        <YouTubeFrame
+          url={getYouTubeID(url)?.trim()}
+          className="w-full lg:w-1/3"
+          style={{ aspectRatio: "16/9" }}
+        />
+      ) : null}
+      <div className="bg-white border-l-8 border-vermillon rounded-md shadow-md p-4 md:px-14 md:py-8 mt-8">
         <div className="font-bold md:text-xl">Ajouter une vidéo depuis YouTube</div>
         <div className="BlockVideo-field flex flex-col xl:w-2/3 mt-4">
           <Input
@@ -59,17 +60,13 @@ const BlockVideoComponent = ({ data, onUpdate }: BlockModuleComponentProps<Video
             id="video-url"
             type="text"
             placeholder="URL de la vidéo"
-            className={` ${
-              url.length === 0
-                ? ""
-                : isUrlValid
-                ? "border-green-700 bg-green-200"
-                : "border-red-700 bg-red-200"
+            className={`${
+              url.length > 2 && isUrlValid && "border-greenDark bg-greenLight"
             }`}
             onChange={(e) => setUrl(e.target.value)}
             onBlur={(e) => onUpdate({ ...data, url: e.target.value })}
             value={url}
-            icon={<i className="fa fa-link text-gray-700"></i>}
+            icon={<i className="fa fa-link text-darkCharbon"></i>}
             iconAlignment="left"
             isValid={isUrlValid}
             label="URL de la vidéo"
@@ -81,7 +78,7 @@ const BlockVideoComponent = ({ data, onUpdate }: BlockModuleComponentProps<Video
 };
 
 const initialData: Video = {
-  url: "https://www.youtube.com/watch?v=4JcENw71M6c",
+  url: "",
 };
 
 const moduleType = {
@@ -96,6 +93,7 @@ const blockVideo: BlockPluginDefinition<Video> = {
     default: "Video",
     fr_FR: "Vidéo",
   },
+  icon: "video.svg",
   description: {
     default: "Display a YouTube video",
     fr_FR: "Affiche une vidéo YouTube",

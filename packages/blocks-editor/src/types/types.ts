@@ -60,6 +60,7 @@ export type BlockPluginDefinition<TProp = { [key: string]: any }> =
       [key: string]: any;
     }) => JSX.Element;
     initialData: TProp;
+    icon: string;
     layout?: string;
   };
 
@@ -92,5 +93,6 @@ export type Plugin = BlockModuleI18n & {
   readonly type: BlockModuleType;
   readonly component: Function;
   initialData: Record<string, any>;
+  icon: string;
   layout?: string;
 };

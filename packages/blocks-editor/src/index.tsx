@@ -34,12 +34,10 @@ export function BlocksEditor({ apiUrl }: { apiUrl: string }) {
         <BlockContextProvider>
           <>
             {/* <Sidebar /> */}
-
             <div className="BlocksContent">
-              <div className="px-4 md:px-12 xl:px-44 2xl:px-60">
-                <AddBlocks />
-
+              <div className="py-12 px-4 md:px-12 xl:px-44 2xl:px-60">
                 <BlocksContent />
+                <AddBlocks />
               </div>
             </div>
           </>

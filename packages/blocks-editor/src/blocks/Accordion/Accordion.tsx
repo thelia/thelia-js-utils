@@ -7,6 +7,7 @@ import useDragAndDrop from "../../hooks/useDragAndDrop";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { BlockContextProvider } from "../../providers/BlockContext";
 import { BlockModuleComponentProps, IBlock } from "../../types/types";
+import LayoutHeader from "../../components/LayoutHeader";
 
 type AccordionContentData = IBlock[];
 
@@ -37,7 +38,7 @@ const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
                   DndDragHandle={DndDragHandle}
                   inLayout={true}
                   key={index}
-                  className="border-l-8 border-l-red-400"
+                  className="border-l-8 border-l-lighterVermillon"
                   block={block}
                 />
               )}
@@ -60,25 +61,9 @@ const AccordionContentComponent = ({
   return (
     <div
       key={index}
-      className="flex flex-col rounded-md shadow-md border-l-8 border-l-red-600 bg-white"
+      className="flex flex-col rounded-md shadow-md border-l-8 border-l-vermillon bg-white"
     >
-      <div className="py-2 md:py-4 px-4 md:px-8 bg-slate-900 text-white rounded-tr-md flex justify-between items-center">
-        <div className="flex items-center">
-          <span className="md:text-xl font-bold">Accordion</span>
-        </div>
-        <button onClick={() => setOpen(!open)} className="p-2 flex">
-          <div className="bg-red-500 px-2 rounded-l-sm">
-            {open ? (
-              <i className="fa fa-chevron-down"></i>
-            ) : (
-              <i className="fa fa-chevron-right"></i>
-            )}
-          </div>
-          <div className="bg-red-600 px-2 rounded-r-sm">
-            {open ? "Replier" : "Déplier"}
-          </div>
-        </button>
-      </div>
+      <LayoutHeader title="Accordéon" open={open} setOpen={setOpen} />
       <div className={`p-4 md:py-8 md:px-11 ${!open ? "hidden" : null}`}>
         <BlockContextProvider defaultBlocks={blocks}>
           <>
@@ -135,6 +120,7 @@ const Accordion = {
     default: "Accordion",
     fr_FR: "Accordéon",
   },
+  icon: "accordion.svg",
   description: {
     default: "Display blocks in accordion",
     fr_FR: "Affiche des blocs en accordéon",
