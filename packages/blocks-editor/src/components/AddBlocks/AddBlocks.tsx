@@ -4,12 +4,14 @@ import { IBlock, Plugin } from "../../types/types";
 import { groupBy, partition } from "lodash";
 
 import BlockTooltip from "../BlockTooltip";
-import ButtonIcon from "../../blocks/Button/assets/button.svg";
+import { ReactComponent as ButtonIcon } from "../../blocks/Button/assets/button.svg";
 import Modal from "react-modal";
 import Tippy from "@tippyjs/react";
 import { nanoid } from "nanoid";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
+
+console.log(ButtonIcon);
 
 const AddButton = ({
   plugin,
