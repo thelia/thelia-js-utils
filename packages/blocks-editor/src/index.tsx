@@ -1,10 +1,10 @@
 import "./index.css";
+import "tippy.js/dist/tippy.css";
 
 import AddBlocks from "./components/AddBlocks";
 import { BlockContextProvider } from "./providers/BlockContext";
 import BlocksContent from "./components/BlocksContent/BlocksContent";
 import { BlocksEditorProvider } from "./utils/queries";
-import "tippy.js/dist/tippy.css";
 import Sidebar from "./components/Sidebar";
 import ToolBar from "./components/ToolBar";
 
@@ -36,7 +36,7 @@ export function BlocksEditor({ apiUrl }: { apiUrl: string }) {
           <>
             {/* <Sidebar /> */}
             <div className="BlocksContent">
-              <div className="py-12 px-4 md:px-12 xl:px-44 2xl:px-60">
+              <div className="px-4 py-12 md:px-12 xl:px-44 2xl:px-60">
                 <BlocksContent />
                 <AddBlocks />
               </div>
