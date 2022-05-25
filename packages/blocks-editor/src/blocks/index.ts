@@ -8,7 +8,6 @@ import {
 
 import Accordion from "./Accordion";
 import Button from "./Button";
-import Group from "./Group";
 import Image from "./Image";
 import List from "./List";
 import Product from "./Product";
@@ -35,7 +34,6 @@ export {
   Video,
   Columns,
   Separator,
-  Group,
   Button,
   Accordion,
   Product,

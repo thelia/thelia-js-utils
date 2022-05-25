@@ -8,7 +8,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 import { BlockModuleComponentProps, IBlock } from "../../types/types";
 import { BlockContextProvider } from "../../providers/BlockContext";
 import { useBlocksContext } from "../../hooks/useBlockContext";
-import LayoutHeader from "../../components/LayoutHeader";
+import { ReactComponent as Icon } from "./assets/column.svg";
 
 type ColumnData = IBlock[];
 
@@ -73,9 +73,9 @@ export const ColumnIcon = ({
         <div
           key={index}
           style={{ width: 100 / cols + "%" }}
-          className={` 
-            ${index !== cols - 1 && "mr-px"} 
-            ${currentCol === index ? "bg-white" : "bg-mediumCharbon"}`}
+          className={`${index !== cols - 1 && "mr-px"} ${
+            currentCol === index ? "bg-white" : "bg-mediumCharbon"
+          }`}
         ></div>
       ))}
     </div>
@@ -170,11 +170,11 @@ const Column = {
   component: MultiColumnsComponent,
   initialData: [[]],
   layout: moduleLayout,
+  icon: Icon,
   title: {
     default: "Columns",
     fr_FR: "Colonnes",
   },
-  icon: "column.svg",
   description: {
     default: "Display blocks in multiple columns",
     fr_FR: "Affiche des blocks dans différentes colonnes",

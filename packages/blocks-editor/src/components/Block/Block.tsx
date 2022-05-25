@@ -35,30 +35,42 @@ const Block = ({
         }}
       >
         <div>Unsupported Block</div>
-        <BlockControls blockIndex={blockIndex} blockId={block.id} />
+        <BlockControls
+          blockIndex={blockIndex}
+          blockId={block.id}
+          DndDragHandle={DndDragHandle}
+        />
       </div>
     );
   }
 
   const Component = currentPlugin.component;
+  const Icon = currentPlugin.icon;
 
   return (
     <div
-      className={`Block mb-4 p-4 md:p-8 rounded-md ${className} ${
-        inLayout ? "bg-pearlLight shadow-md" : ""
+      className={`Block mb-4 py-4 md:py-8 rounded-md ${className} ${
+        inLayout ? "bg-pearlLight shadow-md px-4 md:px-8" : ""
       }`}
     >
       <div className="flex justify-between mb-6">
-        <div className="flex items-center">
-          {DndDragHandle && <DndDragHandle />}
-          <div className={`${inLayout ? "font-bold" : "font-extrabold"} md:text-xl mx-4`}>
+        <div className="flex items-center gap-4">
+          <Icon />
+
+          <div className={`${inLayout ? "font-bold" : "font-extrabold"} md:text-xl`}>
             {currentPlugin.title.fr_FR}
           </div>
+
           <Tippy content={<span>{currentPlugin?.description?.fr_FR}</span>}>
             <i className="fa fa-info-circle cursor-help"></i>
           </Tippy>
         </div>
-        <BlockControls blockIndex={blockIndex} inLayout={inLayout} blockId={block.id} />
+        <BlockControls
+          blockIndex={blockIndex}
+          inLayout={inLayout}
+          blockId={block.id}
+          DndDragHandle={DndDragHandle}
+        />
       </div>
       <Component data={block.data} onUpdate={(data: {}) => updateBlock(block.id, data)} />
     </div>

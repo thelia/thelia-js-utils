@@ -1,6 +1,7 @@
 import * as React from "react";
 import Input from "../../components/Input";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
+import { ReactComponent as Icon } from "./assets/button.svg";
 
 export type BlockButtonData = {
   label: string;
@@ -93,7 +94,7 @@ const blockButton: BlockPluginDefinition<BlockButtonData> = {
     default: "Button",
     fr_FR: "Bouton",
   },
-  icon: "button.svg",
+  icon: Icon,
   description: {
     default: "Link to an URL",
     fr_FR: "Lien vers une URL",

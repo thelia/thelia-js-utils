@@ -1,3 +1,5 @@
+import React from "react";
+
 export type ErrorType = {
   message: string;
   statusCode: number;
@@ -60,7 +62,7 @@ export type BlockPluginDefinition<TProp = { [key: string]: any }> =
       [key: string]: any;
     }) => JSX.Element;
     initialData: TProp;
-    icon: string;
+    icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
     layout?: string;
   };
 

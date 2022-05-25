@@ -7,7 +7,6 @@ import { useBlocksContext } from "../../hooks/useBlockContext";
 export default function BlocksContent() {
   const { blockList, moveBlockTo } = useBlocksContext();
   const { DndWrapper, DndWrapElement } = useDragAndDrop();
-  console.log("Liste :", blockList);
 
   if (!blockList || !blockList.length) return null;
 

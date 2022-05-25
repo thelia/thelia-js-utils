@@ -17,7 +17,19 @@ label {
   @apply tracking-wider mb-1;
 }
 
-.Modal {
+input[type=checkbox]:checked {
+  @apply text-mediumCharbon;
+}
+
+input[type=checkbox] {
+  border-radius: 0.25rem;
+}
+
+input[type=checkbox]:focus {
+  @apply outline-none ring-transparent;
+}
+
+.Modal-addBlocks {
   position: absolute;
   left: 0;
   right: 0;
@@ -26,6 +38,19 @@ label {
   margin: auto;
   height: max-content;
   width: 60%;
+  border-radius: 8px;
+  background-color: white;
+} 
+
+.Modal-htmlWarning {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: max-content;
+  width: 25%;
   border-radius: 8px;
   background-color: white;
 } 
@@ -39,10 +64,40 @@ label {
   background-color : rgba(0,0,0,0.5);
 }
 
+@media screen and (max-width: 1500px) {
+  .Modal-htmlWarning {
+    width: 30%;
+  } 
+}
+
+@media screen and (max-width: 1280px) {
+  .Modal-htmlWarning {
+    width: 40%;
+  } 
+}
+
+@media screen and (max-width: 1024px) {
+  .Modal-htmlWarning {
+    width: 50%;
+  } 
+}
+
 @media screen and (max-width: 768px) {
-  .Modal {
+  .Modal-addBlocks {
     width: 90%;
     height: 50%;
     overflow: scroll;
   }
+
+  .Modal-htmlWarning {
+    width: 60%;
+    overflow: scroll;
+  } 
+}
+
+@media screen and (max-width: 640px) {
+  .Modal-htmlWarning {
+    width: 80%;
+    overflow: scroll;
+  } 
 }

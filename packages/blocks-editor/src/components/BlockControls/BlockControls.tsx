@@ -8,17 +8,32 @@ const BlockControls = ({
   blockId,
   blockIndex,
   inLayout = false,
+  DndDragHandle,
 }: {
   blockId: string;
   blockIndex: number;
   inLayout?: boolean;
+  DndDragHandle: () => JSX.Element;
 }) => {
   // prettier-ignore
   const { blockList, removeBlock, moveBlockUp, moveBlockDown } = useBlocksContext();
+
   const { width } = useWindowSize();
 
   return (
     <div className="flex">
+      {DndDragHandle && (
+        <div
+          className={`${
+            !inLayout && width > 768
+              ? "border-y-2 border-l-2 border-mediumGrey px-2 md:px-6"
+              : "px-2 sm:px-3"
+          } text-darkCharbon`}
+        >
+          <DndDragHandle />
+        </div>
+      )}
+
       <Tippy
         delay={[700, 0]}
         disabled={!inLayout && width > 768}
@@ -60,17 +75,24 @@ const BlockControls = ({
         </button>
       </Tippy>
 
-      <button
-        className={`${
-          !inLayout && width > 768
-            ? "border-y-2 border-r-2 border-mediumGrey px-2 md:px-6"
-            : "px-2 sm:px-3"
-        } text-error`}
-        onClick={() => removeBlock(blockId)}
+      <Tippy
+        delay={[700, 0]}
+        disabled={!inLayout && width > 768}
+        content={"Supprimer l'élément"}
+        placement={"bottom"}
       >
-        <i className="fa fa-trash-alt"></i>
-        {!inLayout && width > 768 ? " Supprimer" : ""}
-      </button>
+        <button
+          className={`${
+            !inLayout && width > 768
+              ? "border-y-2 border-r-2 border-mediumGrey px-2 md:px-6"
+              : "px-2 sm:px-3"
+          } text-error`}
+          onClick={() => removeBlock(blockId)}
+        >
+          <i className="fa fa-trash-alt"></i>
+          {!inLayout && width > 768 ? " Supprimer" : ""}
+        </button>
+      </Tippy>
     </div>
   );
 };

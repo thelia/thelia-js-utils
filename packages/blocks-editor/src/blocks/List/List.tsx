@@ -1,6 +1,7 @@
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import BlockText, { BlockTextData } from "../Text";
 import React, { ChangeEvent } from "react";
+import { ReactComponent as Icon } from "./assets/accordion.svg";
 
 import { nanoid } from "nanoid";
 
@@ -69,11 +70,12 @@ function BlockListComponent({
 
   return (
     <div className="BlockList">
-      <div className="BlockList-config">
+      <div className="BlockList-config flex flex-col w-1/3 mb-4">
         <label htmlFor="title-level">Type</label>
         <select
           name="title-level"
           id="title-level"
+          className="rounded-md border p-2"
           onChange={onChangeType}
           value={data.type}
         >
@@ -84,9 +86,12 @@ function BlockListComponent({
           ))}
         </select>
       </div>
-      <div className="BlockList-list">
+      <div className="BlockList-list flex flex-col gap-4">
         {listItems.map((listItem) => (
-          <div className="BlockList-line" key={listItem.id}>
+          <div
+            className="BlockList-line bg-white p-4 border-l-8 border-vermillon rounded-md"
+            key={listItem.id}
+          >
             <BlockText.component
               id={`text-${listItem.id}`}
               data={{ value: listItem.value }}
@@ -98,15 +103,20 @@ function BlockListComponent({
             <button
               type="button"
               onClick={() => deleteLine(listItem.id)}
-              disabled={listItems.length < 2}
+              disabled={listItems.length === 1}
+              className={`${listItems.length === 1 ? "text-gray-400" : "text-error"}`}
             >
               <i className="fa fa-trash"></i>
             </button>
           </div>
         ))}
         <div className="text-center">
-          <button type="button" className="BlockList-add" onClick={addLine}>
-            Ajouter un élément
+          <button
+            type="button"
+            className="BlockList-add font-semibold w-max border-2 border-vermillon text-vermillon hover:bg-vermillon hover:text-white px-2 md:px-4 md:py-1 rounded-md"
+            onClick={addLine}
+          >
+            <i className="fa fa-plus"></i> Ajouter une ligne
           </button>
         </div>
       </div>
@@ -131,7 +141,7 @@ const BlockList: BlockPluginDefinition<BlockListData> = {
     default: "List",
     fr_FR: "Liste",
   },
-  icon: "",
+  icon: Icon,
   description: {
     default: "Display a list",
     fr_FR: "Affiche une liste",

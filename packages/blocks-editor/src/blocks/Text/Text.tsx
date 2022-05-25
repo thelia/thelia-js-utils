@@ -1,7 +1,7 @@
 import * as React from "react";
 import Editor from "../../components/Editor";
-
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
+import { ReactComponent as Icon } from "./assets/text.svg";
 
 export type BlockTextData = {
   value: string;
@@ -62,7 +62,7 @@ const Blocktext: BlockPluginDefinition<BlockTextData> = {
     default: "Text",
     fr_FR: "Texte",
   },
-  icon: "text.svg",
+  icon: Icon,
   description: {
     default: "Display a formated text",
     fr_FR: "Affiche un texte mis en forme",

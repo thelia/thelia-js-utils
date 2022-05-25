@@ -6,6 +6,7 @@ import BlocksContent from "./components/BlocksContent/BlocksContent";
 import { BlocksEditorProvider } from "./utils/queries";
 import "tippy.js/dist/tippy.css";
 import Sidebar from "./components/Sidebar";
+import ToolBar from "./components/ToolBar";
 
 export function BlocksEditor({ apiUrl }: { apiUrl: string }) {
   if (!apiUrl) return null;
@@ -40,6 +41,7 @@ export function BlocksEditor({ apiUrl }: { apiUrl: string }) {
                 <AddBlocks />
               </div>
             </div>
+            <ToolBar />
           </>
         </BlockContextProvider>
       </div>

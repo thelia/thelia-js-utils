@@ -1,3 +1,4 @@
+import Tippy from "@tippyjs/react";
 import * as React from "react";
 
 import {
@@ -10,12 +11,16 @@ import {
 
 const DndDragHandle = ({
   dragHandleProps,
+  className,
 }: {
   dragHandleProps: DraggableProvided["dragHandleProps"];
+  className?: string;
 }) => {
   return (
-    <div className="BlockWrapper-dragHandle" {...dragHandleProps}>
-      <i className="fa fa-bars"></i>
+    <div className={`BlockWrapper-dragHandle ${className}`} {...dragHandleProps}>
+      <Tippy content="Faites glisser l'élément pour le déplacer" delay={[700, 0]}>
+        <i className="fa fa-bars"></i>
+      </Tippy>
     </div>
   );
 };
@@ -43,7 +48,7 @@ const DndWrapper = ({
             {children}
             {provided.placeholder}
             {snapshot.isDraggingOver && (
-              <div className="absolute inset-0 z-10 bg-white opacity-60"></div>
+              <div className="absolute inset-0 opacity-60 bg-pearlMedium"></div>
             )}
           </div>
         )}

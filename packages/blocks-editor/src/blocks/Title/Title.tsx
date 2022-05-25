@@ -1,7 +1,7 @@
 import * as React from "react";
 import Input from "../../components/Input";
-
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
+import { ReactComponent as Icon } from "./assets/title.svg";
 
 export type BlockTitleData = {
   level: 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -82,9 +82,6 @@ function BlockTitleComponent({
             onChange={onChangeLevel}
             value={level.toString()}
           >
-            <option value="ede" selected disabled>
-              Sélectionner votre style de titre
-            </option>
             {levels.map(({ label, value }) => (
               <option key={value} value={value}>
                 {label}
@@ -110,7 +107,7 @@ function BlockTitleComponent({
 }
 
 const initialData: BlockTitleData = {
-  level: 2,
+  level: 0,
   text: "",
 };
 
@@ -126,7 +123,7 @@ const BlockTitle: BlockPluginDefinition<BlockTitleData> = {
     default: "Title",
     fr_FR: "Titre",
   },
-  icon: "title.svg",
+  icon: Icon,
   description: {
     default: "Display a title",
     fr_FR: "Affiche un titre",

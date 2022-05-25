@@ -1,6 +1,7 @@
 import * as React from "react";
 import Input from "../../components/Input";
 import { BlockModuleComponentProps } from "../../types/types";
+import { ReactComponent as Icon } from "./assets/separator.svg";
 
 export type BlockSeparatorData = {
   type: string;
@@ -101,7 +102,7 @@ const BlockSeparator = {
     default: "Separator",
     fr_FR: "Séparateur",
   },
-  icon: "separator.svg",
+  icon: Icon,
   description: {
     default: "Display a separator",
     fr_FR: "Affiche un séparateur",

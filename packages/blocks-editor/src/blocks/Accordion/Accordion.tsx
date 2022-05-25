@@ -8,6 +8,7 @@ import { useBlocksContext } from "../../hooks/useBlockContext";
 import { BlockContextProvider } from "../../providers/BlockContext";
 import { BlockModuleComponentProps, IBlock } from "../../types/types";
 import LayoutHeader from "../../components/LayoutHeader";
+import { ReactComponent as Icon } from "./assets/accordion.svg";
 
 type AccordionContentData = IBlock[];
 
@@ -120,7 +121,7 @@ const Accordion = {
     default: "Accordion",
     fr_FR: "Accordéon",
   },
-  icon: "accordion.svg",
+  icon: Icon,
   description: {
     default: "Display blocks in accordion",
     fr_FR: "Affiche des blocs en accordéon",

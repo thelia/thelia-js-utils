@@ -1,6 +1,6 @@
 import * as React from "react";
 import Input from "../../components/Input";
-
+import { ReactComponent as Icon } from "./assets/video.svg";
 import {
   BlockModuleComponentProps,
   BlockPluginDefinition,
@@ -93,7 +93,7 @@ const blockVideo: BlockPluginDefinition<Video> = {
     default: "Video",
     fr_FR: "Vidéo",
   },
-  icon: "video.svg",
+  icon: Icon,
   description: {
     default: "Display a YouTube video",
     fr_FR: "Affiche une vidéo YouTube",

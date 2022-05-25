@@ -4,6 +4,7 @@ import Input from "../../components/Input";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { reorder } from "../../utils/array";
 import useSWR from "swr";
+import { ReactComponent as Icon } from "./assets/product.svg";
 
 export type BlockProductData = {
   productList: string[];
@@ -216,7 +217,7 @@ const blockProduct: BlockPluginDefinition<BlockProductData> = {
     default: "Product",
     fr_FR: "Produit",
   },
-  icon: "product.svg",
+  icon: Icon,
   description: {
     default: "Display a product",
     fr_FR: "Affiche des produits du catalogue",
