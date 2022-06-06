@@ -244,3 +244,32 @@ export function useUnlinkContentFromGroup() {
     }
   );
 }
+
+export function usePreviewGroup(timestamp: number, data: string) {
+  const { currentLocale } = useContext(LocaleContext);
+
+  const key = ["preview_block_group", currentLocale, timestamp];
+
+  const query = useQuery(
+    key,
+    async () => {
+      return fetcher(`/preview`, {
+        baseURL: window.location.origin + "/TheliaBlocks",
+        method: "POST",
+        data: {
+          json: data,
+        },
+      });
+    },
+    {
+      enabled: !!timestamp && !!currentLocale,
+      cacheTime: Infinity,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      retry: false,
+      suspense: false,
+    }
+  );
+
+  return query;
+}

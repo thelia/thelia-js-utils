@@ -17,19 +17,19 @@ label {
   @apply tracking-wider mb-1;
 }
 
-input[type=checkbox]:checked {
+input[type="checkbox"]:checked {
   @apply text-mediumCharbon;
 }
 
-input[type=checkbox] {
+input[type="checkbox"] {
   border-radius: 0.25rem;
 }
 
-input[type=checkbox]:focus {
+input[type="checkbox"]:focus {
   @apply outline-none ring-transparent;
 }
 
-.Modal-addBlocks {
+.Modal-TheliaBlocks {
   position: absolute;
   left: 0;
   right: 0;
@@ -40,7 +40,7 @@ input[type=checkbox]:focus {
   width: 60%;
   border-radius: 8px;
   background-color: white;
-} 
+}
 
 .Modal-htmlWarning {
   position: absolute;
@@ -53,7 +53,7 @@ input[type=checkbox]:focus {
   width: 25%;
   border-radius: 8px;
   background-color: white;
-} 
+}
 
 .Overlay {
   position: fixed;
@@ -61,29 +61,29 @@ input[type=checkbox]:focus {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color : rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 @media screen and (max-width: 1500px) {
   .Modal-htmlWarning {
     width: 30%;
-  } 
+  }
 }
 
 @media screen and (max-width: 1280px) {
   .Modal-htmlWarning {
     width: 40%;
-  } 
+  }
 }
 
 @media screen and (max-width: 1024px) {
   .Modal-htmlWarning {
     width: 50%;
-  } 
+  }
 }
 
 @media screen and (max-width: 768px) {
-  .Modal-addBlocks {
+  .Modal-TheliaBlocks {
     width: 90%;
     height: 50%;
     overflow: scroll;
@@ -92,12 +92,12 @@ input[type=checkbox]:focus {
   .Modal-htmlWarning {
     width: 60%;
     overflow: scroll;
-  } 
+  }
 }
 
 @media screen and (max-width: 640px) {
   .Modal-htmlWarning {
     width: 80%;
     overflow: scroll;
-  } 
+  }
 }

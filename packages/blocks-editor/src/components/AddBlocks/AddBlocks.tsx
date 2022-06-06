@@ -99,7 +99,7 @@ const AddBlockModal = ({
       isOpen={isOpen}
       onRequestClose={() => setIsOpen(false)}
       overlayClassName="Overlay"
-      className="Modal-addBlocks"
+      className="Modal-TheliaBlocks"
     >
       <div className="flex flex-col p-4 Modal-content">
         <button onClick={() => setIsOpen(false)} className="self-end">
