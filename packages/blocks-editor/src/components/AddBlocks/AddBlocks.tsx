@@ -3,6 +3,7 @@ import * as React from "react";
 import { IBlock, Plugin } from "../../types/types";
 import { groupBy, partition } from "lodash";
 
+import { BlockContext } from "../../providers/BlockContext";
 import BlockTooltip from "../BlockTooltip";
 import { ReactComponent as DragIcon } from "../../../assets/svg/drag.svg";
 import Modal from "react-modal";
@@ -93,8 +94,6 @@ const AddBlockModal = ({
   isOpen: boolean;
   setIsOpen: Function;
 }) => {
-  Modal.setAppElement("#thelia-blocks-root");
-
   return (
     <Modal
       isOpen={isOpen}

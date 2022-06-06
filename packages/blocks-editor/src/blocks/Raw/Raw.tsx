@@ -1,8 +1,14 @@
 import * as React from "react";
-import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
-import { ReactComponent as WarningPicto } from "../../../assets/svg/html-warning.svg";
-import Modal from "react-modal";
+
+import {
+  BlockModuleComponentProps,
+  BlockPluginDefinition,
+} from "../../types/types";
+
+import { BlockContext } from "../../providers/BlockContext";
 import { ReactComponent as Icon } from "./assets/html.svg";
+import Modal from "react-modal";
+import { ReactComponent as WarningPicto } from "../../../assets/svg/html-warning.svg";
 
 export type BlockRawData = {
   value: string;
@@ -17,10 +23,9 @@ const WarningModal = ({
 }) => {
   const [checked, setChecked] = React.useState(false);
 
-  Modal.setAppElement("#root");
-
   return (
     <Modal
+      ariaHideApp={false}
       isOpen={isOpen}
       onRequestClose={() => setIsOpen(false)}
       overlayClassName="Overlay"
@@ -33,9 +38,9 @@ const WarningModal = ({
         <WarningPicto className="mx-auto" />
         <div className="lg:px-12 lg:pb-12 text-mediumCharbon">
           <p className="mb-4">
-            Ici un petit message pour informer sur l'utilisation de HTML directement dans
-            le back-office. Ce message apparait en pop-in à chaque fois que l'utilisateur
-            ajoute un bloc de HTML.
+            Ici un petit message pour informer sur l'utilisation de HTML
+            directement dans le back-office. Ce message apparait en pop-in à
+            chaque fois que l'utilisateur ajoute un bloc de HTML.
           </p>
           <div className="flex gap-2 items-center mb-6">
             <input
@@ -45,7 +50,10 @@ const WarningModal = ({
               name="display-alert"
               id="display-alert"
             />
-            <label className="mb-0 tracking-normal select-none" htmlFor="display-alert">
+            <label
+              className="mb-0 tracking-normal select-none"
+              htmlFor="display-alert"
+            >
               Ne plus afficher l'alerte
             </label>
           </div>
@@ -66,7 +74,10 @@ const WarningModal = ({
   );
 };
 
-function BlockRawComponent({ data, onUpdate }: BlockModuleComponentProps<BlockRawData>) {
+function BlockRawComponent({
+  data,
+  onUpdate,
+}: BlockModuleComponentProps<BlockRawData>) {
   const [value, setValue] = React.useState<string>("");
   const [isOpen, setIsOpen] = React.useState<boolean>(
     localStorage.getItem("display-html-alert") === "false" ? false : true

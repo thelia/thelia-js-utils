@@ -6,6 +6,13 @@ export type ErrorType = {
   statusText: string;
 };
 
+export type Locale = {
+  id: number;
+  title: string;
+  code: string;
+  active: boolean;
+};
+
 export type BlockModuleComponentProps<T> = {
   data: T;
   onUpdate: <T>(newData: any) => T | void;
@@ -35,9 +42,9 @@ export type IBlock = {
 };
 
 export type itemBlockGroupsType = {
-  id: number;
-  itemType: string;
-  itemId: number;
+  groupId?: number;
+  itemType?: string;
+  itemId?: number;
 };
 
 export type GroupTypeStore = {
@@ -48,8 +55,25 @@ export type GroupTypeStore = {
   itemBlockGroups?: itemBlockGroupsType[];
 };
 
+export type BlockGroupPatch = {
+  blockGroup: {
+    id: number;
+    visible: boolean;
+    title: string;
+    slug: string;
+    jsonContent: string;
+  };
+  itemBlockGroup?: {
+    id?: number;
+    itemType?: string;
+    itemId?: number;
+    blockGroupId?: number;
+  };
+  locale: string;
+};
+
 export type GroupTypeResponse = GroupTypeStore & {
-  jsonContent?: string;
+  jsonContent?: any;
 };
 
 export type BlockPluginDefinition<TProp = { [key: string]: any }> =

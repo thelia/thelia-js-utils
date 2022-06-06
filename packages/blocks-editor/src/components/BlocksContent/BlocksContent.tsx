@@ -1,8 +1,6 @@
-import * as React from "react";
-
 import Block from "../Block";
-import useDragAndDrop from "../../hooks/useDragAndDrop";
 import { useBlocksContext } from "../../hooks/useBlockContext";
+import useDragAndDrop from "../../hooks/useDragAndDrop";
 
 export default function BlocksContent() {
   const { blockList, moveBlockTo } = useBlocksContext();
@@ -23,7 +21,11 @@ export default function BlocksContent() {
           {blockList.map((block, index) => (
             <DndWrapElement key={block.id} id={block.id} index={index}>
               {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
-                <Block DndDragHandle={DndDragHandle} key={index} block={block} />
+                <Block
+                  DndDragHandle={DndDragHandle}
+                  key={index}
+                  block={block}
+                />
               )}
             </DndWrapElement>
           ))}

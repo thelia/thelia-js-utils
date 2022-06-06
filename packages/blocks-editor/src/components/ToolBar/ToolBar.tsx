@@ -1,7 +1,9 @@
 import { useBlocksContext } from "../../hooks/useBlockContext";
+import { useCreateOrUpdateGroup } from "../../utils/queries";
 
 const ToolBar = () => {
   const { blockList } = useBlocksContext();
+  const mutation = useCreateOrUpdateGroup();
 
   return (
     <>
@@ -14,6 +16,9 @@ const ToolBar = () => {
           <button
             type="button"
             className="Toolbar-save text-white bg-vermillon hover:bg-lightVermillon px-2 md:px-4 md:py-1 rounded-md h-full"
+            onClick={() => {
+              mutation.mutate({ blocks: blockList });
+            }}
           >
             Enregistrer
           </button>
