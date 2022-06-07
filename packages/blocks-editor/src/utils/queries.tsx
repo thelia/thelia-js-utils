@@ -113,6 +113,7 @@ export function useCreateOrUpdateGroup() {
     groupId: contextGroupId,
     itemId: contextItemId,
     itemType: contextItemType,
+    noRedirect = false,
   } = useContext(BlocksGroupContext);
   const { currentLocale } = useContext(LocaleContext);
   const { group: contextGroup } = useContext(BlocksGroupContext);
@@ -160,7 +161,12 @@ export function useCreateOrUpdateGroup() {
     },
     {
       onSuccess: (data: GroupTypeStore) => {
-        //window.location.replace(`/admin/TheliaBlocks/${data.id}`);
+        toast.success("enregistré avec succès");
+        if (noRedirect) {
+          window.location.reload();
+          return;
+        }
+        window.location.replace(`/admin/TheliaBlocks/${data.id}`);
       },
     }
   );

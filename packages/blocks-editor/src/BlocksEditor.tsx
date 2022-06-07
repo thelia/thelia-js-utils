@@ -21,6 +21,7 @@ export default function BlocksEditor({
   itemType,
   locales,
   backlink = true,
+  noRedirect = false,
 }: {
   apiUrl: string;
   locales: Locale[];
@@ -29,6 +30,7 @@ export default function BlocksEditor({
   itemId?: number;
   itemType?: string;
   backlink: boolean;
+  noRedirect: boolean;
 }) {
   if (!apiUrl) return null;
 
@@ -46,6 +48,7 @@ export default function BlocksEditor({
             groupId={groupId}
             itemType={itemType}
             itemId={itemId}
+            noRedirect={noRedirect}
           >
             <div className="BlocksEditor">
               <div>

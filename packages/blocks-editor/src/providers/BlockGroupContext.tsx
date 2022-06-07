@@ -10,9 +10,11 @@ export const BlocksGroupContext = React.createContext<{
   groupId?: number;
   itemType?: string;
   itemId?: number;
+  noRedirect: boolean;
 }>({
   group: undefined,
   editGroup: () => {},
+  noRedirect: false,
 });
 
 export const BlocksGroupProvider = ({
@@ -20,8 +22,10 @@ export const BlocksGroupProvider = ({
   itemType,
   itemId,
   children,
+  noRedirect,
 }: itemBlockGroupsType & {
   children: React.ReactElement;
+  noRedirect: boolean;
 }) => {
   const [group, setGroup] = React.useState<GroupTypeResponse>({
     visible: true,
@@ -39,7 +43,7 @@ export const BlocksGroupProvider = ({
 
   return (
     <BlocksGroupContext.Provider
-      value={{ group, editGroup, groupId, itemType, itemId }}
+      value={{ group, editGroup, groupId, itemType, itemId, noRedirect }}
     >
       <React.Suspense fallback="loading group">{children}</React.Suspense>
     </BlocksGroupContext.Provider>
