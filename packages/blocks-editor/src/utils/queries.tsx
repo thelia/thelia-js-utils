@@ -139,6 +139,8 @@ export function useCreateOrUpdateGroup() {
         locale: currentLocale,
       };
 
+      console.log(itemId, itemType, contextItemId, contextItemType);
+
       if (itemId || itemType) {
         data.itemBlockGroup = {
           itemType,
@@ -158,7 +160,7 @@ export function useCreateOrUpdateGroup() {
     },
     {
       onSuccess: (data: GroupTypeStore) => {
-        window.location.replace(`/admin/TheliaBlocks/${data.id}`);
+        //window.location.replace(`/admin/TheliaBlocks/${data.id}`);
       },
     }
   );

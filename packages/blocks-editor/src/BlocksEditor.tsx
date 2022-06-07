@@ -17,6 +17,8 @@ export default function BlocksEditor({
   apiUrl,
   containerId,
   groupId,
+  itemId,
+  itemType,
   locales,
   backlink = true,
 }: {
@@ -24,6 +26,8 @@ export default function BlocksEditor({
   locales: Locale[];
   containerId: string;
   groupId?: number;
+  itemId?: number;
+  itemType?: string;
   backlink: boolean;
 }) {
   if (!apiUrl) return null;
@@ -38,7 +42,11 @@ export default function BlocksEditor({
     <LocaleProvider locales={locales}>
       <BlocksProvider api={apiUrl}>
         <Suspense fallback="loading">
-          <BlocksGroupProvider groupId={groupId}>
+          <BlocksGroupProvider
+            groupId={groupId}
+            itemType={itemType}
+            itemId={itemId}
+          >
             <div className="BlocksEditor">
               <div>
                 <Toaster />
