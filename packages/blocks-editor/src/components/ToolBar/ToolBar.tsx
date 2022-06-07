@@ -1,11 +1,14 @@
-import { Suspense, useState } from "react";
-import { useCreateOrUpdateGroup, usePreviewGroup } from "../../utils/queries";
+import { Suspense, useContext, useState } from "react";
 
+import { BlocksGroupContext } from "../../providers/BlockGroupContext";
 import ErrorBoundary from "../../components/ErrorBoundary";
 import Preview from "../../components/Preview";
+import toast from "react-hot-toast";
 import { useBlocksContext } from "../../hooks/useBlockContext";
+import { useCreateOrUpdateGroup } from "../../utils/queries";
 
 const ToolBar = () => {
+  const { group } = useContext(BlocksGroupContext);
   const { blockList } = useBlocksContext();
   const mutation = useCreateOrUpdateGroup();
   const [showPreview, setShowPreview] = useState<boolean | number>(false);
@@ -28,6 +31,11 @@ const ToolBar = () => {
               type="button"
               className="Toolbar-save text-white bg-vermillon hover:bg-lightVermillon px-2 md:px-4 md:py-1 rounded-md h-full"
               onClick={() => {
+                if (!group?.title) {
+                  console.log("hey");
+                  toast.error("Titre manquant");
+                  return;
+                }
                 mutation.mutate({ blocks: blockList });
               }}
             >

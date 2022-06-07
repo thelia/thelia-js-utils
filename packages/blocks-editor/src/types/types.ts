@@ -60,7 +60,7 @@ export type BlockGroupPatch = {
     id: number;
     visible: boolean;
     title: string;
-    slug: string;
+    slug: string | null;
     jsonContent: string;
   };
   itemBlockGroup?: {

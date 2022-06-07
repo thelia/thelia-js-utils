@@ -10,6 +10,7 @@ import GroupTitle from "./components/GroupTitle";
 import { Locale } from "./types/types";
 import { LocaleProvider } from "./providers/LocaleContext";
 import ReactModal from "react-modal";
+import { Toaster } from "react-hot-toast";
 import ToolBar from "./components/ToolBar";
 
 export default function BlocksEditor({
@@ -17,11 +18,13 @@ export default function BlocksEditor({
   containerId,
   groupId,
   locales,
+  backlink = true,
 }: {
   apiUrl: string;
   locales: Locale[];
   containerId: string;
   groupId?: number;
+  backlink: boolean;
 }) {
   if (!apiUrl) return null;
 
@@ -37,10 +40,15 @@ export default function BlocksEditor({
         <Suspense fallback="loading">
           <BlocksGroupProvider groupId={groupId}>
             <div className="BlocksEditor">
+              <div>
+                <Toaster />
+              </div>
               <div className="BlocksEditor__header">
-                <div>
-                  <a href="/admin/TheliaBlocks">Back to BlocksList</a>
-                </div>
+                {backlink ? (
+                  <div>
+                    <a href="/admin/TheliaBlocks">Back to BlocksList</a>
+                  </div>
+                ) : null}
                 <GroupTitle />
                 <GroupLocale />
               </div>

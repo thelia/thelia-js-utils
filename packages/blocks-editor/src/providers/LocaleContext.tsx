@@ -30,8 +30,6 @@ export function LocaleProvider({
     }
   }, [locales]);
 
-  console.log(currentLocale);
-
   return (
     <LocaleContext.Provider
       value={{ locales, currentLocale, setCurrentLocale }}

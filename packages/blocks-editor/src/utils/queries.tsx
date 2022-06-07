@@ -17,6 +17,7 @@ import { useContext, useEffect, useState } from "react";
 
 import { BlocksGroupContext } from "../providers/BlockGroupContext";
 import { LocaleContext } from "../providers/LocaleContext";
+import toast from "react-hot-toast";
 
 const instance = axios.create();
 
@@ -146,6 +147,10 @@ export function useCreateOrUpdateGroup() {
         };
       }
 
+      if (!data.blockGroup.slug) {
+        data.blockGroup.slug = null;
+      }
+
       return fetcher(`/block_group`, {
         method: groupId ? "PATCH" : "POST",
         data,
@@ -159,23 +164,28 @@ export function useCreateOrUpdateGroup() {
   );
 }
 
-export function useDeleteGroup({ onSuccess }: { onSuccess: () => any }) {
-  const { groupId } = useContext(BlocksGroupContext);
+export function useDeleteGroup() {
+  const queryClient = useQueryClient();
+  const { groupId: contextGroupId } = useContext(BlocksGroupContext);
+  const { currentLocale } = useContext(LocaleContext);
 
   return useMutation(
     (id?: number) => {
-      if (!id && !groupId) {
+      if (!id && !contextGroupId) {
         throw new Error(
           "id is mandatory, and no fallback groupId was found in current context"
         );
       }
-      return fetcher(`/block_group/${id || groupId}`, {
+      return fetcher(`/block_group/${id || contextGroupId}`, {
         method: "DELETE",
       });
     },
 
     {
-      onSuccess,
+      onSuccess: (data, groupId) => {
+        queryClient.invalidateQueries(["block_group"]);
+        toast.success("groupe supprimé");
+      },
     }
   );
 }
@@ -197,7 +207,7 @@ export function useDuplicateGroup() {
     },
     {
       onSuccess: (newGroupId: number) => {
-        window.history.pushState({}, "", `/edit/${newGroupId}`);
+        window.location.replace(`/admin/TheliaBlocks/${newGroupId}`);
       },
     }
   );

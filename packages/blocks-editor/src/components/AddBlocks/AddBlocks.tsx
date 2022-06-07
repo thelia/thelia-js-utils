@@ -68,7 +68,9 @@ export default function AddBlock({
       <span className="my-4">Glissez-déposez le type de contenu souhaité</span>
       <button
         className="px-2 font-semibold border-2 rounded-md w-max border-vermillon text-vermillon hover:bg-vermillon hover:text-white md:px-4 md:py-1"
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setIsOpen(true);
+        }}
       >
         Ajouter du contenu
       </button>
