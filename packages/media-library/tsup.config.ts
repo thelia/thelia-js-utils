@@ -9,7 +9,7 @@ export default defineConfig([
     dts: true,
     sourcemap: true,
     platform: "browser",
-    globalName: "TheliaBlocks",
+    globalName: "TheliaMediaLibraryBlock",
     target: "es2020",
     esbuildPlugins: [
       importAsGlobals({

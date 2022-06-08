@@ -12,7 +12,13 @@ function App() {
 
   return (
     <div className="App" style={{ backgroundColor: "#EBEBEB" }}>
-      <BlocksEditor apiUrl={apiUrl} />
+      <BlocksEditor
+        apiUrl={apiUrl}
+        locales={[]}
+        containerId="thelia-blocks-root"
+        backlink
+        noRedirect={false}
+      />
     </div>
   );
 }

@@ -8,7 +8,6 @@ import {
 
 import Accordion from "./Accordion";
 import Button from "./Button";
-import Image from "./Image";
 import List from "./List";
 import Product from "./Product";
 import Raw from "./Raw";
@@ -26,7 +25,6 @@ const Columns = {
 };
 
 export {
-  Image,
   List,
   Raw,
   Text,

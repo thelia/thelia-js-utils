@@ -1,12 +1,13 @@
 import * as React from "react";
-import { ReactComponent as MediathequeIcon } from "./assets/mediatheque.svg";
 
 import {
   BlockModuleComponentProps,
   BlockPluginDefinition,
   LibraryImage,
-} from "../../types/types";
+} from "@thelia/blocks-editor";
+
 import { ReactComponent as Icon } from "./assets/image.svg";
+import { ReactComponent as MediathequeIcon } from "./assets/mediatheque.svg";
 
 const BlockImageComponent = ({}: BlockModuleComponentProps<LibraryImage>) => {
   return (

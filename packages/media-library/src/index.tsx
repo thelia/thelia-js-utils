@@ -1,3 +1,4 @@
-export function MediaLibrary() {
-  return <div>Media Library</div>;
-}
+import Library from "./Image";
+import { registerPlugin } from "@thelia/blocks-editor/src/hooks/usePlugins";
+
+registerPlugin(Library);

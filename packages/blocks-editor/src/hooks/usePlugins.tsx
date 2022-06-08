@@ -1,15 +1,14 @@
 import {
+  Accordion,
+  Button,
   Columns,
-  Image,
   List,
+  Product,
   Raw,
   Separator,
   Text,
   Title,
   Video,
-  Button,
-  Accordion,
-  Product,
 } from "../blocks";
 import { useEffect, useState } from "react";
 
@@ -19,7 +18,6 @@ import { nanoid } from "nanoid";
 export const TB_DEFAULT_PLUGINS: Plugin[] = [
   { id: nanoid(), ...Text },
   { id: nanoid(), ...Title },
-  { id: nanoid(), ...Image },
   { id: nanoid(), ...Button },
   { id: nanoid(), ...List },
   { id: nanoid(), ...Video },

@@ -1,0 +1,10 @@
+{
+  "name": "@thelia/tsupconfig",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "importAsGlobals/index.ts",
+  "publishConfig": {
+    "access": "public"
+  }
+}
