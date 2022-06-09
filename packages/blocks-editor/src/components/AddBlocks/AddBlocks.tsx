@@ -1,16 +1,15 @@
-import * as React from "react";
-
 import { IBlock, Plugin } from "../../types/types";
-import { groupBy, partition } from "lodash";
 
-import { BlockContext } from "../../providers/BlockContext";
 import BlockTooltip from "../BlockTooltip";
 import { ReactComponent as DragIcon } from "../../../assets/svg/drag.svg";
 import Modal from "react-modal";
 import Tippy from "@tippyjs/react";
+import groupBy from "lodash/groupBy";
 import { nanoid } from "nanoid";
+import partition from "lodash/partition";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
+import { useState } from "react";
 
 const AddButton = ({
   plugin,
@@ -58,7 +57,7 @@ export default function AddBlock({
 }: {
   excludeLayout?: IBlock["layout"][];
 }) {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="flex flex-col items-center justify-center p-4 border border-dotted rounded-md border-greyDark">
@@ -127,7 +126,7 @@ const ModalContent = ({
   excludeLayout?: IBlock["layout"][];
   setIsOpen: Function;
 }) => {
-  const [subModalOpen, setSubModalOpen] = React.useState(false);
+  const [subModalOpen, setSubModalOpen] = useState(false);
   const plugins = usePlugins();
   let availablePLugins = plugins;
 

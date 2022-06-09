@@ -5,3 +5,5 @@ declare module "*.svg" {
     React.SVGProps<SVGSVGElement> & { title?: string }
   >;
 }
+
+declare const window: { eventTBPlugins: any; TB__PLUGINS: any[] };

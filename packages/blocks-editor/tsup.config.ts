@@ -6,7 +6,9 @@ export default defineConfig([
   {
     entry: ["src/index.tsx"],
     clean: false,
-    dts: true,
+    dts: {
+      entry: ["./src/types/types.ts", "./src/index.tsx"],
+    },
     sourcemap: true,
     platform: "browser",
     globalName: "TheliaBlocks",
@@ -14,6 +16,7 @@ export default defineConfig([
     esbuildPlugins: [
       importAsGlobals({
         react: "React",
+        "react-dom": "ReactDOM",
       }),
       svgrPlugin({
         namedExport: "ReactComponent",

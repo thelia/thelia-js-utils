@@ -6,7 +6,9 @@ import {
 } from "./utils/queries";
 import toast, { Toaster } from "react-hot-toast";
 
+import { GroupTypeResponse } from "./types/types";
 import { Suspense } from "react";
+import { getContentUrl } from "./utils/content-url";
 import useCopyToClipboard from "react-use/esm/useCopyToClipboard";
 
 function List() {
@@ -31,7 +33,7 @@ function List() {
         </tr>
       </thead>
       <tbody>
-        {groups.map((group: any) => {
+        {groups.map((group: GroupTypeResponse) => {
           return (
             <tr>
               <td>{group.id}</td>
@@ -40,7 +42,33 @@ function List() {
                   {group.title || "No Title"}
                 </a>
               </td>
-              <td>TODO</td>
+              <td className="">
+                <div className="flex gap-2 items-center">
+                  {!!group.itemBlockGroups?.length && (
+                    <span className="text-sm font-normal text-gray-400">
+                      <i className="fa fa-link ml-1"></i>
+                      {group.itemBlockGroups.map(({ itemId, itemType }) => {
+                        if (itemId && itemType) {
+                          return (
+                            <a
+                              href={getContentUrl(itemType, itemId)}
+                              key={`${itemType}-${itemId}`}
+                            >
+                              {itemType}-{itemId}
+                            </a>
+                          );
+                        } else {
+                          return (
+                            <span key={`${itemType}-${itemId}`}>
+                              {itemType}-{itemId}
+                            </span>
+                          );
+                        }
+                      })}
+                    </span>
+                  )}
+                </div>
+              </td>
               <td>TODO</td>
               <td>
                 <div>

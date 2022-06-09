@@ -6,7 +6,6 @@ export default defineConfig([
   {
     entry: ["src/index.tsx"],
     clean: false,
-    dts: true,
     sourcemap: true,
     platform: "browser",
     globalName: "TheliaMediaLibraryBlock",
@@ -14,6 +13,7 @@ export default defineConfig([
     esbuildPlugins: [
       importAsGlobals({
         react: "React",
+        "@thelia/blocks-editor": "TheliaBlocks",
       }),
       svgrPlugin({
         namedExport: "ReactComponent",

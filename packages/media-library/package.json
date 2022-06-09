@@ -21,7 +21,13 @@
   },
   "dependencies": {
     "react": "*",
-    "@thelia/routes-back": "*"
+    "@thelia/blocks-editor": "*",
+    "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "@thelia/blocks-editor": "*",
+    "lodash": "^4.17.21"
   },
   "publishConfig": {
     "access": "public"

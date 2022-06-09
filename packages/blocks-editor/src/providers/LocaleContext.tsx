@@ -1,6 +1,6 @@
 import { ReactElement, createContext, useEffect, useState } from "react";
 
-import { Locale } from "../types/types";
+import { Locale } from "../types";
 
 export const LocaleContext = createContext<{
   currentLocale: Locale["code"];

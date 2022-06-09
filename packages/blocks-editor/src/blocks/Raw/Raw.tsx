@@ -1,11 +1,9 @@
-import * as React from "react";
-
 import {
   BlockModuleComponentProps,
   BlockPluginDefinition,
 } from "../../types/types";
+import { useEffect, useState } from "react";
 
-import { BlockContext } from "../../providers/BlockContext";
 import { ReactComponent as Icon } from "./assets/html.svg";
 import Modal from "react-modal";
 import { ReactComponent as WarningPicto } from "../../../assets/svg/html-warning.svg";
@@ -21,7 +19,7 @@ const WarningModal = ({
   isOpen: boolean;
   setIsOpen: Function;
 }) => {
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = useState(false);
 
   return (
     <Modal
@@ -78,12 +76,12 @@ function BlockRawComponent({
   data,
   onUpdate,
 }: BlockModuleComponentProps<BlockRawData>) {
-  const [value, setValue] = React.useState<string>("");
-  const [isOpen, setIsOpen] = React.useState<boolean>(
+  const [value, setValue] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(
     localStorage.getItem("display-html-alert") === "false" ? false : true
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data.value) {
       setValue(data.value);
     }

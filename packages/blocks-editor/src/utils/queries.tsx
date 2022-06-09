@@ -291,3 +291,34 @@ export function usePreviewGroup(timestamp: number, data: string) {
 
   return query;
 }
+
+export type ProductSearch = {
+  type: "ids" | "reference" | "title";
+  value: string | null;
+};
+
+export function useProductsBy({ type, value = null }: ProductSearch) {
+  let params: {
+    ids: string | null;
+    reference: string | null;
+    title: string | null;
+  } = {
+    ids: null,
+    reference: null,
+    title: null,
+  };
+
+  params[type] = value;
+
+  return useQuery(
+    ["Product", type, value],
+    () =>
+      fetcher(`/product/search`, {
+        method: "GET",
+        params,
+      }),
+    {
+      enabled: !!value,
+    }
+  );
+}

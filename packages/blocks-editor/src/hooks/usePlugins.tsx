@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { Plugin } from "../types/types";
 import { nanoid } from "nanoid";
 
-export const TB_DEFAULT_PLUGINS: Plugin[] = [
+export const TB_DEFAULT_PLUGINS: any = [
   { id: nanoid(), ...Text },
   { id: nanoid(), ...Title },
   { id: nanoid(), ...Button },

@@ -1,14 +1,15 @@
 import * as React from "react";
 
-import produce from "immer";
+import { BlockModuleComponentProps, IBlock } from "../../../types";
+
 import AddBlocks from "../../components/AddBlocks";
 import Block from "../../components/Block";
+import { BlockContextProvider } from "../../providers/BlockContext";
+import { ReactComponent as Icon } from "./assets/column.svg";
+import produce from "immer";
+import { useBlocksContext } from "../../hooks/useBlockContext";
 import useDragAndDrop from "../../hooks/useDragAndDrop";
 import useWindowSize from "../../hooks/useWindowSize";
-import { BlockModuleComponentProps, IBlock } from "../../types/types";
-import { BlockContextProvider } from "../../providers/BlockContext";
-import { useBlocksContext } from "../../hooks/useBlockContext";
-import { ReactComponent as Icon } from "./assets/column.svg";
 
 type ColumnData = IBlock[];
 
@@ -103,7 +104,9 @@ const ColumnComponent = ({
       >
         <div className="flex items-center">
           {width > 400 && <ColumnIcon cols={data.length} currentCol={index} />}
-          <span className="md:text-xl font-bold">{`Colonne #${index + 1}`}</span>
+          <span className="md:text-xl font-bold">{`Colonne #${
+            index + 1
+          }`}</span>
         </div>
         <button onClick={() => setOpen(!open)} className="flex">
           <div className="bg-lightVermillon px-2 py-1 rounded-l-md">

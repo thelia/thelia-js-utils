@@ -26,7 +26,9 @@
     "react-dom": "^17.0.2",
     "react-hot-toast": "^2.2.0",
     "react-modal": "^3.15.1",
+    "react-overlays": "^5.2.0",
     "react-query": "^3.39.1",
+    "react-responsive-modal": "^6.2.0",
     "react-use": "^17.4.0",
     "rollup-plugin-postcss": "^4.0.2",
     "vite-plugin-svgr": "^2.1.0"

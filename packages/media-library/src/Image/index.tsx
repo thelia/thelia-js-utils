@@ -1,12 +1,10 @@
-import * as React from "react";
-
 import {
   BlockModuleComponentProps,
   BlockPluginDefinition,
-  LibraryImage,
 } from "@thelia/blocks-editor";
 
 import { ReactComponent as Icon } from "./assets/image.svg";
+import { LibraryImage } from "../types";
 import { ReactComponent as MediathequeIcon } from "./assets/mediatheque.svg";
 
 const BlockImageComponent = ({}: BlockModuleComponentProps<LibraryImage>) => {
@@ -16,9 +14,14 @@ const BlockImageComponent = ({}: BlockModuleComponentProps<LibraryImage>) => {
         <div className="rounded-full bg-darkCharbon text-white px-2.5 py-1">
           <i className="fa fa-arrow-down"></i>
         </div>
-        <button className="font-semibold w-max border-2 border-vermillon text-vermillon hover:bg-vermillon hover:text-white px-2 md:px-4 md:py-1 rounded-md">
+        <label htmlFor="">
+          <input
+            type="file"
+            className="font-semibold w-max border-2 border-vermillon text-vermillon hover:bg-vermillon hover:text-white px-2 md:px-4 md:py-1 rounded-md"
+          />
           Télécharger une image
-        </button>
+        </label>
+
         <span>ou déposez une image</span>
       </div>
 
@@ -52,7 +55,7 @@ const blockImage: BlockPluginDefinition<LibraryImage> = {
     fr_FR: "Image",
   },
   description: {
-    default: "Display an image",
+    default: "Display an image--",
     fr_FR: "Affiche une image",
   },
   icon: Icon,

@@ -1,4 +1,4 @@
-import Library from "./Image";
-import { registerPlugin } from "@thelia/blocks-editor/src/hooks/usePlugins";
+import Image from "./Image";
+import { registerPlugin } from "@thelia/blocks-editor";
 
-registerPlugin(Library);
+registerPlugin(Image);

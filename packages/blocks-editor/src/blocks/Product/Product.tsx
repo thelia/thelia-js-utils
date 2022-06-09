@@ -1,16 +1,20 @@
-import * as React from "react";
+import {
+  BlockModuleComponentProps,
+  BlockPluginDefinition,
+} from "../../types/types";
+import { ProductSearch, useProductsBy } from "../../utils/queries";
+import { Suspense, useEffect, useState } from "react";
 
-import Input from "../../components/Input";
-import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
-import { reorder } from "../../utils/array";
-import useSWR from "swr";
 import { ReactComponent as Icon } from "./assets/product.svg";
+import Input from "../../components/Input";
+import { reorder } from "../../utils/array";
 
 export type BlockProductData = {
   productList: string[];
 };
 
-export type BlockProductComponentProps = BlockModuleComponentProps<BlockProductData>;
+export type BlockProductComponentProps =
+  BlockModuleComponentProps<BlockProductData>;
 
 const Product = ({
   productId,
@@ -23,10 +27,7 @@ const Product = ({
   data: any;
   onUpdate: Function;
 }) => {
-  const { data: product } = useSWR(`/product/search?id=${productId}`, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-  });
+  const { data: product } = useProductsBy({ type: "ids", value: productId });
 
   return (
     <div className="w-full flex justify-between bg-white rounded-md gap-4 md:gap-8 p-2 mb-4 items-center sm:h-20">
@@ -44,7 +45,9 @@ const Product = ({
         />
       )}
       <div className="flex flex-col md:flex-row md:w-1/5 md:justify-between md:gap-4">
-        <div className="font-semibold text-left">{product?.[0]?.i18n.title}</div>
+        <div className="font-semibold text-left">
+          {product?.[0]?.i18n.title}
+        </div>
         <div className="text-sm md:text-base text-left text-gray-400">
           #{product?.[0]?.reference}
         </div>
@@ -57,7 +60,9 @@ const Product = ({
           onClick={() =>
             onUpdate({
               ...data,
-              productList: [...reorder(data.productList, productIndex, productIndex - 1)],
+              productList: [
+                ...reorder(data.productList, productIndex, productIndex - 1),
+              ],
             })
           }
         >
@@ -65,12 +70,16 @@ const Product = ({
         </button>
 
         <button
-          className={`${productIndex === data.productList.length - 1 && "text-gray-400"}`}
+          className={`${
+            productIndex === data.productList.length - 1 && "text-gray-400"
+          }`}
           disabled={productIndex === data.productList.length - 1}
           onClick={() =>
             onUpdate({
               ...data,
-              productList: [...reorder(data.productList, productIndex, productIndex + 1)],
+              productList: [
+                ...reorder(data.productList, productIndex, productIndex + 1),
+              ],
             })
           }
         >
@@ -91,7 +100,9 @@ const Product = ({
         onClick={() =>
           onUpdate({
             ...data,
-            productList: data.productList.filter((id: any) => id != product?.[0]?.id),
+            productList: data.productList.filter(
+              (id: any) => id != product?.[0]?.id
+            ),
           })
         }
       >
@@ -101,34 +112,85 @@ const Product = ({
   );
 };
 
-function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
-  const [searchByRef, setSearchByRef] = React.useState<boolean>(false);
-  const [query, setQuery] = React.useState<string>("");
+function ProductsList({
+  type,
+  value,
+  onUpdate,
+}: ProductSearch & { onUpdate: Function }) {
+  const { data: products } = useProductsBy({ type, value });
+  return (
+    <ul className="top-full bg-white rounded-md shadow-xl overflow-hidden w-full absolute">
+      <>
+        {products?.length > 0 ? (
+          <>
+            {products
+              ?.filter((product: any) => !products.includes(product.id))
+              .map((product: any) => (
+                <li
+                  key={product.id}
+                  onClick={() => {
+                    onUpdate(product);
+                  }}
+                  className="px-8 py-4 cursor-pointer hover:bg-gray-200 flex flex-col"
+                >
+                  <span>{product.i18n.title}</span>
+                  <span className="text-gray-400 text-sm">
+                    #{product.reference}
+                  </span>
+                </li>
+              ))}
+          </>
+        ) : value && value.length > 1 ? (
+          <li className="px-8 py-4 text-center">
+            <span>
+              Aucun résultat{" "}
+              {value && value.length > 0 ? (
+                <span>
+                  pour "
+                  <span className={`font-bold text-vermillon`}>{value}</span>"
+                </span>
+              ) : (
+                ""
+              )}
+            </span>
+          </li>
+        ) : null}
+      </>
+    </ul>
+  );
+}
 
-  React.useEffect(
-    () => (query.startsWith("#") ? setSearchByRef(true) : setSearchByRef(false)),
+function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
+  const [searchByRef, setSearchByRef] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>("");
+
+  useEffect(
+    () =>
+      query.startsWith("#") ? setSearchByRef(true) : setSearchByRef(false),
     [query]
   );
-
-  const { data: products, isValidating } = useSWR(
-    query.length > 0
-      ? `/product/search?${searchByRef ? "reference" : "title"}=${
-          searchByRef ? query.substring(1) : query
-        }`
-      : null
-  );
+  const type = searchByRef ? "reference" : "title";
+  const value = searchByRef ? query.substring(1) : query;
 
   return (
     <div className="BlockProduct">
       {data.productList.map((productId: any, index) => {
         return (
-          <Product
-            key={index}
-            productIndex={index}
-            productId={productId}
-            data={data}
-            onUpdate={onUpdate}
-          />
+          <Suspense
+            fallback={
+              <div className="text-center py-4 text-2xl text-vermillon">
+                <i className="fa fa-circle-notch fa-spin"></i>
+              </div>
+            }
+          >
+            <Product
+              key={index}
+              productIndex={index}
+              productId={productId}
+              data={data}
+              onUpdate={onUpdate}
+            />
+          </Suspense>
         );
       })}
 
@@ -146,55 +208,25 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
             iconAlignment="right"
             label="Rechercher"
           />
-
-          <ul className="top-full bg-white rounded-md shadow-xl overflow-hidden w-full absolute">
-            {isValidating ? (
-              <li className="text-center py-4 text-2xl text-vermillon">
+          <Suspense
+            fallback={
+              <div className="text-center py-4 text-2xl text-vermillon">
                 <i className="fa fa-circle-notch fa-spin"></i>
-              </li>
-            ) : (
-              <>
-                {products?.length > 0 ? (
-                  <>
-                    {products
-                      ?.filter((product: any) => !data.productList.includes(product.id))
-                      .map((product: any) => (
-                        <li
-                          key={product.id}
-                          onClick={() => {
-                            onUpdate({
-                              ...data,
-                              productList: [...data.productList, product.id],
-                            });
-                            setQuery("");
-                          }}
-                          className="px-8 py-4 cursor-pointer hover:bg-gray-200 flex flex-col"
-                        >
-                          <span>{product.i18n.title}</span>
-                          <span className="text-gray-400 text-sm">
-                            #{product.reference}
-                          </span>
-                        </li>
-                      ))}
-                  </>
-                ) : query.length > 1 ? (
-                  <li className="px-8 py-4 text-center">
-                    <span>
-                      Aucun résultat{" "}
-                      {query.length > 0 ? (
-                        <span>
-                          pour "
-                          <span className={`font-bold text-vermillon`}>{query}</span>"
-                        </span>
-                      ) : (
-                        ""
-                      )}
-                    </span>
-                  </li>
-                ) : null}
-              </>
-            )}
-          </ul>
+              </div>
+            }
+          >
+            <ProductsList
+              type={type}
+              value={value}
+              onUpdate={(product: any) => {
+                onUpdate({
+                  ...data,
+                  productList: [...data.productList, product.id],
+                });
+                setQuery("");
+              }}
+            />
+          </Suspense>
         </div>
       </div>
     </div>
