@@ -1,12 +1,8 @@
-import {
-  BlockModuleComponentProps,
-  BlockPluginDefinition,
-} from "../../types/types";
-import { useEffect, useState } from "react";
-
+import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/html.svg";
 import Modal from "react-modal";
 import { ReactComponent as WarningPicto } from "../../../assets/svg/html-warning.svg";
+import { ChangeEvent, FocusEvent, useEffect, useLayoutEffect, useState } from "react";
 
 export type BlockRawData = {
   value: string;
@@ -14,10 +10,10 @@ export type BlockRawData = {
 
 const WarningModal = ({
   isOpen,
-  setIsOpen,
+  setSaveLocation,
 }: {
   isOpen: boolean;
-  setIsOpen: Function;
+  setSaveLocation: (storage: Window["localStorage"] | Window["sessionStorage"]) => void;
 }) => {
   const [checked, setChecked] = useState(false);
 
@@ -25,20 +21,20 @@ const WarningModal = ({
     <Modal
       ariaHideApp={false}
       isOpen={isOpen}
-      onRequestClose={() => setIsOpen(false)}
+      onRequestClose={() => setSaveLocation(sessionStorage)}
       overlayClassName="Overlay"
       className="Modal-htmlWarning"
     >
       <div className="Modal-content flex flex-col p-4">
-        <button onClick={() => setIsOpen(false)} className="self-end">
+        <button onClick={() => setSaveLocation(sessionStorage)} className="self-end">
           <i className="fa fa-xmark hover:text-vermillon text-xl md:text-3xl"></i>
         </button>
         <WarningPicto className="mx-auto" />
         <div className="lg:px-12 lg:pb-12 text-mediumCharbon">
           <p className="mb-4">
-            Ici un petit message pour informer sur l'utilisation de HTML
-            directement dans le back-office. Ce message apparait en pop-in à
-            chaque fois que l'utilisateur ajoute un bloc de HTML.
+            Ici un petit message pour informer sur l'utilisation de HTML directement dans
+            le back-office. Ce message apparait en pop-in à chaque fois que l'utilisateur
+            ajoute un bloc de HTML.
           </p>
           <div className="flex gap-2 items-center mb-6">
             <input
@@ -48,18 +44,16 @@ const WarningModal = ({
               name="display-alert"
               id="display-alert"
             />
-            <label
-              className="mb-0 tracking-normal select-none"
-              htmlFor="display-alert"
-            >
+            <label className="mb-0 tracking-normal select-none" htmlFor="display-alert">
               Ne plus afficher l'alerte
             </label>
           </div>
           <button
             onClick={() => {
-              setIsOpen(false);
               if (checked) {
-                localStorage.setItem("display-html-alert", "false");
+                setSaveLocation(localStorage);
+              } else {
+                setSaveLocation(sessionStorage);
               }
             }}
             className="bg-vermillon hover:bg-lightVermillon text-white py-2 px-4 rounded-md"
@@ -72,14 +66,21 @@ const WarningModal = ({
   );
 };
 
-function BlockRawComponent({
-  data,
-  onUpdate,
-}: BlockModuleComponentProps<BlockRawData>) {
+function BlockRawComponent({ data, onUpdate }: BlockModuleComponentProps<BlockRawData>) {
   const [value, setValue] = useState<string>("");
-  const [isOpen, setIsOpen] = useState<boolean>(
-    localStorage.getItem("display-html-alert") === "false" ? false : true
-  );
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  useLayoutEffect(() => {
+    if (sessionStorage.getItem("html-alert-status") === "shown") {
+      return;
+    }
+
+    if (localStorage.getItem("html-alert-status") === "shown") {
+      return;
+    }
+
+    setIsOpen(true);
+  });
 
   useEffect(() => {
     if (data.value) {
@@ -87,11 +88,11 @@ function BlockRawComponent({
     }
   }, [data]);
 
-  const onChangeValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
   };
 
-  const onBlurValue = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+  const onBlurValue = (e: FocusEvent<HTMLTextAreaElement>) => {
     if (e.target.value) {
       onUpdate({ value: e.target.value });
     }
@@ -107,7 +108,13 @@ function BlockRawComponent({
         onBlur={onBlurValue}
         value={value}
       />
-      <WarningModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <WarningModal
+        isOpen={isOpen}
+        setSaveLocation={(storage) => {
+          storage.setItem("html-alert-status", "shown");
+          setIsOpen(false);
+        }}
+      />
     </div>
   );
 }

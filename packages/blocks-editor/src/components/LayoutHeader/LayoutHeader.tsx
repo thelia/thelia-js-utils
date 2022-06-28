@@ -1,30 +1,33 @@
+import { ReactNode } from "react";
+import { ReactComponent as CloseIcon } from "../../../assets/svg/close-chevron.svg";
+import { ReactComponent as OpenIcon } from "../../../assets/svg/open-chevron.svg";
+
 const LayoutHeader = ({
   title,
+  icon,
   open,
   setOpen,
 }: {
   title: string;
+  icon?: ReactNode;
   open: boolean;
   setOpen: Function;
 }) => {
   return (
     <div
-      className={`py-2 md:py-4 px-4 md:px-8 bg-mediumCharbon text-white rounded-tr-md ${
+      className={`p-4 lg:pl-11 md:pr-5 xl:pl-12 bg-mediumCharbon text-white rounded-tr-md ${
         !open && "rounded-br-md"
       } flex justify-between items-center`}
     >
-      <div className="flex items-center">
-        <span className="md:text-xl font-bold">{title}</span>
+      <div className="flex items-center gap-3 xl:gap-7">
+        {icon}
+        <span className="text-base font-extrabold">{title}</span>
       </div>
-      <button onClick={() => setOpen(!open)} className="flex">
-        <div className="bg-lightVermillon px-2 py-1 rounded-l-md">
-          {open ? (
-            <i className="fa fa-chevron-down"></i>
-          ) : (
-            <i className="fa fa-chevron-right"></i>
-          )}
+      <button onClick={() => setOpen(!open)} className="flex items-stretch">
+        <div className="bg-lightVermillon p-2 rounded-l-md">
+          {open ? <CloseIcon /> : <OpenIcon />}
         </div>
-        <div className="bg-vermillon px-2 py-1 rounded-r-md">
+        <div className="bg-vermillon font-semibold text-xs uppercase tracking-wider rounded-r-md py-2 px-2">
           {open ? "Replier" : "Déplier"}
         </div>
       </button>

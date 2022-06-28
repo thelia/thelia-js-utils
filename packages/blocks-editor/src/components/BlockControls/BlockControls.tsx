@@ -15,7 +15,6 @@ const BlockControls = ({
   inLayout?: boolean;
   DndDragHandle: () => JSX.Element;
 }) => {
-  // prettier-ignore
   const { blockList, removeBlock, moveBlockUp, moveBlockDown } = useBlocksContext();
 
   const { width } = useWindowSize();
@@ -25,8 +24,8 @@ const BlockControls = ({
       {DndDragHandle && (
         <div
           className={`${
-            !inLayout && width > 768
-              ? "border-y-2 border-l-2 border-mediumGrey px-2 md:px-6"
+            !inLayout && width > 1024
+              ? "border-y border-l border-mediumGrey px-2 md:px-6"
               : "px-2 sm:px-3"
           } text-darkCharbon`}
         >
@@ -36,33 +35,35 @@ const BlockControls = ({
 
       <Tippy
         delay={[700, 0]}
-        disabled={!inLayout && width > 768}
+        disabled={!inLayout && width > 1024}
         content={"Monter l'élément"}
       >
         <button
           className={`${
-            !inLayout && width > 768
-              ? "border-y-2 border-l-2 border-mediumGrey px-2 md:px-6"
+            !inLayout && width > 1024
+              ? "border-y border-l border-mediumGrey flex gap-2 tracking-wider items-center px-2 md:px-6"
               : "px-2 sm:px-3"
           } ${blockIndex === 0 ? "text-gray-400" : "text-darkCharbon"}`}
           disabled={blockIndex === 0}
           onClick={() => moveBlockUp(blockIndex)}
         >
           <i className="fa fa-arrow-up"></i>
-          {!inLayout && width > 768 ? " Monter" : ""}
+          {!inLayout && width > 1024 && (
+            <span className="uppercase text-xs font-semibold">Monter</span>
+          )}
         </button>
       </Tippy>
 
       <Tippy
         delay={[700, 0]}
-        disabled={!inLayout && width > 768}
+        disabled={!inLayout && width > 1024}
         content={"Descendre l'élément"}
         placement={"bottom"}
       >
         <button
           className={`${
-            !inLayout && width > 768
-              ? "border-2 border-mediumGrey px-2 md:px-6"
+            !inLayout && width > 1024
+              ? "border border-mediumGrey flex items-center gap-2 tracking-wider px-2 md:px-6"
               : "px-2 sm:px-3"
           } ${
             blockIndex === blockList.length - 1 ? "text-gray-400" : "text-darkCharbon"
@@ -71,26 +72,30 @@ const BlockControls = ({
           onClick={() => moveBlockDown(blockIndex)}
         >
           <i className="fa fa-arrow-down"></i>
-          {!inLayout && width > 768 ? " Descendre" : ""}
+          {!inLayout && width > 1024 && (
+            <span className="uppercase text-xs font-semibold">Descendre</span>
+          )}
         </button>
       </Tippy>
 
       <Tippy
         delay={[700, 0]}
-        disabled={!inLayout && width > 768}
+        disabled={!inLayout && width > 1024}
         content={"Supprimer l'élément"}
         placement={"bottom"}
       >
         <button
           className={`${
-            !inLayout && width > 768
-              ? "border-y-2 border-r-2 border-mediumGrey px-2 md:px-6"
+            !inLayout && width > 1024
+              ? "border-y border-r border-mediumGrey flex items-center gap-2 tracking-wider px-2 md:px-6"
               : "px-2 sm:px-3"
           } text-error`}
           onClick={() => removeBlock(blockId)}
         >
           <i className="fa fa-trash-alt"></i>
-          {!inLayout && width > 768 ? " Supprimer" : ""}
+          {!inLayout && width > 1024 && (
+            <span className="uppercase text-xs font-semibold">Supprimer</span>
+          )}
         </button>
       </Tippy>
     </div>

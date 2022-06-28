@@ -13,10 +13,6 @@
 .BlocksContent { grid-area: 1 / 1 / 2 / 7; }
 .Sidebar { grid-area: 1 / 7 / 2 / 8; } */
 
-label {
-  @apply tracking-wider mb-1;
-}
-
 input[type="checkbox"]:checked {
   @apply text-mediumCharbon;
 }
@@ -27,6 +23,18 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:focus {
   @apply outline-none ring-transparent;
+}
+
+label {
+  @apply tracking-wider mb-1 uppercase text-lightCharbon text-xs select-none;
+}
+
+input::placeholder, textarea::placeholder {
+  @apply text-mediumGrey;  
+}
+
+select, textarea {
+  @apply border-mediumGrey;
 }
 
 .Modal-TheliaBlocks {

@@ -9,7 +9,7 @@ import Tippy from "@tippyjs/react";
 const Block = ({
   block,
   inLayout = false,
-  className,
+  className = "",
   DndDragHandle,
 }: {
   block: IBlock;
@@ -44,20 +44,23 @@ const Block = ({
     );
   }
 
-  const Component = currentPlugin.component;
-  const Icon = currentPlugin.icon;
+  const { component: Component, icon: Icon } = currentPlugin;
 
   return (
     <div
-      className={`Block mb-4 py-4 md:py-8 rounded-md ${className} ${
-        inLayout ? "bg-pearlLight shadow-md px-4 md:px-8" : ""
+      className={`Block mb-3 py-5 rounded-md ${className} ${
+        inLayout
+          ? "bg-pearlLight shadow-md px-4 md:px-11"
+          : "bg-gradient-to-b from-pearlMedium to-pearlLight px-4 py-12 md:px-32 lg:px-48 xl:px-72"
       }`}
     >
       <div className="flex justify-between mb-6">
         <div className="flex items-center gap-4">
-          <Icon />
+          {!inLayout && <Icon />}
 
-          <div className={`${inLayout ? "font-bold" : "font-extrabold"} md:text-xl`}>
+          <div
+            className={`${inLayout ? "font-bold text-base" : "font-extrabold text-xl"}`}
+          >
             {currentPlugin.title.fr_FR}
           </div>
 

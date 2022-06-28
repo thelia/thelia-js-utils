@@ -1,10 +1,9 @@
-import * as React from "react";
-
-import { GroupTypeResponse, Locale, itemBlockGroupsType } from "../types/types";
+import { createContext, ReactElement, Suspense, useEffect, useState } from "react";
+import { GroupTypeResponse, itemBlockGroupsType } from "../types/types";
 
 import { useGroup } from "../utils/queries";
 
-export const BlocksGroupContext = React.createContext<{
+export const BlocksGroupContext = createContext<{
   group?: GroupTypeResponse;
   editGroup: Function;
   groupId?: number;
@@ -24,10 +23,10 @@ export const BlocksGroupProvider = ({
   children,
   noRedirect,
 }: itemBlockGroupsType & {
-  children: React.ReactElement;
+  children: ReactElement;
   noRedirect: boolean;
 }) => {
-  const [group, setGroup] = React.useState<GroupTypeResponse>({
+  const [group, setGroup] = useState<GroupTypeResponse>({
     visible: true,
     title: "",
     slug: null,
@@ -35,7 +34,7 @@ export const BlocksGroupProvider = ({
 
   const { data, editGroup } = useGroup(groupId);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data) {
       setGroup(data);
     }
@@ -45,7 +44,7 @@ export const BlocksGroupProvider = ({
     <BlocksGroupContext.Provider
       value={{ group, editGroup, groupId, itemType, itemId, noRedirect }}
     >
-      <React.Suspense fallback="loading group">{children}</React.Suspense>
+      <Suspense fallback="loading group">{children}</Suspense>
     </BlocksGroupContext.Provider>
   );
 };

@@ -1,7 +1,4 @@
-import {
-  BlockModuleComponentProps,
-  BlockPluginDefinition,
-} from "@thelia/blocks-editor";
+import { BlockModuleComponentProps, BlockPluginDefinition } from "@thelia/blocks-editor";
 
 import { ReactComponent as Icon } from "./assets/image.svg";
 import { LibraryImage } from "../types";
@@ -9,8 +6,8 @@ import { ReactComponent as MediathequeIcon } from "./assets/mediatheque.svg";
 
 const BlockImageComponent = ({}: BlockModuleComponentProps<LibraryImage>) => {
   return (
-    <div className="BlockImage flex lg:flex-nowrap flex-wrap justify-center w-full gap-5 lg:px-4">
-      <div className="border border-dotted border-greyDark rounded-md w-full lg:w-1/2 flex flex-col gap-4 justify-center items-center py-12 px-6 text-center">
+    <div className="BlockImage flex lg:flex-nowrap flex-wrap justify-center w-full gap-4">
+      <div className="border border-dotted border-greyDark rounded-md w-full lg:w-1/2 flex flex-col gap-2 justify-center items-center py-12 px-6 text-center">
         <div className="rounded-full bg-darkCharbon text-white px-2.5 py-1">
           <i className="fa fa-arrow-down"></i>
         </div>
@@ -25,7 +22,7 @@ const BlockImageComponent = ({}: BlockModuleComponentProps<LibraryImage>) => {
         <span>ou déposez une image</span>
       </div>
 
-      <div className="bg-white rounded-md w-full lg:w-1/2 flex flex-col gap-4 justify-center items-center py-12 text-center">
+      <div className="bg-white rounded-md w-full lg:w-1/2 flex flex-col gap-4 justify-center items-center text-center py-12 px-6">
         <div className="rounded-full bg-pearlLight text-white p-3">
           <MediathequeIcon />
         </div>

@@ -9,9 +9,10 @@ import { useCreateOrUpdateGroup } from "../../utils/queries";
 
 const ToolBar = () => {
   const { group } = useContext(BlocksGroupContext);
+  const [showPreview, setShowPreview] = useState<boolean | number>(false);
+
   const { blockList } = useBlocksContext();
   const mutation = useCreateOrUpdateGroup();
-  const [showPreview, setShowPreview] = useState<boolean | number>(false);
 
   return (
     <>

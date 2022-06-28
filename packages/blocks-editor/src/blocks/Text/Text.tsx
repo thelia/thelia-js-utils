@@ -1,5 +1,4 @@
-import * as React from "react";
-import Editor from "../../components/Editor";
+import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/text.svg";
 
@@ -11,17 +10,17 @@ function BlockTextComponent({
   data,
   onUpdate,
 }: BlockModuleComponentProps<BlockTextData>) {
-  const [localData, setData] = React.useState<string>(data.value);
+  const [localData, setData] = useState<string>(data.value);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setData(data.value);
   }, [data]);
 
-  const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setData(e.target.value);
   };
 
-  const onBlurText = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+  const onBlurText = (e: FocusEvent<HTMLTextAreaElement>) => {
     if (e.target.value) {
       onUpdate({
         value: e.target.value,

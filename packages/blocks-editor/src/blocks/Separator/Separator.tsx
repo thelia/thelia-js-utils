@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 import Input from "../../components/Input";
 import { BlockModuleComponentProps } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/separator.svg";
@@ -22,10 +22,10 @@ const BlockSeparatorComponent = ({
   data,
   onUpdate,
 }: BlockModuleComponentProps<BlockSeparatorData>) => {
-  const [type, setType] = React.useState<string>(initialData.type);
-  const [size, setSize] = React.useState<number>(initialData.size);
+  const [type, setType] = useState<string>(initialData.type);
+  const [size, setSize] = useState<number>(initialData.size);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data.type) {
       setType(data.type);
     }
@@ -35,16 +35,16 @@ const BlockSeparatorComponent = ({
     }
   }, [data]);
 
-  const onChangeType = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onChangeType = (e: ChangeEvent<HTMLSelectElement>) => {
     setType(e.target.value);
     onUpdate({ ...data, type: e.target.value });
   };
 
-  const onChangeSize = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeSize = (e: ChangeEvent<HTMLInputElement>) => {
     setSize(+e.target.value);
   };
 
-  const onBlurSize = (e: React.FocusEvent<HTMLInputElement>) => {
+  const onBlurSize = (e: FocusEvent<HTMLInputElement>) => {
     if (e.target.value) {
       onUpdate({ ...data, size: +e.target.value });
     }

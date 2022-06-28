@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 import Input from "../../components/Input";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/title.svg";
@@ -43,10 +43,10 @@ function BlockTitleComponent({
   data,
   onUpdate,
 }: BlockModuleComponentProps<BlockTitleData>) {
-  const [level, setLevel] = React.useState<Number>(initialData.level);
-  const [text, setText] = React.useState<string>(initialData.text);
+  const [level, setLevel] = useState<Number>(initialData.level);
+  const [text, setText] = useState<string>(initialData.text);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data.level) {
       setLevel(data.level);
     }
@@ -55,16 +55,16 @@ function BlockTitleComponent({
     }
   }, [data]);
 
-  const onChangeLevel = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onChangeLevel = (e: ChangeEvent<HTMLSelectElement>) => {
     setLevel(parseInt(e.target.value, 10));
     onUpdate({ ...data, level: parseInt(e.target.value, 10) });
   };
 
-  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
-  const onBlurText = (e: React.FocusEvent<HTMLInputElement>) => {
+  const onBlurText = (e: FocusEvent<HTMLInputElement>) => {
     if (e.target.value) {
       onUpdate({ ...data, text: e.target.value });
     }

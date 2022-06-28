@@ -1,13 +1,11 @@
-import * as React from "react";
-
 import { nanoid } from "nanoid";
+import { useState } from "react";
 import { useBlocksContext } from "../../hooks/useBlockContext";
-import useDragAndDrop from "../../hooks/useDragAndDrop";
 import { usePlugins } from "../../hooks/usePlugins";
 
 const Sidebar = () => {
   const { addBlock } = useBlocksContext();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const plugins = usePlugins();
 

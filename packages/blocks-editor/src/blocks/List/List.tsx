@@ -1,9 +1,9 @@
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import BlockText, { BlockTextData } from "../Text";
-import React, { ChangeEvent } from "react";
 import { ReactComponent as Icon } from "./assets/accordion.svg";
 
 import { nanoid } from "nanoid";
+import { ChangeEvent, useEffect, useState } from "react";
 
 enum typeList {
   Unordered = "ul",
@@ -32,9 +32,9 @@ function BlockListComponent({
   data,
   onUpdate,
 }: BlockModuleComponentProps<BlockListData>) {
-  const [listItems, setListItems] = React.useState<listItemType[]>([]);
+  const [listItems, setListItems] = useState<listItemType[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data.values) {
       setListItems(data.values.map((value) => ({ id: nanoid(), value })));
     }

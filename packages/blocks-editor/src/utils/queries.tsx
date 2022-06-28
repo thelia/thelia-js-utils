@@ -13,7 +13,7 @@ import {
   useQueryClient,
 } from "react-query";
 import axios, { AxiosRequestConfig } from "axios";
-import { useContext, useEffect, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 
 import { BlocksGroupContext } from "../providers/BlockGroupContext";
 import { LocaleContext } from "../providers/LocaleContext";
@@ -44,13 +44,7 @@ export const queryClient = new QueryClient({
   },
 });
 
-export function BlocksProvider({
-  children,
-  api,
-}: {
-  children: React.ReactNode;
-  api: string;
-}) {
+export function BlocksProvider({ children, api }: { children: ReactNode; api: string }) {
   const [initialized, setInitialized] = useState<boolean>(false);
   useEffect(() => {
     instance.defaults.baseURL = api;
@@ -61,9 +55,7 @@ export function BlocksProvider({
     return null;
   }
 
-  return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }
 
 export function useGroups() {

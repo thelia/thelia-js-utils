@@ -1,4 +1,14 @@
-import React from "react";
+import { ChangeEvent, FocusEvent, InputHTMLAttributes, ReactNode } from "react";
+
+const Icon = ({ icon, className }: { icon: ReactNode; className?: string }) => {
+  return (
+    <span
+      className={`absolute py-1 px-5 w-8 h-full leading-snug rounded text-base font-normal text-center flex items-center justify-center ${className}`}
+    >
+      {icon}
+    </span>
+  );
+};
 
 const Input = ({
   value,
@@ -9,26 +19,28 @@ const Input = ({
   iconAlignment = "right",
   isValid,
   label,
+  name,
   ...props
 }: {
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   className?: string;
   placeholder?: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   iconAlignment?: "left" | "right";
   isValid?: boolean;
   label?: string;
-} & React.InputHTMLAttributes<HTMLInputElement>) => {
+  name: string;
+} & InputHTMLAttributes<HTMLInputElement>) => {
   return (
     <>
-      {label && <label className="text-sm md:text-base">{label}</label>}
+      {label && <label>{label}</label>}
       <div className="relative w-full flex flex-wrap items-stretch">
         <input
           value={value}
           onChange={onChange}
-          className={`relative w-full rounded-md shadow outline-none placeholder-mediumGrey ${
+          className={`relative w-full rounded-md shadow border-mediumGrey outline-none ${
             iconAlignment === "left" && isValid
               ? "px-10"
               : iconAlignment === "left"
@@ -54,16 +66,6 @@ const Input = ({
         )}
       </div>
     </>
-  );
-};
-
-const Icon = ({ icon, className }: { icon: React.ReactNode; className?: string }) => {
-  return (
-    <span
-      className={`absolute py-1 px-5 w-8 h-full leading-snug rounded text-base font-normal text-center flex items-center justify-center ${className}`}
-    >
-      {icon}
-    </span>
   );
 };
 

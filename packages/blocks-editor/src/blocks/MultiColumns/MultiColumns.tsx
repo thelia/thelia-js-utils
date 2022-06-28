@@ -1,7 +1,4 @@
-import * as React from "react";
-
-import { BlockModuleComponentProps, IBlock } from "../../../types";
-
+import { useEffect, useState } from "react";
 import AddBlocks from "../../components/AddBlocks";
 import Block from "../../components/Block";
 import { BlockContextProvider } from "../../providers/BlockContext";
@@ -10,6 +7,8 @@ import produce from "immer";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import useDragAndDrop from "../../hooks/useDragAndDrop";
 import useWindowSize from "../../hooks/useWindowSize";
+import LayoutHeader from "../../components/LayoutHeader";
+import { BlockModuleComponentProps, IBlock } from "../../types/types";
 
 type ColumnData = IBlock[];
 
@@ -23,7 +22,7 @@ const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
   const { blockList, moveBlockTo } = useBlocksContext();
   const { DndWrapper, DndWrapElement } = useDragAndDrop();
 
-  React.useEffect(() => {
+  useEffect(() => {
     onUpdate(blockList);
   }, [blockList]);
 
@@ -42,7 +41,7 @@ const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
               {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
                 <Block
                   DndDragHandle={DndDragHandle}
-                  inLayout={true}
+                  inLayout
                   key={index}
                   className="border-l-8 border-l-lighterVermillon"
                   block={block}
@@ -67,8 +66,8 @@ export const ColumnIcon = ({
 
   return (
     <div
-      className="h-3 rounded-full flex overflow-hidden border bg-white border-white mr-3"
-      style={{ minWidth: width > 768 ? "80px" : "60px" }}
+      className="h-2 rounded-full flex overflow-hidden border bg-white border-white"
+      style={{ minWidth: width > 1024 ? "60px" : "40px" }}
     >
       {[...Array(cols)].map((_, index) => (
         <div
@@ -89,7 +88,7 @@ const ColumnComponent = ({
   data,
   onUpdate,
 }: BlockModuleComponentProps<MultiColumnsData>) => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const { width } = useWindowSize();
 
   return (
@@ -97,31 +96,13 @@ const ColumnComponent = ({
       key={index}
       className="flex flex-col rounded-md shadow-md border-l-8 border-l-vermillon bg-white"
     >
-      <div
-        className={`py-2 md:py-4 px-4 md:px-8 bg-mediumCharbon text-white rounded-tr-md ${
-          !open && "rounded-br-md"
-        } flex justify-between items-center`}
-      >
-        <div className="flex items-center">
-          {width > 400 && <ColumnIcon cols={data.length} currentCol={index} />}
-          <span className="md:text-xl font-bold">{`Colonne #${
-            index + 1
-          }`}</span>
-        </div>
-        <button onClick={() => setOpen(!open)} className="flex">
-          <div className="bg-lightVermillon px-2 py-1 rounded-l-md">
-            {open ? (
-              <i className="fa fa-chevron-down"></i>
-            ) : (
-              <i className="fa fa-chevron-right"></i>
-            )}
-          </div>
-          <div className="bg-vermillon px-2 py-1 rounded-r-md">
-            {open ? "Replier" : "Déplier"}
-          </div>
-        </button>
-      </div>
-      <div className={`p-4 md:py-8 md:px-11 ${!open ? "hidden" : null}`}>
+      <LayoutHeader
+        title={`Colonne #${index + 1}`}
+        open={open}
+        setOpen={setOpen}
+        icon={width > 400 && <ColumnIcon cols={data.length} currentCol={index} />}
+      />
+      <div className={`xl:py-3 xl:px-16 md:px-12 md:py-7 px-6 py-4 ${!open && "hidden"}`}>
         <BlockContextProvider defaultBlocks={column}>
           <>
             <NestedColumn
@@ -146,7 +127,7 @@ const MultiColumnsComponent = ({
   onUpdate,
 }: BlockModuleComponentProps<MultiColumnsData>) => {
   return (
-    <div className="flex flex-col gap-5 justify-between">
+    <div className="flex flex-col gap-4 justify-between">
       {data.map((column, index) => {
         return (
           <ColumnComponent

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 import Input from "../../components/Input";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/button.svg";
@@ -12,10 +12,10 @@ const BlockButtonComponent = ({
   data,
   onUpdate,
 }: BlockModuleComponentProps<BlockButtonData>) => {
-  const [label, setLabel] = React.useState<string>("");
-  const [url, setUrl] = React.useState<string>("");
+  const [label, setLabel] = useState<string>("");
+  const [url, setUrl] = useState<string>("");
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data.url) {
       setUrl(data.url);
     }
@@ -25,21 +25,21 @@ const BlockButtonComponent = ({
     }
   }, [data]);
 
-  const onChangeLabel = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeLabel = (e: ChangeEvent<HTMLInputElement>) => {
     setLabel(e.target.value);
   };
 
-  const onBlurLabel = (e: React.FocusEvent<HTMLInputElement>) => {
+  const onBlurLabel = (e: FocusEvent<HTMLInputElement>) => {
     if (e.target.value) {
       onUpdate({ ...data, label: e.target.value });
     }
   };
 
-  const onChangeUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeUrl = (e: ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value);
   };
 
-  const onBlurUrl = (e: React.FocusEvent<HTMLInputElement>) => {
+  const onBlurUrl = (e: FocusEvent<HTMLInputElement>) => {
     if (e.target.value) {
       onUpdate({ ...data, url: e.target.value });
     }

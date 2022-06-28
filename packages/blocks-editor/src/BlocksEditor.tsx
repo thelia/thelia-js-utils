@@ -67,8 +67,8 @@ export default function BlocksEditor({
               <BlockContextProvider root>
                 <>
                   <div className="BlocksEditor__content">
-                    <div className="px-4 py-12 md:px-12 xl:px-44 2xl:px-60">
-                      <BlocksContent />
+                    <BlocksContent />
+                    <div className="px-4 md:px-32 lg:px-48 xl:px-72 mb-12">
                       <AddBlocks />
                     </div>
                   </div>

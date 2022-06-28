@@ -1,6 +1,5 @@
 import Tippy from "@tippyjs/react";
-import * as React from "react";
-
+import { ReactNode } from "react";
 import {
   DragDropContext,
   Draggable,
@@ -32,7 +31,7 @@ const DndWrapper = ({
   wrapperClass = "",
 }: {
   id: string;
-  children: React.ReactNode;
+  children: ReactNode;
   onDragEnd: (e: DropResult) => void;
   wrapperClass?: string;
 }) => {
@@ -64,7 +63,7 @@ const DndWrapElement = ({
   wrapperClass = "",
 }: {
   id: string;
-  children: ({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => React.ReactNode;
+  children: ({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => ReactNode;
   index: number;
   wrapperClass?: string;
 }) => {

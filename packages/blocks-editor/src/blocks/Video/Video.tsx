@@ -1,4 +1,3 @@
-import * as React from "react";
 import Input from "../../components/Input";
 import { ReactComponent as Icon } from "./assets/video.svg";
 import {
@@ -7,6 +6,7 @@ import {
   Video,
 } from "../../types/types";
 import { getYouTubeID } from "../../utils/youtube";
+import { IframeHTMLAttributes, useEffect, useState } from "react";
 
 const YouTubeFrame = ({
   url,
@@ -15,7 +15,7 @@ const YouTubeFrame = ({
 }: {
   url?: string;
   className?: string;
-} & React.IframeHTMLAttributes<HTMLIFrameElement>) => (
+} & IframeHTMLAttributes<HTMLIFrameElement>) => (
   <iframe
     {...props}
     className={`${className}`}
@@ -26,16 +26,16 @@ const YouTubeFrame = ({
 );
 
 const BlockVideoComponent = ({ data, onUpdate }: BlockModuleComponentProps<Video>) => {
-  const [url, setUrl] = React.useState<string>("");
-  const [isUrlValid, setIsUrlValid] = React.useState<boolean>(false);
+  const [url, setUrl] = useState<string>("");
+  const [isUrlValid, setIsUrlValid] = useState<boolean>(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data.url) {
       setUrl(data.url);
     }
   }, [data]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (getYouTubeID(url)?.trim().length === 11) {
       setIsUrlValid(true);
     } else {

@@ -194,8 +194,10 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
         );
       })}
 
-      <div className="bg-white border-l-8 border-vermillon rounded-md shadow-md px-4 md:px-14 py-4 md:py-8">
-        <span className="md:text-xl font-extrabold">Ajouter un produit</span>
+      <div className="bg-white border-l-8 border-vermillon rounded-md shadow-md px-4 lg:px-14 py-4 lg:py-8">
+        <span className="text-base text-mediumCharbon font-extrabold">
+          Ajouter un produit
+        </span>
         <div className="mt-4 xl:w-2/3 relative">
           <Input
             onChange={(e) => setQuery(e.target.value)}
