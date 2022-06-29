@@ -29,9 +29,9 @@ const WarningModal = ({
         <button onClick={() => setSaveLocation(sessionStorage)} className="self-end">
           <i className="fa fa-xmark hover:text-vermillon text-xl md:text-3xl"></i>
         </button>
-        <WarningPicto className="mx-auto" />
-        <div className="lg:px-12 lg:pb-12 text-mediumCharbon">
-          <p className="mb-4">
+        <WarningPicto className="mx-auto mb-5" />
+        <div className="lg:px-12 lg:pb-12 text-mediumCharbon flex justify-center items-center flex-col">
+          <p className="mb-4 text-center">
             Ici un petit message pour informer sur l'utilisation de HTML directement dans
             le back-office. Ce message apparait en pop-in à chaque fois que l'utilisateur
             ajoute un bloc de HTML.

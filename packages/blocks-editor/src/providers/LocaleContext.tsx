@@ -1,6 +1,6 @@
 import { ReactElement, createContext, useEffect, useState } from "react";
 
-import { Locale } from "../types";
+import { Locale } from "../types/types";
 
 export const LocaleContext = createContext<{
   currentLocale: Locale["code"];
@@ -31,9 +31,7 @@ export function LocaleProvider({
   }, [locales]);
 
   return (
-    <LocaleContext.Provider
-      value={{ locales, currentLocale, setCurrentLocale }}
-    >
+    <LocaleContext.Provider value={{ locales, currentLocale, setCurrentLocale }}>
       {children}
     </LocaleContext.Provider>
   );

@@ -53,7 +53,6 @@ const BlockControls = ({
           )}
         </button>
       </Tippy>
-
       <Tippy
         delay={[700, 0]}
         disabled={!inLayout && width > 1024}

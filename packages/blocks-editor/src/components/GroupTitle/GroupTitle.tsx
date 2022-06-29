@@ -1,18 +1,13 @@
-import {
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { BlocksGroupContext } from "../../providers/BlockGroupContext";
-import { useQueryClient } from "react-query";
 
 export default function GroupTitle() {
-  const titleRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState<string>("");
   const [isEditing, setIsEditing] = useState<boolean>(false);
+
+  const titleRef = useRef<HTMLInputElement>(null);
+
   const { group, editGroup } = useContext(BlocksGroupContext);
 
   useEffect(() => {

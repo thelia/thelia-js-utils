@@ -1,7 +1,4 @@
-import {
-  BlockModuleComponentProps,
-  BlockPluginDefinition,
-} from "../../types/types";
+import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ProductSearch, useProductsBy } from "../../utils/queries";
 import { Suspense, useEffect, useState } from "react";
 
@@ -13,8 +10,7 @@ export type BlockProductData = {
   productList: string[];
 };
 
-export type BlockProductComponentProps =
-  BlockModuleComponentProps<BlockProductData>;
+export type BlockProductComponentProps = BlockModuleComponentProps<BlockProductData>;
 
 const Product = ({
   productId,
@@ -45,9 +41,7 @@ const Product = ({
         />
       )}
       <div className="flex flex-col md:flex-row md:w-1/5 md:justify-between md:gap-4">
-        <div className="font-semibold text-left">
-          {product?.[0]?.i18n.title}
-        </div>
+        <div className="font-semibold text-left">{product?.[0]?.i18n.title}</div>
         <div className="text-sm md:text-base text-left text-gray-400">
           #{product?.[0]?.reference}
         </div>
@@ -60,9 +54,7 @@ const Product = ({
           onClick={() =>
             onUpdate({
               ...data,
-              productList: [
-                ...reorder(data.productList, productIndex, productIndex - 1),
-              ],
+              productList: [...reorder(data.productList, productIndex, productIndex - 1)],
             })
           }
         >
@@ -70,16 +62,12 @@ const Product = ({
         </button>
 
         <button
-          className={`${
-            productIndex === data.productList.length - 1 && "text-gray-400"
-          }`}
+          className={`${productIndex === data.productList.length - 1 && "text-gray-400"}`}
           disabled={productIndex === data.productList.length - 1}
           onClick={() =>
             onUpdate({
               ...data,
-              productList: [
-                ...reorder(data.productList, productIndex, productIndex + 1),
-              ],
+              productList: [...reorder(data.productList, productIndex, productIndex + 1)],
             })
           }
         >
@@ -100,9 +88,7 @@ const Product = ({
         onClick={() =>
           onUpdate({
             ...data,
-            productList: data.productList.filter(
-              (id: any) => id != product?.[0]?.id
-            ),
+            productList: data.productList.filter((id: any) => id != product?.[0]?.id),
           })
         }
       >
@@ -112,11 +98,7 @@ const Product = ({
   );
 };
 
-function ProductsList({
-  type,
-  value,
-  onUpdate,
-}: ProductSearch & { onUpdate: Function }) {
+function ProductsList({ type, value, onUpdate }: ProductSearch & { onUpdate: Function }) {
   const { data: products } = useProductsBy({ type, value });
   return (
     <ul className="top-full bg-white rounded-md shadow-xl overflow-hidden w-full absolute">
@@ -134,9 +116,7 @@ function ProductsList({
                   className="px-8 py-4 cursor-pointer hover:bg-gray-200 flex flex-col"
                 >
                   <span>{product.i18n.title}</span>
-                  <span className="text-gray-400 text-sm">
-                    #{product.reference}
-                  </span>
+                  <span className="text-gray-400 text-sm">#{product.reference}</span>
                 </li>
               ))}
           </>
@@ -146,8 +126,7 @@ function ProductsList({
               Aucun résultat{" "}
               {value && value.length > 0 ? (
                 <span>
-                  pour "
-                  <span className={`font-bold text-vermillon`}>{value}</span>"
+                  pour "<span className={`font-bold text-vermillon`}>{value}</span>"
                 </span>
               ) : (
                 ""
@@ -165,8 +144,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
   const [query, setQuery] = useState<string>("");
 
   useEffect(
-    () =>
-      query.startsWith("#") ? setSearchByRef(true) : setSearchByRef(false),
+    () => (query.startsWith("#") ? setSearchByRef(true) : setSearchByRef(false)),
     [query]
   );
   const type = searchByRef ? "reference" : "title";

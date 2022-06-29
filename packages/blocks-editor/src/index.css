@@ -4,14 +4,11 @@
 
 /* .BlocksEditor {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-}
-
-.BlocksContent { grid-area: 1 / 1 / 2 / 7; }
-.Sidebar { grid-area: 1 / 7 / 2 / 8; } */
+grid-template-columns: 1fr 232px;
+grid-template-rows: 1fr;
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+} */
 
 input[type="checkbox"]:checked {
   @apply text-mediumCharbon;
@@ -70,6 +67,7 @@ select, textarea {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 30;
 }
 
 @media screen and (max-width: 1500px) {

@@ -48,9 +48,9 @@ const Block = ({
 
   return (
     <div
-      className={`Block mb-3 py-5 rounded-md ${className} ${
+      className={`Block py-5 rounded-md ${className} ${
         inLayout
-          ? "bg-pearlLight shadow-md px-4 md:px-11"
+          ? "bg-pearlLight shadow-md px-4 md:px-11 mb-3"
           : "bg-gradient-to-b from-pearlMedium to-pearlLight px-4 py-12 md:px-32 lg:px-48 xl:px-72"
       }`}
     >

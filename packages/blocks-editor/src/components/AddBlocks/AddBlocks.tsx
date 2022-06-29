@@ -10,7 +10,7 @@ import partition from "lodash/partition";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
 import useWindowSize from "../../hooks/useWindowSize";
-import { useState } from "react";
+import { CSSProperties, ReactNode, useState } from "react";
 
 const AddButton = ({
   plugin,
@@ -19,7 +19,7 @@ const AddButton = ({
 }: {
   plugin: Plugin;
   setIsOpen: Function;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }) => {
   const { addBlock } = useBlocksContext();
 
@@ -56,45 +56,13 @@ const AddButton = ({
   );
 };
 
-export default function AddBlock({
-  excludeLayout,
-}: {
-  excludeLayout?: IBlock["layout"][];
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="flex flex-col items-center justify-center p-4 border border-dotted rounded-md border-greyDark px-4">
-      <div className="p-2 rounded-full bg-pearlLight">
-        <DragIcon />
-      </div>
-      <span className="my-3 text-center">
-        Glissez-déposez le type de contenu souhaité depuis le menu de droite
-      </span>
-      <button
-        className="px-2 text-xs font-semibold tracking-wider uppercase border-2 rounded-md w-max border-vermillon text-vermillon hover:bg-vermillon hover:text-white py-1"
-        onClick={() => setIsOpen(true)}
-      >
-        Ajouter du contenu
-      </button>
-      <AddBlockModal
-        title="Choisissez le contenu souhaité"
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-      >
-        <ModalContent excludeLayout={excludeLayout} setIsOpen={setIsOpen} />
-      </AddBlockModal>
-    </div>
-  );
-}
-
 const AddBlockModal = ({
   children,
   title,
   isOpen,
   setIsOpen,
 }: {
-  children?: React.ReactNode;
+  children?: ReactNode;
   title: string;
   isOpen: boolean;
   setIsOpen: Function;
@@ -188,3 +156,35 @@ const ModalContent = ({
     </ol>
   );
 };
+
+export default function AddBlock({
+  excludeLayout,
+}: {
+  excludeLayout?: IBlock["layout"][];
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="flex flex-col items-center justify-center p-4 border border-dotted rounded-md border-greyDark">
+      <div className="p-2 rounded-full bg-pearlLight">
+        <DragIcon />
+      </div>
+      <span className="my-3 text-center">
+        Glissez-déposez le type de contenu souhaité depuis le menu de droite
+      </span>
+      <button
+        className="px-2 text-xs font-semibold tracking-wider uppercase border-2 rounded-md w-max border-vermillon text-vermillon hover:bg-vermillon hover:text-white py-1"
+        onClick={() => setIsOpen(true)}
+      >
+        Ajouter du contenu
+      </button>
+      <AddBlockModal
+        title="Choisissez le contenu souhaité"
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      >
+        <ModalContent excludeLayout={excludeLayout} setIsOpen={setIsOpen} />
+      </AddBlockModal>
+    </div>
+  );
+}

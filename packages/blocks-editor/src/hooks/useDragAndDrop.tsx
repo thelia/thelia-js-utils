@@ -47,7 +47,7 @@ const DndWrapper = ({
             {children}
             {provided.placeholder}
             {snapshot.isDraggingOver && (
-              <div className="absolute inset-0 opacity-60 bg-pearlMedium"></div>
+              <div className="absolute inset-0 opacity-60"></div>
             )}
           </div>
         )}
