@@ -25,7 +25,7 @@ const BlockControls = ({
         <div
           className={`${
             !inLayout && width > 1024
-              ? "border-y border-l border-mediumGrey px-2 md:px-6"
+              ? "border-y border-l border-mediumGrey px-1 md:px-3 flex items-center"
               : "px-2 sm:px-3"
           } text-darkCharbon`}
         >

@@ -12,6 +12,8 @@ import ReactModal from "react-modal";
 import { Toaster } from "react-hot-toast";
 import ToolBar from "./components/ToolBar";
 import Sidebar from "./components/Sidebar";
+import useWindowSize from "./hooks/useWindowSize";
+import AddBlocks from "./components/AddBlocks";
 
 interface IBlocksEditorProps {
   apiUrl: string;
@@ -30,7 +32,7 @@ const BlocksEditorHeader = ({
   backlink: IBlocksEditorProps["backlink"];
 }) => {
   return (
-    <div className="BlocksEditor__header bg-pearlLight px-4 md:px-32 lg:px-48 xl:px-72 pb-12 pt-10">
+    <div className="BlocksEditor__header bg-pearlLight p-4 sm:p-8 md:px-32 lg:px-24 xl:px-44 2xl:px-72 pb-12 pt-10">
       {backlink ? (
         <div>
           <a href="/admin/TheliaBlocks">Back to BlocksList</a>{" "}
@@ -40,9 +42,11 @@ const BlocksEditorHeader = ({
         Création d'un nouveau Thelia Blocks
       </div>
 
-      <GroupTitle />
+      <div className="flex items-end gap-4">
+        <GroupTitle />
 
-      <GroupLocale />
+        <GroupLocale />
+      </div>
     </div>
   );
 };
@@ -65,6 +69,8 @@ export default function BlocksEditor({
     }
   }, [containerId]);
 
+  const { width } = useWindowSize();
+
   return (
     <LocaleProvider locales={locales}>
       <BlocksProvider api={apiUrl}>
@@ -80,20 +86,24 @@ export default function BlocksEditor({
               <div className="flex justify-between">
                 <BlockContextProvider root>
                   <>
-                    <div className="flex flex-col w-full">
+                    <div className="flex flex-col w-full min-h-screen">
                       <BlocksEditorHeader backlink={backlink} />
 
-                      <div className="BlocksEditor__content w-full bg-pearlMedium">
+                      <div className="BlocksEditor__content h-full flex flex-col justify-between">
                         <BlocksContent />
-                        {/* <div className="p-4 md:px-32 lg:px-48 xl:px-72 mb-12">
-                          <AddBlocks />
-                        </div> */}
+                        {width < 1080 ? (
+                          <div className="p-4 sm:p-8 md:px-32 lg:px-24 xl:px-44 2xl:px-72">
+                            <AddBlocks />
+                          </div>
+                        ) : null}
                         <ToolBar />
                       </div>
                     </div>
-                    <div>
-                      <Sidebar />
-                    </div>
+                    {width > 1080 ? (
+                      <div className="bg-white">
+                        <Sidebar />
+                      </div>
+                    ) : null}
                   </>
                 </BlockContextProvider>
               </div>

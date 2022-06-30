@@ -1,10 +1,7 @@
-import * as React from "react";
-
 import BlockControls from "../BlockControls";
 import { IBlock } from "../../types/types";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
-import Tippy from "@tippyjs/react";
 
 const Block = ({
   block,
@@ -51,7 +48,7 @@ const Block = ({
       className={`Block py-5 rounded-md ${className} ${
         inLayout
           ? "bg-pearlLight shadow-md px-4 md:px-11 mb-3"
-          : "bg-gradient-to-b from-pearlMedium to-pearlLight px-4 py-12 md:px-32 lg:px-48 xl:px-72"
+          : "bg-gradient-to-b from-pearlMedium to-pearlLight p-4 sm:p-8 md:px-32 lg:px-24 xl:px-44 2xl:px-72"
       }`}
     >
       <div className="flex justify-between mb-6">
@@ -63,10 +60,6 @@ const Block = ({
           >
             {currentPlugin.title.fr_FR}
           </div>
-
-          <Tippy content={<span>{currentPlugin?.description?.fr_FR}</span>}>
-            <i className="fa fa-info-circle cursor-help"></i>
-          </Tippy>
         </div>
         <BlockControls
           blockIndex={blockIndex}

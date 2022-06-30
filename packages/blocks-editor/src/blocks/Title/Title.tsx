@@ -1,5 +1,5 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
-import Input from "../../components/Input";
+import { Text, Select } from "../../components/Inputs";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/title.svg";
 
@@ -74,24 +74,24 @@ function BlockTitleComponent({
     <div className="BlockTitle">
       <div className="BlockTitle-field md:w-1/2">
         <div className="flex flex-col">
-          <label htmlFor="title-level">Style</label>
-          <select
+          <Select
             name="title-level"
             id="title-level"
             className="rounded-md"
             onChange={onChangeLevel}
             value={level.toString()}
+            label="Niveau du titre"
           >
             {levels.map(({ label, value }) => (
               <option key={value} value={value}>
                 {label}
               </option>
             ))}
-          </select>
+          </Select>
         </div>
       </div>
       <div className="flex-grow BlockTitle-field mt-4 md:w-1/2">
-        <Input
+        <Text
           type="text"
           name="title-text"
           id="title-text"

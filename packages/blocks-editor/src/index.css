@@ -10,6 +10,10 @@ grid-column-gap: 0px;
 grid-row-gap: 0px;
 } */
 
+button:disabled {
+  @apply cursor-not-allowed;
+}
+
 input[type="checkbox"]:checked {
   @apply text-mediumCharbon;
 }

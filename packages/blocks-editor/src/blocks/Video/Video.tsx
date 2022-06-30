@@ -1,4 +1,4 @@
-import Input from "../../components/Input";
+import { Text } from "../../components/Inputs";
 import { ReactComponent as Icon } from "./assets/video.svg";
 import {
   BlockModuleComponentProps,
@@ -53,9 +53,11 @@ const BlockVideoComponent = ({ data, onUpdate }: BlockModuleComponentProps<Video
         />
       ) : null}
       <div className="bg-white border-l-8 border-vermillon rounded-md shadow-md p-4 md:px-14 md:py-8 mt-8">
-        <div className="font-bold md:text-xl">Ajouter une vidéo depuis YouTube</div>
+        <div className="text-mediumCharbon font-bold md:text-xl">
+          Ajouter une vidéo depuis YouTube
+        </div>
         <div className="BlockVideo-field flex flex-col xl:w-2/3 mt-4">
-          <Input
+          <Text
             name="video-url"
             id="video-url"
             type="text"

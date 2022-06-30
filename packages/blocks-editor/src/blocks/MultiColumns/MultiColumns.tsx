@@ -58,23 +58,31 @@ const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
 export const ColumnIcon = ({
   cols,
   currentCol,
+  asIcon,
 }: {
   cols: number;
-  currentCol: number;
+  currentCol?: number;
+  asIcon?: boolean;
 }) => {
   const { width } = useWindowSize();
 
   return (
     <div
-      className="h-2 rounded-full flex overflow-hidden border bg-white border-white"
+      className={`h-2 rounded-full flex overflow-hidden border ${
+        asIcon ? "bg-darkCharbon border-darkCharbon" : "bg-pearlMedium border-pearlMedium"
+      }`}
       style={{ minWidth: width > 1024 ? "60px" : "40px" }}
     >
       {[...Array(cols)].map((_, index) => (
         <div
           key={index}
           style={{ width: 100 / cols + "%" }}
-          className={`${index !== cols - 1 && "mr-px"} ${
-            currentCol === index ? "bg-white" : "bg-mediumCharbon"
+          className={`${index !== cols - 1 ? "mr-px" : ""} ${
+            currentCol === index
+              ? "bg-white"
+              : asIcon
+              ? "bg-pearlMedium"
+              : "bg-mediumCharbon"
           }`}
         ></div>
       ))}
@@ -102,7 +110,7 @@ const ColumnComponent = ({
         setOpen={setOpen}
         icon={width > 400 && <ColumnIcon cols={data.length} currentCol={index} />}
       />
-      <div className={`xl:py-3 xl:px-16 md:px-12 md:py-7 px-6 py-4 ${!open && "hidden"}`}>
+      <div className={`xl:py-8 xl:px-10 px-6 py-4 ${!open && "hidden"}`}>
         <BlockContextProvider defaultBlocks={column}>
           <>
             <NestedColumn
@@ -178,6 +186,7 @@ const TwoColumns = {
   },
   layout: moduleLayout,
   initialData: [[], []],
+  customIcon: <ColumnIcon asIcon cols={2} />,
 };
 
 const ThreeColumns = {
@@ -190,6 +199,7 @@ const ThreeColumns = {
     fr_FR: "3 Colonnes",
   },
   initialData: [[], [], []],
+  customIcon: <ColumnIcon asIcon cols={3} />,
 };
 
 const FourColumns = {
@@ -201,8 +211,8 @@ const FourColumns = {
     default: "4 Columns",
     fr_FR: "4 Colonnes",
   },
-
   initialData: [[], [], [], []],
+  customIcon: <ColumnIcon asIcon cols={4} />,
 };
 
 const FiveColumns = {
@@ -214,8 +224,8 @@ const FiveColumns = {
     default: "5 Columns",
     fr_FR: "5 Colonnes",
   },
-
   initialData: [[], [], [], [], []],
+  customIcon: <ColumnIcon asIcon cols={5} />,
 };
 
 const SixColumns = {
@@ -227,8 +237,8 @@ const SixColumns = {
     default: "6 Columns",
     fr_FR: "6 Colonnes",
   },
-
   initialData: [[], [], [], [], [], []],
+  customIcon: <ColumnIcon asIcon cols={6} />,
 };
 
 export { TwoColumns, ThreeColumns, FourColumns, FiveColumns, SixColumns };

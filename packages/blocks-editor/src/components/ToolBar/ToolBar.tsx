@@ -16,12 +16,16 @@ const ToolBar = () => {
 
   return (
     <>
-      {blockList.length !== 0 && (
+      {blockList.length > 0 && (
         <>
           <div className="Toolbar w-full z-20 bg-lightCharbon h-20 sticky bottom-0 px-4 py-5 md:px-12 xl:px-44 2xl:px-60 flex gap-2 items-center justify-end text-white">
             <button
               className="Toolbar-view border border-white rounded-md px-3 py-1 hover:text-black hover:bg-white h-full"
               onClick={() => {
+                if (!blockList.length) {
+                  toast.error("Aucun block à afficher");
+                  return;
+                }
                 setShowPreview(Date.now());
               }}
             >

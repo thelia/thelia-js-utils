@@ -49,7 +49,7 @@ const AddButton = ({
         }}
         key={plugin.id}
       >
-        <Icon />
+        {plugin?.customIcon ? plugin?.customIcon : <Icon />}
         {plugin.title.fr_FR}
       </button>
     </Tippy>

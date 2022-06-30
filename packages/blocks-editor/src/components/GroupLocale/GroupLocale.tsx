@@ -1,24 +1,45 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
-import { BlocksGroupContext } from "../../providers/BlockGroupContext";
 import { LocaleContext } from "../../providers/LocaleContext";
+import { Select } from "../Inputs";
 
 export default function GroupLocale() {
-  const { locales, currentLocale, setCurrentLocale } =
-    useContext(LocaleContext);
+  const { locales, currentLocale, setCurrentLocale } = useContext(LocaleContext);
 
-  if (!locales || locales.length <= 0) {
+  /* if (!locales || locales.length <= 0) {
     return null;
-  }
+  } */
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
       }}
-      className="flex gap-8"
+      className="w-1/5"
     >
-      {locales.map((locale) => {
+      <Select
+        placeholder="Sélectionnez"
+        className="rounded-md w-full"
+        name="separator-type"
+        id="separator-type"
+        onChange={(e) => {
+          setCurrentLocale(e.target.value);
+        }}
+        value={currentLocale}
+        label="Langue"
+        info="Sélectionnez la langue de votre Thelia Blocks"
+      >
+        <option className="text-mediumGrey" value="" disabled>
+          Sélectionnez
+        </option>
+        {locales.map((locale) => (
+          <option key={locale.id} value={locale.code}>
+            {locale.title}
+          </option>
+        ))}
+      </Select>
+
+      {/* {locales.map((locale) => {
         return (
           <label
             htmlFor={locale.code}
@@ -39,7 +60,7 @@ export default function GroupLocale() {
             {locale.title}
           </label>
         );
-      })}
+      })} */}
     </form>
   );
 }

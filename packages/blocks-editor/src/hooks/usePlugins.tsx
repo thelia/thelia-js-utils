@@ -16,15 +16,15 @@ import { Plugin } from "../types/types";
 import { nanoid } from "nanoid";
 
 export const TB_DEFAULT_PLUGINS: any = [
-  { id: nanoid(), ...Text },
   { id: nanoid(), ...Title },
+  { id: nanoid(), ...Text },
   { id: nanoid(), ...Button },
-  { id: nanoid(), ...List },
   { id: nanoid(), ...Video },
-  { id: nanoid(), ...Raw },
-  { id: nanoid(), ...Accordion },
   { id: nanoid(), ...Separator },
+  { id: nanoid(), ...Accordion },
   { id: nanoid(), ...Product },
+  { id: nanoid(), ...Raw },
+  { id: nanoid(), ...List },
   ...Object.values(Columns).map((colType) => ({ id: nanoid(), ...colType })),
 ];
 

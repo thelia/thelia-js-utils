@@ -1,4 +1,5 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
+import { TextArea } from "../../components/Inputs";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/text.svg";
 
@@ -32,10 +33,9 @@ function BlockTextComponent({
     <div className="BlockText">
       {/* {data !== undefined ? <Editor /> : null} */}
       {data !== undefined ? (
-        <textarea
+        <TextArea
           className="w-full rounded-md"
           placeholder="Votre texte ici"
-          rows={5}
           onChange={onChangeText}
           onBlur={onBlurText}
           defaultValue={localData}

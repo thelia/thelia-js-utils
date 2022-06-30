@@ -11,7 +11,10 @@ function App() {
   if (!apiUrl) return <div>No API endpoint is defined in .env</div>;
 
   return (
-    <div className="App">
+    <div
+      className="App min-h-screen"
+      style={{ background: "linear-gradient(180deg, #EBEBEB 0%, #F5F5F5 100%)" }}
+    >
       <BlocksEditor
         apiUrl={apiUrl}
         locales={[]}

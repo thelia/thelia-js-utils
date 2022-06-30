@@ -112,9 +112,7 @@ export default function BlocksList({ apiUrl }: { apiUrl: string }) {
   return (
     <BlocksProvider api={apiUrl}>
       <div className="BlocksList">
-        <div>
-          <Toaster />
-        </div>
+        <Toaster />
 
         <div className="mb-8">
           <a href="/admin/TheliaBlocks/new" className="btn btn-danger ">

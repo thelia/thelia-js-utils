@@ -1,5 +1,5 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
-import Input from "../../components/Input";
+import { Text } from "../../components/Inputs";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/button.svg";
 
@@ -48,7 +48,7 @@ const BlockButtonComponent = ({
   return (
     <div className="BlockButton">
       <div className="BlockButton-field">
-        <Input
+        <Text
           type="text"
           name="field-text"
           id="field-text"
@@ -60,7 +60,7 @@ const BlockButtonComponent = ({
         />
       </div>
       <div className="BlockButton-field mt-4">
-        <Input
+        <Text
           type="text"
           name="field-url"
           id="field-url"

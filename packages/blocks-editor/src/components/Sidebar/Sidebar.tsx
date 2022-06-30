@@ -7,8 +7,15 @@ import { ReactComponent as Expand } from "../../../assets/svg/expand.svg";
 import { Plugin } from "../../types/types";
 import Tippy from "@tippyjs/react";
 import BlockTooltip from "../BlockTooltip";
+import { groupBy, partition } from "lodash";
 
-const AddButton = ({ plugin, isOpen }: { plugin: Plugin; isOpen: boolean }) => {
+const AddButton = ({
+  plugin,
+  isSidebarOpen,
+}: {
+  plugin: Plugin;
+  isSidebarOpen: boolean;
+}) => {
   const { addBlock } = useBlocksContext();
 
   const Icon = plugin?.icon;
@@ -25,8 +32,10 @@ const AddButton = ({ plugin, isOpen }: { plugin: Plugin; isOpen: boolean }) => {
       delay={[500, 0]}
     >
       <button
-        className={`BlocksEditor-btn flex items-center bg-pearlMedium hover:bg-pearlLight rounded-md text-mediumCharbon text-sm gap-3 p-2 h-9 ${
-          isOpen ? "w-52" : "w-max"
+        className={`BlocksEditor-btn flex ${
+          isSidebarOpen && plugin?.customIcon ? "flex-col h-max py-6" : "h-9"
+        } items-center bg-pearlMedium hover:bg-pearlLight rounded-md text-mediumCharbon text-sm gap-3 p-2 ${
+          isSidebarOpen ? "w-52" : "w-9"
         }`}
         onClick={() =>
           addBlock({
@@ -38,35 +47,100 @@ const AddButton = ({ plugin, isOpen }: { plugin: Plugin; isOpen: boolean }) => {
         }
         key={plugin.id}
       >
-        <Icon className="w-6" />
-        {isOpen ? <>{plugin.title.fr_FR}</> : null}
+        {isSidebarOpen && plugin?.customIcon ? (
+          plugin?.customIcon
+        ) : (
+          <Icon className="w-6" />
+        )}
+
+        {isSidebarOpen ? <>{plugin.title.fr_FR}</> : null}
       </button>
     </Tippy>
   );
 };
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   const plugins = usePlugins();
 
-  /* const [commonBlocks, layoutPlugins] = partition(plugins, (i) => !i.layout);
-  const layoutPluginsByType = groupBy(layoutPlugins, "layout"); */
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isDisplayingSubMenu, setIsDisplayingSubMenu] = useState(false);
+
+  const [commonBlocks, layoutPlugins] = partition(plugins, (i) => !i.layout);
+  const layoutPluginsByType = groupBy(layoutPlugins, "layout");
+
+  const [pluginList, setPluginList] = useState<Plugin[]>(commonBlocks || []);
 
   return (
     <div className="Sidebar sticky top-0 z-20 flex flex-col w-max">
       <div className="Sidebar-header bg-darkCharbon text-white p-5">
-        <button onClick={() => setIsOpen(!isOpen)} className={`${isOpen && "mr-5"}`}>
-          {isOpen ? <Retract /> : <Expand />}
+        <button
+          onClick={() => {
+            setIsSidebarOpen(!isSidebarOpen);
+
+            if (isDisplayingSubMenu) {
+              setPluginList(commonBlocks);
+              setIsDisplayingSubMenu(false);
+            }
+          }}
+          className={`${isSidebarOpen && "mr-5"}`}
+        >
+          {isSidebarOpen ? <Retract /> : <Expand />}
         </button>
-        {isOpen ? <span className="font-bold">Contenus</span> : null}
+        {isSidebarOpen ? <span className="font-bold">Contenus</span> : null}
       </div>
 
-      <div className="Sidebar-content p-3 bg-white h-full">
+      <div className="Sidebar-content p-3 h-full">
+        {isDisplayingSubMenu && (
+          <button
+            className="bg-pearlMedium hover:bg-pearlLight text-mediumCharbon text-sm p-2 px-3 rounded-md mb-2 flex gap-3 w-full items-center"
+            onClick={() => {
+              setPluginList(commonBlocks);
+              setIsDisplayingSubMenu(false);
+            }}
+          >
+            <i className="fa fa-chevron-left"></i>
+            <span className="font-bold">Retour</span>
+          </button>
+        )}
+
         <ol className="flex flex-col gap-2">
-          {plugins.map((plugin) => (
-            <AddButton plugin={plugin} isOpen={isOpen} key={plugin.id} />
+          {pluginList.map((plugin) => (
+            <AddButton plugin={plugin} isSidebarOpen={isSidebarOpen} key={plugin.id} />
           ))}
+
+          {!isDisplayingSubMenu &&
+            Object.entries(layoutPluginsByType).map(
+              ([layoutType, layoutPluginsByType], index) => {
+                const LayoutIcon = layoutPluginsByType[index].icon;
+
+                return (
+                  <li key={index} className="inline-block BlocksEditor-dropdown group">
+                    {layoutPluginsByType.length === 1 ? (
+                      <AddButton
+                        plugin={layoutPluginsByType[index]}
+                        isSidebarOpen={isSidebarOpen}
+                      />
+                    ) : (
+                      <button
+                        className={`BlocksEditor-btn flex items-center bg-pearlMedium hover:bg-pearlLight rounded-md text-mediumCharbon text-sm gap-3 p-2 h-9 ${
+                          isSidebarOpen ? "w-52" : "w-9"
+                        }`}
+                        onClick={() => {
+                          setPluginList(layoutPluginsByType);
+                          setIsDisplayingSubMenu(true);
+                          setIsSidebarOpen(true);
+                        }}
+                        key={index}
+                      >
+                        <LayoutIcon />
+
+                        {isSidebarOpen ? layoutType : null}
+                      </button>
+                    )}
+                  </li>
+                );
+              }
+            )}
         </ol>
       </div>
     </div>

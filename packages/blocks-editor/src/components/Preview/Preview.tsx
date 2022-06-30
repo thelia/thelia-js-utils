@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Iframe from "../Iframe/Iframe";
 import ReactModal from "react-modal";
@@ -35,18 +35,16 @@ export default function Preview({
   }
 
   return (
-    <div>
-      <ReactModal
-        onRequestClose={() => setIsOpen(false)}
-        isOpen={isOpen}
-        overlayClassName="Overlay"
-        className="Modal-TheliaBlocks"
-      >
-        <button onClick={() => setIsOpen(false)} className="bg-red">
-          close
-        </button>
-        {preview.data ? <Iframe content={preview.data} /> : null}
-      </ReactModal>
-    </div>
+    <ReactModal
+      onRequestClose={() => setIsOpen(false)}
+      isOpen={isOpen}
+      overlayClassName="Overlay"
+      className="Modal-TheliaBlocks"
+    >
+      <button onClick={() => setIsOpen(false)} className="bg-red">
+        Close
+      </button>
+      {preview.data ? <Iframe content={preview.data} /> : null}
+    </ReactModal>
   );
 }

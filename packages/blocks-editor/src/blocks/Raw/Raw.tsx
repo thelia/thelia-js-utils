@@ -3,6 +3,7 @@ import { ReactComponent as Icon } from "./assets/html.svg";
 import Modal from "react-modal";
 import { ReactComponent as WarningPicto } from "../../../assets/svg/html-warning.svg";
 import { ChangeEvent, FocusEvent, useEffect, useLayoutEffect, useState } from "react";
+import { TextArea } from "../../components/Inputs";
 
 export type BlockRawData = {
   value: string;
@@ -100,10 +101,9 @@ function BlockRawComponent({ data, onUpdate }: BlockModuleComponentProps<BlockRa
 
   return (
     <div className="w-full">
-      <textarea
+      <TextArea
         className="w-full rounded-md"
         placeholder="Value"
-        rows={5}
         onChange={onChangeValue}
         onBlur={onBlurValue}
         value={value}

@@ -4,6 +4,7 @@ import { ReactComponent as Icon } from "./assets/accordion.svg";
 
 import { nanoid } from "nanoid";
 import { ChangeEvent, useEffect, useState } from "react";
+import { Select } from "../../components/Inputs";
 
 enum typeList {
   Unordered = "ul",
@@ -71,20 +72,20 @@ function BlockListComponent({
   return (
     <div className="BlockList">
       <div className="BlockList-config flex flex-col w-1/3 mb-4">
-        <label htmlFor="title-level">Type</label>
-        <select
+        <Select
           name="title-level"
           id="title-level"
           className="rounded-md border p-2"
           onChange={onChangeType}
           value={data.type}
+          label="Type"
         >
           {types.map(({ label, value }) => (
             <option key={value} value={value}>
               {label}
             </option>
           ))}
-        </select>
+        </Select>
       </div>
       <div className="BlockList-list flex flex-col gap-4">
         {listItems.map((listItem) => (

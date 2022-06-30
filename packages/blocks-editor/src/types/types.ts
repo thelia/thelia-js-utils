@@ -120,5 +120,6 @@ export type Plugin = BlockModuleI18n & {
   readonly component: Function;
   initialData: Record<string, any>;
   icon: FunctionComponent<SVGProps<SVGSVGElement>>;
+  customIcon?: JSX.Element;
   layout?: string;
 };

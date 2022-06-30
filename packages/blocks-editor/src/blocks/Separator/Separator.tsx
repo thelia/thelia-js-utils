@@ -1,5 +1,5 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
-import Input from "../../components/Input";
+import { Text, Select } from "../../components/Inputs";
 import { BlockModuleComponentProps } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/separator.svg";
 
@@ -55,22 +55,23 @@ const BlockSeparatorComponent = ({
       <div className="BlockSeparator-field">
         <div className="flex justify-between">
           <div className="flex flex-col w-full md:w-1/2 mb-6">
-            <label htmlFor="separator-type">Style du séparateur</label>
-            <select
+            <Select
               className="rounded-md mb-4"
               name="separator-type"
               id="separator-type"
               onChange={onChangeType}
               value={type.toString()}
+              label="Style du séparateur"
             >
               {types.map(({ label, value }) => (
                 <option key={value} value={value}>
                   {label}
                 </option>
               ))}
-            </select>
+            </Select>
 
-            <Input
+            <label htmlFor="separator-size">Taille du séparateur</label>
+            <input
               type="number"
               name="separator-size"
               id="separator-size"
@@ -78,7 +79,6 @@ const BlockSeparatorComponent = ({
               value={size.toString()}
               onChange={onChangeSize}
               onBlur={onBlurSize}
-              label="Taille du séparateur"
             />
           </div>
         </div>

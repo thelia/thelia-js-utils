@@ -3,7 +3,7 @@ import { ProductSearch, useProductsBy } from "../../utils/queries";
 import { Suspense, useEffect, useState } from "react";
 
 import { ReactComponent as Icon } from "./assets/product.svg";
-import Input from "../../components/Input";
+import { Text } from "../../components/Inputs";
 import { reorder } from "../../utils/array";
 
 export type BlockProductData = {
@@ -173,11 +173,11 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
       })}
 
       <div className="bg-white border-l-8 border-vermillon rounded-md shadow-md px-4 lg:px-14 py-4 lg:py-8">
-        <span className="text-base text-mediumCharbon font-extrabold">
+        <span className="text-mediumCharbon font-bold md:text-xl">
           Ajouter un produit
         </span>
         <div className="mt-4 xl:w-2/3 relative">
-          <Input
+          <Text
             onChange={(e) => setQuery(e.target.value)}
             value={query}
             placeholder="Référence, nom, ..."

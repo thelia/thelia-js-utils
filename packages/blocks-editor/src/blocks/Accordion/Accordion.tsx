@@ -64,7 +64,7 @@ const AccordionContentComponent = ({
       className="flex flex-col rounded-md shadow-md border-l-8 border-l-vermillon bg-white"
     >
       <LayoutHeader title="Accordéon" open={open} setOpen={setOpen} />
-      <div className={`xl:py-3 xl:px-16 px-12 py-7 ${!open ? "hidden" : null}`}>
+      <div className={`xl:py-8 xl:px-10 px-6 py-4 ${!open ? "hidden" : null}`}>
         <BlockContextProvider defaultBlocks={blocks}>
           <>
             <NestedBlocks
