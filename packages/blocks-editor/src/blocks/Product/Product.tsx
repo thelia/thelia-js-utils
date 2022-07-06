@@ -6,6 +6,8 @@ import { ReactComponent as Icon } from "./assets/product.svg";
 import { Text } from "../../components/Inputs";
 import { reorder } from "../../utils/array";
 
+import "./Product.module.css";
+
 export type BlockProductData = {
   productList: string[];
 };
@@ -26,30 +28,27 @@ const Product = ({
   const { data: product } = useProductsBy({ type: "ids", value: productId });
 
   return (
-    <div className="w-full flex justify-between bg-white rounded-md gap-4 md:gap-8 p-2 mb-4 items-center sm:h-20">
+    <div className="BlockProduct__Product">
       {product?.[0]?.images.length > 0 ? (
         <img
-          className="h-full hidden sm:block"
+          className="Product__Image"
           src={product?.[0]?.images[0].url}
           alt="product image"
         />
       ) : (
         <img
-          className="h-full hidden sm:block"
+          className="Product__Image"
           src="https://via.placeholder.com/150"
           alt="product image"
         />
       )}
-      <div className="flex flex-col md:flex-row md:w-1/5 md:justify-between md:gap-4">
-        <div className="font-semibold text-left">{product?.[0]?.i18n.title}</div>
-        <div className="text-sm md:text-base text-left text-gray-400">
-          #{product?.[0]?.reference}
-        </div>
+      <div className="Product__Infos">
+        <div className="Product__Infos__Title">{product?.[0]?.i18n.title}</div>
+        <div className="Product__Infos__Ref">#{product?.[0]?.reference}</div>
       </div>
 
-      <div className="md:border-x md:border-gray-400 flex gap-8 px-2 md:px-4">
+      <div className="Product__Actions">
         <button
-          className={`${productIndex === 0 && "text-gray-400"}`}
           disabled={productIndex === 0}
           onClick={() =>
             onUpdate({
@@ -62,7 +61,6 @@ const Product = ({
         </button>
 
         <button
-          className={`${productIndex === data.productList.length - 1 && "text-gray-400"}`}
           disabled={productIndex === data.productList.length - 1}
           onClick={() =>
             onUpdate({
@@ -78,13 +76,13 @@ const Product = ({
         target="_blank"
         rel="noopener noreferrer"
         href={product?.[0]?.url}
-        className="hidden font-semibold tracking-wider border-2 border-vermillon text-vermillon hover:bg-vermillon hover:text-white px-2 md:px-4 md:py-1 rounded-md text-center lg:flex items-center"
+        className="Product__Link"
       >
-        <span className="md:mr-2">Fiche produit</span>
-        <i className="fa fa-arrow-right hidden md:block"></i>
+        <span className="Product__Link__Label">Fiche produit</span>
+        <i className="Product__Link__Icon fa fa-arrow-right"></i>
       </a>
       <button
-        className="md:self-start hover:text-vermillon pr-1"
+        className="Product__Delete"
         onClick={() =>
           onUpdate({
             ...data,
@@ -98,46 +96,48 @@ const Product = ({
   );
 };
 
-function ProductsList({ type, value, onUpdate }: ProductSearch & { onUpdate: Function }) {
+const ProductsList = ({
+  type,
+  value,
+  onUpdate,
+}: { onUpdate: Function } & ProductSearch) => {
   const { data: products } = useProductsBy({ type, value });
   return (
-    <ul className="top-full bg-white rounded-md shadow-xl overflow-hidden w-full absolute">
-      <>
-        {products?.length > 0 ? (
-          <>
-            {products
-              ?.filter((product: any) => !products.includes(product.id))
-              .map((product: any) => (
-                <li
-                  key={product.id}
-                  onClick={() => {
-                    onUpdate(product);
-                  }}
-                  className="px-8 py-4 cursor-pointer hover:bg-gray-200 flex flex-col"
-                >
-                  <span>{product.i18n.title}</span>
-                  <span className="text-gray-400 text-sm">#{product.reference}</span>
-                </li>
-              ))}
-          </>
-        ) : value && value.length > 1 ? (
-          <li className="px-8 py-4 text-center">
-            <span>
-              Aucun résultat{" "}
-              {value && value.length > 0 ? (
-                <span>
-                  pour "<span className={`font-bold text-vermillon`}>{value}</span>"
-                </span>
-              ) : (
-                ""
-              )}
-            </span>
-          </li>
-        ) : null}
-      </>
+    <ul className="ProductList">
+      {products?.length > 0 ? (
+        <>
+          {products
+            ?.filter((product: any) => !products.includes(product.id))
+            .map((product: any) => (
+              <li
+                key={product.id}
+                onClick={() => {
+                  onUpdate(product);
+                }}
+                className="ProductList__Item"
+              >
+                <span>{product.i18n.title}</span>
+                <span className="ProductList__Item__Ref">#{product.reference}</span>
+              </li>
+            ))}
+        </>
+      ) : value && value.length > 1 ? (
+        <li className="ProductList__NoResults">
+          <span>
+            Aucun résultat{" "}
+            {value && value.length > 0 ? (
+              <span>
+                pour "<span className="highlighted">{value}</span>"
+              </span>
+            ) : (
+              ""
+            )}
+          </span>
+        </li>
+      ) : null}
     </ul>
   );
-}
+};
 
 function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
   const [searchByRef, setSearchByRef] = useState<boolean>(false);
@@ -156,7 +156,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
         return (
           <Suspense
             fallback={
-              <div className="text-center py-4 text-2xl text-vermillon">
+              <div className="BlockProduct__Loader">
                 <i className="fa fa-circle-notch fa-spin"></i>
               </div>
             }
@@ -172,16 +172,14 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
         );
       })}
 
-      <div className="bg-white border-l-8 border-vermillon rounded-md shadow-md px-4 lg:px-14 py-4 lg:py-8">
-        <span className="text-mediumCharbon font-bold md:text-xl">
-          Ajouter un produit
-        </span>
-        <div className="mt-4 xl:w-2/3 relative">
+      <div className="BlockProduct__Content">
+        <span className="BlockProduct__Content__Title">Ajouter un produit</span>
+        <div className="BlockProduct__Content__Search">
           <Text
             onChange={(e) => setQuery(e.target.value)}
             value={query}
             placeholder="Référence, nom, ..."
-            name="product-field"
+            id="BlockProduct-field-product"
             type="text"
             className={searchByRef ? "text-vermillon" : ""}
             icon={<i className="fa fa-search text-vermillon"></i>}
@@ -190,7 +188,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
           />
           <Suspense
             fallback={
-              <div className="text-center py-4 text-2xl text-vermillon">
+              <div className="BlockProduct__Loader">
                 <i className="fa fa-circle-notch fa-spin"></i>
               </div>
             }

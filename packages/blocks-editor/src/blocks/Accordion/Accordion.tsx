@@ -9,6 +9,8 @@ import LayoutHeader from "../../components/LayoutHeader";
 import { ReactComponent as Icon } from "./assets/accordion.svg";
 import { useEffect, useState } from "react";
 
+import "./Accordion.module.css";
+
 type AccordionContentData = IBlock[];
 
 type AccordionData = AccordionContentData[];
@@ -34,13 +36,7 @@ const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
           {blockList.map((block, index) => (
             <DndWrapElement key={block.id} id={block.id} index={index}>
               {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
-                <Block
-                  DndDragHandle={DndDragHandle}
-                  inLayout
-                  key={index}
-                  className="border-l-8 border-l-lighterVermillon"
-                  block={block}
-                />
+                <Block DndDragHandle={DndDragHandle} inLayout key={index} block={block} />
               )}
             </DndWrapElement>
           ))}
@@ -59,12 +55,9 @@ const AccordionContentComponent = ({
   const [open, setOpen] = useState(true);
 
   return (
-    <div
-      key={index}
-      className="flex flex-col rounded-md shadow-md border-l-8 border-l-vermillon bg-white"
-    >
+    <div key={index} className="BlockAccordion">
       <LayoutHeader title="Accordéon" open={open} setOpen={setOpen} />
-      <div className={`xl:py-8 xl:px-10 px-6 py-4 ${!open ? "hidden" : null}`}>
+      <div className={`${!open ? "BlockAccordion--closed" : "BlockAccordion__Content"}`}>
         <BlockContextProvider defaultBlocks={blocks}>
           <>
             <NestedBlocks
@@ -89,7 +82,7 @@ const AccordionComponent = ({
   onUpdate,
 }: BlockModuleComponentProps<AccordionData>) => {
   return (
-    <div className="flex flex-col gap-5 justify-between">
+    <>
       {data.map((blocks, index) => {
         return (
           <AccordionContentComponent
@@ -101,7 +94,7 @@ const AccordionComponent = ({
           />
         );
       })}
-    </div>
+    </>
   );
 };
 

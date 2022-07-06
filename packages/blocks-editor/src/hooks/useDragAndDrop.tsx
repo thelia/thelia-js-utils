@@ -7,6 +7,7 @@ import {
   Droppable,
   DropResult,
 } from "react-beautiful-dnd";
+import { ReactComponent as DragHandle } from "../../assets/svg/drag-handle.svg";
 
 const DndDragHandle = ({
   dragHandleProps,
@@ -18,7 +19,7 @@ const DndDragHandle = ({
   return (
     <div className={`BlockWrapper-dragHandle ${className}`} {...dragHandleProps}>
       <Tippy content="Faites glisser l'élément pour le déplacer" delay={[700, 0]}>
-        <i className="fa fa-bars"></i>
+        <DragHandle />
       </Tippy>
     </div>
   );
@@ -40,15 +41,13 @@ const DndWrapper = ({
       <Droppable droppableId={id}>
         {(provided, snapshot) => (
           <div
-            className={`${wrapperClass} relative`}
+            className={`DndWrapper ${wrapperClass}`}
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
             {children}
             {provided.placeholder}
-            {snapshot.isDraggingOver && (
-              <div className="absolute inset-0 opacity-60"></div>
-            )}
+            {snapshot.isDraggingOver && <div className="DndOverlay"></div>}
           </div>
         )}
       </Droppable>

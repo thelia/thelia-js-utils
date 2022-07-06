@@ -1,3 +1,5 @@
+import "./BlockTooltip.module.css";
+
 const BlockTooltip = ({
   title,
   description,
@@ -7,8 +9,8 @@ const BlockTooltip = ({
 }) => {
   return (
     <div className="BlockTooltip">
-      <p className="font-semibold">{title}</p>
-      {description && <p className="mt-2 text-sm">{description}</p>}
+      <p className="BlockTooltip__Title">{title}</p>
+      {description && <p className="BlockTooltip__Description">{description}</p>}
     </div>
   );
 };

@@ -8,6 +8,8 @@ import {
 import { getYouTubeID } from "../../utils/youtube";
 import { IframeHTMLAttributes, useEffect, useState } from "react";
 
+import "./Video.module.css";
+
 const YouTubeFrame = ({
   url,
   className,
@@ -48,18 +50,15 @@ const BlockVideoComponent = ({ data, onUpdate }: BlockModuleComponentProps<Video
       {url.length > 0 && isUrlValid ? (
         <YouTubeFrame
           url={getYouTubeID(url)?.trim()}
-          className="w-full lg:w-1/3"
+          className="BlockVideo__Frame"
           style={{ aspectRatio: "16/9" }}
         />
       ) : null}
-      <div className="bg-white border-l-8 border-vermillon rounded-md shadow-md p-4 md:px-14 md:py-8 mt-8">
-        <div className="text-mediumCharbon font-bold md:text-xl">
-          Ajouter une vidéo depuis YouTube
-        </div>
-        <div className="BlockVideo-field flex flex-col xl:w-2/3 mt-4">
+      <div className="BlockVideo__Content">
+        <div className="BlockVideo__Content__Title">Ajouter une vidéo depuis YouTube</div>
+        <div className="BlockVideo__Content__Search">
           <Text
-            name="video-url"
-            id="video-url"
+            id="BlockVideo-field-url"
             type="text"
             placeholder="URL de la vidéo"
             className={`${
@@ -68,7 +67,7 @@ const BlockVideoComponent = ({ data, onUpdate }: BlockModuleComponentProps<Video
             onChange={(e) => setUrl(e.target.value)}
             onBlur={(e) => onUpdate({ ...data, url: e.target.value })}
             value={url}
-            icon={<i className="fa fa-link text-darkCharbon"></i>}
+            icon={<i className="fa fa-link"></i>}
             iconAlignment="left"
             isValid={isUrlValid}
             label="URL de la vidéo"

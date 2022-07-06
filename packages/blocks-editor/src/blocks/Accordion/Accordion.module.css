@@ -1,0 +1,11 @@
+.BlockAccordion {
+  @apply flex flex-col rounded-md shadow-md border-l-8 border-l-vermillon bg-white;
+
+  &__Content {
+    @apply xl:py-8 xl:px-10 px-6 py-4;
+  }
+
+  &--closed {
+    @apply hidden;
+  }
+}

@@ -1,0 +1,7 @@
+.DndWrapper {
+  @apply relative;
+}
+
+.DndOverlay {
+  @apply absolute inset-0 opacity-60;
+}

@@ -1,0 +1,35 @@
+.BlockControls {
+  @apply flex;
+}
+
+.BlockControl {
+  @apply border-mediumGrey flex gap-2 tracking-wider items-center px-2 md:px-6 text-darkCharbon;
+
+  &--danger {
+    @apply text-error;
+  }
+
+  &--left {
+    @apply border-y border-l;
+  }
+
+  &--right {
+    @apply border-y border-r;
+  }
+
+  &--center {
+    @apply border;
+  }
+
+  &--drag {
+    @apply border-y border-l px-1 md:px-3;
+  }
+
+  &__Label {
+    @apply uppercase text-xs font-semibold;
+  }
+}
+
+.NestedBlockControl {
+  @apply px-2 sm:px-3;
+}

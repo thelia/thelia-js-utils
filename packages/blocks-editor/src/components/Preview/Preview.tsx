@@ -5,6 +5,8 @@ import ReactModal from "react-modal";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePreviewGroup } from "../../utils/queries";
 
+import "./Preview.module.css";
+
 export default function Preview({
   timestamp,
   data,
@@ -27,7 +29,7 @@ export default function Preview({
   }, [timestamp]);
 
   if (preview.isLoading) {
-    return <div className="text-green text-4xl">Chargement</div>;
+    return <div className="Preview__Loader">Chargement</div>;
   }
 
   if (preview.isError) {
@@ -41,7 +43,7 @@ export default function Preview({
       overlayClassName="Overlay"
       className="Modal-TheliaBlocks"
     >
-      <button onClick={() => setIsOpen(false)} className="bg-red">
+      <button onClick={() => setIsOpen(false)} className="Preview__Close">
         Close
       </button>
       {preview.data ? <Iframe content={preview.data} /> : null}

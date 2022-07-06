@@ -1,0 +1,45 @@
+.BlockMultiColumns {
+  &__Wrapper {
+    @apply flex flex-col gap-4 justify-between;
+  }
+}
+
+.BlockColumn {
+  @apply flex flex-col rounded-md shadow-md border-l-8 border-l-vermillon bg-white;
+
+  &__Content {
+    @apply xl:py-8 xl:px-10 px-6 py-4;
+  }
+
+  &--closed {
+    @apply hidden;
+  }
+}
+
+.ColumnIcon {
+  @apply h-2 rounded-full flex overflow-hidden border;
+
+  &--asCompactIcon {
+    @apply bg-darkCharbon border-darkCharbon;
+  }
+
+  &--asLayoutIcon {
+    @apply bg-pearlMedium border-pearlMedium;
+  }
+
+  &__Chip {
+    @apply mr-px;
+
+    &--asCompactIcon {
+      @apply bg-pearlMedium;
+    }
+
+    &--asLayoutIcon {
+      @apply bg-mediumCharbon;
+    }
+    
+    &--current {
+      @apply bg-white;
+    }
+  }
+}

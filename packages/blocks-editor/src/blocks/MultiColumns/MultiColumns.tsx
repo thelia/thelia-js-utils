@@ -10,6 +10,8 @@ import useWindowSize from "../../hooks/useWindowSize";
 import LayoutHeader from "../../components/LayoutHeader";
 import { BlockModuleComponentProps, IBlock } from "../../types/types";
 
+import "./MultiColumns.module.css";
+
 type ColumnData = IBlock[];
 
 type MultiColumnsData = ColumnData[];
@@ -39,13 +41,7 @@ const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
           {blockList.map((block, index) => (
             <DndWrapElement key={block.id} id={block.id} index={index}>
               {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
-                <Block
-                  DndDragHandle={DndDragHandle}
-                  inLayout
-                  key={index}
-                  className="border-l-8 border-l-lighterVermillon"
-                  block={block}
-                />
+                <Block DndDragHandle={DndDragHandle} inLayout key={index} block={block} />
               )}
             </DndWrapElement>
           ))}
@@ -68,8 +64,10 @@ export const ColumnIcon = ({
 
   return (
     <div
-      className={`h-2 rounded-full flex overflow-hidden border ${
-        asIcon ? "bg-darkCharbon border-darkCharbon" : "bg-pearlMedium border-pearlMedium"
+      className={`${
+        asIcon
+          ? "ColumnIcon ColumnIcon--asCompactIcon"
+          : "ColumnIcon ColumnIcon--asLayoutIcon"
       }`}
       style={{ minWidth: width > 1024 ? "60px" : "40px" }}
     >
@@ -77,12 +75,12 @@ export const ColumnIcon = ({
         <div
           key={index}
           style={{ width: 100 / cols + "%" }}
-          className={`${index !== cols - 1 ? "mr-px" : ""} ${
+          className={`${index !== cols - 1 ? "ColumnIcon__Chip" : ""} ${
             currentCol === index
-              ? "bg-white"
+              ? "ColumnIcon__Chip--current"
               : asIcon
-              ? "bg-pearlMedium"
-              : "bg-mediumCharbon"
+              ? "ColumnIcon__Chip--asCompactIcon"
+              : "ColumnIcon__Chip--asLayoutIcon"
           }`}
         ></div>
       ))}
@@ -100,17 +98,14 @@ const ColumnComponent = ({
   const { width } = useWindowSize();
 
   return (
-    <div
-      key={index}
-      className="flex flex-col rounded-md shadow-md border-l-8 border-l-vermillon bg-white"
-    >
+    <div key={index} className="BlockColumn">
       <LayoutHeader
         title={`Colonne #${index + 1}`}
         open={open}
         setOpen={setOpen}
         icon={width > 400 && <ColumnIcon cols={data.length} currentCol={index} />}
       />
-      <div className={`xl:py-8 xl:px-10 px-6 py-4 ${!open && "hidden"}`}>
+      <div className={`${!open ? "BlockColumn--closed" : "BlockColumn__Content"}`}>
         <BlockContextProvider defaultBlocks={column}>
           <>
             <NestedColumn
@@ -135,7 +130,7 @@ const MultiColumnsComponent = ({
   onUpdate,
 }: BlockModuleComponentProps<MultiColumnsData>) => {
   return (
-    <div className="flex flex-col gap-4 justify-between">
+    <div className="BlockMultiColumns__Wrapper">
       {data.map((column, index) => {
         return (
           <ColumnComponent

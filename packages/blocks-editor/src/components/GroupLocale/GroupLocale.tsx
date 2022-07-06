@@ -3,6 +3,8 @@ import { useContext } from "react";
 import { LocaleContext } from "../../providers/LocaleContext";
 import { Select } from "../Inputs";
 
+import "./GroupLocale.module.css";
+
 export default function GroupLocale() {
   const { locales, currentLocale, setCurrentLocale } = useContext(LocaleContext);
 
@@ -15,13 +17,11 @@ export default function GroupLocale() {
       onSubmit={(e) => {
         e.preventDefault();
       }}
-      className="w-1/5"
+      className="GroupLocale__Wrapper"
     >
       <Select
         placeholder="Sélectionnez"
-        className="rounded-md w-full"
-        name="separator-type"
-        id="separator-type"
+        id="GroupLocale-field-locale"
         onChange={(e) => {
           setCurrentLocale(e.target.value);
         }}
@@ -29,7 +29,7 @@ export default function GroupLocale() {
         label="Langue"
         info="Sélectionnez la langue de votre Thelia Blocks"
       >
-        <option className="text-mediumGrey" value="" disabled>
+        <option value="" disabled>
           Sélectionnez
         </option>
         {locales.map((locale) => (

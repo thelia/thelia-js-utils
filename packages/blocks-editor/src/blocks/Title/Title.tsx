@@ -3,6 +3,8 @@ import { Text, Select } from "../../components/Inputs";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/title.svg";
 
+import "./Title.module.css";
+
 export type BlockTitleData = {
   level: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   text: string;
@@ -39,10 +41,10 @@ const levels = [
   },
 ];
 
-function BlockTitleComponent({
+const BlockTitleComponent = ({
   data,
   onUpdate,
-}: BlockModuleComponentProps<BlockTitleData>) {
+}: BlockModuleComponentProps<BlockTitleData>) => {
   const [level, setLevel] = useState<Number>(initialData.level);
   const [text, setText] = useState<string>(initialData.text);
 
@@ -72,39 +74,30 @@ function BlockTitleComponent({
 
   return (
     <div className="BlockTitle">
-      <div className="BlockTitle-field md:w-1/2">
-        <div className="flex flex-col">
-          <Select
-            name="title-level"
-            id="title-level"
-            className="rounded-md"
-            onChange={onChangeLevel}
-            value={level.toString()}
-            label="Niveau du titre"
-          >
-            {levels.map(({ label, value }) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </Select>
-        </div>
-      </div>
-      <div className="flex-grow BlockTitle-field mt-4 md:w-1/2">
-        <Text
-          type="text"
-          name="title-text"
-          id="title-text"
-          className="rounded-md"
-          value={text}
-          onChange={onChangeText}
-          onBlur={onBlurText}
-          placeholder="Votre titre ici"
-        />
-      </div>
+      <Select
+        id="BlockTitle-field-level"
+        onChange={onChangeLevel}
+        value={level.toString()}
+        label="Niveau du titre"
+      >
+        {levels.map(({ label, value }) => (
+          <option key={value} value={value}>
+            {label}
+          </option>
+        ))}
+      </Select>
+
+      <Text
+        type="text"
+        id="BlockTitle-field-text"
+        value={text}
+        onChange={onChangeText}
+        onBlur={onBlurText}
+        placeholder="Votre titre ici"
+      />
     </div>
   );
-}
+};
 
 const initialData: BlockTitleData = {
   level: 0,

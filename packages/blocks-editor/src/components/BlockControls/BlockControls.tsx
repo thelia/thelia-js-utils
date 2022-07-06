@@ -1,8 +1,8 @@
-import * as React from "react";
-
 import Tippy from "@tippyjs/react";
 import useWindowSize from "../../hooks/useWindowSize";
 import { useBlocksContext } from "../../hooks/useBlockContext";
+
+import "./BlockControls.module.css";
 
 const BlockControls = ({
   blockId,
@@ -20,14 +20,14 @@ const BlockControls = ({
   const { width } = useWindowSize();
 
   return (
-    <div className="flex">
+    <div className="BlockControls">
       {DndDragHandle && (
         <div
           className={`${
             !inLayout && width > 1024
-              ? "border-y border-l border-mediumGrey px-1 md:px-3 flex items-center"
-              : "px-2 sm:px-3"
-          } text-darkCharbon`}
+              ? "BlockControl BlockControl--drag"
+              : "NestedBlockControl"
+          }`}
         >
           <DndDragHandle />
         </div>
@@ -41,15 +41,15 @@ const BlockControls = ({
         <button
           className={`${
             !inLayout && width > 1024
-              ? "border-y border-l border-mediumGrey flex gap-2 tracking-wider items-center px-2 md:px-6"
-              : "px-2 sm:px-3"
-          } ${blockIndex === 0 ? "text-gray-400" : "text-darkCharbon"}`}
+              ? "BlockControl BlockControl--left"
+              : "NestedBlockControl"
+          }`}
           disabled={blockIndex === 0}
           onClick={() => moveBlockUp(blockIndex)}
         >
           <i className="fa fa-arrow-up"></i>
           {!inLayout && width > 1024 && (
-            <span className="uppercase text-xs font-semibold">Monter</span>
+            <span className="BlockControl__Label">Monter</span>
           )}
         </button>
       </Tippy>
@@ -62,17 +62,15 @@ const BlockControls = ({
         <button
           className={`${
             !inLayout && width > 1024
-              ? "border border-mediumGrey flex items-center gap-2 tracking-wider px-2 md:px-6"
-              : "px-2 sm:px-3"
-          } ${
-            blockIndex === blockList.length - 1 ? "text-gray-400" : "text-darkCharbon"
+              ? "BlockControl BlockControl--center"
+              : "NestedBlockControl"
           }`}
           disabled={blockIndex === blockList.length - 1}
           onClick={() => moveBlockDown(blockIndex)}
         >
           <i className="fa fa-arrow-down"></i>
           {!inLayout && width > 1024 && (
-            <span className="uppercase text-xs font-semibold">Descendre</span>
+            <span className="BlockControl__Label">Descendre</span>
           )}
         </button>
       </Tippy>
@@ -86,14 +84,14 @@ const BlockControls = ({
         <button
           className={`${
             !inLayout && width > 1024
-              ? "border-y border-r border-mediumGrey flex items-center gap-2 tracking-wider px-2 md:px-6"
-              : "px-2 sm:px-3"
-          } text-error`}
+              ? "BlockControl BlockControl--right BlockControl--danger"
+              : "NestedBlockControl"
+          }`}
           onClick={() => removeBlock(blockId)}
         >
           <i className="fa fa-trash-alt"></i>
           {!inLayout && width > 1024 && (
-            <span className="uppercase text-xs font-semibold">Supprimer</span>
+            <span className="BlockControl__Label">Supprimer</span>
           )}
         </button>
       </Tippy>

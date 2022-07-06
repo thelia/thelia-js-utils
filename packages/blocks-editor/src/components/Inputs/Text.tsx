@@ -8,10 +8,16 @@ import {
 } from "react";
 import InputWrapper from "./InputWrapper";
 
-const InputIcon = ({ icon, className }: { icon: ReactNode; className?: string }) => {
+const InputIcon = ({
+  icon,
+  alignment = "left",
+}: {
+  icon: ReactNode;
+  alignment?: "left" | "right";
+}) => {
   return (
     <span
-      className={`absolute py-1 px-5 w-8 h-full leading-snug rounded text-base font-normal text-center flex items-center justify-center ${className}`}
+      className={`Input__Icon Input__Icon${alignment === "left" ? "--left" : "--right"}`}
     >
       {icon}
     </span>
@@ -26,11 +32,11 @@ const Input = forwardRef(
       className,
       placeholder,
       icon,
-      iconAlignment = "right",
+      iconAlignment = "left",
       type = "text",
       isValid,
       label,
-      name,
+      id,
       info,
       error,
       ...props
@@ -45,42 +51,38 @@ const Input = forwardRef(
       type?: "text" | "password" | "email";
       isValid?: boolean;
       label?: string;
-      name: string;
+      id: string;
       info?: ReactNode;
       error?: string;
     } & InputHTMLAttributes<HTMLInputElement>,
     ref: Ref<HTMLInputElement>
   ) => {
     return (
-      <InputWrapper label={label} error={error} info={info}>
-        <div className="relative w-full flex flex-wrap items-stretch">
+      <InputWrapper id={id} label={label} error={error} info={info}>
+        <div className="Input__Text__Wrapper">
           <input
             ref={ref}
             type={type}
             value={value}
+            id={id}
             onChange={onChange}
-            className={`relative w-full rounded-md shadow border-mediumGrey outline-none ${
-              iconAlignment === "left" && isValid
-                ? "px-10"
-                : iconAlignment === "left"
-                ? "pl-10"
+            className={`Input__Text ${
+              iconAlignment === "left" && icon
+                ? "Input__Text--withIcon"
+                : icon && isValid
+                ? "Input__Text--withIcons"
                 : ""
-            } ${className}`}
+            }`}
             placeholder={placeholder}
             {...props}
           />
 
-          {icon && (
-            <InputIcon
-              className={iconAlignment === "right" ? "right-0" : "left-0"}
-              icon={icon}
-            />
-          )}
+          {icon && <InputIcon alignment={iconAlignment} icon={icon} />}
 
           {icon && isValid && iconAlignment === "left" && (
             <InputIcon
-              className="right-0"
-              icon={<i className="fas fa-check text-greenDark"></i>}
+              alignment={iconAlignment}
+              icon={<i className="fas fa-check"></i>}
             />
           )}
         </div>

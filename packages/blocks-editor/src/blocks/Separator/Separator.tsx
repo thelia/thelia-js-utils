@@ -3,6 +3,8 @@ import { Text, Select } from "../../components/Inputs";
 import { BlockModuleComponentProps } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/separator.svg";
 
+import "./Separator.module.css";
+
 export type BlockSeparatorData = {
   type: string;
   size: number;
@@ -52,39 +54,36 @@ const BlockSeparatorComponent = ({
 
   return (
     <div className="BlockSeparator" data-type={type}>
-      <div className="BlockSeparator-field">
-        <div className="flex justify-between">
-          <div className="flex flex-col w-full md:w-1/2 mb-6">
-            <Select
-              className="rounded-md mb-4"
-              name="separator-type"
-              id="separator-type"
-              onChange={onChangeType}
-              value={type.toString()}
-              label="Style du séparateur"
-            >
-              {types.map(({ label, value }) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </Select>
+      <div className="BlockSeparator__Config">
+        <Select
+          id="BlockSeparator-field-type"
+          onChange={onChangeType}
+          value={type.toString()}
+          label="Style du séparateur"
+        >
+          {types.map(({ label, value }) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </Select>
 
-            <label htmlFor="separator-size">Taille du séparateur</label>
-            <input
-              type="number"
-              name="separator-size"
-              id="separator-size"
-              className="rounded-md"
-              value={size.toString()}
-              onChange={onChangeSize}
-              onBlur={onBlurSize}
-            />
-          </div>
+        <div>
+          <label htmlFor="separator-size">Taille du séparateur</label>
+          <input
+            type="number"
+            name="separator-size"
+            id="separator-size"
+            className="Input__Number"
+            value={size.toString()}
+            onChange={onChangeSize}
+            onBlur={onBlurSize}
+          />
         </div>
       </div>
-      <div className="border-dotted border rounded-md p-4 border-black">
-        {type === "hr" ? <div className="bg-black h-px"></div> : null}
+
+      <div className="BlockSeparator__Preview">
+        {type === "hr" ? <div className="BlockSeparator__Preview--element"></div> : null}
       </div>
     </div>
   );

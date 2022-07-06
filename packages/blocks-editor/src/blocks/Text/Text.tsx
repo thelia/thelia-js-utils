@@ -3,6 +3,8 @@ import { TextArea } from "../../components/Inputs";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/text.svg";
 
+import "./Text.module.css";
+
 export type BlockTextData = {
   value: string;
 };
@@ -34,7 +36,7 @@ function BlockTextComponent({
       {/* {data !== undefined ? <Editor /> : null} */}
       {data !== undefined ? (
         <TextArea
-          className="w-full rounded-md"
+          id="BlockText-field-text"
           placeholder="Votre texte ici"
           onChange={onChangeText}
           onBlur={onBlurText}

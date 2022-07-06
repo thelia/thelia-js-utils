@@ -1,0 +1,58 @@
+.Sidebar {
+  @apply sticky top-0 z-20 flex flex-col w-max;
+
+  &__Wrapper {
+    @apply bg-white;
+  }
+
+  &__Header {
+    @apply bg-darkCharbon text-white p-5;
+
+    &__Toggle {
+      &--open {
+        @apply mr-5
+      }
+    }
+
+    &__Title {
+      @apply font-bold;
+    }
+  }
+
+  &__Content {
+    @apply flex flex-col gap-2;
+
+    &__Wrapper {
+      @apply p-3 h-full;
+    }
+  }
+
+  &__Add {
+    @apply flex items-center bg-pearlMedium hover:bg-pearlLight rounded-md text-mediumCharbon text-sm gap-3 p-2 h-9;
+    
+    &__Icon {
+      @apply w-6;
+    }
+
+    &--withCustomIcon {
+      @apply flex-col h-max py-6;
+    }
+
+    &--expanded {
+      @apply w-52;
+    }
+
+    &--collapsed {
+      @apply w-9;
+    }
+  }
+
+  &__Back {
+    @apply bg-pearlMedium hover:bg-pearlLight text-mediumCharbon text-sm p-2 px-3 rounded-md mb-2 flex gap-3 w-full items-center;
+
+    &__Label {
+      @apply font-bold;
+    }
+  } 
+  
+}

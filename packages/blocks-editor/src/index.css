@@ -1,17 +1,29 @@
+@import "../assets/css/DragAndDrop.css";
+@import "../assets/css/BlocksEditor.css";
+@import "../assets/css/BlockList.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* .BlocksEditor {
-  display: grid;
-grid-template-columns: 1fr 232px;
-grid-template-rows: 1fr;
-grid-column-gap: 0px;
-grid-row-gap: 0px;
-} */
+i {
+  @apply text-darkCharbon;
+}
+
+i.fa-trash-alt {
+  @apply text-error;
+}
+
+i.fa-info-circle {
+  @apply cursor-help mb-1;
+}
+
+i.fa-check {
+  @apply text-greenDark;
+}
 
 button:disabled {
-  @apply cursor-not-allowed;
+  @apply cursor-not-allowed text-gray-400;
 }
 
 input[type="checkbox"]:checked {
@@ -19,7 +31,7 @@ input[type="checkbox"]:checked {
 }
 
 input[type="checkbox"] {
-  border-radius: 0.25rem;
+  @apply rounded;
 }
 
 input[type="checkbox"]:focus {
@@ -36,6 +48,14 @@ input::placeholder, textarea::placeholder {
 
 select, textarea {
   @apply border-mediumGrey;
+}
+
+.DndWrapper {
+  @apply relative;
+}
+
+.DndOverlay {
+  @apply absolute inset-0 opacity-60;
 }
 
 .Modal-TheliaBlocks {

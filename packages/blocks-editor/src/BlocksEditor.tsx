@@ -32,19 +32,18 @@ const BlocksEditorHeader = ({
   backlink: IBlocksEditorProps["backlink"];
 }) => {
   return (
-    <div className="BlocksEditor__header bg-pearlLight p-4 sm:p-8 md:px-32 lg:px-24 xl:px-44 2xl:px-72 pb-12 pt-10">
+    <div className="BlocksEditor__Header">
       {backlink ? (
         <div>
-          <a href="/admin/TheliaBlocks">Back to BlocksList</a>{" "}
+          <a href="/admin/TheliaBlocks">Back to BlocksList</a>
         </div>
       ) : null}
-      <div className="font-bold text-3xl text-darkCharbon my-8">
+      <div className="BlocksEditor__Header__Title">
         Création d'un nouveau Thelia Blocks
       </div>
 
-      <div className="flex items-end gap-4">
+      <div className="BlocksEditor__Header__Inputs__Wrapper">
         <GroupTitle />
-
         <GroupLocale />
       </div>
     </div>
@@ -83,16 +82,16 @@ export default function BlocksEditor({
           >
             <div className="BlocksEditor">
               <Toaster />
-              <div className="flex justify-between">
+              <div className="BlocksEditor__Wrapper">
                 <BlockContextProvider root>
                   <>
-                    <div className="flex flex-col w-full min-h-screen">
+                    <div className="BlocksEditor__ContentWrapper">
                       <BlocksEditorHeader backlink={backlink} />
 
-                      <div className="BlocksEditor__content h-full flex flex-col justify-between">
+                      <div className="BlocksEditor__Content">
                         <BlocksContent />
                         {width < 1080 ? (
-                          <div className="p-4 sm:p-8 md:px-32 lg:px-24 xl:px-44 2xl:px-72">
+                          <div className="BlocksEditor__AddBlocksWrapper">
                             <AddBlocks />
                           </div>
                         ) : null}
@@ -100,7 +99,7 @@ export default function BlocksEditor({
                       </div>
                     </div>
                     {width > 1080 ? (
-                      <div className="bg-white">
+                      <div className="Sidebar__Wrapper">
                         <Sidebar />
                       </div>
                     ) : null}

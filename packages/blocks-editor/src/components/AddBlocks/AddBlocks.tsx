@@ -12,6 +12,8 @@ import { usePlugins } from "../../hooks/usePlugins";
 import useWindowSize from "../../hooks/useWindowSize";
 import { CSSProperties, ReactNode, useState } from "react";
 
+import "./AddBlocks.module.css";
+
 const AddButton = ({
   plugin,
   setIsOpen,
@@ -37,7 +39,7 @@ const AddButton = ({
     >
       <button
         style={style}
-        className="flex flex-col items-center justify-center w-24 h-24 gap-2 rounded-md BlocksEditor-btn bg-pearlMedium hover:bg-pearlLight text-mediumCharbon text-sm md:h-28 md:w-28"
+        className="AddBlocks__Modal__Add"
         onClick={() => {
           addBlock({
             id: nanoid(),
@@ -74,15 +76,13 @@ const AddBlockModal = ({
       overlayClassName="Overlay"
       className="Modal-TheliaBlocks"
     >
-      <div className="flex flex-col p-4 Modal-content">
-        <button onClick={() => setIsOpen(false)} className="self-end">
-          <i className="text-xl text-darkCharbon fa fa-xmark hover:text-vermillon"></i>
+      <div className="AddBlocks__Modal">
+        <button onClick={() => setIsOpen(false)} className="AddBlocks__Modal__Close">
+          <i className="AddBlocks__Modal__Close__Icon fa fa-xmark"></i>
         </button>
-        <div className="lg:px-12 lg:pb-12">
-          <div className="text-mediumCharbon mt-3 mb-6 font-extrabold text-center md:text-left md:text-xl">
-            {title}
-          </div>
-          <div className="flex flex-wrap BlocksEditor-AddBlocks">{children}</div>
+        <div className="AddBlocks__Modal__Content">
+          <div className="AddBlocks__Modal__Title">{title}</div>
+          <div className="AddBlocks__Modal__BlocksList__Wrapper">{children}</div>
         </div>
       </div>
     </Modal>
@@ -109,7 +109,7 @@ const ModalContent = ({
   const layoutPluginsByType = groupBy(layoutPlugins, "layout");
 
   return (
-    <ol className="flex flex-wrap justify-center lg:justify-start gap-4">
+    <ol className="AddBlocks__Modal__BlocksList">
       {commonBlocks.map((plugin, index) => {
         return <AddButton key={index} plugin={plugin} setIsOpen={setIsOpen} />;
       })}
@@ -119,14 +119,14 @@ const ModalContent = ({
           const LayoutIcon = layoutPluginsByType[index].icon;
 
           return (
-            <li key={index} className="inline-block BlocksEditor-dropdown group">
+            <>
               {layoutPluginsByType.length === 1 ? (
                 <AddButton plugin={layoutPluginsByType[index]} setIsOpen={setIsOpen} />
               ) : (
                 <>
                   <button
                     onClick={() => setSubModalOpen(true)}
-                    className="flex flex-col items-center justify-center gap-2 h-24 w-24 rounded-md BlocksEditor-btn bg-pearlMedium hover:bg-pearlLight text-mediumCharbon text-sm md:h-28 md:w-28"
+                    className="AddBlocks__Modal__Add"
                   >
                     <LayoutIcon />
                     {layoutType}
@@ -136,7 +136,7 @@ const ModalContent = ({
                     isOpen={subModalOpen}
                     setIsOpen={setSubModalOpen}
                   >
-                    <ol className="flex w-full flex-wrap gap-2 BlocksEditor-dropdown__content">
+                    <ol className="AddBlocks__Modal__LayoutBlocksList">
                       {layoutPluginsByType.map((plugin, index) => (
                         <AddButton
                           style={{ flex: width > 768 ? "0 0 32%" : "0 0 100%" }}
@@ -149,7 +149,7 @@ const ModalContent = ({
                   </AddBlockModal>
                 </>
               )}
-            </li>
+            </>
           );
         }
       )}
@@ -157,27 +157,22 @@ const ModalContent = ({
   );
 };
 
-export default function AddBlock({
-  excludeLayout,
-}: {
-  excludeLayout?: IBlock["layout"][];
-}) {
+const AddBlocks = ({ excludeLayout }: { excludeLayout?: IBlock["layout"][] }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 border border-dotted rounded-md border-greyDark">
-      <div className="p-2 rounded-full bg-pearlLight">
-        <DragIcon />
+    <>
+      <div className="AddBlocks">
+        <div className="AddBlocks__Icon">
+          <DragIcon />
+        </div>
+        <span className="AddBlocks__Info">
+          Glissez-déposez le type de contenu souhaité depuis le menu de droite
+        </span>
+        <button className="AddBlocks__Button" onClick={() => setIsOpen(true)}>
+          Ajouter du contenu
+        </button>
       </div>
-      <span className="my-3 text-center">
-        Glissez-déposez le type de contenu souhaité depuis le menu de droite
-      </span>
-      <button
-        className="px-2 text-xs font-semibold tracking-wider uppercase border-2 rounded-md w-max border-vermillon text-vermillon hover:bg-vermillon hover:text-white py-1"
-        onClick={() => setIsOpen(true)}
-      >
-        Ajouter du contenu
-      </button>
       <AddBlockModal
         title="Choisissez le contenu souhaité"
         isOpen={isOpen}
@@ -185,6 +180,8 @@ export default function AddBlock({
       >
         <ModalContent excludeLayout={excludeLayout} setIsOpen={setIsOpen} />
       </AddBlockModal>
-    </div>
+    </>
   );
-}
+};
+
+export default AddBlocks;

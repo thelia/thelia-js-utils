@@ -5,6 +5,8 @@ import { ReactComponent as WarningPicto } from "../../../assets/svg/html-warning
 import { ChangeEvent, FocusEvent, useEffect, useLayoutEffect, useState } from "react";
 import { TextArea } from "../../components/Inputs";
 
+import "./Raw.module.css";
+
 export type BlockRawData = {
   value: string;
 };
@@ -26,18 +28,21 @@ const WarningModal = ({
       overlayClassName="Overlay"
       className="Modal-htmlWarning"
     >
-      <div className="Modal-content flex flex-col p-4">
-        <button onClick={() => setSaveLocation(sessionStorage)} className="self-end">
-          <i className="fa fa-xmark hover:text-vermillon text-xl md:text-3xl"></i>
+      <div className="BlockRaw__Modal__Content">
+        <button
+          onClick={() => setSaveLocation(sessionStorage)}
+          className="BlockRaw__Modal__Content__Close"
+        >
+          <i className="BlockRaw__Modal__Content__Close__Icon fa fa-xmark"></i>
         </button>
-        <WarningPicto className="mx-auto mb-5" />
-        <div className="lg:px-12 lg:pb-12 text-mediumCharbon flex justify-center items-center flex-col">
-          <p className="mb-4 text-center">
+        <WarningPicto className="BlockRaw__Modal__Content__Image" />
+        <div className="BlockRaw__Modal__Content__Infos">
+          <p className="BlockRaw__Modal__Content__Description">
             Ici un petit message pour informer sur l'utilisation de HTML directement dans
             le back-office. Ce message apparait en pop-in à chaque fois que l'utilisateur
             ajoute un bloc de HTML.
           </p>
-          <div className="flex gap-2 items-center mb-6">
+          <div className="BlockRaw__Modal__Content__Actions">
             <input
               type="checkbox"
               checked={checked}
@@ -45,7 +50,7 @@ const WarningModal = ({
               name="display-alert"
               id="display-alert"
             />
-            <label className="mb-0 tracking-normal select-none" htmlFor="display-alert">
+            <label className="BlockRaw__Modal__Content__CBLabel" htmlFor="display-alert">
               Ne plus afficher l'alerte
             </label>
           </div>
@@ -57,7 +62,7 @@ const WarningModal = ({
                 setSaveLocation(sessionStorage);
               }
             }}
-            className="bg-vermillon hover:bg-lightVermillon text-white py-2 px-4 rounded-md"
+            className="BlockRaw__Modal__Content__Accept"
           >
             J'ai compris
           </button>
@@ -100,9 +105,9 @@ function BlockRawComponent({ data, onUpdate }: BlockModuleComponentProps<BlockRa
   };
 
   return (
-    <div className="w-full">
+    <>
       <TextArea
-        className="w-full rounded-md"
+        id="BlockRaw-field-value"
         placeholder="Value"
         onChange={onChangeValue}
         onBlur={onBlurValue}
@@ -115,7 +120,7 @@ function BlockRawComponent({ data, onUpdate }: BlockModuleComponentProps<BlockRa
           setIsOpen(false);
         }}
       />
-    </div>
+    </>
   );
 }
 

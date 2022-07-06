@@ -8,7 +8,7 @@ const Select = forwardRef(
       onChange,
       className,
       label,
-      name,
+      id,
       info,
       error,
       children,
@@ -18,7 +18,7 @@ const Select = forwardRef(
       onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
       className?: string;
       label?: string;
-      name: string;
+      id: string;
       info?: ReactNode;
       error?: string;
       children: ReactNode;
@@ -26,12 +26,13 @@ const Select = forwardRef(
     ref?: Ref<HTMLSelectElement>
   ) => {
     return (
-      <InputWrapper label={label} error={error} info={info}>
+      <InputWrapper id={id} label={label} error={error} info={info}>
         <select
+          id={id}
           ref={ref}
           value={value}
           onChange={onChange}
-          className={`relative w-full rounded-md shadow border-mediumGrey outline-none ${className}`}
+          className="Input__Select"
           {...props}
         >
           {children}

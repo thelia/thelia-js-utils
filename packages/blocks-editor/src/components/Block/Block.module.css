@@ -1,0 +1,31 @@
+.Block {
+  @apply bg-gradient-to-b from-pearlMedium to-pearlLight p-4 sm:p-8 md:px-32 lg:px-24 xl:px-44 2xl:px-72;
+
+  &__Header {
+    @apply flex justify-between mb-8;
+
+    &__Infos {
+      @apply flex items-center gap-4;
+
+      &__Title {
+        @apply font-extrabold text-xl text-darkCharbon;
+      }
+    }
+  }
+}
+
+.NestedBlock {
+  @apply py-5 rounded-md border-l-8 border-l-lighterVermillon bg-pearlLight shadow-md px-4 md:px-11 mb-3;
+
+  &__Header {
+    @apply flex justify-between mb-3;
+
+    &__Infos {
+      @apply flex items-center gap-4;
+
+      &__Title {
+        @apply font-bold text-base text-mediumCharbon;
+      }
+    }
+  }
+}

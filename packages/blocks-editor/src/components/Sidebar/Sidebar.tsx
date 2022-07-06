@@ -9,6 +9,8 @@ import Tippy from "@tippyjs/react";
 import BlockTooltip from "../BlockTooltip";
 import { groupBy, partition } from "lodash";
 
+import "./Sidebar.module.css";
+
 const AddButton = ({
   plugin,
   isSidebarOpen,
@@ -32,11 +34,9 @@ const AddButton = ({
       delay={[500, 0]}
     >
       <button
-        className={`BlocksEditor-btn flex ${
-          isSidebarOpen && plugin?.customIcon ? "flex-col h-max py-6" : "h-9"
-        } items-center bg-pearlMedium hover:bg-pearlLight rounded-md text-mediumCharbon text-sm gap-3 p-2 ${
-          isSidebarOpen ? "w-52" : "w-9"
-        }`}
+        className={`Sidebar__Add ${
+          isSidebarOpen && plugin?.customIcon ? "Sidebar__Add--withCustomIcon" : ""
+        } ${isSidebarOpen ? "Sidebar__Add--expanded" : "Sidebar__Add--collapsed"}`}
         onClick={() =>
           addBlock({
             id: nanoid(),
@@ -50,7 +50,7 @@ const AddButton = ({
         {isSidebarOpen && plugin?.customIcon ? (
           plugin?.customIcon
         ) : (
-          <Icon className="w-6" />
+          <Icon className="Sidebar__Add__Icon" />
         )}
 
         {isSidebarOpen ? <>{plugin.title.fr_FR}</> : null}
@@ -71,8 +71,8 @@ const Sidebar = () => {
   const [pluginList, setPluginList] = useState<Plugin[]>(commonBlocks || []);
 
   return (
-    <div className="Sidebar sticky top-0 z-20 flex flex-col w-max">
-      <div className="Sidebar-header bg-darkCharbon text-white p-5">
+    <div className="Sidebar">
+      <div className="Sidebar__Header">
         <button
           onClick={() => {
             setIsSidebarOpen(!isSidebarOpen);
@@ -82,28 +82,32 @@ const Sidebar = () => {
               setIsDisplayingSubMenu(false);
             }
           }}
-          className={`${isSidebarOpen && "mr-5"}`}
+          className={`${
+            isSidebarOpen
+              ? "Sidebar__Header__Toggle--open"
+              : "Sidebar__Header__Toggle--closed"
+          }`}
         >
           {isSidebarOpen ? <Retract /> : <Expand />}
         </button>
-        {isSidebarOpen ? <span className="font-bold">Contenus</span> : null}
+        {isSidebarOpen ? <span className="Sidebar__Header__Title">Contenus</span> : null}
       </div>
 
-      <div className="Sidebar-content p-3 h-full">
+      <div className="Sidebar__Content__Wrapper">
         {isDisplayingSubMenu && (
           <button
-            className="bg-pearlMedium hover:bg-pearlLight text-mediumCharbon text-sm p-2 px-3 rounded-md mb-2 flex gap-3 w-full items-center"
+            className="Sidebar__Back"
             onClick={() => {
               setPluginList(commonBlocks);
               setIsDisplayingSubMenu(false);
             }}
           >
             <i className="fa fa-chevron-left"></i>
-            <span className="font-bold">Retour</span>
+            <span className="Sidebar__Back__Label">Retour</span>
           </button>
         )}
 
-        <ol className="flex flex-col gap-2">
+        <ol className="Sidebar__Content">
           {pluginList.map((plugin) => (
             <AddButton plugin={plugin} isSidebarOpen={isSidebarOpen} key={plugin.id} />
           ))}
@@ -114,7 +118,7 @@ const Sidebar = () => {
                 const LayoutIcon = layoutPluginsByType[index].icon;
 
                 return (
-                  <li key={index} className="inline-block BlocksEditor-dropdown group">
+                  <>
                     {layoutPluginsByType.length === 1 ? (
                       <AddButton
                         plugin={layoutPluginsByType[index]}
@@ -122,8 +126,10 @@ const Sidebar = () => {
                       />
                     ) : (
                       <button
-                        className={`BlocksEditor-btn flex items-center bg-pearlMedium hover:bg-pearlLight rounded-md text-mediumCharbon text-sm gap-3 p-2 h-9 ${
-                          isSidebarOpen ? "w-52" : "w-9"
+                        className={`Sidebar__Add ${
+                          isSidebarOpen
+                            ? "Sidebar__Add--expanded"
+                            : "Sidebar__Add--collapsed"
                         }`}
                         onClick={() => {
                           setPluginList(layoutPluginsByType);
@@ -137,7 +143,7 @@ const Sidebar = () => {
                         {isSidebarOpen ? layoutType : null}
                       </button>
                     )}
-                  </li>
+                  </>
                 );
               }
             )}

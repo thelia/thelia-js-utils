@@ -1,0 +1,9 @@
+.Preview {
+  &__Loader {
+    @apply text-green text-4xl;
+  }
+
+  &__Close {
+    @apply bg-vermillon px-4 py-2 text-white;
+  }
+}

@@ -1,0 +1,37 @@
+.BlockRaw {
+  &__Modal__Content {
+    @apply flex flex-col p-4;
+
+    &__Close {
+      @apply self-end;
+
+      &__Icon {
+        @apply hover:text-vermillon text-xl md:text-3xl;
+      }
+    }
+
+    &__Image {
+      @apply mx-auto mb-5;
+    }
+
+    &__Infos {
+      @apply lg:px-12 lg:pb-12 text-mediumCharbon flex justify-center items-center flex-col;
+    }
+
+    &__Description {
+      @apply mb-4 text-center;
+    }
+
+    &__Actions {
+      @apply flex gap-2 items-center mb-6;
+    }
+
+    &__CBLabel {
+      @apply mb-0 tracking-normal select-none;
+    }
+
+    &__Accept {
+      @apply bg-vermillon hover:bg-lightVermillon text-white py-2 px-4 rounded-md
+    }
+  }
+}

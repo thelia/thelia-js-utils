@@ -3,6 +3,8 @@ import { Text } from "../../components/Inputs";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/button.svg";
 
+import "./Button.module.css";
+
 export type BlockButtonData = {
   label: string;
   url: string;
@@ -47,32 +49,27 @@ const BlockButtonComponent = ({
 
   return (
     <div className="BlockButton">
-      <div className="BlockButton-field">
-        <Text
-          type="text"
-          name="field-text"
-          id="field-text"
-          placeholder="Indiquez le texte du bouton"
-          value={label}
-          onChange={onChangeLabel}
-          onBlur={onBlurLabel}
-          label="Texte du bouton"
-        />
-      </div>
-      <div className="BlockButton-field mt-4">
-        <Text
-          type="text"
-          name="field-url"
-          id="field-url"
-          placeholder="Indiquez le lien du bouton"
-          value={url}
-          icon={<i className="fa fa-link text-darkCharbon"></i>}
-          iconAlignment="left"
-          onChange={onChangeUrl}
-          onBlur={onBlurUrl}
-          label="URL du bouton"
-        />
-      </div>
+      <Text
+        type="text"
+        id="BlockButton-field-text"
+        placeholder="Indiquez le texte du bouton"
+        value={label}
+        onChange={onChangeLabel}
+        onBlur={onBlurLabel}
+        label="Texte du bouton"
+      />
+
+      <Text
+        type="text"
+        id="BlockButton-field-url"
+        placeholder="Indiquez le lien du bouton"
+        value={url}
+        icon={<i className="fa fa-link text-darkCharbon"></i>}
+        iconAlignment="left"
+        onChange={onChangeUrl}
+        onBlur={onBlurUrl}
+        label="URL du bouton"
+      />
     </div>
   );
 };

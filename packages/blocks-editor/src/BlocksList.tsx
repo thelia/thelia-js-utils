@@ -11,7 +11,7 @@ import { Suspense } from "react";
 import { getContentUrl } from "./utils/content-url";
 import useCopyToClipboard from "react-use/esm/useCopyToClipboard";
 
-function List() {
+const List = () => {
   const { data: groups = [] } = useGroups();
   const [copied, copyToClipboard] = useCopyToClipboard();
   const mutationDelete = useDeleteGroup();
@@ -104,9 +104,9 @@ function List() {
       </tbody>
     </table>
   );
-}
+};
 
-export default function BlocksList({ apiUrl }: { apiUrl: string }) {
+const BlocksList = ({ apiUrl }: { apiUrl: string }) => {
   if (!apiUrl) return null;
 
   return (
@@ -125,4 +125,6 @@ export default function BlocksList({ apiUrl }: { apiUrl: string }) {
       </div>
     </BlocksProvider>
   );
-}
+};
+
+export default BlocksList;
