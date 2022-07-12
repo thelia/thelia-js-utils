@@ -31,5 +31,5 @@
 }
 
 .NestedBlockControl {
-  @apply px-2 sm:px-3;
+  @apply px-2 sm:px-3 text-darkCharbon;
 }

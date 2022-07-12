@@ -1,7 +1,7 @@
 import Tippy from "@tippyjs/react";
 import { ReactNode } from "react";
 
-import "./Inputs.module.css";
+import "./Inputs.css";
 
 const InputWrapper = ({
   children,

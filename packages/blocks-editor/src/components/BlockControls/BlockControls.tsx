@@ -2,7 +2,7 @@ import Tippy from "@tippyjs/react";
 import useWindowSize from "../../hooks/useWindowSize";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 
-import "./BlockControls.module.css";
+import "./BlockControls.css";
 
 const BlockControls = ({
   blockId,

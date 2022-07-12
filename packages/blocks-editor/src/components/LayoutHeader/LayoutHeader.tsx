@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { ReactComponent as CloseIcon } from "../../../assets/svg/close-chevron.svg";
 import { ReactComponent as OpenIcon } from "../../../assets/svg/open-chevron.svg";
 
-import "./LayoutHeader.module.css";
+import "./LayoutHeader.css";
 
 const LayoutHeader = ({
   title,

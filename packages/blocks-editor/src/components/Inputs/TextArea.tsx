@@ -4,7 +4,7 @@ import InputWrapper from "./InputWrapper";
 const TextArea = forwardRef(
   (
     {
-      rows = 5,
+      rows = 6,
       id,
       label,
       info,

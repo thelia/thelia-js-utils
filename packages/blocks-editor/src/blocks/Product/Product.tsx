@@ -6,7 +6,7 @@ import { ReactComponent as Icon } from "./assets/product.svg";
 import { Text } from "../../components/Inputs";
 import { reorder } from "../../utils/array";
 
-import "./Product.module.css";
+import "./Product.css";
 
 export type BlockProductData = {
   productList: string[];

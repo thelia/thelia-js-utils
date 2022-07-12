@@ -3,7 +3,7 @@ import { Text } from "../../components/Inputs";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/button.svg";
 
-import "./Button.module.css";
+import "./Button.css";
 
 export type BlockButtonData = {
   label: string;

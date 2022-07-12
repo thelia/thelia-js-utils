@@ -17,7 +17,10 @@ const DndDragHandle = ({
   className?: string;
 }) => {
   return (
-    <div className={`BlockWrapper-dragHandle ${className}`} {...dragHandleProps}>
+    <div
+      className={`BlockWrapper-dragHandle ${className ? className : ""}`}
+      {...dragHandleProps}
+    >
       <Tippy content="Faites glisser l'élément pour le déplacer" delay={[700, 0]}>
         <DragHandle />
       </Tippy>

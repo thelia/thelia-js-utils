@@ -3,7 +3,7 @@ import { useBlocksContext } from "../../hooks/useBlockContext";
 import useDragAndDrop from "../../hooks/useDragAndDrop";
 import { ReactComponent as EmptyTBIcon } from "../../../assets/svg/empty-tb.svg";
 
-import "./BlocksContent.module.css";
+import "./BlocksContent.css";
 
 const EmptyList = () => {
   return (

@@ -1,4 +1,8 @@
 .BlockRaw {
+  &__Editor {
+    @apply border border-mediumGrey rounded;
+  }
+
   &__Modal__Content {
     @apply flex flex-col p-4;
 

@@ -5,7 +5,7 @@
     @apply border border-white rounded-md px-3 py-1 hover:text-black hover:bg-white h-full;
   
     &__Icon {
-      @apply mr-3 text-white;
+      @apply mr-3;
     }
   }
 

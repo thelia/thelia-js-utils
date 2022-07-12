@@ -1,5 +1,6 @@
 .Sidebar {
-  @apply sticky top-0 z-20 flex flex-col w-max;
+  @apply sticky z-20 flex flex-col w-max;
+  top: 54px;
 
   &__Wrapper {
     @apply bg-white;

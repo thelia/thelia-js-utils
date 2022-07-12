@@ -12,7 +12,7 @@ import { usePlugins } from "../../hooks/usePlugins";
 import useWindowSize from "../../hooks/useWindowSize";
 import { CSSProperties, ReactNode, useState } from "react";
 
-import "./AddBlocks.module.css";
+import "./AddBlocks.css";
 
 const AddButton = ({
   plugin,

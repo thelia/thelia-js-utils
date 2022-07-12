@@ -17,7 +17,7 @@ const Iframe = ({ content }: { content: string }) => {
     doc.close();
     node.style.width = "100%";
     if (node.contentWindow) {
-      node.style.height = `80vh`;
+      node.style.height = `70vh`;
     }
   }, [ref, content]);
 

@@ -6,7 +6,7 @@ import { nanoid } from "nanoid";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Select } from "../../components/Inputs";
 
-import "./List.module.css";
+import "./List.css";
 
 enum typeList {
   Unordered = "ul",

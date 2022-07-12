@@ -3,7 +3,7 @@ import { Text, Select } from "../../components/Inputs";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/title.svg";
 
-import "./Title.module.css";
+import "./Title.css";
 
 export type BlockTitleData = {
   level: 0 | 1 | 2 | 3 | 4 | 5 | 6;

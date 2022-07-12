@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
 import { ReactComponent as Retract } from "../../../assets/svg/retract.svg";
@@ -9,7 +9,7 @@ import Tippy from "@tippyjs/react";
 import BlockTooltip from "../BlockTooltip";
 import { groupBy, partition } from "lodash";
 
-import "./Sidebar.module.css";
+import "./Sidebar.css";
 
 const AddButton = ({
   plugin,
@@ -118,7 +118,7 @@ const Sidebar = () => {
                 const LayoutIcon = layoutPluginsByType[index].icon;
 
                 return (
-                  <>
+                  <Fragment key={index}>
                     {layoutPluginsByType.length === 1 ? (
                       <AddButton
                         plugin={layoutPluginsByType[index]}
@@ -136,14 +136,13 @@ const Sidebar = () => {
                           setIsDisplayingSubMenu(true);
                           setIsSidebarOpen(true);
                         }}
-                        key={index}
                       >
                         <LayoutIcon />
 
                         {isSidebarOpen ? layoutType : null}
                       </button>
                     )}
-                  </>
+                  </Fragment>
                 );
               }
             )}

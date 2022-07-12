@@ -9,7 +9,7 @@ import LayoutHeader from "../../components/LayoutHeader";
 import { ReactComponent as Icon } from "./assets/accordion.svg";
 import { useEffect, useState } from "react";
 
-import "./Accordion.module.css";
+import "./Accordion.css";
 
 type AccordionContentData = IBlock[];
 

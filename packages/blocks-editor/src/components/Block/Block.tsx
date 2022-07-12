@@ -3,7 +3,7 @@ import { IBlock } from "../../types/types";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
 
-import "./Block.module.css";
+import "./Block.css";
 
 const Block = ({
   block,

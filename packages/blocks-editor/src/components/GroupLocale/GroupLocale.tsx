@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { LocaleContext } from "../../providers/LocaleContext";
 import { Select } from "../Inputs";
 
-import "./GroupLocale.module.css";
+import "./GroupLocale.css";
 
 export default function GroupLocale() {
   const { locales, currentLocale, setCurrentLocale } = useContext(LocaleContext);

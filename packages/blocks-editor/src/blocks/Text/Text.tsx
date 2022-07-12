@@ -1,51 +1,120 @@
-import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
-import { TextArea } from "../../components/Inputs";
+import {
+  forwardRef,
+  MutableRefObject,
+  Ref,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { Text, TextArea } from "../../components/Inputs";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/text.svg";
+import { ReactComponent as ProductIcon } from "../Product/assets/product.svg";
+import ReactQuill, { Quill } from "react-quill";
 
-import "./Text.module.css";
+/* import "react-quill/dist/quill.snow.css"; */
+import "./Text.css";
+import ReactModal from "react-modal";
 
 export type BlockTextData = {
   value: string;
 };
 
-function BlockTextComponent({
+const EditorToolbar = forwardRef(({}, ref: any) => {
+  return (
+    <div id="editor-toolbar">
+      <button className="ql-bold" />
+      <button className="ql-italic" />
+      <button className="ql-underline" />
+      <button className="ql-align" value="" />
+      <button className="ql-align" value="center" />
+      <button className="ql-align" value="right" />
+      <button className="ql-list" value="bullet" />
+      <button className="ql-list" value="ordered" />
+      <button className="ql-link" />
+      <button
+        className="product"
+        onClick={() => {
+          ref.current.editor.insert(0, "test");
+        }}
+      >
+        <ProductIcon />
+      </button>
+    </div>
+  );
+});
+
+const ProductSearchModal = forwardRef(({}, ref: Ref<ReactQuill>) => {
+  const [query, setQuery] = useState("");
+
+  return (
+    <div className="BlockProduct__Content">
+      <span className="BlockProduct__Content__Title">
+        Rechercher un produit, une catégorie ou un contenu
+      </span>
+      <div className="BlockProduct__Content__Search">
+        <Text
+          onChange={(e) => setQuery(e.target.value)}
+          value={query}
+          placeholder="Référence, catégorie, contenu, ..."
+          id="BlockProduct-field-product"
+          type="text"
+          icon={<i className="fa fa-search text-vermillon"></i>}
+          iconAlignment="right"
+          label="Rechercher"
+        />
+      </div>
+    </div>
+  );
+});
+
+const BlockTextComponent = ({
   data,
   onUpdate,
-}: BlockModuleComponentProps<BlockTextData>) {
+}: BlockModuleComponentProps<BlockTextData>) => {
+  const quillRef = useRef<any>(null);
+
   const [localData, setData] = useState<string>(data.value);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const insertProduct = () => {
+    quillRef?.current?.editor?.insertText(0, "test");
+  };
 
   useEffect(() => {
     setData(data.value);
   }, [data]);
 
-  const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setData(e.target.value);
-  };
-
-  const onBlurText = (e: FocusEvent<HTMLTextAreaElement>) => {
-    if (e.target.value) {
-      onUpdate({
-        value: e.target.value,
-      });
-    }
-  };
-
   return (
     <div className="BlockText">
-      {/* {data !== undefined ? <Editor /> : null} */}
       {data !== undefined ? (
-        <TextArea
-          id="BlockText-field-text"
-          placeholder="Votre texte ici"
-          onChange={onChangeText}
-          onBlur={onBlurText}
-          defaultValue={localData}
-        />
+        <div className="BlockText__Editor">
+          <EditorToolbar />
+          <ReactQuill
+            modules={{
+              toolbar: {
+                container: "#editor-toolbar",
+              },
+            }}
+            ref={quillRef}
+            value={localData}
+            placeholder="Votre texte ici"
+            onChange={(value) => setData(value)}
+          />
+        </div>
       ) : null}
+      <ReactModal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        className="Modal-TheliaBlocks"
+        overlayClassName="Overlay"
+      >
+        <ProductSearchModal ref={quillRef} />
+      </ReactModal>
     </div>
   );
-}
+};
 
 const initialData: BlockTextData = {
   value: "",

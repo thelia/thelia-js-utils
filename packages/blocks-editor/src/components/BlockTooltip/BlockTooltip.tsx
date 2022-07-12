@@ -1,4 +1,4 @@
-import "./BlockTooltip.module.css";
+import "./BlockTooltip.css";
 
 const BlockTooltip = ({
   title,

@@ -3,7 +3,7 @@ import { Text, Select } from "../../components/Inputs";
 import { BlockModuleComponentProps } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/separator.svg";
 
-import "./Separator.module.css";
+import "./Separator.css";
 
 export type BlockSeparatorData = {
   type: string;

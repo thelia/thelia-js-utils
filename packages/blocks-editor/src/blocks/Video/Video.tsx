@@ -8,7 +8,7 @@ import {
 import { getYouTubeID } from "../../utils/youtube";
 import { IframeHTMLAttributes, useEffect, useState } from "react";
 
-import "./Video.module.css";
+import "./Video.css";
 
 const YouTubeFrame = ({
   url,

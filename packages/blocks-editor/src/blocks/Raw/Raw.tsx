@@ -2,10 +2,11 @@ import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/ty
 import { ReactComponent as Icon } from "./assets/html.svg";
 import Modal from "react-modal";
 import { ReactComponent as WarningPicto } from "../../../assets/svg/html-warning.svg";
-import { ChangeEvent, FocusEvent, useEffect, useLayoutEffect, useState } from "react";
-import { TextArea } from "../../components/Inputs";
+import { useEffect, useLayoutEffect, useState } from "react";
+import AceEditor from "react-ace";
 
-import "./Raw.module.css";
+import "ace-builds/src-noconflict/mode-html";
+import "./Raw.css";
 
 export type BlockRawData = {
   value: string;
@@ -94,24 +95,24 @@ function BlockRawComponent({ data, onUpdate }: BlockModuleComponentProps<BlockRa
     }
   }, [data]);
 
-  const onChangeValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
-  };
-
-  const onBlurValue = (e: FocusEvent<HTMLTextAreaElement>) => {
-    if (e.target.value) {
-      onUpdate({ value: e.target.value });
-    }
-  };
-
   return (
     <>
-      <TextArea
-        id="BlockRaw-field-value"
+      <AceEditor
+        className="BlockRaw__Editor"
         placeholder="Value"
-        onChange={onChangeValue}
-        onBlur={onBlurValue}
+        mode="html"
         value={value}
+        onChange={(value) => setValue(value)}
+        height="200px"
+        width="100%"
+        fontSize={14}
+        enableBasicAutocompletion={true}
+        tabSize={2}
+        showPrintMargin={false}
+        highlightActiveLine={false}
+        setOptions={{
+          useWorker: false,
+        }}
       />
       <WarningModal
         isOpen={isOpen}

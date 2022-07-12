@@ -10,7 +10,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 import LayoutHeader from "../../components/LayoutHeader";
 import { BlockModuleComponentProps, IBlock } from "../../types/types";
 
-import "./MultiColumns.module.css";
+import "./MultiColumns.css";
 
 type ColumnData = IBlock[];
 

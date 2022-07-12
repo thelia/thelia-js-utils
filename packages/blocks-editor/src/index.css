@@ -6,10 +6,6 @@
 @tailwind components;
 @tailwind utilities;
 
-i {
-  @apply text-darkCharbon;
-}
-
 i.fa-trash-alt {
   @apply text-error;
 }
@@ -26,16 +22,16 @@ button:disabled {
   @apply cursor-not-allowed text-gray-400;
 }
 
-input[type="checkbox"]:checked {
-  @apply text-mediumCharbon;
-}
-
 input[type="checkbox"] {
   @apply rounded;
-}
 
-input[type="checkbox"]:focus {
-  @apply outline-none ring-transparent;
+  &:checked {
+    @apply text-mediumCharbon;
+  }
+
+  &:focus {
+    @apply outline-none ring-transparent;
+  }
 }
 
 label {
@@ -44,18 +40,6 @@ label {
 
 input::placeholder, textarea::placeholder {
   @apply text-mediumGrey;  
-}
-
-select, textarea {
-  @apply border-mediumGrey;
-}
-
-.DndWrapper {
-  @apply relative;
-}
-
-.DndOverlay {
-  @apply absolute inset-0 opacity-60;
 }
 
 .Modal-TheliaBlocks {
@@ -91,7 +75,7 @@ select, textarea {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 30;
+  z-index: 200;
 }
 
 @media screen and (max-width: 1500px) {
