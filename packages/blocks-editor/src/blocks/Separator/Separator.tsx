@@ -1,5 +1,5 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
-import { Text, Select } from "../../components/Inputs";
+import { Select } from "../../components/Inputs";
 import { BlockModuleComponentProps } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/separator.svg";
 

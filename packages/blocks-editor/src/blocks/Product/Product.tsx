@@ -3,7 +3,7 @@ import { ProductSearch, useProductsBy } from "../../utils/queries";
 import { Suspense, useEffect, useState } from "react";
 
 import { ReactComponent as Icon } from "./assets/product.svg";
-import { Text } from "../../components/Inputs";
+import { Input } from "../../components/Inputs";
 import { reorder } from "../../utils/array";
 
 import "./Product.css";
@@ -175,7 +175,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
       <div className="BlockProduct__Content">
         <span className="BlockProduct__Content__Title">Ajouter un produit</span>
         <div className="BlockProduct__Content__Search">
-          <Text
+          <Input
             onChange={(e) => setQuery(e.target.value)}
             value={query}
             placeholder="Référence, nom, ..."

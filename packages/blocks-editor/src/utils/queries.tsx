@@ -284,17 +284,20 @@ export function usePreviewGroup(timestamp: number, data: string) {
   return query;
 }
 
-export type ProductSearch = {
-  type: "ids" | "reference" | "title";
+export type SearchProps = {
+  searchIn: "product" | "folder" | "category" | "content";
+  type: "ids" | "reference" | "title" | "id";
   value: string | null;
 };
 
-export function useProductsBy({ type, value = null }: ProductSearch) {
+export function useProductsBy({ type, value = null }: SearchProps) {
   let params: {
+    id: string | null;
     ids: string | null;
     reference: string | null;
     title: string | null;
   } = {
+    id: null,
     ids: null,
     reference: null,
     title: null,
@@ -303,9 +306,37 @@ export function useProductsBy({ type, value = null }: ProductSearch) {
   params[type] = value;
 
   return useQuery(
-    ["Product", type, value],
+    ["Products", type, value],
     () =>
       fetcher(`/product/search`, {
+        method: "GET",
+        params,
+      }),
+    {
+      enabled: !!value,
+    }
+  );
+}
+
+export function useSearchBy({ searchIn, type = "title", value = null }: SearchProps) {
+  let params: {
+    id: string | null;
+    ids: string | null;
+    reference: string | null;
+    title: string | null;
+  } = {
+    id: null,
+    ids: null,
+    reference: null,
+    title: null,
+  };
+
+  params[type] = value;
+
+  return useQuery(
+    ["Search", value],
+    () =>
+      fetcher(`/${searchIn}/search`, {
         method: "GET",
         params,
       }),

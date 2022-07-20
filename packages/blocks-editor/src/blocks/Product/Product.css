@@ -1,6 +1,6 @@
 .BlockProduct {
   &__Loader {
-    @apply text-center py-4 text-2xl text-vermillon;
+    @apply text-center py-4 text-2xl text-vermillon top-full bg-white rounded-md shadow-xl overflow-hidden w-full absolute;
   }
 
   &__Content {

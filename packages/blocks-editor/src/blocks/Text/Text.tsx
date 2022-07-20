@@ -1,73 +1,14 @@
-import {
-  forwardRef,
-  MutableRefObject,
-  Ref,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { Text, TextArea } from "../../components/Inputs";
+import { useEffect, useRef, useState } from "react";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/text.svg";
-import { ReactComponent as ProductIcon } from "../Product/assets/product.svg";
-import ReactQuill, { Quill } from "react-quill";
 
-/* import "react-quill/dist/quill.snow.css"; */
 import "./Text.css";
-import ReactModal from "react-modal";
+import Editor from "./Editor";
+import SearchModal from "./Modal";
 
 export type BlockTextData = {
   value: string;
 };
-
-const EditorToolbar = forwardRef(({}, ref: any) => {
-  return (
-    <div id="editor-toolbar">
-      <button className="ql-bold" />
-      <button className="ql-italic" />
-      <button className="ql-underline" />
-      <button className="ql-align" value="" />
-      <button className="ql-align" value="center" />
-      <button className="ql-align" value="right" />
-      <button className="ql-list" value="bullet" />
-      <button className="ql-list" value="ordered" />
-      <button className="ql-link" />
-      <button
-        className="product"
-        onClick={() => {
-          ref.current.editor.insert(0, "test");
-        }}
-      >
-        <ProductIcon />
-      </button>
-    </div>
-  );
-});
-
-const ProductSearchModal = forwardRef(({}, ref: Ref<ReactQuill>) => {
-  const [query, setQuery] = useState("");
-
-  return (
-    <div className="BlockProduct__Content">
-      <span className="BlockProduct__Content__Title">
-        Rechercher un produit, une catégorie ou un contenu
-      </span>
-      <div className="BlockProduct__Content__Search">
-        <Text
-          onChange={(e) => setQuery(e.target.value)}
-          value={query}
-          placeholder="Référence, catégorie, contenu, ..."
-          id="BlockProduct-field-product"
-          type="text"
-          icon={<i className="fa fa-search text-vermillon"></i>}
-          iconAlignment="right"
-          label="Rechercher"
-        />
-      </div>
-    </div>
-  );
-});
 
 const BlockTextComponent = ({
   data,
@@ -76,11 +17,7 @@ const BlockTextComponent = ({
   const quillRef = useRef<any>(null);
 
   const [localData, setData] = useState<string>(data.value);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const insertProduct = () => {
-    quillRef?.current?.editor?.insertText(0, "test");
-  };
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setData(data.value);
@@ -90,28 +27,15 @@ const BlockTextComponent = ({
     <div className="BlockText">
       {data !== undefined ? (
         <div className="BlockText__Editor">
-          <EditorToolbar />
-          <ReactQuill
-            modules={{
-              toolbar: {
-                container: "#editor-toolbar",
-              },
-            }}
+          <Editor
             ref={quillRef}
+            setIsModalOpen={setIsModalOpen}
             value={localData}
-            placeholder="Votre texte ici"
-            onChange={(value) => setData(value)}
+            setValue={setData}
           />
         </div>
       ) : null}
-      <ReactModal
-        isOpen={isOpen}
-        onRequestClose={() => setIsOpen(false)}
-        className="Modal-TheliaBlocks"
-        overlayClassName="Overlay"
-      >
-        <ProductSearchModal ref={quillRef} />
-      </ReactModal>
+      <SearchModal ref={quillRef} isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
     </div>
   );
 };
