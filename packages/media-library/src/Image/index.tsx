@@ -1,34 +1,210 @@
-import { BlockModuleComponentProps, BlockPluginDefinition } from "@thelia/blocks-editor";
+import {
+  BlockModuleComponentProps,
+  BlockPluginDefinition,
+  queryClient,
+  withQueryClient,
+} from "@thelia/blocks-editor";
+import { Suspense, useEffect, useState } from "react";
 
 import { ReactComponent as Icon } from "./assets/image.svg";
+import Library from "../Library";
 import { LibraryImage } from "../types";
 import { ReactComponent as MediathequeIcon } from "./assets/mediatheque.svg";
+import { QueryClientProvider } from "react-query";
+import { useCreateImage } from "../api";
 
-const BlockImageComponent = ({}: BlockModuleComponentProps<LibraryImage>) => {
+const FromLocal = ({
+  onSelect,
+}: {
+  onSelect: (value: LibraryImage) => void;
+}) => {
+  const createImage = useCreateImage();
   return (
-    <div className="BlockImage flex lg:flex-nowrap flex-wrap justify-center w-full gap-4">
-      <div className="border border-dotted border-greyDark rounded-md w-full lg:w-1/2 flex flex-col gap-2 justify-center items-center py-12 px-6 text-center">
-        <div className="rounded-full bg-darkCharbon text-white px-2.5 py-1">
-          <i className="fa fa-arrow-down"></i>
-        </div>
-        <label htmlFor="">
-          <input
-            type="file"
-            className="font-semibold w-max border-2 border-vermillon text-vermillon hover:bg-vermillon hover:text-white px-2 md:px-4 md:py-1 rounded-md"
-          />
-          Télécharger une image
-        </label>
+    <div
+      style={{
+        border: "1px dashed",
+      }}
+    >
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <label htmlFor="">Télécharger une image</label>
+        <input
+          type="file"
+          name=""
+          id=""
+          onChange={async (e) => {
+            if (e.target.files) {
+              const formData = new FormData();
+              formData.append("image", e.target.files[0]);
+              const res = await createImage.mutateAsync(formData);
 
-        <span>ou déposez une image</span>
-      </div>
-
-      <div className="bg-white rounded-md w-full lg:w-1/2 flex flex-col gap-4 justify-center items-center text-center py-12 px-6">
-        <div className="rounded-full bg-pearlLight text-white p-3">
-          <MediathequeIcon />
-        </div>
-        <span>Sélectionnez une image depuis votre médiathèque</span>
-      </div>
+              onSelect(res);
+            }
+          }}
+        />
+      </form>
     </div>
+  );
+};
+
+const FromLibrary = ({
+  onSelect,
+}: {
+  onSelect: (value: LibraryImage) => void;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <button
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      >
+        <span>Selectionnez une image depuis votre médiathèque</span>
+      </button>
+      {isOpen ? (
+        <Library
+          onSelect={(image) => {
+            setIsOpen(false);
+            onSelect(image);
+          }}
+        />
+      ) : null}
+    </>
+  );
+};
+
+const Preview = ({ id }: { id: LibraryImage["id"] | null }) => {
+  if (!id) return null;
+
+  return (
+    <div>
+      <img src={`/image-library/${id}/full/^!300,300/0/default.webp`} alt="" />
+    </div>
+  );
+};
+
+const ImageInfos = ({
+  image,
+  onChange,
+}: {
+  image: LibraryImage;
+  onChange: (data: Partial<LibraryImage>) => void;
+}) => {
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
+      <div>
+        <label htmlFor="">titre</label>
+        <input
+          type="text"
+          name="title"
+          value={image.title}
+          onChange={(e) => {
+            onChange({
+              title: e.target.value,
+            });
+          }}
+        />
+      </div>
+      <div>
+        <label>titre lien</label>
+        <input
+          type="text"
+          name="linkUrl"
+          value={image.link?.url || ""}
+          onChange={(e) => {
+            onChange({
+              link: {
+                url: e.target.value,
+              },
+            });
+          }}
+        />
+      </div>
+    </form>
+  );
+};
+
+const BlockImageComponent = (
+  props: BlockModuleComponentProps<LibraryImage>
+) => {
+  const { data, onUpdate } = props;
+
+  const [image, setImage] = useState<LibraryImage | null>(null);
+  const [isEditMode, setEditMode] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (data.id) {
+      setImage(data);
+      return;
+    }
+
+    setEditMode(true);
+  }, [data]);
+
+  const onSelect = (image: LibraryImage) => {
+    onUpdate(image);
+    setEditMode(false);
+  };
+
+  return (
+    <div className="">
+      {image && !isEditMode ? (
+        <>
+          <div className="flex">
+            <Preview id={image.id} />
+
+            <ImageInfos
+              image={image}
+              onChange={(values) => {
+                onUpdate({ ...data, ...values });
+              }}
+            />
+          </div>
+          <button
+            onClick={() => {
+              setEditMode(true);
+            }}
+          >
+            Changer
+          </button>
+        </>
+      ) : null}
+      {isEditMode ? (
+        <>
+          <div className="flex">
+            <FromLocal onSelect={onSelect} />
+            <FromLibrary onSelect={onSelect} />
+          </div>
+          {image?.id ? (
+            <button
+              onClick={() => {
+                setEditMode(false);
+              }}
+            >
+              Annuler
+            </button>
+          ) : null}
+        </>
+      ) : null}
+    </div>
+  );
+};
+
+const WrappedComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Suspense fallback="chargement">
+        <BlockImageComponent {...props} />
+      </Suspense>
+    </QueryClientProvider>
   );
 };
 
@@ -45,7 +221,7 @@ const moduleType = {
 
 const blockImage: BlockPluginDefinition<LibraryImage> = {
   type: moduleType,
-  component: BlockImageComponent,
+  component: WrappedComponent,
   initialData,
   title: {
     default: "Image",
@@ -60,4 +236,5 @@ const blockImage: BlockPluginDefinition<LibraryImage> = {
     default: "",
   },
 };
+
 export default blockImage;

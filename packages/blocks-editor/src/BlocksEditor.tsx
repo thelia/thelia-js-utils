@@ -1,5 +1,6 @@
 import { Suspense, useLayoutEffect } from "react";
 
+import AddBlocks from "./components/AddBlocks";
 import { BlockContextProvider } from "./providers/BlockContext";
 import BlocksContent from "./components/BlocksContent/BlocksContent";
 import { BlocksGroupProvider } from "./providers/BlockGroupContext";
@@ -9,11 +10,10 @@ import GroupTitle from "./components/GroupTitle";
 import { Locale } from "./types/types";
 import { LocaleProvider } from "./providers/LocaleContext";
 import ReactModal from "react-modal";
+import Sidebar from "./components/Sidebar";
 import { Toaster } from "react-hot-toast";
 import ToolBar from "./components/ToolBar";
-import Sidebar from "./components/Sidebar";
 import useWindowSize from "./hooks/useWindowSize";
-import AddBlocks from "./components/AddBlocks";
 
 interface IBlocksEditorProps {
   apiUrl: string;
