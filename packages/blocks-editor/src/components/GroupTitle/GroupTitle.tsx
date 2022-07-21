@@ -1,7 +1,7 @@
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 
 import { BlocksGroupContext } from "../../providers/BlockGroupContext";
-import { Text } from "../Inputs";
+import { Input } from "../Inputs";
 
 import "./GroupTitle.css";
 
@@ -18,7 +18,7 @@ export default function GroupTitle() {
 
   return (
     <div className="GroupTitle__Wrapper">
-      <Text
+      <Input
         value={title}
         id="GroupTitle-field-title"
         type="text"

@@ -1,5 +1,5 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
-import { Text, Select } from "../../components/Inputs";
+import { Input, Select } from "../../components/Inputs";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/title.svg";
 
@@ -87,7 +87,7 @@ const BlockTitleComponent = ({
         ))}
       </Select>
 
-      <Text
+      <Input
         type="text"
         id="BlockTitle-field-text"
         value={text}

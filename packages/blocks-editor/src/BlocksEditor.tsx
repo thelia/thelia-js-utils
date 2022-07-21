@@ -14,6 +14,7 @@ import Sidebar from "./components/Sidebar";
 import { Toaster } from "react-hot-toast";
 import ToolBar from "./components/ToolBar";
 import useWindowSize from "./hooks/useWindowSize";
+import BlocksList from "./BlocksList";
 
 interface IBlocksEditorProps {
   apiUrl: string;
@@ -80,33 +81,36 @@ export default function BlocksEditor({
             itemId={itemId}
             noRedirect={noRedirect}
           >
-            <div className="BlocksEditor">
-              <Toaster />
-              <div className="BlocksEditor__Wrapper">
-                <BlockContextProvider root>
-                  <>
-                    <div className="BlocksEditor__ContentWrapper">
-                      <BlocksEditorHeader backlink={backlink} />
+            <>
+              <BlocksList apiUrl={apiUrl} />
+              <div className="BlocksEditor">
+                <Toaster />
+                <div className="BlocksEditor__Wrapper">
+                  <BlockContextProvider root>
+                    <>
+                      <div className="BlocksEditor__ContentWrapper">
+                        <BlocksEditorHeader backlink={backlink} />
 
-                      <div className="BlocksEditor__Content">
-                        <BlocksContent />
-                        {width < 1080 ? (
-                          <div className="BlocksEditor__AddBlocksWrapper">
-                            <AddBlocks />
-                          </div>
-                        ) : null}
-                        <ToolBar />
+                        <div className="BlocksEditor__Content">
+                          <BlocksContent />
+                          {width < 1080 ? (
+                            <div className="BlocksEditor__AddBlocksWrapper">
+                              <AddBlocks />
+                            </div>
+                          ) : null}
+                          <ToolBar />
+                        </div>
                       </div>
-                    </div>
-                    {width > 1080 ? (
-                      <div className="Sidebar__Wrapper">
-                        <Sidebar />
-                      </div>
-                    ) : null}
-                  </>
-                </BlockContextProvider>
+                      {width > 1080 ? (
+                        <div className="Sidebar__Wrapper">
+                          <Sidebar />
+                        </div>
+                      ) : null}
+                    </>
+                  </BlockContextProvider>
+                </div>
               </div>
-            </div>
+            </>
           </BlocksGroupProvider>
         </Suspense>
       </BlocksProvider>

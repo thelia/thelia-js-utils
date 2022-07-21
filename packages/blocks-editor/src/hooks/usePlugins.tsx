@@ -2,7 +2,6 @@ import {
   Accordion,
   Button,
   Columns,
-  List,
   Product,
   Raw,
   Separator,
@@ -24,7 +23,6 @@ export const TB_DEFAULT_PLUGINS: any = [
   { id: nanoid(), ...Accordion },
   { id: nanoid(), ...Product },
   { id: nanoid(), ...Raw },
-  { id: nanoid(), ...List },
   ...Object.values(Columns).map((colType) => ({ id: nanoid(), ...colType })),
 ];
 

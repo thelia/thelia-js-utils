@@ -1,6 +1,6 @@
 @import "../assets/css/DragAndDrop.css";
 @import "../assets/css/BlocksEditor.css";
-@import "../assets/css/BlockList.css";
+@import "../assets/css/BlocksList.css";
 
 @tailwind base;
 @tailwind components;
