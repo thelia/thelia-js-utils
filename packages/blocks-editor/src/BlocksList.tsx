@@ -1,108 +1,27 @@
-import {
-  BlocksProvider,
-  useDeleteGroup,
-  useDuplicateGroup,
-  useGroups,
-} from "./utils/queries";
-import toast, { Toaster } from "react-hot-toast";
-
-import { GroupTypeResponse } from "./types/types";
 import { Suspense } from "react";
-import { getContentUrl } from "./utils/content-url";
-import useCopyToClipboard from "react-use/esm/useCopyToClipboard";
+import { Toaster } from "react-hot-toast";
+import { BlocksProvider } from "./utils/queries";
+import BlocksTable from "./components/BlocksTable";
 
-const List = () => {
-  const { data: groups = [] } = useGroups();
-  const [copied, copyToClipboard] = useCopyToClipboard();
-  const mutationDelete = useDeleteGroup();
-  const mutationDuplicate = useDuplicateGroup();
-
-  if (groups.length <= 0) {
-    return <div>No blocks to display</div>;
-  }
-
+const BlocksListHeader = ({ backlink }: { backlink: boolean }) => {
   return (
-    <table className="w-full">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nom</th>
-          <th>Contenus liés</th>
-          <th>Langues disponibles</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {groups.map((group: GroupTypeResponse) => {
-          return (
-            <tr>
-              <td>{group.id}</td>
-              <td>
-                <a href={`/admin/TheliaBlocks/${group.id}`}>
-                  {group.title || "No Title"}
-                </a>
-              </td>
-              <td className="">
-                <div className="flex gap-2 items-center">
-                  {!!group.itemBlockGroups?.length && (
-                    <span className="text-sm font-normal text-gray-400">
-                      <i className="fa fa-link ml-1"></i>
-                      {group.itemBlockGroups.map(({ itemId, itemType }) => {
-                        if (itemId && itemType) {
-                          return (
-                            <a
-                              href={getContentUrl(itemType, itemId)}
-                              key={`${itemType}-${itemId}`}
-                            >
-                              {itemType}-{itemId}
-                            </a>
-                          );
-                        } else {
-                          return (
-                            <span key={`${itemType}-${itemId}`}>
-                              {itemType}-{itemId}
-                            </span>
-                          );
-                        }
-                      })}
-                    </span>
-                  )}
-                </div>
-              </td>
-              <td>TODO</td>
-              <td>
-                <div>
-                  <button
-                    onClick={() => {
-                      mutationDelete.mutate(group.id);
-                    }}
-                  >
-                    delete
-                  </button>
-                  <button
-                    onClick={() => {
-                      mutationDuplicate.mutate(group.id);
-                    }}
-                  >
-                    duplicate
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const shortcode = `[block_group slug=${group.slug}]`;
-                      copyToClipboard(shortcode);
-                      toast(`${shortcode} copié avec succès`);
-                    }}
-                  >
-                    shortcode
-                  </button>
-                </div>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+    <div className="BlocksList__Header">
+      {backlink ? (
+        <div>
+          <a href="/admin/TheliaBlocks">Back to BlocksList</a>
+        </div>
+      ) : null}
+      <div className="BlocksList__Header__Title">Thelia Blocks</div>
+      <div className="BlocksList__Header__Infos">
+        <span className="BlocksList__Header__Description">
+          Ici, un texte expliquant rapidement le fonctionnement des Thelia Blocks. Cela
+          permettera aux utilisateurs de comprendre plus facilement l'outil
+        </span>
+        <a href="/admin/TheliaBlocks/new" className="BlocksList__Header__Create">
+          Créer
+        </a>
+      </div>
+    </div>
   );
 };
 
@@ -114,14 +33,15 @@ const BlocksList = ({ apiUrl }: { apiUrl: string }) => {
       <div className="BlocksList">
         <Toaster />
 
-        <div className="mb-8">
-          <a href="/admin/TheliaBlocks/new" className="btn btn-danger ">
-            Create new group
-          </a>
+        <BlocksListHeader backlink />
+        <div className="BlocksList__Wrapper">
+          <div className="BlocksList__Title">Thelia Blocks existants</div>
+          <div className="BlocksList__List__Wrapper">
+            <Suspense fallback="loading">
+              <BlocksTable />
+            </Suspense>
+          </div>
         </div>
-        <Suspense fallback="loading">
-          <List />
-        </Suspense>
       </div>
     </BlocksProvider>
   );

@@ -5,7 +5,8 @@
 }
 
 .BlockColumn {
-  @apply flex flex-col rounded-md shadow-md border-l-8 border-l-vermillon bg-white;
+  @apply flex flex-col rounded-md border-l-8 border-l-vermillon bg-white;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
 
   &__Content {
     @apply xl:py-8 xl:px-10 px-6 py-4;

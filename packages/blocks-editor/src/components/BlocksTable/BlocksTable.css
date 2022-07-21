@@ -1,0 +1,52 @@
+.BlocksTable {
+  @apply w-full text-left rounded-md;
+
+  thead {
+    @apply text-xs text-greyDark tracking-wider uppercase;
+  }
+
+  tr {
+    @apply border-b-mediumGrey border-b border-opacity-50 last:border-b-0;
+  }
+
+  th {
+    @apply p-4 font-normal last:pr-0;
+  }
+
+  td {
+    @apply p-4 last:pr-0;
+  }
+
+  &__Row {
+    &__Title {
+      @apply font-bold text-mediumCharbon;
+    }
+
+    &__LinkedContent {
+      &__Wrapper {
+        @apply flex items-center gap-1 text-greyDark text-sm;
+
+        > button {
+          @apply underline;
+        }
+      }
+    }
+
+    &__Langs {
+      &__Wrapper {
+        @apply flex items-center gap-3;
+
+        > span {
+          @apply border border-lightCharbon py-1 px-3 bg-pearlLight font-semibold;
+          border-radius: 90px;
+        } 
+      }
+    }
+
+    &__Actions {
+      &__Wrapper {
+        @apply flex gap-8;
+      }
+    }
+  }
+}

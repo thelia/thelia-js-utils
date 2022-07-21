@@ -8,7 +8,6 @@ import {
 
 import Accordion from "./Accordion";
 import Button from "./Button";
-import List from "./List";
 import Product from "./Product";
 import Raw from "./Raw";
 import Separator from "./Separator";
@@ -25,7 +24,6 @@ const Columns = {
 };
 
 export {
-  List,
   Raw,
   Text,
   Title,

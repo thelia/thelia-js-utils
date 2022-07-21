@@ -1,32 +1,12 @@
-import { forwardRef, MouseEventHandler, useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import ReactModal from "react-modal";
 import { SearchProps } from "../../../utils/queries";
 import Search from "./Search";
 
 import "./SearchModal.css";
 
-const Mode = ({
-  mode,
-  onClick,
-}: {
-  mode: SearchProps["searchIn"];
-  onClick: MouseEventHandler<HTMLButtonElement>;
-}) => {
-  return (
-    <button
-      className="bg-pearlMedium hover:bg-pearlLight text-mediumCharbon p-12 rounded-md flex flex-col gap-4 items-center justify-center w-1/5"
-      onClick={onClick}
-    >
-      <i className="fas fa-link text-2xl"></i>
-      <span className="text-center">{mode}</span>
-    </button>
-  );
-};
-
 const SearchModal = forwardRef(
   ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Function }, ref: any) => {
-    const modes: SearchProps["searchIn"][] = ["product", "content", "folder", "category"];
-
     const [isSearching, setIsSearching] = useState(false);
     const [searchIn, setSearchIn] = useState<SearchProps["searchIn"]>("product");
 
@@ -80,25 +60,45 @@ const SearchModal = forwardRef(
           ) : (
             <div className="flex flex-col md:flex-row gap-4">
               <button
-                className="bg-pearlMedium hover:bg-pearlLight text-mediumCharbon p-12 rounded-md flex flex-col gap-4 items-center justify-center w-1/5"
+                className="bg-pearlMedium hover:bg-pearlLight text-mediumCharbon p-12 rounded-md flex flex-col gap-4 items-center justify-center w-1/4"
                 onClick={() => {
                   setIsSearching(true);
                   setSearchIn("product");
                 }}
               >
-                <i className="fas fa-link text-2xl"></i>
-                <span className="text-center">Lien</span>
+                <i className="fas fa-box text-2xl"></i>
+                <span className="text-center">Produits</span>
               </button>
-              {modes.map((mode) => (
-                <Mode
-                  key={mode}
-                  mode={mode}
-                  onClick={() => {
-                    setSearchIn(mode);
-                    setIsSearching(true);
-                  }}
-                />
-              ))}
+              <button
+                className="bg-pearlMedium hover:bg-pearlLight text-mediumCharbon p-12 rounded-md flex flex-col gap-4 items-center justify-center w-1/4"
+                onClick={() => {
+                  setIsSearching(true);
+                  setSearchIn("folder");
+                }}
+              >
+                <i className="fas fa-folder-open text-2xl"></i>
+                <span className="text-center">Dossiers</span>
+              </button>
+              <button
+                className="bg-pearlMedium hover:bg-pearlLight text-mediumCharbon p-12 rounded-md flex flex-col gap-4 items-center justify-center w-1/4"
+                onClick={() => {
+                  setIsSearching(true);
+                  setSearchIn("category");
+                }}
+              >
+                <i className="fas fa-book text-2xl"></i>
+                <span className="text-center">Catégories</span>
+              </button>
+              <button
+                className="bg-pearlMedium hover:bg-pearlLight text-mediumCharbon p-12 rounded-md flex flex-col gap-4 items-center justify-center w-1/4"
+                onClick={() => {
+                  setIsSearching(true);
+                  setSearchIn("content");
+                }}
+              >
+                <i className="fas fa-file-alt text-2xl"></i>
+                <span className="text-center">Contenus</span>
+              </button>
             </div>
           )}
         </div>

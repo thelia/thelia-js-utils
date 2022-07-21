@@ -1,0 +1,22 @@
+.Modal {
+  &__Wrapper {
+    @apply p-5 flex flex-col gap-6;
+  }
+
+  &__Header {
+    @apply flex flex-col gap-3;
+
+    &__Close {
+      @apply self-end text-2xl text-darkCharbon hover:text-vermillon cursor-pointer
+    }
+
+    &__Title {
+      @apply text-mediumCharbon text-xl font-extrabold;
+      padding: 0 60px;
+    }
+  }
+
+  &__Content {
+    padding: 0 60px 30px;
+  }
+}

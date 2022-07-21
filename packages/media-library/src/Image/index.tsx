@@ -2,29 +2,19 @@ import {
   BlockModuleComponentProps,
   BlockPluginDefinition,
   queryClient,
-  withQueryClient,
 } from "@thelia/blocks-editor";
 import { Suspense, useEffect, useState } from "react";
 
 import { ReactComponent as Icon } from "./assets/image.svg";
 import Library from "../Library";
 import { LibraryImage } from "../types";
-import { ReactComponent as MediathequeIcon } from "./assets/mediatheque.svg";
 import { QueryClientProvider } from "react-query";
 import { useCreateImage } from "../api";
 
-const FromLocal = ({
-  onSelect,
-}: {
-  onSelect: (value: LibraryImage) => void;
-}) => {
+const FromLocal = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) => {
   const createImage = useCreateImage();
   return (
-    <div
-      style={{
-        border: "1px dashed",
-      }}
-    >
+    <div className="border border-dashed border-greyDark">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -50,11 +40,7 @@ const FromLocal = ({
   );
 };
 
-const FromLibrary = ({
-  onSelect,
-}: {
-  onSelect: (value: LibraryImage) => void;
-}) => {
+const FromLibrary = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -132,9 +118,7 @@ const ImageInfos = ({
   );
 };
 
-const BlockImageComponent = (
-  props: BlockModuleComponentProps<LibraryImage>
-) => {
+const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
   const { data, onUpdate } = props;
 
   const [image, setImage] = useState<LibraryImage | null>(null);
@@ -179,7 +163,7 @@ const BlockImageComponent = (
       ) : null}
       {isEditMode ? (
         <>
-          <div className="flex">
+          <div className="flex gap-4">
             <FromLocal onSelect={onSelect} />
             <FromLibrary onSelect={onSelect} />
           </div>
