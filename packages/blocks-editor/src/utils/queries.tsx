@@ -229,7 +229,15 @@ export function useLinkContentToGroup() {
   } = useContext(BlocksGroupContext);
 
   return useMutation(
-    (id?: number, itemId?: number, itemType?: string) =>
+    ({
+      id,
+      itemId,
+      itemType,
+    }: {
+      id?: number;
+      itemId?: number;
+      itemType?: string;
+    }) =>
       fetcher(`/item_block_group`, {
         method: "POST",
         data: {
@@ -326,7 +334,11 @@ export function useProductsBy({ type, value = null }: SearchProps) {
   );
 }
 
-export function useSearchBy({ searchIn, type = "title", value = null }: SearchProps) {
+export function useSearchBy({
+  searchIn,
+  type = "title",
+  value = null,
+}: SearchProps) {
   let params: {
     id: string | null;
     ids: string | null;
