@@ -8,6 +8,7 @@ import { BlockModuleComponentProps, IBlock } from "../../types/types";
 import LayoutHeader from "../../components/LayoutHeader";
 import { ReactComponent as Icon } from "./assets/accordion.svg";
 import { useEffect, useState } from "react";
+import { DropResult } from "react-beautiful-dnd";
 
 import "./Accordion.css";
 
@@ -23,7 +24,7 @@ const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
     onUpdate(blockList);
   }, [blockList]);
 
-  const onDragEnd = (e: any) => {
+  const onDragEnd = (e: DropResult) => {
     if (e.destination) {
       moveBlockTo(e.source.index, e.destination.index);
     }

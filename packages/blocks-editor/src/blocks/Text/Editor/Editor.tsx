@@ -18,19 +18,6 @@ const EditorToolbar = ({ setIsModalOpen }: { setIsModalOpen: Function }) => {
       <button className="search" onClick={() => setIsModalOpen(true)}>
         <i className="fas fa-plus"></i>
       </button>
-
-      {/* <button className="product" onClick={() => setIsModalOpen(true)}>
-        <i className="fas fa-box"></i>
-      </button>
-      <button className="content" onClick={() => setIsModalOpen(true)}>
-        <i className="fas fa-file-alt"></i>
-      </button>
-      <button className="folder" onClick={() => setIsModalOpen(true)}>
-        <i className="fas fa-folder-open"></i>
-      </button>
-      <button className="category" onClick={() => setIsModalOpen(true)}>
-        <i className="fas fa-book"></i>
-      </button> */}
     </div>
   );
 };
@@ -41,10 +28,12 @@ const Editor = forwardRef(
       value,
       setValue,
       setIsModalOpen,
+      onBlur,
     }: {
       value: string;
       setValue: Function;
       setIsModalOpen: Function;
+      onBlur: () => void;
     },
     ref: any
   ) => {
@@ -61,6 +50,7 @@ const Editor = forwardRef(
           value={value}
           placeholder="Votre texte ici"
           onChange={(value) => setValue(value)}
+          onBlur={onBlur}
         />
       </>
     );

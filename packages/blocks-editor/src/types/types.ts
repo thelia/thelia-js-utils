@@ -43,8 +43,12 @@ export type IBlock = {
 
 export type itemBlockGroupsType = {
   groupId?: number;
-  itemType?: string;
+  blockGroupId?: number;
+  id?: number;
   itemId?: number;
+  itemTitle?: string;
+  itemType?: string;
+  itemUrl?: string;
 };
 
 export type GroupTypeStore = {
@@ -52,6 +56,7 @@ export type GroupTypeStore = {
   visible: boolean;
   title: string;
   slug: string | null;
+  locales: string[];
   itemBlockGroups?: itemBlockGroupsType[];
 };
 

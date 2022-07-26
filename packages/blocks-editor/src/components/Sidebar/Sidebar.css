@@ -16,7 +16,7 @@
     }
 
     &__Title {
-      @apply font-bold;
+      @apply font-bold text-base;
     }
   }
 

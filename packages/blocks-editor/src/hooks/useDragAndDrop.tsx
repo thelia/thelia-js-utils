@@ -22,7 +22,10 @@ const DndDragHandle = ({
       {...dragHandleProps}
     >
       <Tippy content="Faites glisser l'élément pour le déplacer" delay={[700, 0]}>
-        <DragHandle />
+        {/* Use React.Fragment to avoid forwardRef error from Tippy : https://github.com/atomiks/tippyjs-react/issues/49 */}
+        <>
+          <DragHandle style={{ display: "block" }} />
+        </>
       </Tippy>
     </div>
   );

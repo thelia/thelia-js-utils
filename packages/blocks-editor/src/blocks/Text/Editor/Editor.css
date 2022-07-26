@@ -477,9 +477,6 @@
     stroke: #444;
   }
 }
- * {
-  box-sizing: border-box;
-}
  .ql-hidden {
   display: none;
 }

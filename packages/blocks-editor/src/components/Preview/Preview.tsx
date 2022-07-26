@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import Iframe from "../Iframe/Iframe";
 import ReactModal from "react-modal";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePreviewGroup } from "../../utils/queries";
+import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
 
 import "./Preview.css";
+import Modal from "../Modal";
 
 export default function Preview({
   isOpen,
@@ -44,26 +46,13 @@ export default function Preview({
   return (
     <>
       {!preview.isLoading ? (
-        <ReactModal
-          onRequestClose={() => setIsOpen(false)}
+        <Modal
           isOpen={isOpen}
-          overlayClassName="Overlay"
-          className="Modal-TheliaBlocks"
+          setIsOpen={setIsOpen}
+          title="Prévisualisation de votre Thelia Blocks"
         >
-          <div className="Preview__Modal">
-            <button onClick={() => setIsOpen(false)} className="Preview__Modal__Close">
-              <i className="Preview__Modal__Close__Icon fa fa-xmark"></i>
-            </button>
-            <div className="Preview__Modal__Content">
-              <div className="Preview__Modal__Title">
-                Prévisualisation de votre Thelia Blocks
-              </div>
-              <div className="Preview__Modal__BlocksList__Wrapper">
-                {preview.data ? <Iframe content={preview.data} /> : null}
-              </div>
-            </div>
-          </div>
-        </ReactModal>
+          {preview.data ? <Iframe content={preview.data} /> : null}
+        </Modal>
       ) : null}
     </>
   );

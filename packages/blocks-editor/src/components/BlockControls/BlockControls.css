@@ -1,9 +1,10 @@
 .BlockControls {
-  @apply flex;
+  @apply flex items-center;
 }
 
 .BlockControl {
   @apply border-mediumGrey flex gap-2 tracking-wider items-center px-2 md:px-6 text-darkCharbon;
+  height: 30px;
 
   &--danger {
     @apply text-error;

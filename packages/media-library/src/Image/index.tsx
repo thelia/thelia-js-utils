@@ -6,25 +6,38 @@ import {
 import { Suspense, useEffect, useState } from "react";
 
 import { ReactComponent as Icon } from "./assets/image.svg";
+import { ReactComponent as DownloadIcon } from "./assets/download.svg";
+import { ReactComponent as MediathequeIcon } from "./assets/mediatheque.svg";
+
 import Library from "../Library";
 import { LibraryImage } from "../types";
 import { QueryClientProvider } from "react-query";
 import { useCreateImage } from "../api";
 
+import "./Image.css";
+
 const FromLocal = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) => {
   const createImage = useCreateImage();
+
   return (
-    <div className="border border-dashed border-greyDark">
+    <div className="BlockImage__FromLocal">
+      <div className="BlockImage__FromLocal__Icon">
+        <DownloadIcon />
+      </div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
         }}
       >
-        <label htmlFor="">Télécharger une image</label>
+        <label className="BlockImage__Button" htmlFor="image">
+          Télécharger une image
+        </label>
         <input
+          className="BlockImage__FromLocal__FileInput"
           type="file"
-          name=""
-          id=""
+          accept="image/*"
+          name="image"
+          id="image"
           onChange={async (e) => {
             if (e.target.files) {
               const formData = new FormData();
@@ -35,6 +48,7 @@ const FromLocal = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) =>
             }
           }}
         />
+        <span>ou déposez une image</span>
       </form>
     </div>
   );
@@ -42,8 +56,12 @@ const FromLocal = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) =>
 
 const FromLibrary = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <>
+    <div className="BlockImage__FromLibrary">
+      <div className="BlockImage__FromLibrary__Icon">
+        <MediathequeIcon />
+      </div>
       <button
         onClick={() => {
           setIsOpen(true);
@@ -51,24 +69,47 @@ const FromLibrary = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) 
       >
         <span>Selectionnez une image depuis votre médiathèque</span>
       </button>
+
       {isOpen ? (
         <Library
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
           onSelect={(image) => {
             setIsOpen(false);
             onSelect(image);
           }}
         />
       ) : null}
-    </>
+    </div>
   );
 };
 
-const Preview = ({ id }: { id: LibraryImage["id"] | null }) => {
+const Preview = ({
+  id,
+  fileName,
+  setEditMode,
+}: {
+  id: LibraryImage["id"] | null;
+  fileName: LibraryImage["fileName"];
+  setEditMode: Function;
+}) => {
   if (!id) return null;
 
   return (
-    <div>
-      <img src={`/image-library/${id}/full/^!300,300/0/default.webp`} alt="" />
+    <div className="BlockImage__Preview">
+      <img src={`/image-library/${id}/full/^!220,220/0/default.webp`} alt="" />
+
+      <div className="BlockImage__Preview__Infos">
+        <span className="BlockImage__Preview__FileName">{fileName}</span>
+        <button
+          className="BlockImage__Button"
+          onClick={() => {
+            setEditMode(true);
+          }}
+        >
+          Remplacer
+        </button>
+      </div>
     </div>
   );
 };
@@ -82,16 +123,19 @@ const ImageInfos = ({
 }) => {
   return (
     <form
+      className="BlockImage__Infos__Form"
       onSubmit={(e) => {
         e.preventDefault();
       }}
     >
       <div>
-        <label htmlFor="">titre</label>
+        <label htmlFor="">Titre de l'image</label>
         <input
+          className="Input__Text"
           type="text"
           name="title"
           value={image.title}
+          placeholder="Titre de l'image"
           onChange={(e) => {
             onChange({
               title: e.target.value,
@@ -100,11 +144,13 @@ const ImageInfos = ({
         />
       </div>
       <div>
-        <label>titre lien</label>
+        <label>Lien au clic (optionnel)</label>
         <input
+          className="Input__Text"
           type="text"
           name="linkUrl"
           value={image.link?.url || ""}
+          placeholder="Lien au clic sur l'image"
           onChange={(e) => {
             onChange({
               link: {
@@ -139,31 +185,34 @@ const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => 
   };
 
   return (
-    <div className="">
+    <div className="BlockImage">
       {image && !isEditMode ? (
-        <>
-          <div className="flex">
-            <Preview id={image.id} />
+        <div className="BlockImage__Infos">
+          <Preview id={image.id} fileName={image.fileName} setEditMode={setEditMode} />
 
-            <ImageInfos
-              image={image}
-              onChange={(values) => {
-                onUpdate({ ...data, ...values });
-              }}
-            />
-          </div>
-          <button
-            onClick={() => {
-              setEditMode(true);
+          <ImageInfos
+            image={image}
+            onChange={(values) => {
+              onUpdate({ ...data, ...values });
             }}
-          >
-            Changer
-          </button>
-        </>
+          />
+        </div>
       ) : null}
       {isEditMode ? (
         <>
-          <div className="flex gap-4">
+          {image?.id ? (
+            <span
+              style={{
+                marginBottom: "15px",
+                display: "block",
+                fontWeight: 800,
+                fontSize: "18px",
+              }}
+            >
+              Remplacer l'image "{image.title}"
+            </span>
+          ) : null}
+          <div className="BlockImage__Upload__Wrapper">
             <FromLocal onSelect={onSelect} />
             <FromLibrary onSelect={onSelect} />
           </div>
@@ -172,6 +221,8 @@ const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => 
               onClick={() => {
                 setEditMode(false);
               }}
+              style={{ marginTop: "15px" }}
+              className="BlockImage__Button"
             >
               Annuler
             </button>
@@ -185,9 +236,7 @@ const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => 
 const WrappedComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <Suspense fallback="chargement">
-        <BlockImageComponent {...props} />
-      </Suspense>
+      <BlockImageComponent {...props} />
     </QueryClientProvider>
   );
 };

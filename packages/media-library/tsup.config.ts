@@ -13,6 +13,7 @@ export default defineConfig([
     esbuildPlugins: [
       importAsGlobals({
         react: "React",
+        "react-dom": "ReactDOM",
         "@thelia/blocks-editor": "TheliaBlocks",
       }),
       svgrPlugin({

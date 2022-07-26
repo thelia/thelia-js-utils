@@ -11,6 +11,7 @@ import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
 import useWindowSize from "../../hooks/useWindowSize";
 import { CSSProperties, ReactNode, useState } from "react";
+import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
 
 import "./AddBlocks.css";
 
@@ -78,7 +79,7 @@ const AddBlockModal = ({
     >
       <div className="AddBlocks__Modal">
         <button onClick={() => setIsOpen(false)} className="AddBlocks__Modal__Close">
-          <i className="AddBlocks__Modal__Close__Icon fa fa-xmark"></i>
+          <XMarkIcon className="AddBlocks__Modal__Close__Icon" />
         </button>
         <div className="AddBlocks__Modal__Content">
           <div className="AddBlocks__Modal__Title">{title}</div>

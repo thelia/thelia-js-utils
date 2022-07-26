@@ -3,6 +3,8 @@ import ReactModal from "react-modal";
 import { SearchProps } from "../../../utils/queries";
 import Search from "./Search";
 
+import { ReactComponent as XMarkIcon } from "../../../../assets/svg/xmark.svg";
+
 import "./SearchModal.css";
 
 const SearchModal = forwardRef(
@@ -24,14 +26,14 @@ const SearchModal = forwardRef(
           setIsOpen(false);
           setIsSearching(false);
         }}
-        className="Modal-TheliaBlocks"
+        className="Modal-InsertLink"
         overlayClassName="Overlay"
       >
-        <div className="px-4 pb-4 pt-2 flex flex-col">
+        <div className="flex flex-col px-4 pt-2 pb-4">
           <div className="flex mb-8">
             {isSearching ? (
               <button
-                className="bg-pearlMedium hover:bg-pearlLight text-mediumCharbon px-2 py-1 rounded-md flex gap-2 items-center"
+                className="flex items-center gap-2 px-2 py-1 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon"
                 onClick={() => setIsSearching(false)}
               >
                 <i className="fa fa-chevron-left"></i>
@@ -42,7 +44,7 @@ const SearchModal = forwardRef(
             )}
 
             <button onClick={() => setIsOpen(false)} className="ml-auto">
-              <i className="text-2xl text-darkCharbon hover:text-vermillon fa fa-xmark"></i>
+              <XMarkIcon className="text-2xl text-darkCharbon hover:text-vermillon" />
             </button>
           </div>
 
@@ -58,45 +60,45 @@ const SearchModal = forwardRef(
               ref={ref}
             />
           ) : (
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col gap-4 overflow-scroll md:flex-row">
               <button
-                className="bg-pearlMedium hover:bg-pearlLight text-mediumCharbon p-12 rounded-md flex flex-col gap-4 items-center justify-center w-1/4"
+                className="flex flex-col items-center justify-center w-full gap-4 p-12 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon md:w-1/4"
                 onClick={() => {
                   setIsSearching(true);
                   setSearchIn("product");
                 }}
               >
-                <i className="fas fa-box text-2xl"></i>
+                <i className="text-2xl fas fa-box"></i>
                 <span className="text-center">Produits</span>
               </button>
               <button
-                className="bg-pearlMedium hover:bg-pearlLight text-mediumCharbon p-12 rounded-md flex flex-col gap-4 items-center justify-center w-1/4"
+                className="flex flex-col items-center justify-center w-full gap-4 p-12 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon md:w-1/4"
                 onClick={() => {
                   setIsSearching(true);
                   setSearchIn("folder");
                 }}
               >
-                <i className="fas fa-folder-open text-2xl"></i>
+                <i className="text-2xl fas fa-folder-open"></i>
                 <span className="text-center">Dossiers</span>
               </button>
               <button
-                className="bg-pearlMedium hover:bg-pearlLight text-mediumCharbon p-12 rounded-md flex flex-col gap-4 items-center justify-center w-1/4"
+                className="flex flex-col items-center justify-center w-full gap-4 p-12 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon md:w-1/4"
                 onClick={() => {
                   setIsSearching(true);
                   setSearchIn("category");
                 }}
               >
-                <i className="fas fa-book text-2xl"></i>
+                <i className="text-2xl fas fa-book"></i>
                 <span className="text-center">Catégories</span>
               </button>
               <button
-                className="bg-pearlMedium hover:bg-pearlLight text-mediumCharbon p-12 rounded-md flex flex-col gap-4 items-center justify-center w-1/4"
+                className="flex flex-col items-center justify-center w-full gap-4 p-12 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon md:w-1/4"
                 onClick={() => {
                   setIsSearching(true);
                   setSearchIn("content");
                 }}
               >
-                <i className="fas fa-file-alt text-2xl"></i>
+                <i className="text-2xl fas fa-file-alt"></i>
                 <span className="text-center">Contenus</span>
               </button>
             </div>

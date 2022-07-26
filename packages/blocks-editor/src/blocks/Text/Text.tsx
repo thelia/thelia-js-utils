@@ -19,6 +19,10 @@ const BlockTextComponent = ({
   const [localData, setData] = useState<string>(data.value);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
+  const onBlur = () => {
+    onUpdate({ value: localData });
+  };
+
   useEffect(() => {
     setData(data.value);
   }, [data]);
@@ -32,6 +36,7 @@ const BlockTextComponent = ({
             setIsModalOpen={setIsModalOpen}
             value={localData}
             setValue={setData}
+            onBlur={onBlur}
           />
         </div>
       ) : null}

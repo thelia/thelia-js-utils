@@ -47,6 +47,7 @@ const ToolBar = () => {
         </button>
         <button
           className="Toolbar__Save"
+          disabled={mutation.isLoading}
           onClick={() => {
             if (!group?.title) {
               toast.error("Titre manquant");
@@ -55,7 +56,14 @@ const ToolBar = () => {
             mutation.mutate({ blocks: blockList });
           }}
         >
-          Enregistrer
+          {mutation.isLoading ? (
+            <>
+              <i className="fa fa-circle-notch fa-spin Toolbar__Save__Icon"></i>
+              Enregistrement...
+            </>
+          ) : (
+            <>Enregistrer</>
+          )}
         </button>
       </div>
       <ErrorBoundary>

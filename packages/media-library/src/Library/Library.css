@@ -1,0 +1,74 @@
+.Modal-Library {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: max-content;
+  width: 90%;
+  max-height: 90%;
+  overflow: scroll;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.Library {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.Library__Filters {
+  display: flex;
+  gap: 15px;
+}
+
+.Library__Content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.Library__Item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 170px;
+  height: max-content;
+  padding: 10px;
+  border: 1px solid #EBEBEB;
+  border-radius: 4px;
+}
+
+.Library__Image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+}
+
+.Library__Image__Title {
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+@media screen and (max-width: 1366px) {
+  .Library__Image__Title {
+    max-width: 100px;
+  }
+
+  .Library__Filters {
+    flex-direction: column;
+  }
+
+  .Library__Item {
+    padding: 0px;
+  }
+}

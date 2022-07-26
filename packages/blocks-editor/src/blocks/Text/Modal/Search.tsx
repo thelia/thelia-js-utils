@@ -13,7 +13,7 @@ const SearchResults = ({
   const { data } = useSearchBy({ searchIn, type, value });
 
   return (
-    <ul className="ProductList">
+    <ul className="SearchResult">
       {data?.length > 0 ? (
         <>
           {data
@@ -24,22 +24,22 @@ const SearchResults = ({
                 onClick={() => {
                   onUpdate(element);
                 }}
-                className="ProductList__Item"
+                className="SearchResult__Item"
               >
                 <span>{element.i18n.title}</span>
-                <span className="ProductList__Item__Ref">
+                <span className="SearchResult__Item__Ref">
                   #{element.reference || element.id}
                 </span>
               </li>
             ))}
         </>
       ) : value && value.length > 1 ? (
-        <li className="ProductList__NoResults">
+        <li className="SearchResult__NoResults">
           <span>
             Aucun résultat{" "}
             {value && value.length > 0 ? (
               <span>
-                pour "<span className="highlighted">{value}</span>"
+                pour "<span className="emphasize">{value}</span>"
               </span>
             ) : (
               ""
@@ -83,16 +83,14 @@ const Search = forwardRef(
     const value = searchByRef ? query.substring(1) : query;
 
     return (
-      <div className="BlockProduct__Content">
-        <span className="BlockProduct__Content__Title">
-          Sélectionnez un élément à insérer
-        </span>
-        <div className="BlockProduct__Content__Search">
+      <div className="Search__Content">
+        <span className="Search__Content__Title">Sélectionnez un élément à insérer</span>
+        <div className="Search__Content__Search">
           <Input
             onChange={(e) => setQuery(e.target.value)}
             value={query}
             placeholder="Nom, référence, id ..."
-            id="BlockProduct-field-product"
+            id="Search-field"
             type="text"
             icon={<i className="fa fa-search text-vermillon"></i>}
             iconAlignment="right"
@@ -101,7 +99,7 @@ const Search = forwardRef(
           />
           <Suspense
             fallback={
-              <div className="BlockProduct__Loader">
+              <div className="Search__Loader">
                 <i className="fa fa-circle-notch fa-spin"></i>
               </div>
             }

@@ -1,5 +1,4 @@
 import { Suspense, useLayoutEffect } from "react";
-
 import AddBlocks from "./components/AddBlocks";
 import { BlockContextProvider } from "./providers/BlockContext";
 import BlocksContent from "./components/BlocksContent/BlocksContent";
@@ -14,13 +13,12 @@ import Sidebar from "./components/Sidebar";
 import { Toaster } from "react-hot-toast";
 import ToolBar from "./components/ToolBar";
 import useWindowSize from "./hooks/useWindowSize";
-import BlocksList from "./BlocksList";
 
 interface IBlocksEditorProps {
   apiUrl: string;
   locales: Locale[];
   containerId: string;
-  groupId?: number;
+  groupId: number;
   itemId?: number;
   itemType?: string;
   backlink: boolean;
@@ -74,43 +72,40 @@ export default function BlocksEditor({
   return (
     <LocaleProvider locales={locales}>
       <BlocksProvider api={apiUrl}>
-        <Suspense fallback="loading">
+        <Suspense fallback={<i className="Loader fa fa-circle-notch fa-spin"></i>}>
           <BlocksGroupProvider
             groupId={groupId}
             itemType={itemType}
             itemId={itemId}
             noRedirect={noRedirect}
           >
-            <>
-              <BlocksList apiUrl={apiUrl} />
-              <div className="BlocksEditor">
-                <Toaster />
-                <div className="BlocksEditor__Wrapper">
-                  <BlockContextProvider root>
-                    <>
-                      <div className="BlocksEditor__ContentWrapper">
-                        <BlocksEditorHeader backlink={backlink} />
+            <div className="BlocksEditor">
+              <Toaster />
+              <div className="BlocksEditor__Wrapper">
+                <BlockContextProvider root>
+                  <>
+                    <div className="BlocksEditor__ContentWrapper">
+                      <BlocksEditorHeader backlink={backlink} />
 
-                        <div className="BlocksEditor__Content">
-                          <BlocksContent />
-                          {width < 1080 ? (
-                            <div className="BlocksEditor__AddBlocksWrapper">
-                              <AddBlocks />
-                            </div>
-                          ) : null}
-                          <ToolBar />
-                        </div>
+                      <div className="BlocksEditor__Content">
+                        <BlocksContent />
+                        {width < 1080 ? (
+                          <div className="BlocksEditor__AddBlocksWrapper">
+                            <AddBlocks />
+                          </div>
+                        ) : null}
+                        <ToolBar />
                       </div>
-                      {width > 1080 ? (
-                        <div className="Sidebar__Wrapper">
-                          <Sidebar />
-                        </div>
-                      ) : null}
-                    </>
-                  </BlockContextProvider>
-                </div>
+                    </div>
+                    {width > 1080 ? (
+                      <div className="Sidebar__Wrapper">
+                        <Sidebar />
+                      </div>
+                    ) : null}
+                  </>
+                </BlockContextProvider>
               </div>
-            </>
+            </div>
           </BlocksGroupProvider>
         </Suspense>
       </BlocksProvider>

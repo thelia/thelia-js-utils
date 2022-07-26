@@ -1,6 +1,6 @@
 .Modal {
   &__Wrapper {
-    @apply p-5 flex flex-col gap-6;
+    @apply p-5 flex flex-col gap-6 h-full;
   }
 
   &__Header {
@@ -12,11 +12,18 @@
 
     &__Title {
       @apply text-mediumCharbon text-xl font-extrabold;
-      padding: 0 60px;
+
+      @screen md {
+        padding: 0 60px;
+      }
     }
   }
 
   &__Content {
-    padding: 0 60px 30px;
+    @apply overflow-hidden;
+    
+    @screen md {
+      padding: 0 60px 30px;
+    }
   }
 }

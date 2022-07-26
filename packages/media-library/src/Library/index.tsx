@@ -1,56 +1,71 @@
 import { useDeleteImage, useLibraryImage } from "../api";
+import { ReactComponent as XMarkIcon } from "./assets/xmark.svg";
+
+import ReactModal from "react-modal";
 
 import { LibraryImage } from "../types";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
-export default function Library({
+import "./Library.css";
+
+const LibraryContent = ({
   limit = 20,
   onSelect,
 }: {
   limit?: number;
   onSelect: (image: LibraryImage) => void;
-}) {
+}) => {
   const [offset, setOffset] = useState<number>(0);
+  const [title, setTitle] = useState<string>("");
 
-  const images = useLibraryImage({ offset, limit });
+  const images = useLibraryImage({ offset, limit, title });
   const deleteMutation = useDeleteImage();
 
   return (
-    <div>
-      <div>Rechercher une image</div>
-      <div className="flex flex-wrap gap-4">
+    <div className="Library">
+      <div className="Library__Filters">
         <div>
-          <label htmlFor="">Rechercher dans le catalogue</label>
-          <input type="text" name="" id="" />
+          <label htmlFor="library-search">Rechercher dans le catalogue</label>
+          <input
+            className="Input__Text"
+            placeholder="Entrez un nom, une référence, ..."
+            type="text"
+            name="library-search"
+            id="library-search"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </div>
         <div>
-          <label htmlFor="">Filtrer par catégories</label>
-          <select name="" id="">
+          <label htmlFor="category-filter">Filtrer par catégorie</label>
+          <select className="Input__Select" name="category-filter" id="category-filter">
             <option value="">tag 1</option>
             <option value="">tag 2</option>
           </select>
         </div>
       </div>
-      <div className="flex">
+      <div className="Library__Content">
         {images.data?.map((image) => {
           return (
-            <div key={image.id}>
-              <img
-                width="300"
-                height="300"
-                loading="lazy"
-                src={`/image-library/${image.id}/full/^!300,300/0/default.webp`}
-              />
+            <div className="Library__Item">
               <button
                 onClick={() => {
                   onSelect(image);
                 }}
+                className="Library__Image"
+                key={image.id}
               >
-                Selectionner
+                <img
+                  width="150"
+                  height="150"
+                  loading="lazy"
+                  src={`/image-library/${image.id}/full/^!150,150/0/default.webp`}
+                />
+                <span className="Library__Image__Title">{image.title}</span>
               </button>
               <button
                 type="button"
-                className=""
+                className="BlockImage__Button"
                 onClick={() => deleteMutation.mutate(image.id)}
                 disabled={deleteMutation.isLoading}
               >
@@ -60,7 +75,7 @@ export default function Library({
           );
         })}
       </div>
-      <div className="flex items-center justify-center gap-8 mt-4">
+      {/* <div className="Library__Pagination">
         <button
           type="button"
           className="Button"
@@ -74,20 +89,52 @@ export default function Library({
           type="button"
           className="Button"
           onClick={() => {
-            if (
-              !images.isPreviousData &&
-              (images?.data?.length || 0) >= limit
-            ) {
+            if (!images.isPreviousData && (images?.data?.length || 0) >= limit) {
               setOffset((old) => old + limit);
             }
           }}
-          disabled={
-            images.isPreviousData || (images?.data?.length || 0) < limit
-          }
+          disabled={images.isPreviousData || (images?.data?.length || 0) < limit}
         >
           page suivante
         </button>
-      </div>
+        </div> */}
     </div>
+  );
+};
+
+export default function Library({
+  isOpen,
+  setIsOpen,
+  limit = 20,
+  onSelect,
+}: {
+  isOpen: boolean;
+  setIsOpen: Function;
+  limit?: number;
+  onSelect: (image: LibraryImage) => void;
+}) {
+  return (
+    <ReactModal
+      isOpen={isOpen}
+      onRequestClose={() => setIsOpen(false)}
+      className="Modal-Library"
+      overlayClassName="Overlay"
+    >
+      <div className="Modal__Wrapper">
+        <div className="Modal__Header">
+          <button onClick={() => setIsOpen(false)} className="Modal__Header__Close">
+            <XMarkIcon />
+          </button>
+
+          <div className="Modal__Header__Title">Rechercher une image</div>
+        </div>
+
+        <div className="Modal__Content">
+          <Suspense fallback={<i className="Loader fa fa-circle-notch fa-spin"></i>}>
+            <LibraryContent onSelect={onSelect} limit={limit} />
+          </Suspense>
+        </div>
+      </div>
+    </ReactModal>
   );
 }

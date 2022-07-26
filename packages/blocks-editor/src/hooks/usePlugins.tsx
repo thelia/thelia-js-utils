@@ -33,6 +33,7 @@ export function registerPlugin(plugin: any) {
   if (!window.TB__PLUGINS) window.TB__PLUGINS = [];
 
   window.TB__PLUGINS.push({ ...plugin, id: nanoid() } as Plugin);
+  console.log("Plugin registered", { ...plugin, id: nanoid() });
 
   document.dispatchEvent(window.eventTBPlugins);
 }

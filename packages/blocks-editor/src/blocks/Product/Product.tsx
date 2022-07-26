@@ -1,10 +1,12 @@
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
-import { ProductSearch, useProductsBy } from "../../utils/queries";
+import { SearchProps, useProductsBy } from "../../utils/queries";
 import { Suspense, useEffect, useState } from "react";
 
 import { ReactComponent as Icon } from "./assets/product.svg";
 import { Input } from "../../components/Inputs";
 import { reorder } from "../../utils/array";
+
+import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
 
 import "./Product.css";
 
@@ -90,7 +92,7 @@ const Product = ({
           })
         }
       >
-        <i className="fa fa-xmark"></i>
+        <XMarkIcon />
       </button>
     </div>
   );
@@ -100,7 +102,7 @@ const ProductsList = ({
   type,
   value,
   onUpdate,
-}: { onUpdate: Function } & ProductSearch) => {
+}: { onUpdate: Function } & SearchProps) => {
   const { data: products } = useProductsBy({ type, value });
   return (
     <ul className="ProductList">
@@ -127,7 +129,7 @@ const ProductsList = ({
             Aucun résultat{" "}
             {value && value.length > 0 ? (
               <span>
-                pour "<span className="highlighted">{value}</span>"
+                pour "<span className="emphasize">{value}</span>"
               </span>
             ) : (
               ""
@@ -155,6 +157,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
       {data.productList.map((productId: any, index) => {
         return (
           <Suspense
+            key={index}
             fallback={
               <div className="BlockProduct__Loader">
                 <i className="fa fa-circle-notch fa-spin"></i>
@@ -162,7 +165,6 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
             }
           >
             <Product
-              key={index}
               productIndex={index}
               productId={productId}
               data={data}
@@ -194,6 +196,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
             }
           >
             <ProductsList
+              searchIn="product"
               type={type}
               value={value}
               onUpdate={(product: any) => {

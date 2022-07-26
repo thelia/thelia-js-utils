@@ -12,7 +12,7 @@ import {
   useQuery,
   useQueryClient,
 } from "react-query";
-import React, { ReactNode, useContext, useEffect, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 
 import { BlocksGroupContext } from "../providers/BlockGroupContext";
@@ -44,13 +44,7 @@ export const queryClient = new QueryClient({
   },
 });
 
-export function BlocksProvider({
-  children,
-  api,
-}: {
-  children: ReactNode;
-  api: string;
-}) {
+export function BlocksProvider({ children, api }: { children: ReactNode; api: string }) {
   const [initialized, setInitialized] = useState<boolean>(false);
   useEffect(() => {
     instance.defaults.baseURL = api;
@@ -61,9 +55,7 @@ export function BlocksProvider({
     return null;
   }
 
-  return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }
 
 export function useGroups() {
@@ -161,7 +153,7 @@ export function useCreateOrUpdateGroup() {
     },
     {
       onSuccess: (data: GroupTypeStore) => {
-        toast.success("enregistré avec succès");
+        toast.success("Votre Thelia Blocks a été enregistré avec succès");
         if (noRedirect) {
           window.location.reload();
           return;
@@ -198,6 +190,33 @@ export function useDeleteGroup() {
   );
 }
 
+export function useDeleteItemBlockGroup() {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (id?: number) => {
+      if (!id) {
+        throw new Error(
+          "id is mandatory, and no fallback itemId was found in current context"
+        );
+      }
+      return fetcher(`item_block_group/${id}`, {
+        method: "DELETE",
+      });
+    },
+
+    {
+      onSuccess: (data, groupId) => {
+        queryClient.invalidateQueries(["item_block_group"]);
+        toast.success("groupe supprimé");
+      },
+      // onError: (error) => {
+      //   toast.error(error.message);
+      // }
+    }
+  );
+}
+
 export function useDuplicateGroup() {
   const { groupId } = useContext(BlocksGroupContext);
 
@@ -229,15 +248,7 @@ export function useLinkContentToGroup() {
   } = useContext(BlocksGroupContext);
 
   return useMutation(
-    ({
-      id,
-      itemId,
-      itemType,
-    }: {
-      id?: number;
-      itemId?: number;
-      itemType?: string;
-    }) =>
+    ({ id, itemId, itemType }: { id?: number; itemId?: number; itemType?: string }) =>
       fetcher(`/item_block_group`, {
         method: "POST",
         data: {
@@ -301,7 +312,7 @@ export function usePreviewGroup(timestamp: number, data: string) {
 }
 
 export type SearchProps = {
-  searchIn: "product" | "folder" | "category" | "content";
+  searchIn?: "product" | "folder" | "category" | "content";
   type: "ids" | "reference" | "title" | "id";
   value: string | null;
 };
@@ -334,11 +345,7 @@ export function useProductsBy({ type, value = null }: SearchProps) {
   );
 }
 
-export function useSearchBy({
-  searchIn,
-  type = "title",
-  value = null,
-}: SearchProps) {
+export function useSearchBy({ searchIn, type = "title", value = null }: SearchProps) {
   let params: {
     id: string | null;
     ids: string | null;

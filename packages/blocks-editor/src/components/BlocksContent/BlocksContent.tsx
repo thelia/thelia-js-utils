@@ -2,6 +2,7 @@ import Block from "../Block";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import useDragAndDrop from "../../hooks/useDragAndDrop";
 import { ReactComponent as EmptyTBIcon } from "../../../assets/svg/empty-tb.svg";
+import { DropResult } from "react-beautiful-dnd";
 
 import "./BlocksContent.css";
 
@@ -21,7 +22,7 @@ export default function BlocksContent() {
   const { blockList, moveBlockTo } = useBlocksContext();
   const { DndWrapper, DndWrapElement } = useDragAndDrop();
 
-  const onDragEnd = (e: any) => {
+  const onDragEnd = (e: DropResult) => {
     if (e.destination) {
       moveBlockTo(e.source.index, e.destination.index);
     }

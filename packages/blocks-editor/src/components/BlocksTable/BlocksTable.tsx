@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useCopyToClipboard from "react-use/esm/useCopyToClipboard";
 import { GroupTypeResponse } from "../../types/types";
-import { useDeleteGroup, useDuplicateGroup } from "../../utils/queries";
+import { useDeleteGroup, useDuplicateGroup, useGroups } from "../../utils/queries";
 
 import { ReactComponent as DeleteIcon } from "../../../assets/svg/delete.svg";
 import { ReactComponent as CopyIcon } from "../../../assets/svg/copy.svg";
@@ -10,56 +10,27 @@ import toast from "react-hot-toast";
 
 import "./BlocksTable.css";
 import Tippy from "@tippyjs/react";
+import Modal from "../Modal";
+import ItemBlockGroupTable from "../ItemBlockGroupTable";
 
 const BlocksTable = () => {
-  /* const { data: groups = [] } = useGroups(); */
-  const groups = [
-    {
-      id: 1,
-      itemBlockGroups: [],
-      jsonContent:
-        '[{"id":"5m6VSxp7680Ha70TPwmGC","data":{"level":0,"text":"test"},"parent":null,"type":{"id":"blockTitle"}}]',
-      slug: "test_1",
-      title: "Nom de ce Thelia blocks",
-      visible: true,
-    },
-    {
-      id: 2,
-      itemBlockGroups: [],
-      jsonContent:
-        '[{"id":"5m6VSxp7680Ha70TPwmGC","data":{"level":0,"text":"test"},"parent":null,"type":{"id":"blockTitle"}}]',
-      slug: "test_2",
-      title: "Super long ce titre de Thelia Blocks",
-      visible: true,
-    },
-    {
-      id: 3,
-      itemBlockGroups: [],
-      jsonContent:
-        '[{"id":"5m6VSxp7680Ha70TPwmGC","data":{"level":0,"text":"test"},"parent":null,"type":{"id":"blockTitle"}}]',
-      slug: "test_3",
-      title: "test",
-      visible: true,
-    },
-    {
-      id: 4,
-      itemBlockGroups: [],
-      jsonContent:
-        '[{"id":"5m6VSxp7680Ha70TPwmGC","data":{"level":0,"text":"test"},"parent":null,"type":{"id":"blockTitle"}}]',
-      slug: "test_4",
-      title: "dernier test",
-      visible: true,
-    },
-  ];
+  const { data: groups = [], isError } = useGroups();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [linkedContents, setLinkedContents] = useState<
+    GroupTypeResponse["itemBlockGroups"]
+  >([]);
+  const [isItemBlockModalOpen, setIsItemBlockModalOpen] = useState(false);
 
   const [copied, copyToClipboard] = useCopyToClipboard();
   const mutationDelete = useDeleteGroup();
   const mutationDuplicate = useDuplicateGroup();
 
   if (groups.length <= 0) {
-    return <div>No blocks to display</div>;
+    return <div>Vous n'avez pas encore créé de Thelia Blocks</div>;
+  }
+
+  if (isError) {
+    return <div>Erreur lors de la récupération des Thelia Blocks</div>;
   }
 
   return (
@@ -76,7 +47,7 @@ const BlocksTable = () => {
       <tbody>
         {groups.map((group: GroupTypeResponse) => {
           return (
-            <tr className="BlocksTable__Row">
+            <tr className="BlocksTable__Row" key={group.id}>
               <td className="BlocksTable__Row__Id">#{group.id}</td>
               <td className="BlocksTable__Row__Title">
                 <a href={`/admin/TheliaBlocks/${group.id}`}>
@@ -84,41 +55,58 @@ const BlocksTable = () => {
                 </a>
               </td>
               <td className="BlocksTable__Row__LinkedContent">
-                <div className="BlocksTable__Row__LinkedContent__Wrapper">
-                  <i className="fas fa-link"></i>
-                  <button onClick={() => setIsOpen(true)}>12 contenus liés</button>
-                </div>
-                {/* <div className="flex gap-2 items-center">
-                  {!!group.itemBlockGroups?.length && (
-                    <span className="text-sm font-normal text-gray-400">
-                      <i className="fa fa-link ml-1"></i>
-                      {group.itemBlockGroups.map(({ itemId, itemType }) => {
-                        if (itemId && itemType) {
-                          return (
-                            <a
-                              href={getContentUrl(itemType, itemId)}
-                              key={`${itemType}-${itemId}`}
-                            >
-                              {itemType}-{itemId}
-                            </a>
-                          );
-                        } else {
-                          return (
-                            <span key={`${itemType}-${itemId}`}>
-                              {itemType}-{itemId}
-                            </span>
-                          );
-                        }
-                      })}
-                    </span>
+                <div
+                  className={`BlocksTable__Row__LinkedContent__Wrapper ${
+                    group?.itemBlockGroups?.length && group.itemBlockGroups.length > 0
+                      ? "BlocksTable__Row__LinkedContent__Wrapper--asLink"
+                      : ""
+                  }`}
+                >
+                  {group.itemBlockGroups?.length && group.itemBlockGroups?.length > 0 ? (
+                    <>
+                      <i className="fas fa-link"></i>
+                      <button
+                        onClick={() => {
+                          setIsItemBlockModalOpen(true);
+                          setLinkedContents(group.itemBlockGroups);
+                        }}
+                      >
+                        {group.itemBlockGroups?.length} contenu(s) lié(s)
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <i className="fas fa-link"></i>
+                      <span>Aucun contenu lié</span>
+                    </>
                   )}
-                </div> */}
+                  <Modal
+                    isOpen={isItemBlockModalOpen}
+                    setIsOpen={setIsItemBlockModalOpen}
+                    title="Liste des contenus liés"
+                  >
+                    <ItemBlockGroupTable linkedContents={linkedContents} />
+                  </Modal>
+                </div>
               </td>
-              <td className="BlocksTable__Row__Langs">
-                <div className="BlocksTable__Row__Langs__Wrapper">
-                  <span>Fr</span>
-                  <span>En</span>
-                  <span>De</span>
+              <td className="BlocksTable__Row__Locales">
+                <div className="BlocksTable__Row__Locales__Wrapper">
+                  {group.locales.length > 3 ? (
+                    <>
+                      {group.locales.splice(0, 2).map((locale) => (
+                        <span key={locale}>{locale}</span>
+                      ))}
+                      <span onClick={() => setIsItemBlockModalOpen(true)}>
+                        +{group.locales.length}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      {group.locales.map((locale) => (
+                        <span key={locale}>{locale}</span>
+                      ))}
+                    </>
+                  )}
                 </div>
               </td>
               <td className="BlocksTable__Row__Actions">
@@ -138,7 +126,13 @@ const BlocksTable = () => {
                       onClick={() => {
                         const shortcode = `[block_group slug=${group.slug}]`;
                         copyToClipboard(shortcode);
-                        toast(`${shortcode} copié avec succès`);
+
+                        copied.error
+                          ? toast.error(
+                              `Erreur lors de la copie : ${copied.error.message}`
+                            )
+                          : copied.value &&
+                            toast.success(`${shortcode} copié avec succès`);
                       }}
                     >
                       <CodeIcon />

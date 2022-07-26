@@ -2,10 +2,11 @@ import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/ty
 import { ReactComponent as Icon } from "./assets/html.svg";
 import Modal from "react-modal";
 import { ReactComponent as WarningPicto } from "../../../assets/svg/html-warning.svg";
+import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
 import { useEffect, useLayoutEffect, useState } from "react";
 import AceEditor from "react-ace";
 
-import "ace-builds/src-noconflict/mode-html";
+/* import "ace-builds/src-noconflict/mode-html"; */
 import "./Raw.css";
 
 export type BlockRawData = {
@@ -34,7 +35,7 @@ const WarningModal = ({
           onClick={() => setSaveLocation(sessionStorage)}
           className="BlockRaw__Modal__Content__Close"
         >
-          <i className="BlockRaw__Modal__Content__Close__Icon fa fa-xmark"></i>
+          <XMarkIcon className="BlockRaw__Modal__Content__Close__Icon" />
         </button>
         <WarningPicto className="BlockRaw__Modal__Content__Image" />
         <div className="BlockRaw__Modal__Content__Infos">
@@ -101,7 +102,7 @@ function BlockRawComponent({ data, onUpdate }: BlockModuleComponentProps<BlockRa
         className="BlockRaw__Editor"
         placeholder="Value"
         mode="html"
-        value={value}
+        value={"value"}
         onChange={(value) => setValue(value)}
         height="200px"
         width="100%"

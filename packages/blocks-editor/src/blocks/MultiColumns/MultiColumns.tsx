@@ -9,6 +9,7 @@ import useDragAndDrop from "../../hooks/useDragAndDrop";
 import useWindowSize from "../../hooks/useWindowSize";
 import LayoutHeader from "../../components/LayoutHeader";
 import { BlockModuleComponentProps, IBlock } from "../../types/types";
+import { DropResult } from "react-beautiful-dnd";
 
 import "./MultiColumns.css";
 
@@ -28,7 +29,7 @@ const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
     onUpdate(blockList);
   }, [blockList]);
 
-  const onDragEnd = (e: any) => {
+  const onDragEnd = (e: DropResult) => {
     if (e.destination) {
       moveBlockTo(e.source.index, e.destination.index);
     }

@@ -27,6 +27,7 @@ export const BlocksGroupProvider = ({
   noRedirect: boolean;
 }) => {
   const [group, setGroup] = useState<GroupTypeResponse>({
+    locales: [],
     visible: true,
     title: "",
     slug: null,
