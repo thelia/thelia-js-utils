@@ -3,6 +3,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 
 import "./BlockControls.css";
+import { useIntl } from "react-intl";
 
 const BlockControls = ({
   blockId,
@@ -16,7 +17,7 @@ const BlockControls = ({
   DndDragHandle: () => JSX.Element;
 }) => {
   const { blockList, removeBlock, moveBlockUp, moveBlockDown } = useBlocksContext();
-
+  const intl = useIntl();
   const { width } = useWindowSize();
 
   return (
@@ -49,7 +50,9 @@ const BlockControls = ({
         >
           <i className="fa fa-arrow-up"></i>
           {!inLayout && width > 1024 && (
-            <span className="BlockControl__Label">Monter</span>
+            <span className="BlockControl__Label">
+              {intl.formatMessage({ id: "UP" })}
+            </span>
           )}
         </button>
       </Tippy>
@@ -70,7 +73,9 @@ const BlockControls = ({
         >
           <i className="fa fa-arrow-down"></i>
           {!inLayout && width > 1024 && (
-            <span className="BlockControl__Label">Descendre</span>
+            <span className="BlockControl__Label">
+              {intl.formatMessage({ id: "DOWN" })}
+            </span>
           )}
         </button>
       </Tippy>
@@ -91,7 +96,9 @@ const BlockControls = ({
         >
           <i className="fa fa-trash-alt"></i>
           {!inLayout && width > 1024 && (
-            <span className="BlockControl__Label">Supprimer</span>
+            <span className="BlockControl__Label">
+              {intl.formatMessage({ id: "DELETE" })}
+            </span>
           )}
         </button>
       </Tippy>

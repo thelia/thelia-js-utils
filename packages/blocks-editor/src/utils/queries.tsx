@@ -18,6 +18,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import { BlocksGroupContext } from "../providers/BlockGroupContext";
 import { LocaleContext } from "../providers/LocaleContext";
 import toast from "react-hot-toast";
+import { useIntl } from "react-intl";
 
 const instance = axios.create();
 
@@ -107,6 +108,7 @@ export function useCreateOrUpdateGroup() {
     itemType: contextItemType,
     noRedirect = false,
   } = useContext(BlocksGroupContext);
+  const intl = useIntl();
   const { currentLocale } = useContext(LocaleContext);
   const { group: contextGroup } = useContext(BlocksGroupContext);
 
@@ -153,12 +155,15 @@ export function useCreateOrUpdateGroup() {
     },
     {
       onSuccess: (data: GroupTypeStore) => {
-        toast.success("Votre Thelia Blocks a été enregistré avec succès");
+        toast.success(intl.formatMessage({ id: "Toast__BLOCK_SAVED" }));
         if (noRedirect) {
           window.location.reload();
           return;
         }
         window.location.replace(`/admin/TheliaBlocks/${data.id}`);
+      },
+      onError: (error) => {
+        toast.error(intl.formatMessage({ id: "Toast__BLOCK_NOT_SAVED" }));
       },
     }
   );
@@ -168,6 +173,7 @@ export function useDeleteGroup() {
   const queryClient = useQueryClient();
   const { groupId: contextGroupId } = useContext(BlocksGroupContext);
   const { currentLocale } = useContext(LocaleContext);
+  const intl = useIntl();
 
   return useMutation(
     (id?: number) => {
@@ -184,7 +190,10 @@ export function useDeleteGroup() {
     {
       onSuccess: (data, groupId) => {
         queryClient.invalidateQueries(["block_group"]);
-        toast.success("groupe supprimé");
+        toast.success(intl.formatMessage({ id: "Toast__BLOCK_DELETED" }));
+      },
+      onError: (error) => {
+        toast.error(intl.formatMessage({ id: "Toast__BLOCK_NOT_DELETED" }));
       },
     }
   );
@@ -192,6 +201,7 @@ export function useDeleteGroup() {
 
 export function useDeleteItemBlockGroup() {
   const queryClient = useQueryClient();
+  const intl = useIntl();
 
   return useMutation(
     (id?: number) => {
@@ -208,11 +218,11 @@ export function useDeleteItemBlockGroup() {
     {
       onSuccess: (data, groupId) => {
         queryClient.invalidateQueries(["item_block_group"]);
-        toast.success("groupe supprimé");
+        toast.success(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_DELETED" }));
       },
-      // onError: (error) => {
-      //   toast.error(error.message);
-      // }
+      onError: (error) => {
+        toast.error(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_NOT_DELETED" }));
+      },
     }
   );
 }

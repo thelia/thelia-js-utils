@@ -1,4 +1,5 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
+import { useIntl } from "react-intl";
 import { Input, Select } from "../../components/Inputs";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/title.svg";
@@ -10,41 +11,43 @@ export type BlockTitleData = {
   text: string;
 };
 
-const levels = [
-  {
-    label: "Neutre",
-    value: 0,
-  },
-  {
-    label: "Niveau 1",
-    value: 1,
-  },
-  {
-    label: "Niveau 2",
-    value: 2,
-  },
-  {
-    label: "Niveau 3",
-    value: 3,
-  },
-  {
-    label: "Niveau 4",
-    value: 4,
-  },
-  {
-    label: "Niveau 5",
-    value: 5,
-  },
-  {
-    label: "Niveau 6",
-    value: 6,
-  },
-];
-
 const BlockTitleComponent = ({
   data,
   onUpdate,
 }: BlockModuleComponentProps<BlockTitleData>) => {
+  const intl = useIntl();
+
+  const levels = [
+    {
+      label: `${intl.formatMessage({ id: "NEUTRAL" })}`,
+      value: 0,
+    },
+    {
+      label: `${intl.formatMessage({ id: "LEVEL" })} 1`,
+      value: 1,
+    },
+    {
+      label: `${intl.formatMessage({ id: "LEVEL" })} 2`,
+      value: 2,
+    },
+    {
+      label: `${intl.formatMessage({ id: "LEVEL" })} 3`,
+      value: 3,
+    },
+    {
+      label: `${intl.formatMessage({ id: "LEVEL" })} 4`,
+      value: 4,
+    },
+    {
+      label: `${intl.formatMessage({ id: "LEVEL" })} 5`,
+      value: 5,
+    },
+    {
+      label: `${intl.formatMessage({ id: "LEVEL" })} 6`,
+      value: 6,
+    },
+  ];
+
   const [level, setLevel] = useState<Number>(initialData.level);
   const [text, setText] = useState<string>(initialData.text);
 
@@ -78,7 +81,7 @@ const BlockTitleComponent = ({
         id="BlockTitle-field-level"
         onChange={onChangeLevel}
         value={level.toString()}
-        label="Niveau du titre"
+        label={intl.formatMessage({ id: "BlockTitle__LEVEL" })}
       >
         {levels.map(({ label, value }) => (
           <option key={value} value={value}>
@@ -93,7 +96,7 @@ const BlockTitleComponent = ({
         value={text}
         onChange={onChangeText}
         onBlur={onBlurText}
-        placeholder="Votre titre ici"
+        placeholder={intl.formatMessage({ id: "BlockTitle__TEXT_PLACEHOLDER" })}
       />
     </div>
   );
@@ -114,12 +117,18 @@ const BlockTitle: BlockPluginDefinition<BlockTitleData> = {
   initialData,
   title: {
     default: "Title",
-    fr_FR: "Titre",
+    fr: "Titre",
+    en: "Title",
+    es: "Titulo",
+    it: "Titolo",
   },
   icon: Icon,
   description: {
     default: "Display a title",
-    fr_FR: "Affiche un titre",
+    fr: "Affiche un titre",
+    en: "Display a title",
+    es: "Muestra un titulo",
+    it: "Visualizza un titolo",
   },
   image: {
     default: "https://source.unsplash.com/featured/300x250?nature&blockTitle",

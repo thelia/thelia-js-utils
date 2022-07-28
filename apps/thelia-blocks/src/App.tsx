@@ -1,7 +1,7 @@
 import "@thelia/blocks-editor/dist/index.css";
 
 import "@thelia/media-library";
-import { BlocksEditor, BlocksList } from "@thelia/blocks-editor";
+import { BlocksEditor } from "@thelia/blocks-editor";
 
 const apiUrl =
   typeof import.meta.env.VITE_THELIA_API_URL === "string"

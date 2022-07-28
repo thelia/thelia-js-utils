@@ -7,6 +7,7 @@ import {
   Droppable,
   DropResult,
 } from "react-beautiful-dnd";
+import { useIntl } from "react-intl";
 import { ReactComponent as DragHandle } from "../../assets/svg/drag-handle.svg";
 
 const DndDragHandle = ({
@@ -16,12 +17,14 @@ const DndDragHandle = ({
   dragHandleProps: DraggableProvided["dragHandleProps"];
   className?: string;
 }) => {
+  const intl = useIntl();
+
   return (
     <div
       className={`BlockWrapper-dragHandle ${className ? className : ""}`}
       {...dragHandleProps}
     >
-      <Tippy content="Faites glisser l'élément pour le déplacer" delay={[700, 0]}>
+      <Tippy content={intl.formatMessage({ id: "DND_INFO" })} delay={[700, 0]}>
         {/* Use React.Fragment to avoid forwardRef error from Tippy : https://github.com/atomiks/tippyjs-react/issues/49 */}
         <>
           <DragHandle style={{ display: "block" }} />

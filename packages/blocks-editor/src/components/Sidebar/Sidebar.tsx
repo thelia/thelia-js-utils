@@ -10,6 +10,7 @@ import BlockTooltip from "../BlockTooltip";
 import { groupBy, partition } from "lodash";
 
 import "./Sidebar.css";
+import { useIntl } from "react-intl";
 
 const AddButton = ({
   plugin,
@@ -19,6 +20,7 @@ const AddButton = ({
   isSidebarOpen: boolean;
 }) => {
   const { addBlock } = useBlocksContext();
+  const intl = useIntl();
 
   const Icon = plugin?.icon;
 
@@ -26,8 +28,8 @@ const AddButton = ({
     <Tippy
       content={
         <BlockTooltip
-          title={plugin.title.fr_FR}
-          description={plugin?.description?.fr_FR}
+          title={plugin.title[intl.locale || "default"]}
+          description={plugin?.description?.[intl.locale || "default"]}
         />
       }
       placement="left"
@@ -53,7 +55,7 @@ const AddButton = ({
           <Icon className="Sidebar__Add__Icon" />
         )}
 
-        {isSidebarOpen ? <>{plugin.title.fr_FR}</> : null}
+        {isSidebarOpen ? <>{plugin.title[intl.locale || "default"]}</> : null}
       </button>
     </Tippy>
   );
@@ -61,12 +63,16 @@ const AddButton = ({
 
 const Sidebar = () => {
   const plugins = usePlugins();
+  const intl = useIntl();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isDisplayingSubMenu, setIsDisplayingSubMenu] = useState(false);
 
   const [commonBlocks, layoutPlugins] = partition(plugins, (i) => !i.layout);
-  const layoutPluginsByType = groupBy(layoutPlugins, "layout");
+  const layoutPluginsByType = groupBy(
+    layoutPlugins,
+    `layout["${intl.locale || "default"}"]`
+  );
 
   const [pluginList, setPluginList] = useState<Plugin[]>(commonBlocks || []);
 
@@ -90,7 +96,11 @@ const Sidebar = () => {
         >
           {isSidebarOpen ? <Retract /> : <Expand />}
         </button>
-        {isSidebarOpen ? <span className="Sidebar__Header__Title">Contenus</span> : null}
+        {isSidebarOpen ? (
+          <span className="Sidebar__Header__Title">
+            {intl.formatMessage({ id: "CONTENTS" })}
+          </span>
+        ) : null}
       </div>
 
       <div className="Sidebar__Content__Wrapper">
@@ -103,7 +113,9 @@ const Sidebar = () => {
             }}
           >
             <i className="fa fa-chevron-left"></i>
-            <span className="Sidebar__Back__Label">Retour</span>
+            <span className="Sidebar__Back__Label">
+              {intl.formatMessage({ id: "BACK" })}
+            </span>
           </button>
         )}
 

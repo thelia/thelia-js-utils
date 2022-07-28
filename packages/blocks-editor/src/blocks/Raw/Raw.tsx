@@ -6,8 +6,9 @@ import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
 import { useEffect, useLayoutEffect, useState } from "react";
 import AceEditor from "react-ace";
 
-/* import "ace-builds/src-noconflict/mode-html"; */
+import "ace-builds/src-noconflict/mode-html";
 import "./Raw.css";
+import { useIntl } from "react-intl";
 
 export type BlockRawData = {
   value: string;
@@ -21,6 +22,7 @@ const WarningModal = ({
   setSaveLocation: (storage: Window["localStorage"] | Window["sessionStorage"]) => void;
 }) => {
   const [checked, setChecked] = useState(false);
+  const intl = useIntl();
 
   return (
     <Modal
@@ -40,9 +42,7 @@ const WarningModal = ({
         <WarningPicto className="BlockRaw__Modal__Content__Image" />
         <div className="BlockRaw__Modal__Content__Infos">
           <p className="BlockRaw__Modal__Content__Description">
-            Ici un petit message pour informer sur l'utilisation de HTML directement dans
-            le back-office. Ce message apparait en pop-in à chaque fois que l'utilisateur
-            ajoute un bloc de HTML.
+            {intl.formatMessage({ id: "HTMLWarningModal__DESCRIPTION" })}
           </p>
           <div className="BlockRaw__Modal__Content__Actions">
             <input
@@ -53,7 +53,7 @@ const WarningModal = ({
               id="display-alert"
             />
             <label className="BlockRaw__Modal__Content__CBLabel" htmlFor="display-alert">
-              Ne plus afficher l'alerte
+              {intl.formatMessage({ id: "DO_NOT_SHOW_AGAIN" })}
             </label>
           </div>
           <button
@@ -66,7 +66,7 @@ const WarningModal = ({
             }}
             className="BlockRaw__Modal__Content__Accept"
           >
-            J'ai compris
+            {intl.formatMessage({ id: "I_UNDERSTOOD" })}
           </button>
         </div>
       </div>
@@ -102,7 +102,7 @@ function BlockRawComponent({ data, onUpdate }: BlockModuleComponentProps<BlockRa
         className="BlockRaw__Editor"
         placeholder="Value"
         mode="html"
-        value={"value"}
+        value={value}
         onChange={(value) => setValue(value)}
         height="200px"
         width="100%"
@@ -140,12 +140,18 @@ const blockRaw: BlockPluginDefinition<BlockRawData> = {
   initialData,
   title: {
     default: "HTML",
-    fr_FR: "HTML",
+    fr: "HTML",
+    en: "HTML",
+    es: "HTML",
+    it: "HTML",
   },
   icon: Icon,
   description: {
     default: "Raw HTML content",
-    fr_FR: "Contenu libre HTML",
+    fr: "Contenu libre HTML",
+    en: "Raw HTML content",
+    es: "Contenido HTML libre",
+    it: "Contenuto HTML libero",
   },
 };
 

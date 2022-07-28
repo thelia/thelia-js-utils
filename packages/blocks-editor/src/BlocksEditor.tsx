@@ -13,12 +13,14 @@ import Sidebar from "./components/Sidebar";
 import { Toaster } from "react-hot-toast";
 import ToolBar from "./components/ToolBar";
 import useWindowSize from "./hooks/useWindowSize";
+import { IntlProvider, useIntl } from "react-intl";
+import { messages, locale } from "./utils/intl";
 
 interface IBlocksEditorProps {
   apiUrl: string;
   locales: Locale[];
   containerId: string;
-  groupId: number;
+  groupId?: number;
   itemId?: number;
   itemType?: string;
   backlink: boolean;
@@ -30,6 +32,8 @@ const BlocksEditorHeader = ({
 }: {
   backlink: IBlocksEditorProps["backlink"];
 }) => {
+  const intl = useIntl();
+
   return (
     <div className="BlocksEditor__Header">
       {backlink ? (
@@ -38,7 +42,7 @@ const BlocksEditorHeader = ({
         </div>
       ) : null}
       <div className="BlocksEditor__Header__Title">
-        Création d'un nouveau Thelia Blocks
+        {intl.formatMessage({ id: "BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS" })}
       </div>
 
       <div className="BlocksEditor__Header__Inputs__Wrapper">
@@ -71,44 +75,46 @@ export default function BlocksEditor({
 
   return (
     <LocaleProvider locales={locales}>
-      <BlocksProvider api={apiUrl}>
-        <Suspense fallback={<i className="Loader fa fa-circle-notch fa-spin"></i>}>
-          <BlocksGroupProvider
-            groupId={groupId}
-            itemType={itemType}
-            itemId={itemId}
-            noRedirect={noRedirect}
-          >
-            <div className="BlocksEditor">
-              <Toaster />
-              <div className="BlocksEditor__Wrapper">
-                <BlockContextProvider root>
-                  <>
-                    <div className="BlocksEditor__ContentWrapper">
-                      <BlocksEditorHeader backlink={backlink} />
+      <IntlProvider messages={messages[locale]} locale={locale}>
+        <BlocksProvider api={apiUrl}>
+          <Suspense fallback={<i className="Loader fa fa-circle-notch fa-spin"></i>}>
+            <BlocksGroupProvider
+              groupId={groupId}
+              itemType={itemType}
+              itemId={itemId}
+              noRedirect={noRedirect}
+            >
+              <div className="BlocksEditor">
+                <Toaster />
+                <div className="BlocksEditor__Wrapper">
+                  <BlockContextProvider root>
+                    <>
+                      <div className="BlocksEditor__ContentWrapper">
+                        <BlocksEditorHeader backlink={backlink} />
 
-                      <div className="BlocksEditor__Content">
-                        <BlocksContent />
-                        {width < 1080 ? (
-                          <div className="BlocksEditor__AddBlocksWrapper">
-                            <AddBlocks />
-                          </div>
-                        ) : null}
-                        <ToolBar />
+                        <div className="BlocksEditor__Content">
+                          <BlocksContent />
+                          {width < 1080 ? (
+                            <div className="BlocksEditor__AddBlocksWrapper">
+                              <AddBlocks />
+                            </div>
+                          ) : null}
+                          <ToolBar />
+                        </div>
                       </div>
-                    </div>
-                    {width > 1080 ? (
-                      <div className="Sidebar__Wrapper">
-                        <Sidebar />
-                      </div>
-                    ) : null}
-                  </>
-                </BlockContextProvider>
+                      {width > 1080 ? (
+                        <div className="Sidebar__Wrapper">
+                          <Sidebar />
+                        </div>
+                      ) : null}
+                    </>
+                  </BlockContextProvider>
+                </div>
               </div>
-            </div>
-          </BlocksGroupProvider>
-        </Suspense>
-      </BlocksProvider>
+            </BlocksGroupProvider>
+          </Suspense>
+        </BlocksProvider>
+      </IntlProvider>
     </LocaleProvider>
   );
 }

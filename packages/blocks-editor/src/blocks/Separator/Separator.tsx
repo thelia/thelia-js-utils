@@ -1,4 +1,5 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
+import { useIntl } from "react-intl";
 import { Select } from "../../components/Inputs";
 import { BlockModuleComponentProps } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/separator.svg";
@@ -9,11 +10,6 @@ export type BlockSeparatorData = {
   type: string;
   size: number;
 };
-
-const types = [
-  { label: "Espace", value: "space" },
-  { label: "Bordure", value: "hr" },
-];
 
 const initialData = {
   type: "space",
@@ -26,6 +22,12 @@ const BlockSeparatorComponent = ({
 }: BlockModuleComponentProps<BlockSeparatorData>) => {
   const [type, setType] = useState<string>(initialData.type);
   const [size, setSize] = useState<number>(initialData.size);
+  const intl = useIntl();
+
+  const types = [
+    { label: intl.formatMessage({ id: "SPACE" }), value: "space" },
+    { label: intl.formatMessage({ id: "BORDER" }), value: "hr" },
+  ];
 
   useEffect(() => {
     if (data.type) {
@@ -59,7 +61,7 @@ const BlockSeparatorComponent = ({
           id="BlockSeparator-field-type"
           onChange={onChangeType}
           value={type.toString()}
-          label="Style du séparateur"
+          label={intl.formatMessage({ id: "BlockSeparator__STYLE" })}
         >
           {types.map(({ label, value }) => (
             <option key={value} value={value}>
@@ -69,7 +71,9 @@ const BlockSeparatorComponent = ({
         </Select>
 
         <div>
-          <label htmlFor="separator-size">Taille du séparateur</label>
+          <label htmlFor="separator-size">
+            {intl.formatMessage({ id: "BlockSeparator__SIZE" })}
+          </label>
           <input
             type="number"
             name="separator-size"
@@ -99,12 +103,18 @@ const BlockSeparator = {
   initialData,
   title: {
     default: "Separator",
-    fr_FR: "Séparateur",
+    fr: "Séparateur",
+    en: "Separator",
+    es: "Separador",
+    it: "Separatore",
   },
   icon: Icon,
   description: {
     default: "Display a separator",
-    fr_FR: "Affiche un séparateur",
+    fr: "Affiche un séparateur",
+    en: "Display a separator",
+    es: "Muestra un separador",
+    it: "Visualizza un separatore",
   },
   image: {
     default: "https://source.unsplash.com/featured/300x250?nature&blockSeparator",

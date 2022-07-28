@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
 
 import "./Accordion.css";
+import { useIntl } from "react-intl";
 
 type AccordionContentData = IBlock[];
 
@@ -54,10 +55,15 @@ const AccordionContentComponent = ({
   onUpdate,
 }: BlockModuleComponentProps<AccordionData>) => {
   const [open, setOpen] = useState(true);
+  const intl = useIntl();
 
   return (
     <div key={index} className="BlockAccordion">
-      <LayoutHeader title="Accordéon" open={open} setOpen={setOpen} />
+      <LayoutHeader
+        title={intl.formatMessage({ id: "ACCORDION" })}
+        open={open}
+        setOpen={setOpen}
+      />
       <div className={`${!open ? "BlockAccordion--closed" : "BlockAccordion__Content"}`}>
         <BlockContextProvider defaultBlocks={blocks}>
           <>
@@ -99,7 +105,13 @@ const AccordionComponent = ({
   );
 };
 
-const moduleLayout = "Accordion";
+const moduleLayout = {
+  default: "Accordion",
+  fr: "Accordéon",
+  en: "Accordion",
+  es: "Accordión",
+  it: "Accordion",
+};
 
 const moduleType = {
   id: "Accordion",
@@ -112,12 +124,18 @@ const Accordion = {
   layout: moduleLayout,
   title: {
     default: "Accordion",
-    fr_FR: "Accordéon",
+    fr: "Accordéon",
+    en: "Accordion",
+    es: "Accordión",
+    it: "Accordion",
   },
   icon: Icon,
   description: {
     default: "Display blocks in accordion",
-    fr_FR: "Affiche des blocs en accordéon",
+    fr: "Affiche des blocs en accordéon",
+    en: "Display blocks in accordion",
+    es: "Affiche des blocks en accordéon",
+    it: "Display blocks in accordion",
   },
   image: {
     default: "https://source.unsplash.com/featured/300x250?nature&multiColumns",

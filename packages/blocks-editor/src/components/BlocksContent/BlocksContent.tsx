@@ -5,14 +5,16 @@ import { ReactComponent as EmptyTBIcon } from "../../../assets/svg/empty-tb.svg"
 import { DropResult } from "react-beautiful-dnd";
 
 import "./BlocksContent.css";
+import { useIntl } from "react-intl";
 
 const EmptyList = () => {
+  const intl = useIntl();
+
   return (
     <div className="EmptyList">
       <EmptyTBIcon />
       <p className="EmptyList__Text">
-        Vous n'avez pas encore de contenu dans votre Thelia Blocks. Pour commencer,
-        sélectionnez un type de contenu depuis le menu latéral droit.
+        {intl.formatMessage({ id: "BlocksContent__EMPTY_BLOCK" })}
       </p>
     </div>
   );

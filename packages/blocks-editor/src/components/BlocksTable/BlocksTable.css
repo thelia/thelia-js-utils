@@ -20,7 +20,7 @@
   &__Row {
     &__Title {
       @apply font-bold whitespace-nowrap text-ellipsis overflow-hidden;
-      max-width: 300px;
+      max-width: 170px;
 
       a {
         @apply text-mediumCharbon hover:text-vermillon;
@@ -53,7 +53,7 @@
 
     &__Actions {
       &__Wrapper {
-        @apply flex gap-8;
+        @apply flex gap-5;
       }
     }
   }

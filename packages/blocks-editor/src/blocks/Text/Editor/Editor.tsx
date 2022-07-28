@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { useIntl } from "react-intl";
 import ReactQuill from "react-quill";
 
 import "./Editor.css";
@@ -37,6 +38,8 @@ const Editor = forwardRef(
     },
     ref: any
   ) => {
+    const intl = useIntl();
+
     return (
       <>
         <EditorToolbar setIsModalOpen={setIsModalOpen} />
@@ -48,7 +51,7 @@ const Editor = forwardRef(
           }}
           ref={ref}
           value={value}
-          placeholder="Votre texte ici"
+          placeholder={intl.formatMessage({ id: "BlockText__TEXT_PLACEHOLDER" })}
           onChange={(value) => setValue(value)}
           onBlur={onBlur}
         />

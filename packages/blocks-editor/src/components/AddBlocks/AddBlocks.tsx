@@ -14,6 +14,7 @@ import { CSSProperties, ReactNode, useState } from "react";
 import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
 
 import "./AddBlocks.css";
+import { useIntl } from "react-intl";
 
 const AddButton = ({
   plugin,
@@ -25,6 +26,7 @@ const AddButton = ({
   style?: CSSProperties;
 }) => {
   const { addBlock } = useBlocksContext();
+  const intl = useIntl();
 
   const Icon = plugin?.icon;
 
@@ -32,8 +34,8 @@ const AddButton = ({
     <Tippy
       content={
         <BlockTooltip
-          title={plugin.title.fr_FR}
-          description={plugin?.description?.fr_FR}
+          title={plugin.title[intl.locale || "default"]}
+          description={plugin?.description?.[intl.locale || "default"]}
         />
       }
       delay={[500, 0]}
@@ -53,7 +55,7 @@ const AddButton = ({
         key={plugin.id}
       >
         {plugin?.customIcon ? plugin?.customIcon : <Icon />}
-        {plugin.title.fr_FR}
+        {plugin.title[intl.locale || "default"]}
       </button>
     </Tippy>
   );
@@ -100,6 +102,8 @@ const ModalContent = ({
   const [subModalOpen, setSubModalOpen] = useState(false);
   const { width } = useWindowSize();
   const plugins = usePlugins();
+  const intl = useIntl();
+
   let availablePLugins = plugins;
 
   if (excludeLayout) {
@@ -107,7 +111,10 @@ const ModalContent = ({
   }
 
   const [commonBlocks, layoutPlugins] = partition(availablePLugins, (i) => !i.layout);
-  const layoutPluginsByType = groupBy(layoutPlugins, "layout");
+  const layoutPluginsByType = groupBy(
+    layoutPlugins,
+    `layout["${intl.locale || "default"}"]`
+  );
 
   return (
     <ol className="AddBlocks__Modal__BlocksList">
@@ -133,7 +140,7 @@ const ModalContent = ({
                     {layoutType}
                   </button>
                   <AddBlockModal
-                    title="Choisissez le nombre de colonnes"
+                    title={intl.formatMessage({ id: "AddBlocks__COLUMNS_NUMBER" })}
                     isOpen={subModalOpen}
                     setIsOpen={setSubModalOpen}
                   >
@@ -161,6 +168,8 @@ const ModalContent = ({
 const AddBlocks = ({ excludeLayout }: { excludeLayout?: IBlock["layout"][] }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const intl = useIntl();
+
   return (
     <>
       <div className="AddBlocks">
@@ -168,14 +177,14 @@ const AddBlocks = ({ excludeLayout }: { excludeLayout?: IBlock["layout"][] }) =>
           <DragIcon />
         </div>
         <span className="AddBlocks__Info">
-          Glissez-déposez le type de contenu souhaité depuis le menu de droite
+          {intl.formatMessage({ id: "AddBlocks__DROP_CONTENT" })}
         </span>
         <button className="AddBlocks__Button" onClick={() => setIsOpen(true)}>
-          Ajouter du contenu
+          {intl.formatMessage({ id: "AddBlocks__ADD_CONTENT" })}
         </button>
       </div>
       <AddBlockModal
-        title="Choisissez le contenu souhaité"
+        title={intl.formatMessage({ id: "AddBlocks__SELECT_CONTENT" })}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       >

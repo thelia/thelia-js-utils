@@ -4,6 +4,7 @@ import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
 
 import "./Block.css";
+import { useIntl } from "react-intl";
 
 const Block = ({
   block,
@@ -17,6 +18,8 @@ const Block = ({
   DndDragHandle: () => JSX.Element;
 }) => {
   const { findBlockIndex, updateBlock } = useBlocksContext();
+
+  const intl = useIntl();
 
   const blockIndex = findBlockIndex(block.id);
 
@@ -33,7 +36,7 @@ const Block = ({
           margin: "1rem 0",
         }}
       >
-        <div>Unsupported Block</div>
+        <div>{intl.formatMessage({ id: "UNSUPPORTED_BLOCK" })}</div>
         <BlockControls
           blockIndex={blockIndex}
           blockId={block.id}
@@ -58,7 +61,7 @@ const Block = ({
                 : "Block__Header__Infos__Title"
             }`}
           >
-            {currentPlugin.title.fr_FR}
+            {currentPlugin.title[intl.locale || "default"]}
           </div>
         </div>
         <BlockControls

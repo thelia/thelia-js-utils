@@ -9,6 +9,7 @@ import { getYouTubeID } from "../../utils/youtube";
 import { IframeHTMLAttributes, useEffect, useState } from "react";
 
 import "./Video.css";
+import { useIntl } from "react-intl";
 
 const YouTubeFrame = ({
   url,
@@ -30,6 +31,7 @@ const YouTubeFrame = ({
 const BlockVideoComponent = ({ data, onUpdate }: BlockModuleComponentProps<Video>) => {
   const [url, setUrl] = useState<string>("");
   const [isUrlValid, setIsUrlValid] = useState<boolean>(false);
+  const intl = useIntl();
 
   useEffect(() => {
     if (data.url) {
@@ -55,12 +57,14 @@ const BlockVideoComponent = ({ data, onUpdate }: BlockModuleComponentProps<Video
         />
       ) : null}
       <div className="BlockVideo__Content">
-        <div className="BlockVideo__Content__Title">Ajouter une vidéo depuis YouTube</div>
+        <div className="BlockVideo__Content__Title">
+          {intl.formatMessage({ id: "BlockVideo__TITLE" })}
+        </div>
         <div className="BlockVideo__Content__Search">
           <Input
             id="BlockVideo-field-url"
             type="text"
-            placeholder="URL de la vidéo"
+            placeholder={intl.formatMessage({ id: "BlockVideo__URL_PLACEHOLDER" })}
             className={`${
               url.length > 2 && isUrlValid && "border-greenDark bg-greenLight"
             }`}
@@ -70,7 +74,7 @@ const BlockVideoComponent = ({ data, onUpdate }: BlockModuleComponentProps<Video
             icon={<i className="fa fa-link"></i>}
             iconAlignment="left"
             isValid={isUrlValid}
-            label="URL de la vidéo"
+            label={intl.formatMessage({ id: "BlockVideo__URL" })}
           />
         </div>
       </div>
@@ -92,12 +96,18 @@ const blockVideo: BlockPluginDefinition<Video> = {
   initialData,
   title: {
     default: "Video",
-    fr_FR: "Vidéo",
+    fr: "Vidéo",
+    en: "Video",
+    es: "Video",
+    it: "Video",
   },
   icon: Icon,
   description: {
     default: "Display a YouTube video",
-    fr_FR: "Affiche une vidéo YouTube",
+    fr: "Affiche une vidéo YouTube",
+    en: "Display a YouTube video",
+    es: "Muestra un video de YouTube",
+    it: "Visualizza un video di YouTube",
   },
   image: {
     default: "",

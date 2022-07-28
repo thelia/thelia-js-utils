@@ -9,6 +9,7 @@ import { reorder } from "../../utils/array";
 import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
 
 import "./Product.css";
+import { useIntl } from "react-intl";
 
 export type BlockProductData = {
   productList: string[];
@@ -28,6 +29,7 @@ const Product = ({
   onUpdate: Function;
 }) => {
   const { data: product } = useProductsBy({ type: "ids", value: productId });
+  const intl = useIntl();
 
   return (
     <div className="BlockProduct__Product">
@@ -80,7 +82,9 @@ const Product = ({
         href={product?.[0]?.url}
         className="Product__Link"
       >
-        <span className="Product__Link__Label">Fiche produit</span>
+        <span className="Product__Link__Label">
+          {intl.formatMessage({ id: "PRODUCT_SHEET" })}
+        </span>
         <i className="Product__Link__Icon fa fa-arrow-right"></i>
       </a>
       <button
@@ -104,6 +108,8 @@ const ProductsList = ({
   onUpdate,
 }: { onUpdate: Function } & SearchProps) => {
   const { data: products } = useProductsBy({ type, value });
+  const intl = useIntl();
+
   return (
     <ul className="ProductList">
       {products?.length > 0 ? (
@@ -126,10 +132,11 @@ const ProductsList = ({
       ) : value && value.length > 1 ? (
         <li className="ProductList__NoResults">
           <span>
-            Aucun résultat{" "}
+            {intl.formatMessage({ id: "NO_RESULTS" })}{" "}
             {value && value.length > 0 ? (
               <span>
-                pour "<span className="emphasize">{value}</span>"
+                {intl.formatMessage({ id: "FOR" })} "
+                <span className="emphasize">{value}</span>"
               </span>
             ) : (
               ""
@@ -144,6 +151,7 @@ const ProductsList = ({
 function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
   const [searchByRef, setSearchByRef] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
+  const intl = useIntl();
 
   useEffect(
     () => (query.startsWith("#") ? setSearchByRef(true) : setSearchByRef(false)),
@@ -175,18 +183,20 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
       })}
 
       <div className="BlockProduct__Content">
-        <span className="BlockProduct__Content__Title">Ajouter un produit</span>
+        <span className="BlockProduct__Content__Title">
+          {intl.formatMessage({ id: "BlockProduct__ADD_PRODUCT" })}
+        </span>
         <div className="BlockProduct__Content__Search">
           <Input
             onChange={(e) => setQuery(e.target.value)}
             value={query}
-            placeholder="Référence, nom, ..."
+            placeholder={intl.formatMessage({ id: "SEARCH_BY" })}
             id="BlockProduct-field-product"
             type="text"
             className={searchByRef ? "text-vermillon" : ""}
             icon={<i className="fa fa-search text-vermillon"></i>}
             iconAlignment="right"
-            label="Rechercher"
+            label={intl.formatMessage({ id: "SEARCH" })}
           />
           <Suspense
             fallback={
@@ -228,12 +238,18 @@ const blockProduct: BlockPluginDefinition<BlockProductData> = {
   initialData,
   title: {
     default: "Product",
-    fr_FR: "Produit",
+    fr: "Produit",
+    en: "Product",
+    es: "Producto",
+    it: "Prodotto",
   },
   icon: Icon,
   description: {
     default: "Display a product",
-    fr_FR: "Affiche des produits du catalogue",
+    fr: "Affiche un produit",
+    en: "Display a product",
+    es: "Mostrar un producto",
+    it: "Mostra un prodotto",
   },
   image: {
     default: "https://source.unsplash.com/featured/300x250?nature&blockProduct",

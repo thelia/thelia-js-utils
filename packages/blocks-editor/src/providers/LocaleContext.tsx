@@ -1,5 +1,4 @@
 import { ReactElement, createContext, useEffect, useState } from "react";
-import { IntlProvider } from "react-intl";
 import { Locale } from "../types/types";
 
 export const LocaleContext = createContext<{

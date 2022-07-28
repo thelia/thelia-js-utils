@@ -3,21 +3,23 @@ import {
   BlockPluginDefinition,
   queryClient,
 } from "@thelia/blocks-editor";
-import { Suspense, useEffect, useState } from "react";
-
+import { useEffect, useState } from "react";
+import { IntlProvider, useIntl } from "react-intl";
 import { ReactComponent as Icon } from "./assets/image.svg";
 import { ReactComponent as DownloadIcon } from "./assets/download.svg";
 import { ReactComponent as MediathequeIcon } from "./assets/mediatheque.svg";
 
 import Library from "../Library";
-import { LibraryImage } from "../types";
+import { LibraryImage } from "../types/types";
 import { QueryClientProvider } from "react-query";
-import { useCreateImage } from "../api";
+import { useCreateImage } from "../utils/api";
 
 import "./Image.css";
+import { locale, messages } from "../utils/intl";
 
 const FromLocal = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) => {
   const createImage = useCreateImage();
+  const intl = useIntl();
 
   return (
     <div className="BlockImage__FromLocal">
@@ -30,7 +32,7 @@ const FromLocal = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) =>
         }}
       >
         <label className="BlockImage__Button" htmlFor="image">
-          Télécharger une image
+          {intl.formatMessage({ id: "BlockImage__DOWNLOAD" })}
         </label>
         <input
           className="BlockImage__FromLocal__FileInput"
@@ -48,7 +50,7 @@ const FromLocal = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) =>
             }
           }}
         />
-        <span>ou déposez une image</span>
+        <span>{intl.formatMessage({ id: "BlockImage__OR_DROP" })}</span>
       </form>
     </div>
   );
@@ -56,6 +58,7 @@ const FromLocal = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) =>
 
 const FromLibrary = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const intl = useIntl();
 
   return (
     <div className="BlockImage__FromLibrary">
@@ -67,7 +70,7 @@ const FromLibrary = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) 
           setIsOpen(true);
         }}
       >
-        <span>Selectionnez une image depuis votre médiathèque</span>
+        <span>{intl.formatMessage({ id: "BlockImage__UPLOAD" })}</span>
       </button>
 
       {isOpen ? (
@@ -93,6 +96,8 @@ const Preview = ({
   fileName: LibraryImage["fileName"];
   setEditMode: Function;
 }) => {
+  const intl = useIntl();
+
   if (!id) return null;
 
   return (
@@ -107,7 +112,7 @@ const Preview = ({
             setEditMode(true);
           }}
         >
-          Remplacer
+          {intl.formatMessage({ id: "REPLACE" })}
         </button>
       </div>
     </div>
@@ -121,6 +126,8 @@ const ImageInfos = ({
   image: LibraryImage;
   onChange: (data: Partial<LibraryImage>) => void;
 }) => {
+  const intl = useIntl();
+
   return (
     <form
       className="BlockImage__Infos__Form"
@@ -129,13 +136,13 @@ const ImageInfos = ({
       }}
     >
       <div>
-        <label htmlFor="">Titre de l'image</label>
+        <label htmlFor="">{intl.formatMessage({ id: "BlockImage__TITLE" })}</label>
         <input
           className="Input__Text"
           type="text"
           name="title"
           value={image.title}
-          placeholder="Titre de l'image"
+          placeholder={intl.formatMessage({ id: "BlockImage__TITLE" })}
           onChange={(e) => {
             onChange({
               title: e.target.value,
@@ -144,13 +151,16 @@ const ImageInfos = ({
         />
       </div>
       <div>
-        <label>Lien au clic (optionnel)</label>
+        <label>
+          {intl.formatMessage({ id: "BlockImage__LINK" })} (
+          {intl.formatMessage({ id: "OPTIONAL" })})
+        </label>
         <input
           className="Input__Text"
           type="text"
           name="linkUrl"
           value={image.link?.url || ""}
-          placeholder="Lien au clic sur l'image"
+          placeholder={intl.formatMessage({ id: "BlockImage__LINK_PLACEHOLDER" })}
           onChange={(e) => {
             onChange({
               link: {
@@ -169,6 +179,8 @@ const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => 
 
   const [image, setImage] = useState<LibraryImage | null>(null);
   const [isEditMode, setEditMode] = useState<boolean>(false);
+
+  const intl = useIntl();
 
   useEffect(() => {
     if (data.id) {
@@ -209,7 +221,7 @@ const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => 
                 fontSize: "18px",
               }}
             >
-              Remplacer l'image "{image.title}"
+              {intl.formatMessage({ id: "REPLACE_IMAGE" })} "{image.title}"
             </span>
           ) : null}
           <div className="BlockImage__Upload__Wrapper">
@@ -224,7 +236,7 @@ const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => 
               style={{ marginTop: "15px" }}
               className="BlockImage__Button"
             >
-              Annuler
+              {intl.formatMessage({ id: "CANCEL" })}
             </button>
           ) : null}
         </>
@@ -235,9 +247,11 @@ const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => 
 
 const WrappedComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <BlockImageComponent {...props} />
-    </QueryClientProvider>
+    <IntlProvider messages={messages[locale]} locale={locale}>
+      <QueryClientProvider client={queryClient}>
+        <BlockImageComponent {...props} />
+      </QueryClientProvider>
+    </IntlProvider>
   );
 };
 
@@ -258,11 +272,17 @@ const blockImage: BlockPluginDefinition<LibraryImage> = {
   initialData,
   title: {
     default: "Image",
-    fr_FR: "Image",
+    fr: "Image",
+    en: "Image",
+    es: "Imagen",
+    it: "Immagine",
   },
   description: {
-    default: "Display an image--",
-    fr_FR: "Affiche une image",
+    default: "Display an image",
+    fr: "Affiche une image",
+    en: "Display an image",
+    es: "Mostrar una imagen",
+    it: "Mostra un immagine",
   },
   icon: Icon,
   image: {

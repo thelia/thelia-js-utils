@@ -8,6 +8,7 @@ import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
 
 import "./Preview.css";
 import Modal from "../Modal";
+import { useIntl } from "react-intl";
 
 export default function Preview({
   isOpen,
@@ -24,6 +25,7 @@ export default function Preview({
 }) {
   const { blockList } = useBlocksContext();
   const preview = usePreviewGroup(timestamp, JSON.stringify(data || blockList));
+  const intl = useIntl();
 
   useEffect(() => {
     if (preview.isLoading) {
@@ -49,7 +51,7 @@ export default function Preview({
         <Modal
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          title="Prévisualisation de votre Thelia Blocks"
+          title={intl.formatMessage({ id: "PreviewModal__TITLE" })}
         >
           {preview.data ? <Iframe content={preview.data} /> : null}
         </Modal>

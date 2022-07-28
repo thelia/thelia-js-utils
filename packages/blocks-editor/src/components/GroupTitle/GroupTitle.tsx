@@ -1,4 +1,5 @@
 import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { useIntl } from "react-intl";
 
 import { BlocksGroupContext } from "../../providers/BlockGroupContext";
 import { Input } from "../Inputs";
@@ -6,6 +7,7 @@ import { Input } from "../Inputs";
 import "./GroupTitle.css";
 
 export default function GroupTitle() {
+  const intl = useIntl();
   const [title, setTitle] = useState<string>("");
 
   const { group, editGroup } = useContext(BlocksGroupContext);
@@ -22,9 +24,9 @@ export default function GroupTitle() {
         value={title}
         id="GroupTitle-field-title"
         type="text"
-        label="Nom de votre Thelia Blocks"
-        placeholder="Indiquez le nom de votre Thelia Blocks"
-        info="Ce nom sera utilisé dans le titre de votre Thelia Blocks"
+        label={intl.formatMessage({ id: "GroupTitle__BLOCK_NAME" })}
+        placeholder={intl.formatMessage({ id: "GroupTitle__BLOCK_NAME_PLACEHOLDER" })}
+        info={intl.formatMessage({ id: "GroupTitle__BLOCK_NAME_INFO" })}
         onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
         onBlur={() => editGroup({ ...group, title })}
       />

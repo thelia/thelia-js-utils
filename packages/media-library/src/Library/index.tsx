@@ -1,12 +1,13 @@
-import { useDeleteImage, useLibraryImage } from "../api";
+import { useDeleteImage, useLibraryImage } from "../utils/api";
 import { ReactComponent as XMarkIcon } from "./assets/xmark.svg";
 
 import ReactModal from "react-modal";
 
-import { LibraryImage } from "../types";
+import { LibraryImage } from "../types/types";
 import { Suspense, useState } from "react";
 
 import "./Library.css";
+import { useIntl } from "react-intl";
 
 const LibraryContent = ({
   limit = 20,
@@ -18,6 +19,8 @@ const LibraryContent = ({
   const [offset, setOffset] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
 
+  const intl = useIntl();
+
   const images = useLibraryImage({ offset, limit, title });
   const deleteMutation = useDeleteImage();
 
@@ -25,10 +28,12 @@ const LibraryContent = ({
     <div className="Library">
       <div className="Library__Filters">
         <div>
-          <label htmlFor="library-search">Rechercher dans le catalogue</label>
+          <label htmlFor="library-search">
+            {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_SEARCH" })}
+          </label>
           <input
             className="Input__Text"
-            placeholder="Entrez un nom, une référence, ..."
+            placeholder={intl.formatMessage({ id: "SEARCH_BY" })}
             type="text"
             name="library-search"
             id="library-search"
@@ -37,10 +42,12 @@ const LibraryContent = ({
           />
         </div>
         <div>
-          <label htmlFor="category-filter">Filtrer par catégorie</label>
+          <label htmlFor="category-filter">
+            {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_CATEGORY_FILTER" })}
+          </label>
           <select className="Input__Select" name="category-filter" id="category-filter">
-            <option value="">tag 1</option>
-            <option value="">tag 2</option>
+            <option value="">Tag 1</option>
+            <option value="">Tag 2</option>
           </select>
         </div>
       </div>
@@ -63,13 +70,14 @@ const LibraryContent = ({
                 />
                 <span className="Library__Image__Title">{image.title}</span>
               </button>
+
               <button
                 type="button"
                 className="BlockImage__Button"
                 onClick={() => deleteMutation.mutate(image.id)}
                 disabled={deleteMutation.isLoading}
               >
-                supprimer
+                {intl.formatMessage({ id: "DELETE" })}
               </button>
             </div>
           );
@@ -113,6 +121,8 @@ export default function Library({
   limit?: number;
   onSelect: (image: LibraryImage) => void;
 }) {
+  const intl = useIntl();
+
   return (
     <ReactModal
       isOpen={isOpen}
@@ -126,7 +136,9 @@ export default function Library({
             <XMarkIcon />
           </button>
 
-          <div className="Modal__Header__Title">Rechercher une image</div>
+          <div className="Modal__Header__Title">
+            {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_TITLE" })}
+          </div>
         </div>
 
         <div className="Modal__Content">

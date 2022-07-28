@@ -1,9 +1,9 @@
 import {
-  FiveColumns,
+  TwoColumns,
+  ThreeColumns,
   FourColumns,
   SixColumns,
-  ThreeColumns,
-  TwoColumns,
+  FiveColumns,
 } from "./MultiColumns";
 
 import Accordion from "./Accordion";

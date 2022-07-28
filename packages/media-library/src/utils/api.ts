@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
-import { LibraryImage } from "./types";
+import { LibraryImage } from "../types/types";
 import { fetcher } from "@thelia/blocks-editor";
 
 export function useLibraryImage(options: {

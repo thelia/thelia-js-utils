@@ -1,4 +1,4 @@
-import { Suspense, useContext, useState } from "react";
+import { useContext, useState } from "react";
 
 import { BlocksGroupContext } from "../../providers/BlockGroupContext";
 import ErrorBoundary from "../../components/ErrorBoundary";
@@ -8,13 +8,14 @@ import { useBlocksContext } from "../../hooks/useBlockContext";
 import { useCreateOrUpdateGroup } from "../../utils/queries";
 
 import "./ToolBar.css";
+import { useIntl } from "react-intl";
 
 const ToolBar = () => {
   const { group } = useContext(BlocksGroupContext);
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const [timestamp, setTimestamp] = useState<number>(0);
   const [isPreviewLoading, setIsPreviewLoading] = useState<boolean>(false);
-
+  const intl = useIntl();
   const { blockList } = useBlocksContext();
   const mutation = useCreateOrUpdateGroup();
 
@@ -25,7 +26,7 @@ const ToolBar = () => {
           className="Toolbar__View"
           onClick={() => {
             if (!blockList.length) {
-              toast.error("Aucun block à afficher");
+              toast.error(intl.formatMessage({ id: "Toast__NO_BLOCKS_TO_DISPLAY" }));
               return;
             }
             setTimestamp(Date.now());
@@ -36,12 +37,12 @@ const ToolBar = () => {
           {isPreviewLoading ? (
             <>
               <i className="fa fa-circle-notch fa-spin Toolbar__View__Icon"></i>
-              Chargement
+              {intl.formatMessage({ id: "LOADING" })}
             </>
           ) : (
             <>
               <i className="fas fa-eye Toolbar__View__Icon"></i>
-              Prévisualiser
+              {intl.formatMessage({ id: "PREVIEW" })}
             </>
           )}
         </button>
@@ -50,7 +51,7 @@ const ToolBar = () => {
           disabled={mutation.isLoading}
           onClick={() => {
             if (!group?.title) {
-              toast.error("Titre manquant");
+              toast.error(intl.formatMessage({ id: "Toast__BLOCK_MUST_HAVE_A_NAME" }));
               return;
             }
             mutation.mutate({ blocks: blockList });
@@ -59,10 +60,10 @@ const ToolBar = () => {
           {mutation.isLoading ? (
             <>
               <i className="fa fa-circle-notch fa-spin Toolbar__Save__Icon"></i>
-              Enregistrement...
+              {intl.formatMessage({ id: "SAVING" })}
             </>
           ) : (
-            <>Enregistrer</>
+            <>{intl.formatMessage({ id: "SAVE" })}</>
           )}
         </button>
       </div>

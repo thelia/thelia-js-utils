@@ -12,6 +12,7 @@ import { BlockModuleComponentProps, IBlock } from "../../types/types";
 import { DropResult } from "react-beautiful-dnd";
 
 import "./MultiColumns.css";
+import { useIntl } from "react-intl";
 
 type ColumnData = IBlock[];
 
@@ -97,11 +98,12 @@ const ColumnComponent = ({
 }: BlockModuleComponentProps<MultiColumnsData>) => {
   const [open, setOpen] = useState(true);
   const { width } = useWindowSize();
+  const intl = useIntl();
 
   return (
     <div key={index} className="BlockColumn">
       <LayoutHeader
-        title={`Colonne #${index + 1}`}
+        title={`${intl.formatMessage({ id: "COLUMN" })} #${index + 1}`}
         open={open}
         setOpen={setOpen}
         icon={width > 400 && <ColumnIcon cols={data.length} currentCol={index} />}
@@ -147,7 +149,13 @@ const MultiColumnsComponent = ({
   );
 };
 
-const moduleLayout = "Column";
+const moduleLayout = {
+  default: "Columns",
+  fr: "Colonnes",
+  en: "Columns",
+  es: "Columnas",
+  it: "Colonne",
+};
 
 const moduleType = {
   id: "multiColumns",
@@ -161,11 +169,17 @@ const Column = {
   icon: Icon,
   title: {
     default: "Columns",
-    fr_FR: "Colonnes",
+    fr: "Colonnes",
+    en: "Columns",
+    es: "Columnas",
+    it: "Colonne",
   },
   description: {
     default: "Display blocks in multiple columns",
-    fr_FR: "Affiche des blocks dans différentes colonnes",
+    fr: "Affiche des blocks dans différentes colonnes",
+    en: "Display blocks in multiple columns",
+    es: "Mostrar bloques en columnas",
+    it: "Mostra i blocchi in colonne",
   },
   image: {
     default: "https://source.unsplash.com/featured/300x250?nature&multiColumns",
@@ -178,7 +192,10 @@ const TwoColumns = {
   type: { id: "2cols" },
   title: {
     default: "2 Columns",
-    fr_FR: "2 Colonnes",
+    fr: "2 Colonnes",
+    en: "2 Columns",
+    es: "2 Columnas",
+    it: "2 Colonne",
   },
   layout: moduleLayout,
   initialData: [[], []],
@@ -192,7 +209,10 @@ const ThreeColumns = {
   layout: moduleLayout,
   title: {
     default: "3 Columns",
-    fr_FR: "3 Colonnes",
+    fr: "3 Colonnes",
+    en: "3 Columns",
+    es: "3 Columnas",
+    it: "3 Colonne",
   },
   initialData: [[], [], []],
   customIcon: <ColumnIcon asIcon cols={3} />,
@@ -205,7 +225,10 @@ const FourColumns = {
   layout: moduleLayout,
   title: {
     default: "4 Columns",
-    fr_FR: "4 Colonnes",
+    fr: "4 Colonnes",
+    en: "4 Columns",
+    es: "4 Columnas",
+    it: "4 Colonne",
   },
   initialData: [[], [], [], []],
   customIcon: <ColumnIcon asIcon cols={4} />,
@@ -218,7 +241,10 @@ const FiveColumns = {
   layout: moduleLayout,
   title: {
     default: "5 Columns",
-    fr_FR: "5 Colonnes",
+    fr: "5 Colonnes",
+    en: "5 Columns",
+    es: "5 Columnas",
+    it: "5 Colonne",
   },
   initialData: [[], [], [], [], []],
   customIcon: <ColumnIcon asIcon cols={5} />,
@@ -231,7 +257,10 @@ const SixColumns = {
   layout: moduleLayout,
   title: {
     default: "6 Columns",
-    fr_FR: "6 Colonnes",
+    fr: "6 Colonnes",
+    en: "6 Columns",
+    es: "6 Columnas",
+    it: "6 Colonne",
   },
   initialData: [[], [], [], [], [], []],
   customIcon: <ColumnIcon asIcon cols={6} />,

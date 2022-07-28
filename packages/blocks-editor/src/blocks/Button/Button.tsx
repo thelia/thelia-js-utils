@@ -1,4 +1,5 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
+import { useIntl } from "react-intl";
 import { Input } from "../../components/Inputs";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/button.svg";
@@ -16,6 +17,8 @@ const BlockButtonComponent = ({
 }: BlockModuleComponentProps<BlockButtonData>) => {
   const [label, setLabel] = useState<string>("");
   const [url, setUrl] = useState<string>("");
+
+  const intl = useIntl();
 
   useEffect(() => {
     if (data.url) {
@@ -52,23 +55,23 @@ const BlockButtonComponent = ({
       <Input
         type="text"
         id="BlockButton-field-text"
-        placeholder="Indiquez le texte du bouton"
+        placeholder={intl.formatMessage({ id: "BlockButton__TEXT_PLACEHOLDER" })}
         value={label}
         onChange={onChangeLabel}
         onBlur={onBlurLabel}
-        label="Texte du bouton"
+        label={intl.formatMessage({ id: "BlockButton__TEXT" })}
       />
 
       <Input
         type="text"
         id="BlockButton-field-url"
-        placeholder="Indiquez le lien du bouton"
+        placeholder={intl.formatMessage({ id: "BlockButton__URL_PLACEHOLDER" })}
         value={url}
         icon={<i className="fa fa-link text-darkCharbon"></i>}
         iconAlignment="left"
         onChange={onChangeUrl}
         onBlur={onBlurUrl}
-        label="URL du bouton"
+        label={intl.formatMessage({ id: "BlockButton__URL" })}
       />
     </div>
   );
@@ -89,12 +92,18 @@ const blockButton: BlockPluginDefinition<BlockButtonData> = {
   initialData,
   title: {
     default: "Button",
-    fr_FR: "Bouton",
+    fr: "Bouton",
+    en: "Button",
+    es: "Botón",
+    it: "Bottone",
   },
   icon: Icon,
   description: {
     default: "Link to an URL",
-    fr_FR: "Lien vers une URL",
+    fr: "Lien vers une URL",
+    en: "Link to an URL",
+    es: "Enlace a una URL",
+    it: "Link a un URL",
   },
 };
 

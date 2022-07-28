@@ -59,12 +59,18 @@ const Blocktext: BlockPluginDefinition<BlockTextData> = {
   initialData,
   title: {
     default: "Text",
-    fr_FR: "Texte",
+    fr: "Texte",
+    en: "Text",
+    es: "Texto",
+    it: "Testo",
   },
   icon: Icon,
   description: {
     default: "Display a formated text",
-    fr_FR: "Affiche un texte mis en forme",
+    fr: "Affiche un texte mis en forme",
+    en: "Display a formated text",
+    es: "Muestra un texto en formato",
+    it: "Visualizza un testo formattato",
   },
   image: {
     default: "https://source.unsplash.com/featured/300x250?nature&blockText",

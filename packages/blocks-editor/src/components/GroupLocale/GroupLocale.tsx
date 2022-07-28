@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useIntl } from "react-intl";
 
 import { LocaleContext } from "../../providers/LocaleContext";
 import { Select } from "../Inputs";
@@ -8,9 +9,7 @@ import "./GroupLocale.css";
 export default function GroupLocale() {
   const { locales, currentLocale, setCurrentLocale } = useContext(LocaleContext);
 
-  /* if (!locales || locales.length <= 0) {
-    return null;
-  } */
+  const intl = useIntl();
 
   return (
     <form
@@ -26,11 +25,11 @@ export default function GroupLocale() {
           setCurrentLocale(e.target.value);
         }}
         value={currentLocale}
-        label="Langue"
-        info="Sélectionnez la langue de votre Thelia Blocks"
+        label={intl.formatMessage({ id: "GroupLocale__BLOCK_LOCALE" })}
+        info={intl.formatMessage({ id: "GroupLocale__BLOCK_LOCALE_INFO" })}
       >
         <option value="" disabled>
-          Sélectionnez
+          {intl.formatMessage({ id: "SELECT" })}
         </option>
         {locales.map((locale) => (
           <option key={locale.id} value={locale.code}>
@@ -38,29 +37,6 @@ export default function GroupLocale() {
           </option>
         ))}
       </Select>
-
-      {/* {locales.map((locale) => {
-        return (
-          <label
-            htmlFor={locale.code}
-            key={locale.id}
-            className={locale.code === currentLocale ? "bg-red" : ""}
-          >
-            <input
-              id={locale.code}
-              type="radio"
-              name="locale"
-              value={locale.code}
-              checked={currentLocale === locale.code}
-              onChange={() => {
-                setCurrentLocale(locale.code);
-              }}
-              className="sr-only"
-            />
-            {locale.title}
-          </label>
-        );
-      })} */}
     </form>
   );
 }

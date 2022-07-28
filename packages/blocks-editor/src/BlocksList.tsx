@@ -2,8 +2,12 @@ import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import { BlocksProvider } from "./utils/queries";
 import BlocksTable from "./components/BlocksTable";
+import { IntlProvider, useIntl } from "react-intl";
+import { messages, locale } from "./utils/intl";
 
 const BlocksListHeader = () => {
+  const intl = useIntl();
+
   return (
     <div className="BlocksList__Header">
       <div className="BlocksList__Header__Title">Thelia Blocks</div>
@@ -13,8 +17,30 @@ const BlocksListHeader = () => {
           permettera aux utilisateurs de comprendre plus facilement l'outil
         </span>
         <a href="/admin/TheliaBlocks/new" className="BlocksList__Header__Create">
-          Créer
+          {intl.formatMessage({ id: "CREATE" })}
         </a>
+      </div>
+    </div>
+  );
+};
+
+const BlocksListContent = () => {
+  const intl = useIntl();
+
+  return (
+    <div className="BlocksList">
+      <Toaster position="bottom-left" />
+
+      <BlocksListHeader />
+      <div className="BlocksList__Wrapper">
+        <div className="BlocksList__Title">
+          {intl.formatMessage({ id: "BlocksList__EXISTING_THELIA_BLOCKS" })}
+        </div>
+        <div className="BlocksList__List__Wrapper">
+          <Suspense fallback={<i className="Loader fa fa-circle-notch fa-spin"></i>}>
+            <BlocksTable />
+          </Suspense>
+        </div>
       </div>
     </div>
   );
@@ -24,21 +50,11 @@ const BlocksList = ({ apiUrl }: { apiUrl: string }) => {
   if (!apiUrl) return null;
 
   return (
-    <BlocksProvider api={apiUrl}>
-      <div className="BlocksList">
-        <Toaster />
-
-        <BlocksListHeader />
-        <div className="BlocksList__Wrapper">
-          <div className="BlocksList__Title">Thelia Blocks existants</div>
-          <div className="BlocksList__List__Wrapper">
-            <Suspense fallback={<i className="Loader fa fa-circle-notch fa-spin"></i>}>
-              <BlocksTable />
-            </Suspense>
-          </div>
-        </div>
-      </div>
-    </BlocksProvider>
+    <IntlProvider locale={locale} messages={messages[locale]}>
+      <BlocksProvider api={apiUrl}>
+        <BlocksListContent />
+      </BlocksProvider>
+    </IntlProvider>
   );
 };
 

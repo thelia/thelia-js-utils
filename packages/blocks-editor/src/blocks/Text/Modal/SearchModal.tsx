@@ -6,18 +6,13 @@ import Search from "./Search";
 import { ReactComponent as XMarkIcon } from "../../../../assets/svg/xmark.svg";
 
 import "./SearchModal.css";
+import { useIntl } from "react-intl";
 
 const SearchModal = forwardRef(
   ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Function }, ref: any) => {
     const [isSearching, setIsSearching] = useState(false);
     const [searchIn, setSearchIn] = useState<SearchProps["searchIn"]>("product");
-
-    useEffect(() => {
-      ref.current.editor.formatText(0, 5, "customLink", {
-        href: "www.google.com",
-        target: "_self",
-      });
-    }, []);
+    const intl = useIntl();
 
     return (
       <ReactModal
@@ -37,10 +32,12 @@ const SearchModal = forwardRef(
                 onClick={() => setIsSearching(false)}
               >
                 <i className="fa fa-chevron-left"></i>
-                <span className="font-bold">Retour</span>
+                <span className="font-bold">{intl.formatMessage({ id: "BACK" })}</span>
               </button>
             ) : (
-              <div className="text-2xl font-bold">Insérer un lien</div>
+              <div className="text-2xl font-bold">
+                {intl.formatMessage({ id: "INSERT_LINK" })}
+              </div>
             )}
 
             <button onClick={() => setIsOpen(false)} className="ml-auto">
@@ -69,7 +66,9 @@ const SearchModal = forwardRef(
                 }}
               >
                 <i className="text-2xl fas fa-box"></i>
-                <span className="text-center">Produits</span>
+                <span className="text-center">
+                  {intl.formatMessage({ id: "PRODUCTS" })}
+                </span>
               </button>
               <button
                 className="flex flex-col items-center justify-center w-full gap-4 p-12 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon md:w-1/4"
@@ -79,7 +78,9 @@ const SearchModal = forwardRef(
                 }}
               >
                 <i className="text-2xl fas fa-folder-open"></i>
-                <span className="text-center">Dossiers</span>
+                <span className="text-center">
+                  {intl.formatMessage({ id: "FOLDERS" })}
+                </span>
               </button>
               <button
                 className="flex flex-col items-center justify-center w-full gap-4 p-12 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon md:w-1/4"
@@ -89,7 +90,9 @@ const SearchModal = forwardRef(
                 }}
               >
                 <i className="text-2xl fas fa-book"></i>
-                <span className="text-center">Catégories</span>
+                <span className="text-center">
+                  {intl.formatMessage({ id: "CATEGORIES" })}
+                </span>
               </button>
               <button
                 className="flex flex-col items-center justify-center w-full gap-4 p-12 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon md:w-1/4"
@@ -99,7 +102,9 @@ const SearchModal = forwardRef(
                 }}
               >
                 <i className="text-2xl fas fa-file-alt"></i>
-                <span className="text-center">Contenus</span>
+                <span className="text-center">
+                  {intl.formatMessage({ id: "CONTENTS" })}
+                </span>
               </button>
             </div>
           )}
