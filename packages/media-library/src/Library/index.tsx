@@ -90,7 +90,7 @@ const LibraryImage = ({
           style={{ marginTop: "12px", marginBottom: "6px" }}
           onClick={() => onSelect(image)}
         >
-          {intl.formatMessage({ id: "SELECT" })}
+          {intl.formatMessage({ id: "CHOOSE" })}
         </button>
         <button
           className="Library__Image__Delete__Action"
@@ -208,7 +208,14 @@ export default function Library({
         </div>
 
         <div className="Modal__Content">
-          <Suspense fallback={<i className="Loader fa fa-circle-notch fa-spin"></i>}>
+          <Suspense
+            fallback={
+              <div className="Modal__Content__Loader">
+                <span>{intl.formatMessage({ id: "BlockImage__LIBRARY_LOADING" })}</span>
+                <i className="Loader fa fa-circle-notch fa-spin"></i>
+              </div>
+            }
+          >
             <LibraryContent onSelect={onSelect} limit={limit} />
           </Suspense>
         </div>

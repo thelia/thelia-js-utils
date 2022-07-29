@@ -47,7 +47,7 @@ input::placeholder, textarea::placeholder {
 }
 
 .Loader {
-  @apply text-2xl text-vermillon text-center;
+  @apply block text-2xl text-vermillon text-center;
 }
 
 .Modal-TheliaBlocks {
@@ -60,6 +60,7 @@ input::placeholder, textarea::placeholder {
   overflow: hidden;
   width: 60%;
   max-height: 80%;
+  height: max-content;
   border-radius: 8px;
   background-color: white;
 }

@@ -107,6 +107,7 @@ const BlocksTable = () => {
                       <span>
                         + {group.locales.slice(2).length}{" "}
                         {intl.formatMessage({ id: "OTHER" })}
+                        {group.locales.slice(2).length > 1 ? "s" : ""}
                       </span>
                     </>
                   ) : (

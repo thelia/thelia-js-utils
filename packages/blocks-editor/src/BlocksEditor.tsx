@@ -27,6 +27,17 @@ interface IBlocksEditorProps {
   noRedirect: boolean;
 }
 
+const BlocksEditorLoader = () => {
+  const intl = useIntl();
+
+  return (
+    <div className="BlocksEditor__Loader">
+      <span>{intl.formatMessage({ id: "BlocksEditor__LOADING" })}</span>
+      <i className="Loader fa fa-circle-notch fa-spin"></i>
+    </div>
+  );
+};
+
 const BlocksEditorHeader = ({
   backlink,
 }: {
@@ -77,7 +88,7 @@ export default function BlocksEditor({
     <LocaleProvider locales={locales}>
       <IntlProvider messages={messages[locale]} locale={locale}>
         <BlocksProvider api={apiUrl}>
-          <Suspense fallback={<i className="Loader fa fa-circle-notch fa-spin"></i>}>
+          <Suspense fallback={<BlocksEditorLoader />}>
             <BlocksGroupProvider
               groupId={groupId}
               itemType={itemType}

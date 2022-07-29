@@ -7,6 +7,10 @@
     @apply flex flex-col w-full min-h-screen;
   }
 
+  &__Loader {
+    @apply flex flex-col gap-3 py-10 text-center;
+  }
+
   &__Content {
     @apply h-full flex flex-col justify-between;
   }
@@ -23,7 +27,7 @@
     }
 
     &__Inputs__Wrapper {
-      @apply flex items-end gap-4;
+      @apply flex gap-4 flex-col md:flex-row;
     }
   }
 }

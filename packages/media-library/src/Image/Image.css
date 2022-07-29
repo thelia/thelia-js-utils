@@ -126,9 +126,5 @@ input.BlockImage__FromLocal__FileInput {
 
  .BlockImage__Infos {
   flex-direction: column;
-}
-}
-
-.Loader {
-  @apply text-2xl text-vermillon;
-}
+  }
+} 

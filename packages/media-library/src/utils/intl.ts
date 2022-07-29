@@ -13,6 +13,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__LIBRARY_MODAL_TITLE: "Rechercher une image",
     BlockImage__LIBRARY_MODAL_SEARCH: "Rechercher dans la médiathèque",
     BlockImage__LIBRARY_MODAL_TAG_FILTER: "Filtrer par tag",
+    BlockImage__LIBRARY_LOADING: "Chargement de la librairie...",
 
     REPLACE: "Remplacer",
     REPLACE_IMAGE: "Remplacer l'image",
@@ -22,6 +23,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     SEARCH_BY: "Référence, nom, ...",
     LOADING: "Chargement...",
     ALL_TAGS: "Tous les tags",
+    CHOOSE: "Choisir",
   },
   en: {
     BlockImage__DOWNLOAD: "Download an image",
@@ -33,6 +35,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__LIBRARY_MODAL_TITLE: "Search an image",
     BlockImage__LIBRARY_MODAL_SEARCH: "Search in the library",
     BlockImage__LIBRARY_MODAL_TAG_FILTER: "Filter by tag",
+    BlockImage__LIBRARY_LOADING: "Loading library...",
 
     REPLACE: "Replace",
     REPLACE_IMAGE: "Replace image",
@@ -42,6 +45,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     SEARCH_BY: "Reference, name, ...",
     LOADING: "Loading...",
     ALL_TAGS: "All tags",
+    CHOOSE: "Choose",
   },
   es: {
     BlockImage__DOWNLOAD: "Descargar una imagen",
@@ -53,6 +57,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__LIBRARY_MODAL_TITLE: "Buscar una imagen",
     BlockImage__LIBRARY_MODAL_SEARCH: "Buscar en la biblioteca",
     BlockImage__LIBRARY_MODAL_TAG_FILTER: "Filtrar por tag",
+    BlockImage__LIBRARY_LOADING: "Cargando la biblioteca...",
 
     REPLACE: "Reemplazar",
     REPLACE_IMAGE: "Reemplazar imagen",
@@ -62,6 +67,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     SEARCH_BY: "Referencia, nombre, ...",
     LOADING: "Cargando...",
     ALL_TAGS: "Todos los tags",
+    CHOOSE: "Elegir",
   },
   it: {
     BlockImage__DOWNLOAD: "Scarica un immagine",
@@ -73,6 +79,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__LIBRARY_MODAL_TITLE: "Cerca un immagine",
     BlockImage__LIBRARY_MODAL_SEARCH: "Cerca nella libreria",
     BlockImage__LIBRARY_MODAL_TAG_FILTER: "Filtra per tag",
+    BlockImage__LIBRARY_LOADING: "Caricamento della libreria...",
 
     REPLACE: "Sostituisci",
     REPLACE_IMAGE: "Sostituisci immagine",
@@ -82,5 +89,6 @@ export const messages: Record<string, { [key: string]: string}> = {
     SEARCH_BY: "Riferimento, nome, ...",
     LOADING: "Caricamento...",
     ALL_TAGS: "Tutti i tag",
+    CHOOSE: "Scegli",
   }
 }

@@ -19,6 +19,14 @@
 
   &__Product {
     @apply w-full flex justify-between bg-white rounded-md gap-4 md:gap-8 p-2 mb-4 items-center sm:h-20;
+
+    &__Loader {
+      @apply w-full flex flex-col justify-center bg-white rounded-md gap-3 p-2 mb-4 items-center;
+
+      span {
+        @apply block;
+      }
+    }
     
     .Product {
       &__Image {

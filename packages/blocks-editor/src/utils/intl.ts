@@ -5,6 +5,7 @@ export const locale = getLocale()
 export const messages: Record<string, { [key: string]: string}> = {
   "fr": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Création d'un nouveau Thelia Blocks",
+    BlocksEditor__LOADING: "Chargement de Thelia Blocks...",
 
     BlocksList__EXISTING_THELIA_BLOCKS: "Thelia Blocks existants",
     BlocksList__NO_THELIA_BLOCKS: "Vous n'avez pas encore créé de Thelia Blocks",
@@ -43,9 +44,12 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockButton__URL_PLACEHOLDER: "Indiquez le lien du bouton",
 
     BlockProduct__ADD_PRODUCT: "Ajouter un produit",
+    BlockProduct__PRODUCT_LOADING: "Chargement du produit...",
 
     BlockSeparator__STYLE: "Style du séparateur",
     BlockSeparator__SIZE: "Taille du séparateur",
+
+    BlockHTML__HTML_PLACEHOLDER: "Indiquez votre code HTML",
 
     BlockText__TEXT_PLACEHOLDER: "Votre texte ici",
     BlockText__TEXT_LINK_MODAL_TITLE: "Sélectionnez un élément à insérer",
@@ -93,13 +97,15 @@ export const messages: Record<string, { [key: string]: string}> = {
     ID: "ID",
     NAME: "Nom",
     TYPE: "Type",
-    LINKED_CONTENTS: "Contenus liés",
+    LINKED_CONTENTS: "contenus liés",
     NO_LINKED_CONTENTS: "Aucun contenu lié",
     LINKED_CONTENTS_LIST: "Liste des contenus liés",
     ACCESS_LINKED_CONTENT: "Accéder à ce contenu",
+    EDIT_LINKED_CONTENT: "Modifier ce contenu",
     DELETE_LINKED_CONTENT: "Supprimer ce contenu lié",
     AVAILABLE_LOCALES: "Langues disponibles",
     ACTIONS: "Actions",
+    TITLE: "Titre",
     NO_TITLE: "Aucun titre",
     DUPLICATE_BLOCK: "Dupliquer ce Thelia Blocks",
     COPY_SHORTCODE: "Copier le shortcode",
@@ -111,6 +117,7 @@ export const messages: Record<string, { [key: string]: string}> = {
   },
   "en": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creation of a new Thelia Blocks",
+    BlocksEditor__LOADING: "Thelia Blocks loading...",
 
     BlocksList__EXISTING_THELIA_BLOCKS: "Existing Thelia Blocks",
     BlocksList__NO_THELIA_BLOCKS: "You haven't created any Thelia Blocks yet",
@@ -149,9 +156,12 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockButton__URL_PLACEHOLDER: "Enter the URL of the button",
 
     BlockProduct__ADD_PRODUCT: "Add a product",
+    BlockProduct__PRODUCT_LOADING: "Loading product...",
 
     BlockSeparator__STYLE: "Style of the separator",
     BlockSeparator__SIZE: "Size of the separator",
+    
+    BlockHTML__HTML_PLACEHOLDER: "Enter the HTML code",
 
     BlockText__TEXT_PLACEHOLDER: "Your text here",
     BlockText__TEXT_LINK_MODAL_TITLE: "Select an element to insert",
@@ -199,13 +209,15 @@ export const messages: Record<string, { [key: string]: string}> = {
     ID: "ID",
     NAME: "Name",
     TYPE: "Type",
-    LINKED_CONTENTS: "Linked contents",
+    LINKED_CONTENTS: "linked contents",
     NO_LINKED_CONTENTS: "No linked contents",
     LINKED_CONTENTS_LIST: "Linked contents list",
     ACCESS_LINKED_CONTENT: "Access to this content",
+    EDIT_LINKED_CONTENT: "Edit this content",
     DELETE_LINKED_CONTENT: "Delete this linked content",
     AVAILABLE_LOCALES: "Available locales",
     ACTIONS: "Actions",
+    TITLE: "Title",
     NO_TITLE: "No title",
     DUPLICATE_BLOCK: "Duplicate this Thelia Blocks",
     COPY_SHORTCODE: "Copy the shortcode",
@@ -217,6 +229,7 @@ export const messages: Record<string, { [key: string]: string}> = {
   },
   "es": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creación de un nuevo Thelia Blocks",
+    BlocksEditor__LOADING: "Cargando Thelia Blocks...",
 
     BlocksList__EXISTING_THELIA_BLOCKS: "Thelia Blocks existentes",
     BlocksList__NO_THELIA_BLOCKS: "No has creado ningún Thelia Blocks todavía",
@@ -255,9 +268,12 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockButton__URL_PLACEHOLDER: "Introduce la URL del botón",
 
     BlockProduct__ADD_PRODUCT: "Añade un producto",
+    BlockProduct__PRODUCT_LOADING: "Cargando producto...",
 
     BlockSeparator__STYLE: "Estilo del separador",
     BlockSeparator__SIZE: "Tamaño del separador",
+
+    BlockHTML__HTML_PLACEHOLDER: "Introduce el código HTML",
 
     BlockText__TEXT_PLACEHOLDER: "Tu texto aquí",
     BlockText__TEXT_LINK_MODAL_TITLE: "Elige un elemento para insertar",
@@ -305,14 +321,16 @@ export const messages: Record<string, { [key: string]: string}> = {
     ID: "ID",
     NAME: "Nombre",
     TYPE: "Tipo",
-    LINKED_CONTENTS: "Contenidos vinculados",
+    LINKED_CONTENTS: "contenidos vinculados",
     NO_LINKED_CONTENTS: "No hay contenidos vinculados",
     NO_LINKED_CONTENTS_INFO: "No hay contenidos vinculados a este elemento",
     LINKED_CONTENTS_LIST: "Lista de contenidos vinculados",
     ACCESS_LINKED_CONTENT: "Acceder al contenido",
+    EDIT_LINKED_CONTENT: "Editar contenido vinculado",
     DELETE_LINKED_CONTENT: "Eliminar contenido vinculado",
     AVAILABLE_LOCALES: "Idiomas disponibles",
     ACTIONS: "Acciones",
+    TITLE: "Título",
     NO_TITLE: "Sin título",
     DUPLICATE_BLOCK: "Duplicar este Thelia Blocks",
     COPY_SHORTCODE: "Copiar código",
@@ -324,6 +342,7 @@ export const messages: Record<string, { [key: string]: string}> = {
   },
   "it": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creazione di un nuovo Thelia Blocks",
+    BlocksEditor__LOADING: "Thelia Blocks caricamento...",
 
     BlocksList__EXISTING_THELIA_BLOCKS: "Thelia Blocks esistenti",
     BlocksList__NO_THELIA_BLOCKS: "Non hai ancora creato nessun Thelia Blocks",
@@ -362,9 +381,12 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockButton__URL_PLACEHOLDER: "Inserisci l'URL del bottone",
 
     BlockProduct__ADD_PRODUCT: "Aggiungi un prodotto",
+    BlockProduct__PRODUCT_LOADING: "Caricamento del prodotto...",
   
     BlockSeparator__STYLE: "Stile del separatore",
     BlockSeparator__SIZE: "Dimensione del separatore",
+
+    BlockHTML__HTML_PLACEHOLDER: "Inserisci il codice HTML",
 
     BlockText__TEXT_PLACEHOLDER: "Il tuo testo qui",
     BlockText__TEXT_LINK_MODAL_TITLE: "Scegli un elemento da inserire",
@@ -412,13 +434,15 @@ export const messages: Record<string, { [key: string]: string}> = {
     ID: "ID",
     NAME: "Nome",
     TYPE: "Tipo",
-    LINKED_CONTENTS: "Contenuti vincolati",
+    LINKED_CONTENTS: "contenuti vincolati",
     NO_LINKED_CONTENTS: "Non ci sono contenuti vincolati",
     LINKED_CONTENTS_LIST: "Lista dei contenuti vincolati",
     ACCESS_LINKED_CONTENT: "Accedi al contenuto",
-    DELELTE_LINKED_CONTENT: "Elimina il contenuto vincolato",
+    EDIT_LINKED_CONTENT: "Modifica il contenuto",
+    DELETE_LINKED_CONTENT: "Elimina il contenuto vincolato",
     AVAILABLE_LOCALES: "Lingue disponibili",
     ACTIONS: "Azioni",
+    TITLE: "Titolo",
     NO_TITLE: "Nessun titolo",
     DUPLICATE_BLOCK: "Duplica questo Thelia Blocks",
     COPY_SHORTCODE: "Copia il shortcode",
@@ -427,5 +451,5 @@ export const messages: Record<string, { [key: string]: string}> = {
     DELETE_BLOCK: "Elimina questo Thelia Blocks",
     EDIT_BLOCK: "Modifica questo Thelia Blocks",
     OTHER: "altro",
-  },
+  }
 };

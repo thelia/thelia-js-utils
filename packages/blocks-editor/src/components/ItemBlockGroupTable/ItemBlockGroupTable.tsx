@@ -3,8 +3,12 @@ import { GroupTypeResponse } from "../../types/types";
 import { itemBlockGroupsType } from "../../types/types";
 
 import { ReactComponent as DeleteIcon } from "../../../assets/svg/delete.svg";
+import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg";
+import { ReactComponent as ViewIcon } from "../../../assets/svg/view.svg";
+
 import { useDeleteItemBlockGroup } from "../../utils/queries";
 import { useIntl } from "react-intl";
+import { getContentUrl } from "../../utils/content-url";
 
 const LinkedContentTable = ({
   linkedContents,
@@ -39,10 +43,23 @@ const LinkedContentTable = ({
                 <div className="BlocksTable__Row__Actions__Wrapper">
                   <Tippy
                     delay={[500, 0]}
-                    content={intl.formatMessage({ id: "ACCESS_CONTENT" })}
+                    content={intl.formatMessage({ id: "ACCESS_LINKED_CONTENT" })}
                   >
                     <a href={content.itemUrl}>
-                      <i className="fas fa-eye"></i>
+                      <ViewIcon />
+                    </a>
+                  </Tippy>
+                  <Tippy
+                    delay={[500, 0]}
+                    content={intl.formatMessage({ id: "EDIT_LINKED_CONTENT" })}
+                  >
+                    <a
+                      href={`${getContentUrl(
+                        content.itemType as string,
+                        content.itemId as number
+                      )}`}
+                    >
+                      <EditIcon />
                     </a>
                   </Tippy>
                   <Tippy

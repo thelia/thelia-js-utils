@@ -13,6 +13,18 @@
   background-color: white;
 }
 
+.Modal__Content__Loader {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+.Modal__Content__Loader span {
+  display: block;
+}
+
 .Library {
   display: flex;
   flex-direction: column;

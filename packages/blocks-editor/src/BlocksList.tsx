@@ -1,9 +1,10 @@
-import { Suspense } from "react";
+import { Suspense, useLayoutEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { BlocksProvider } from "./utils/queries";
 import BlocksTable from "./components/BlocksTable";
 import { IntlProvider, useIntl } from "react-intl";
 import { messages, locale } from "./utils/intl";
+import ReactModal from "react-modal";
 
 const BlocksListHeader = () => {
   const intl = useIntl();
@@ -46,7 +47,13 @@ const BlocksListContent = () => {
   );
 };
 
-const BlocksList = ({ apiUrl }: { apiUrl: string }) => {
+const BlocksList = ({ apiUrl, containerId }: { apiUrl: string; containerId: string }) => {
+  useLayoutEffect(() => {
+    if (containerId) {
+      ReactModal.setAppElement("#" + containerId);
+    }
+  }, [containerId]);
+
   if (!apiUrl) return null;
 
   return (

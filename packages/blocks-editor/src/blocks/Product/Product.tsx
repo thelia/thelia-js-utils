@@ -167,8 +167,9 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
           <Suspense
             key={index}
             fallback={
-              <div className="BlockProduct__Loader">
-                <i className="fa fa-circle-notch fa-spin"></i>
+              <div className="BlockProduct__Product__Loader">
+                <span>{intl.formatMessage({ id: "BlockProduct__PRODUCT_LOADING" })}</span>
+                <i className="Loader fa fa-circle-notch fa-spin"></i>
               </div>
             }
           >
