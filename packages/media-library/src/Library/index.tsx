@@ -1,28 +1,122 @@
-import { useDeleteImage, useLibraryImage } from "../utils/api";
+import { useDeleteImage, useGetTags, useLibraryImage } from "../utils/queries";
 import { ReactComponent as XMarkIcon } from "./assets/xmark.svg";
-
+import { ReactComponent as TrashIcon } from "./assets/trash.svg";
 import ReactModal from "react-modal";
-
-import { LibraryImage } from "../types/types";
+import { LibraryImage as LibraryImageType } from "../types/types";
 import { Suspense, useState } from "react";
+import { useIntl } from "react-intl";
 
 import "./Library.css";
-import { useIntl } from "react-intl";
+
+const TagFilterOptions = () => {
+  const intl = useIntl();
+
+  const { data: tags } = useGetTags();
+
+  return (
+    <>
+      <option value="">{intl.formatMessage({ id: "ALL_TAGS" })}</option>
+      {tags?.map((tag) => (
+        <option key={tag.id} value={tag.id}>
+          {tag.title}
+        </option>
+      ))}
+    </>
+  );
+};
+
+const TagFilter = ({ setTagId }: { setTagId: Function }) => {
+  const intl = useIntl();
+
+  return (
+    <div>
+      <label htmlFor="tag-filter">
+        {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_TAG_FILTER" })}
+      </label>
+      <select
+        className="Input__Select"
+        name="tag-filter"
+        id="tag-filter"
+        onChange={(e) => setTagId(e.target.value)}
+      >
+        <Suspense fallback={<option>{intl.formatMessage({ id: "LOADING" })}</option>}>
+          <TagFilterOptions />
+        </Suspense>
+      </select>
+    </div>
+  );
+};
+
+const LibraryImage = ({
+  image,
+  onSelect,
+}: {
+  image: LibraryImageType;
+  onSelect: (value: LibraryImageType) => void;
+}) => {
+  const intl = useIntl();
+
+  const deleteMutation = useDeleteImage();
+
+  return (
+    <div className="Library__Image">
+      <div className="Library__Image__Tags">
+        {image.tags?.map((tag) => (
+          <span
+            key={tag.id}
+            style={{
+              border: `1px solid ${tag.colorCode}`,
+              color: tag.colorCode,
+              /* backgroundColor: hexToRGBA(tag.colorCode, 0.5), */
+            }}
+            className="Library__Image__Tag"
+          >
+            {tag.title}
+          </span>
+        ))}
+      </div>
+      <img
+        width="150"
+        height="150"
+        loading="lazy"
+        src={`/image-library/${image.id}/full/^!150,150/0/default.webp`}
+      />
+      <span className="Library__Image__Title">{image.title}</span>
+
+      <div className="Library__Image__Actions">
+        <span className="Library__Image__Action__Title">{image.title}</span>
+        <button
+          className="Library__Image__Select__Action"
+          style={{ marginTop: "12px", marginBottom: "6px" }}
+          onClick={() => onSelect(image)}
+        >
+          {intl.formatMessage({ id: "SELECT" })}
+        </button>
+        <button
+          className="Library__Image__Delete__Action"
+          onClick={() => deleteMutation.mutate(image.id)}
+        >
+          <TrashIcon />
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const LibraryContent = ({
   limit = 20,
   onSelect,
 }: {
   limit?: number;
-  onSelect: (image: LibraryImage) => void;
+  onSelect: (image: LibraryImageType) => void;
 }) => {
   const [offset, setOffset] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
+  const [tagId, setTagId] = useState<number | null>(null);
 
   const intl = useIntl();
 
-  const images = useLibraryImage({ offset, limit, title });
-  const deleteMutation = useDeleteImage();
+  const { data: images, isFetching } = useLibraryImage({ offset, limit, title, tagId });
 
   return (
     <div className="Library">
@@ -41,47 +135,19 @@ const LibraryContent = ({
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div>
-          <label htmlFor="category-filter">
-            {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_CATEGORY_FILTER" })}
-          </label>
-          <select className="Input__Select" name="category-filter" id="category-filter">
-            <option value="">Tag 1</option>
-            <option value="">Tag 2</option>
-          </select>
-        </div>
+
+        <TagFilter setTagId={setTagId} />
       </div>
       <div className="Library__Content">
-        {images.data?.map((image) => {
-          return (
-            <div className="Library__Item">
-              <button
-                onClick={() => {
-                  onSelect(image);
-                }}
-                className="Library__Image"
-                key={image.id}
-              >
-                <img
-                  width="150"
-                  height="150"
-                  loading="lazy"
-                  src={`/image-library/${image.id}/full/^!150,150/0/default.webp`}
-                />
-                <span className="Library__Image__Title">{image.title}</span>
-              </button>
-
-              <button
-                type="button"
-                className="BlockImage__Button"
-                onClick={() => deleteMutation.mutate(image.id)}
-                disabled={deleteMutation.isLoading}
-              >
-                {intl.formatMessage({ id: "DELETE" })}
-              </button>
-            </div>
-          );
-        })}
+        {isFetching ? (
+          <i className="Loader fa fa-circle-notch fa-spin"></i>
+        ) : (
+          <>
+            {images?.map((image) => {
+              return <LibraryImage key={image.id} image={image} onSelect={onSelect} />;
+            })}
+          </>
+        )}
       </div>
       {/* <div className="Library__Pagination">
         <button
@@ -119,7 +185,7 @@ export default function Library({
   isOpen: boolean;
   setIsOpen: Function;
   limit?: number;
-  onSelect: (image: LibraryImage) => void;
+  onSelect: (image: LibraryImageType) => void;
 }) {
   const intl = useIntl();
 

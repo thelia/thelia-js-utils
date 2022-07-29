@@ -29,7 +29,7 @@ const BlocksListContent = () => {
 
   return (
     <div className="BlocksList">
-      <Toaster position="bottom-left" />
+      <Toaster />
 
       <BlocksListHeader />
       <div className="BlocksList__Wrapper">

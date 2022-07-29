@@ -41,13 +41,13 @@
 
     &__Locales {
       &__Wrapper {
-        @apply flex items-center gap-3 overflow-scroll;
-        max-width: 160px;
+        @apply flex items-center overflow-scroll;
+        gap: 10px;
 
-        > span {
+        span.Locale {
           @apply border border-lightCharbon py-1 px-3 bg-pearlLight font-semibold uppercase;
           border-radius: 90px;
-        } 
+        }
       }
     }
 

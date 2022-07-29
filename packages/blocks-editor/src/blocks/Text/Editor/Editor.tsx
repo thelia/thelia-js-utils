@@ -1,12 +1,18 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import { useIntl } from "react-intl";
 import ReactQuill from "react-quill";
 
 import "./Editor.css";
 
-const EditorToolbar = ({ setIsModalOpen }: { setIsModalOpen: Function }) => {
+const EditorToolbar = ({
+  setIsModalOpen,
+  toolbarId,
+}: {
+  setIsModalOpen: Function;
+  toolbarId: string;
+}) => {
   return (
-    <div id="editor-toolbar">
+    <div id={toolbarId}>
       <button className="ql-bold" />
       <button className="ql-italic" />
       <button className="ql-underline" />
@@ -17,7 +23,7 @@ const EditorToolbar = ({ setIsModalOpen }: { setIsModalOpen: Function }) => {
       <button className="ql-list" value="ordered" />
       <button className="ql-link" />
       <button className="search" onClick={() => setIsModalOpen(true)}>
-        <i className="fas fa-plus"></i>
+        <i style={{ display: "block", color: "#444" }} className="fas fa-plus"></i>
       </button>
     </div>
   );
@@ -40,13 +46,17 @@ const Editor = forwardRef(
   ) => {
     const intl = useIntl();
 
+    const [toolbarId] = useState(
+      `editor-toolbar-${Math.random().toString(36).substring(7)}`
+    );
+
     return (
       <>
-        <EditorToolbar setIsModalOpen={setIsModalOpen} />
+        <EditorToolbar setIsModalOpen={setIsModalOpen} toolbarId={toolbarId} />
         <ReactQuill
           modules={{
             toolbar: {
-              container: "#editor-toolbar",
+              container: `#${toolbarId}`,
             },
           }}
           ref={ref}
