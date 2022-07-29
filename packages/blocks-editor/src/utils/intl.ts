@@ -107,6 +107,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     COPY_SUCCESS: "copié avec succès",
     DELETE_BLOCK: "Supprimer ce Thelia Blocks",
     EDIT_BLOCK: "Editer ce Thelia Blocks",
+    OTHER: "autre", 
   },
   "en": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creation of a new Thelia Blocks",
@@ -212,6 +213,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     COPY_SUCCESS: "copied successfully",
     DELETE_BLOCK: "Delete this Thelia Blocks",
     EDIT_BLOCK: "Edit this Thelia Blocks",
+    OTHER: "other",
   },
   "es": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creación de un nuevo Thelia Blocks",
@@ -306,6 +308,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     LINKED_CONTENTS: "Contenidos vinculados",
     NO_LINKED_CONTENTS: "No hay contenidos vinculados",
     NO_LINKED_CONTENTS_INFO: "No hay contenidos vinculados a este elemento",
+    LINKED_CONTENTS_LIST: "Lista de contenidos vinculados",
     ACCESS_LINKED_CONTENT: "Acceder al contenido",
     DELETE_LINKED_CONTENT: "Eliminar contenido vinculado",
     AVAILABLE_LOCALES: "Idiomas disponibles",
@@ -317,6 +320,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     COPY_SUCCESS: "copiado con éxito",
     DELETE_BLOCK: "Eliminar este Thelia Blocks",
     EDIT_BLOCK: "Editar este Thelia Blocks",
+    OTHER: "otro",
   },
   "it": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creazione di un nuovo Thelia Blocks",
@@ -422,5 +426,6 @@ export const messages: Record<string, { [key: string]: string}> = {
     COPY_SUCCESS: "copiato con successo",
     DELETE_BLOCK: "Elimina questo Thelia Blocks",
     EDIT_BLOCK: "Modifica questo Thelia Blocks",
+    OTHER: "altro",
   },
 };

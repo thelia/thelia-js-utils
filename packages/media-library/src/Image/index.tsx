@@ -12,7 +12,7 @@ import { ReactComponent as MediathequeIcon } from "./assets/mediatheque.svg";
 import Library from "../Library";
 import { LibraryImage } from "../types/types";
 import { QueryClientProvider } from "react-query";
-import { useCreateImage } from "../utils/api";
+import { useCreateImage } from "../utils/queries";
 
 import "./Image.css";
 import { locale, messages } from "../utils/intl";
@@ -260,6 +260,7 @@ const initialData: LibraryImage = {
   id: null,
   title: "",
   fileName: "",
+  tags: [],
 };
 
 const moduleType = {

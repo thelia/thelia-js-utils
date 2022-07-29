@@ -30,23 +30,21 @@
   gap: 16px;
 }
 
-.Library__Item {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 170px;
-  height: max-content;
-  padding: 10px;
-  border: 1px solid #EBEBEB;
-  border-radius: 4px;
-}
-
 .Library__Image {
   display: flex;
   flex-direction: column;
+  max-width: 160px;
+  height: max-content;
+  border: 1px solid #EBEBEB;
+  border-radius: 4px;
+  position: relative;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  padding-bottom: 16px;
+}
+
+.Library__Image img {
   border-radius: 4px;
 }
 
@@ -56,7 +54,84 @@
   white-space: nowrap;
   font-weight: 600;
   text-overflow: ellipsis;
-  max-width: 150px;
+  max-width: 130px;
+}
+
+.Library__Image__Action__Title {
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  max-width: 120px;
+  color: white;
+}
+
+.Library__Image__Tags {
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px; 
+  flex-wrap: wrap;
+  top: 7px;
+  right: 7px;
+}
+
+.Library__Image__Tag {
+  width: 50px;
+  height: 20px;
+  border-radius: 20px;
+  text-align: center;
+  letter-spacing: 0.05em;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: white;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 1px 3px;
+}
+
+.Library__Image__Actions {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.9);
+  height: 100%;
+  width: 100%;
+  top: 0;
+  border-radius: 4px;
+}
+
+.Library__Image:hover .Library__Image__Actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Library__Image__Select__Action {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 6px 15px;
+  letter-spacing: 0.05em;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.Library__Image__Select__Action:hover {
+  background: #fff;
+  color: #000;
+}
+
+.Library__Image__Delete__Action {
+  background-color: #D21919;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  color: #fff;
 }
 
 @media screen and (max-width: 1366px) {

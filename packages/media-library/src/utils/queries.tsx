@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
-import { LibraryImage } from "../types/types";
+import { ImageTag, LibraryImage } from "../types/types";
 import { fetcher } from "@thelia/blocks-editor";
 
 export function useLibraryImage(options: {
@@ -8,6 +8,7 @@ export function useLibraryImage(options: {
   limit?: number | null;
   offset?: number;
   title?: string | null;
+  tagId?: number | null;
 }) {
   return useQuery(
     ["LibraryImage", options],
@@ -19,6 +20,7 @@ export function useLibraryImage(options: {
           limit: options.limit || 5,
           offset: options.offset || 0,
           title: options.title || null,
+          tagId: options.tagId || null,
         },
       }),
     {
@@ -66,7 +68,7 @@ export function useCreateImage() {
     },
     {
       onSuccess: (data) => {
-        queryClient.setQueryData(["LibraryImage"], (oldData) => {
+        queryClient.setQueryData(["LibraryImage"], (oldData: any) => {
           if (oldData && Array.isArray(oldData)) {
             return [...oldData, data];
           }
@@ -88,7 +90,7 @@ export function useDeleteImage() {
     },
     {
       onSuccess: (_, id) => {
-        queryClient.setQueriesData(["LibraryImage"], (oldData) => {
+        queryClient.setQueriesData(["LibraryImage"], (oldData: any) => {
           if (oldData && Array.isArray(oldData)) {
             return oldData.filter((i) => i.id !== id);
           }
@@ -109,7 +111,7 @@ export function useUpdateImage() {
     },
     {
       onSuccess: (data, id) => {
-        queryClient.setQueryData(["LibraryImage"], (oldData) => {
+        queryClient.setQueryData(["LibraryImage"], (oldData: any) => {
           if (oldData && Array.isArray(oldData)) {
             return oldData.map((i) => (i.id === id ? data : i));
           }
@@ -117,6 +119,20 @@ export function useUpdateImage() {
           return oldData;
         });
       },
+    }
+  );
+}
+
+export function useGetTags() {
+  return useQuery(
+    ["LibraryTag"],
+    () =>
+      fetcher(`/library/tag`, {
+        method: "GET",
+      }),
+    {
+      keepPreviousData: true,
+      onSuccess: (data: ImageTag[]) => {},
     }
   );
 }

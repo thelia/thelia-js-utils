@@ -99,19 +99,22 @@ const BlocksTable = () => {
                 <div className="BlocksTable__Row__Locales__Wrapper">
                   {group.locales.length > 3 ? (
                     <>
-                      {group.locales.splice(0, 2).map((locale) => (
-                        <span key={locale}>{locale}</span>
+                      {group.locales.slice(0, 2).map((locale) => (
+                        <span className="Locale" key={locale}>
+                          {locale}
+                        </span>
                       ))}
-                      <span onClick={() => setIsItemBlockModalOpen(true)}>
-                        +{group.locales.length}
+                      <span>
+                        + {group.locales.slice(2).length}{" "}
+                        {intl.formatMessage({ id: "OTHER" })}
                       </span>
                     </>
                   ) : (
-                    <>
-                      {group.locales.map((locale) => (
-                        <span key={locale}>{locale}</span>
-                      ))}
-                    </>
+                    group.locales.map((locale) => (
+                      <span className="Locale" key={locale}>
+                        {locale}
+                      </span>
+                    ))
                   )}
                 </div>
               </td>

@@ -12,7 +12,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__LINK_PLACEHOLDER: "Lien au clic sur l'image",
     BlockImage__LIBRARY_MODAL_TITLE: "Rechercher une image",
     BlockImage__LIBRARY_MODAL_SEARCH: "Rechercher dans la médiathèque",
-    BlockImage__LIBRARY_MODAL_CATEGORY_FILTER: "Filtrer par catégorie",
+    BlockImage__LIBRARY_MODAL_TAG_FILTER: "Filtrer par tag",
 
     REPLACE: "Remplacer",
     REPLACE_IMAGE: "Remplacer l'image",
@@ -20,6 +20,8 @@ export const messages: Record<string, { [key: string]: string}> = {
     CANCEL: "Annuler",
     DELETE: "Supprimer",
     SEARCH_BY: "Référence, nom, ...",
+    LOADING: "Chargement...",
+    ALL_TAGS: "Tous les tags",
   },
   en: {
     BlockImage__DOWNLOAD: "Download an image",
@@ -30,7 +32,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__LINK_PLACEHOLDER: "Link on click on image",
     BlockImage__LIBRARY_MODAL_TITLE: "Search an image",
     BlockImage__LIBRARY_MODAL_SEARCH: "Search in the library",
-    BlockImage__LIBRARY_MODAL_CATEGORY_FILTER: "Filter by category",
+    BlockImage__LIBRARY_MODAL_TAG_FILTER: "Filter by tag",
 
     REPLACE: "Replace",
     REPLACE_IMAGE: "Replace image",
@@ -38,6 +40,8 @@ export const messages: Record<string, { [key: string]: string}> = {
     CANCEL: "Cancel",
     DELETE: "Delete",
     SEARCH_BY: "Reference, name, ...",
+    LOADING: "Loading...",
+    ALL_TAGS: "All tags",
   },
   es: {
     BlockImage__DOWNLOAD: "Descargar una imagen",
@@ -48,7 +52,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__LINK_PLACEHOLDER: "Enlace al hacer clic en la imagen",
     BlockImage__LIBRARY_MODAL_TITLE: "Buscar una imagen",
     BlockImage__LIBRARY_MODAL_SEARCH: "Buscar en la biblioteca",
-    BlockImage__LIBRARY_MODAL_CATEGORY_FILTER: "Filtrar por categoría",
+    BlockImage__LIBRARY_MODAL_TAG_FILTER: "Filtrar por tag",
 
     REPLACE: "Reemplazar",
     REPLACE_IMAGE: "Reemplazar imagen",
@@ -56,6 +60,8 @@ export const messages: Record<string, { [key: string]: string}> = {
     CANCEL: "Cancelar",
     DELETE: "Eliminar",
     SEARCH_BY: "Referencia, nombre, ...",
+    LOADING: "Cargando...",
+    ALL_TAGS: "Todos los tags",
   },
   it: {
     BlockImage__DOWNLOAD: "Scarica un immagine",
@@ -66,7 +72,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__LINK_PLACEHOLDER: "Link al click sull immagine",
     BlockImage__LIBRARY_MODAL_TITLE: "Cerca un immagine",
     BlockImage__LIBRARY_MODAL_SEARCH: "Cerca nella libreria",
-    BlockImage__LIBRARY_MODAL_CATEGORY_FILTER: "Filtra per categoria",
+    BlockImage__LIBRARY_MODAL_TAG_FILTER: "Filtra per tag",
 
     REPLACE: "Sostituisci",
     REPLACE_IMAGE: "Sostituisci immagine",
@@ -74,5 +80,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     CANCEL: "Annulla", 
     DELETE: "Elimina",
     SEARCH_BY: "Riferimento, nome, ...",
+    LOADING: "Caricamento...",
+    ALL_TAGS: "Tutti i tag",
   }
 }

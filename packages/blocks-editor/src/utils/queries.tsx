@@ -134,8 +134,6 @@ export function useCreateOrUpdateGroup() {
         locale: currentLocale,
       };
 
-      console.log(itemId, itemType, contextItemId, contextItemType);
-
       if (itemId || itemType) {
         data.itemBlockGroup = {
           itemType,
