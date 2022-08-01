@@ -8,50 +8,89 @@ import { IntlProvider, useIntl } from "react-intl";
 import { ReactComponent as Icon } from "./assets/image.svg";
 import { ReactComponent as DownloadIcon } from "./assets/download.svg";
 import { ReactComponent as MediathequeIcon } from "./assets/mediatheque.svg";
-
+import { locale, messages } from "../utils/intl";
+import { useDropzone } from "react-dropzone";
 import Library from "../Library";
 import { LibraryImage } from "../types/types";
 import { QueryClientProvider } from "react-query";
 import { useCreateImage } from "../utils/queries";
+import { Toaster, toast } from "react-hot-toast";
 
 import "./Image.css";
-import { locale, messages } from "../utils/intl";
 
 const FromLocal = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) => {
-  const createImage = useCreateImage();
   const intl = useIntl();
+  const createImage = useCreateImage();
+
+  const { getRootProps, isDragActive } = useDropzone({
+    multiple: false,
+    accept: {
+      "image/*": ["*"],
+    },
+    noClick: true,
+    maxFiles: 1,
+    onDrop: async (acceptedFiles) => {
+      if (acceptedFiles) {
+        const formData = new FormData();
+        formData.append("image", acceptedFiles[0]);
+        const res = await createImage.mutateAsync(formData);
+
+        onSelect(res);
+      }
+    },
+    onDropRejected: (rejectedFiles) => {
+      rejectedFiles.length > 1
+        ? toast.error(intl.formatMessage({ id: "BlockImage__TOAST_MAX_FILE" }))
+        : toast.error(intl.formatMessage({ id: "BlockImage__TOAST_WRONG_FILE_TYPE" }));
+    },
+  });
 
   return (
-    <div className="BlockImage__FromLocal">
+    <div
+      className="BlockImage__FromLocal"
+      style={{ border: isDragActive ? "2px dashed #dc3018" : "1px dashed #787878" }}
+      {...getRootProps()}
+    >
       <div className="BlockImage__FromLocal__Icon">
         <DownloadIcon />
       </div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <label className="BlockImage__Button" htmlFor="image">
-          {intl.formatMessage({ id: "BlockImage__DOWNLOAD" })}
-        </label>
-        <input
-          className="BlockImage__FromLocal__FileInput"
-          type="file"
-          accept="image/*"
-          name="image"
-          id="image"
-          onChange={async (e) => {
-            if (e.target.files) {
-              const formData = new FormData();
-              formData.append("image", e.target.files[0]);
-              const res = await createImage.mutateAsync(formData);
+      {isDragActive ? (
+        intl.formatMessage({ id: "BlockImage__DROP_TO_UPLOAD" })
+      ) : !createImage.isLoading ? (
+        <>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <label className="BlockImage__Button" htmlFor="image">
+              {intl.formatMessage({ id: "BlockImage__DOWNLOAD" })}
+            </label>
+            <input
+              className="BlockImage__FromLocal__FileInput"
+              type="file"
+              accept="image/*"
+              name="image"
+              id="image"
+              onChange={async (e) => {
+                if (e.target.files) {
+                  const formData = new FormData();
+                  formData.append("image", e.target.files[0]);
+                  const res = await createImage.mutateAsync(formData);
 
-              onSelect(res);
-            }
-          }}
-        />
-        <span>{intl.formatMessage({ id: "BlockImage__OR_DROP" })}</span>
-      </form>
+                  onSelect(res);
+                }
+              }}
+            />
+            <span>{intl.formatMessage({ id: "BlockImage__OR_DROP" })}</span>
+          </form>
+        </>
+      ) : (
+        <>
+          <span>{intl.formatMessage({ id: "DOWNLOADING" })}</span>
+          <i className="Loader fa fa-circle-notch fa-spin"></i>
+        </>
+      )}
     </div>
   );
 };
@@ -249,6 +288,7 @@ const WrappedComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
   return (
     <IntlProvider messages={messages[locale]} locale={locale}>
       <QueryClientProvider client={queryClient}>
+        <Toaster />
         <BlockImageComponent {...props} />
       </QueryClientProvider>
     </IntlProvider>
