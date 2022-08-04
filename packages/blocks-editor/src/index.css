@@ -6,10 +6,6 @@
 @tailwind components;
 @tailwind utilities;
 
-i.fa-trash-alt {
-  @apply text-error;
-}
-
 i.fa-info-circle {
   @apply cursor-help mb-1;
 }
@@ -19,7 +15,7 @@ i.fa-check {
 }
 
 button:disabled {
-  @apply cursor-not-allowed text-mediumGrey;
+  @apply cursor-not-allowed;
 }
 
 input[type="checkbox"] {

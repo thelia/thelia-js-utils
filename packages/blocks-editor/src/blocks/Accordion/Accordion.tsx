@@ -114,7 +114,7 @@ const moduleLayout = {
 };
 
 const moduleType = {
-  id: "Accordion",
+  id: "blockAccordion",
 };
 
 const Accordion = {

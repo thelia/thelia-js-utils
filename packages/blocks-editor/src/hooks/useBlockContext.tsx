@@ -52,5 +52,6 @@ export const useBlocksContext = () => {
     moveBlockTo,
     findBlockIndex,
     blockList: blocks,
+    setBlocks,
   };
 };

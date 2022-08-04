@@ -17,6 +17,10 @@
   &__Collapse {
     @apply flex items-stretch;
 
+    &:hover &__Label {
+      @apply bg-lightVermillon;
+    }
+
     &__Icon {
       @apply bg-lightVermillon p-2 rounded-l-md;
     }

@@ -14,11 +14,12 @@ import {
 } from "react-query";
 import { ReactNode, useContext, useEffect, useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
-
 import { BlocksGroupContext } from "../providers/BlockGroupContext";
 import { LocaleContext } from "../providers/LocaleContext";
 import toast from "react-hot-toast";
 import { useIntl } from "react-intl";
+import { BlockContext } from "../providers/BlockContext";
+import { useBlocksContext } from "../hooks/useBlockContext";
 
 const instance = axios.create();
 
@@ -69,8 +70,12 @@ export function useGroup(id?: number) {
   const { groupId: contextGroupId } = useContext(BlocksGroupContext);
   const { currentLocale } = useContext(LocaleContext);
   const groupId = id || contextGroupId;
+
+  console.log({ id, contextGroupId });
   const key = ["block_group", groupId, currentLocale];
   const queryClient = useQueryClient();
+
+  console.log(key);
 
   const query = useQuery<GroupTypeResponse>(
     key,
@@ -160,7 +165,7 @@ export function useCreateOrUpdateGroup() {
         }
         window.location.replace(`/admin/TheliaBlocks/${data.id}`);
       },
-      onError: (error) => {
+      onError: () => {
         toast.error(intl.formatMessage({ id: "Toast__BLOCK_NOT_SAVED" }));
       },
     }
@@ -170,7 +175,6 @@ export function useCreateOrUpdateGroup() {
 export function useDeleteGroup() {
   const queryClient = useQueryClient();
   const { groupId: contextGroupId } = useContext(BlocksGroupContext);
-  const { currentLocale } = useContext(LocaleContext);
   const intl = useIntl();
 
   return useMutation(
@@ -186,11 +190,11 @@ export function useDeleteGroup() {
     },
 
     {
-      onSuccess: (data, groupId) => {
+      onSuccess: () => {
         queryClient.invalidateQueries(["block_group"]);
         toast.success(intl.formatMessage({ id: "Toast__BLOCK_DELETED" }));
       },
-      onError: (error) => {
+      onError: () => {
         toast.error(intl.formatMessage({ id: "Toast__BLOCK_NOT_DELETED" }));
       },
     }
@@ -253,7 +257,10 @@ export function useLinkContentToGroup() {
     groupId,
     itemId: contextItemId,
     itemType: contextItemType,
+    setContextualGroupId,
   } = useContext(BlocksGroupContext);
+
+  const intl = useIntl();
 
   return useMutation(
     ({ id, itemId, itemType }: { id?: number; itemId?: number; itemType?: string }) =>
@@ -269,14 +276,19 @@ export function useLinkContentToGroup() {
       }),
     {
       onSuccess: (data: GroupTypeResponse) => {
-        const { jsonContent, ...rest } = data;
-        console.log("TODO");
+        toast.success(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_LINKED" }));
+        setContextualGroupId(data.id);
+        /* window.location.reload(); */
       },
     }
   );
 }
 
 export function useUnlinkContentFromGroup() {
+  const { setContextualGroupId, editGroup } = useContext(BlocksGroupContext);
+  const { setBlocks } = useBlocksContext();
+  const intl = useIntl();
+
   return useMutation(
     ({ id }: { id: GroupTypeStore["id"] }) =>
       fetcher(`/item_block_group/${id}`, {
@@ -284,7 +296,17 @@ export function useUnlinkContentFromGroup() {
       }),
     {
       onSuccess: () => {
-        console.log("TODO");
+        toast.success(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_UNLINKED" }));
+        editGroup({
+          locales: [],
+          visible: true,
+          title: "",
+          slug: null,
+        });
+        setContextualGroupId(undefined);
+        setBlocks([]);
+
+        /* window.location.reload(); */
       },
     }
   );
@@ -313,6 +335,9 @@ export function usePreviewGroup(timestamp: number, data: string) {
       refetchOnReconnect: false,
       retry: false,
       suspense: false,
+      onError: (error) => {
+        toast.error("Error while fetching preview");
+      },
     }
   );
 

@@ -1,12 +1,10 @@
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { SearchProps, useProductsBy } from "../../utils/queries";
 import { Suspense, useEffect, useState } from "react";
-
+import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
 import { ReactComponent as Icon } from "./assets/product.svg";
 import { Input } from "../../components/Inputs";
 import { reorder } from "../../utils/array";
-
-import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
 
 import "./Product.css";
 import { useIntl } from "react-intl";
@@ -168,7 +166,6 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
             key={index}
             fallback={
               <div className="BlockProduct__Product__Loader">
-                <span>{intl.formatMessage({ id: "BlockProduct__PRODUCT_LOADING" })}</span>
                 <i className="Loader fa fa-circle-notch fa-spin"></i>
               </div>
             }

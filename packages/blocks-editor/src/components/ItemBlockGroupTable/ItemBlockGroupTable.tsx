@@ -6,16 +6,18 @@ import { ReactComponent as DeleteIcon } from "../../../assets/svg/delete.svg";
 import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg";
 import { ReactComponent as ViewIcon } from "../../../assets/svg/view.svg";
 
-import { useDeleteItemBlockGroup } from "../../utils/queries";
+import { useUnlinkContentFromGroup } from "../../utils/queries";
 import { useIntl } from "react-intl";
 import { getContentUrl } from "../../utils/content-url";
 
 const LinkedContentTable = ({
   linkedContents,
+  setIsItemBlockModalOpen,
 }: {
   linkedContents: GroupTypeResponse["itemBlockGroups"];
+  setIsItemBlockModalOpen: Function;
 }) => {
-  const mutationDelete = useDeleteItemBlockGroup();
+  const mutationDelete = useUnlinkContentFromGroup();
   const intl = useIntl();
 
   return (
@@ -45,7 +47,7 @@ const LinkedContentTable = ({
                     delay={[500, 0]}
                     content={intl.formatMessage({ id: "ACCESS_LINKED_CONTENT" })}
                   >
-                    <a href={content.itemUrl}>
+                    <a className="BlocksTable__Row__Action" href={content.itemUrl}>
                       <ViewIcon />
                     </a>
                   </Tippy>
@@ -54,6 +56,7 @@ const LinkedContentTable = ({
                     content={intl.formatMessage({ id: "EDIT_LINKED_CONTENT" })}
                   >
                     <a
+                      className="BlocksTable__Row__Action"
                       href={`${getContentUrl(
                         content.itemType as string,
                         content.itemId as number
@@ -67,8 +70,16 @@ const LinkedContentTable = ({
                     content={intl.formatMessage({ id: "DELETE_LINKED_CONTENT" })}
                   >
                     <button
+                      className="BlocksTable__Row__Action__Delete"
                       onClick={() => {
-                        mutationDelete.mutate(content.groupId);
+                        mutationDelete.mutate(
+                          { id: content.id },
+                          {
+                            onSuccess: () => {
+                              setIsItemBlockModalOpen(false);
+                            },
+                          }
+                        );
                       }}
                     >
                       <DeleteIcon />

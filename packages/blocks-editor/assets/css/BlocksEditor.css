@@ -27,7 +27,23 @@
     }
 
     &__Inputs__Wrapper {
-      @apply flex gap-4 flex-col md:flex-row;
+      @apply flex gap-4 flex-col;
+    }
+
+    &__GroupTitle__Wrapper {
+      @apply flex flex-col items-end md:flex-row gap-6;
+
+      &--isLinked {
+        @apply gap-4;
+      }
+    }
+
+    &__Unlink__Button {
+      @apply h-10 p-3 text-white rounded-md bg-vermillon hover:bg-lightVermillon;
+
+      > i {
+        @apply block;
+      }
     }
   }
 }

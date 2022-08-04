@@ -5,6 +5,7 @@ export const locale = getLocale()
 export const messages: Record<string, { [key: string]: string}> = {
   "fr": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Création d'un nouveau Thelia Blocks",
+    BlocksEditor__EDIT_A_THELIA_BLOCKS: "Edition d'un Thelia Blocks",
     BlocksEditor__LOADING: "Chargement de Thelia Blocks...",
 
     BlocksList__EXISTING_THELIA_BLOCKS: "Thelia Blocks existants",
@@ -37,6 +38,9 @@ export const messages: Record<string, { [key: string]: string}> = {
     Toast__BLOCK_NOT_DELETED: "Une erreur est survenue lors de la suppression de ce Thelia Blocks",
     Toast__ITEM_BLOCK_GROUP_DELETED: "Ce contenu lié a été supprimé avec succès",
     Toast__ITEM_BLOCK_GROUP_NOT_DELETED: "Une erreur est survenue lors de la suppression de ce contenu lié",
+    Toast__ITEM_BLOCK_GROUP_LINKED: "Ce contenu a été lié avec succès",
+    Toast__ITEM_BLOCK_GROUP_UNLINKED: "Ce contenu a été délié avec succès",
+    Toast__TOOLBAR_PREVIEW_ERROR: "Une erreur est survenue lors de la prévisualisation de votre Thelia Blocks",
 
     BlockButton__TEXT: "Texte du bouton",
     BlockButton__TEXT_PLACEHOLDER: "Indiquez le texte du bouton",
@@ -61,6 +65,10 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockVideo__TITLE: "Ajouter une vidéo depuis YouTube",
     BlockVideo__URL: "URL de la vidéo",
     BlockVideo__URL_PLACEHOLDER: "Indiquez l'URL de la vidéo",
+
+    LinkBlockToItem__LINK_GROUP: "Lier un groupe",
+    LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Indiquez le nom du groupe",
+    LinkBlockToItem__UNLINK_GROUP: "Délier ce groupe",
 
     CREATE: "Créer",
     CONTENTS: "Contenus",
@@ -93,7 +101,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     LEVEL: "Niveau",
     NEUTRAL: "Neutre",
     DND_INFO: "Faites glisser l'élément pour le déplacer",
-    ACCCORDION: "Accordéon",
+    ACCORDION: "Accordéon",
     ID: "ID",
     NAME: "Nom",
     TYPE: "Type",
@@ -114,9 +122,11 @@ export const messages: Record<string, { [key: string]: string}> = {
     DELETE_BLOCK: "Supprimer ce Thelia Blocks",
     EDIT_BLOCK: "Editer ce Thelia Blocks",
     OTHER: "autre", 
+    LINK: "Lier"
   },
   "en": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creation of a new Thelia Blocks",
+    BlocksEditor__EDIT_A_THELIA_BLOCKS: "Edition of a Thelia Blocks",
     BlocksEditor__LOADING: "Thelia Blocks loading...",
 
     BlocksList__EXISTING_THELIA_BLOCKS: "Existing Thelia Blocks",
@@ -148,7 +158,10 @@ export const messages: Record<string, { [key: string]: string}> = {
     Toast__BLOCK_DELETED: "This Thelia Blocks has been deleted successfully",
     Toast__BLOCK_NOT_DELETED: "An error occurred while deleting this Thelia Blocks",
     Toast__ITEM_BLOCK_GROUP_DELETED: "This content linked has been deleted successfully",
-    Toast__ITEM_BLOCK_GROUP_NOT_DELETED: "An error occurred while deleting this content linked",
+    Toast__ITEM_BLOCK_GROUP_NOT_DELETED: "An error occurred while deleting this linked content",
+    Toast__ITEM_BLOCK_GROUP_LINKED: "This content has been linked successfully",
+    Toast__ITEM_BLOCK_GROUP_UNLINKED: "This content has been unlinked successfully",
+    Toast__TOOLBAR_PREVIEW_ERROR: "An error occurred while previewing your Thelia Blocks",
 
     BlockButton__TEXT: "Text of the button",
     BlockButton__TEXT_PLACEHOLDER: "Enter the text of the button",
@@ -173,6 +186,10 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockVideo__TITLE: "Add a video from YouTube",
     BlockVideo__URL: "URL of the video",
     BlockVideo__URL_PLACEHOLDER: "Enter the URL of the video",
+
+    LinkBlockToItem__LINK_GROUP: "Link a group",
+    LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Enter the name of the group",
+    LinkBlockToItem__UNLINK_GROUP: "Unlink this group",
 
     CREATE: "Create",
     CONTENTS: "Contents",
@@ -205,7 +222,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     LEVEL: "Level",
     NEUTRAL: "Neutral",
     DND_INFO: "Drag and drop the element to move",
-    ACCCORDION: "Accordion",
+    ACCORDION: "Accordion",
     ID: "ID",
     NAME: "Name",
     TYPE: "Type",
@@ -226,9 +243,11 @@ export const messages: Record<string, { [key: string]: string}> = {
     DELETE_BLOCK: "Delete this Thelia Blocks",
     EDIT_BLOCK: "Edit this Thelia Blocks",
     OTHER: "other",
+    LINK: "Link",
   },
   "es": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creación de un nuevo Thelia Blocks",
+    BlocksEditor__EDIT_A_THELIA_BLOCKS: "Edición de un Thelia Blocks",
     BlocksEditor__LOADING: "Cargando Thelia Blocks...",
 
     BlocksList__EXISTING_THELIA_BLOCKS: "Thelia Blocks existentes",
@@ -261,6 +280,9 @@ export const messages: Record<string, { [key: string]: string}> = {
     Toast__BLOCK_NOT_DELETED: "Ha ocurrido un error al eliminar este Thelia Blocks",
     Toast__ITEM_BLOCK_GROUP_DELETED: "Este contenido vinculado ha sido eliminado con éxito",
     Toast__ITEM_BLOCK_GROUP_NOT_DELETED: "Ha ocurrido un error al eliminar este contenido vinculado",
+    Toast__ITEM_BLOCK_GROUP_LINKED: "Este contenido ha sido vinculado con éxito",
+    Toast__ITEM_BLOCK_GROUP_UNLINKED: "Este contenido ha sido desvinculado con éxito",
+    Toast__TOOLBAR_PREVIEW_ERROR: "Ha ocurrido un error al cargar la vista previa",
 
     BlockButton__TEXT: "Texto del botón",
     BlockButton__TEXT_PLACEHOLDER: "Introduce el texto del botón",
@@ -285,6 +307,10 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockVideo__TITLE: "Añade un vídeo de YouTube",
     BlockVideo__URL: "URL del vídeo",
     BlockVideo__URL_PLACEHOLDER: "Introduce la URL del vídeo",
+
+    LinkBlockToItem__LINK_GROUP: "Vincula un grupo",
+    LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Elige un grupo",
+    LinkBlockToItem__UNLINK_GROUP: "Desvincula este grupo",
 
     CREATE: "Crear",
     CONTENTS: "Contenidos",
@@ -317,7 +343,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     LEVEL: "Nivel",
     NEUTRAL: "Neutral",
     DND_INFO: "Arrastra y suelta el elemento para mover",
-    ACCCORDION: "Accordion",
+    ACCORDION: "Accordion",
     ID: "ID",
     NAME: "Nombre",
     TYPE: "Tipo",
@@ -339,9 +365,11 @@ export const messages: Record<string, { [key: string]: string}> = {
     DELETE_BLOCK: "Eliminar este Thelia Blocks",
     EDIT_BLOCK: "Editar este Thelia Blocks",
     OTHER: "otro",
+    LINK: "Enlace",
   },
   "it": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creazione di un nuovo Thelia Blocks",
+    BlocksEditor__EDIT_A_THELIA_BLOCKS: "Modifica di un Thelia Blocks",
     BlocksEditor__LOADING: "Thelia Blocks caricamento...",
 
     BlocksList__EXISTING_THELIA_BLOCKS: "Thelia Blocks esistenti",
@@ -374,7 +402,10 @@ export const messages: Record<string, { [key: string]: string}> = {
     Toast__BLOCK_NOT_DELETED: "Si è verificato un errore durante l'eliminazione di questo Thelia Blocks",
     Toast__ITEM_BLOCK_GROUP_DELETED: "Questo contenuto vincolato è stato eliminato con successo",
     Toast__ITEM_BLOCK_GROUP_NOT_DELETED: "Si è verificato un errore durante l'eliminazione di questo contenuto vincolato",
-
+    Toast__ITEM_BLOCK_GROUP_LINKED: "Questo contenuto è stato vincolato con successo",
+    Toast__ITEM_BLOCK_GROUP_UNLINKED: "Questo contenuto è stato scollegato con successo",
+    Toast__TOOLBAR_PREVIEW_ERROR: "Si è verificato un errore durante la visualizzazione dell'anteprima",
+    
     BlockButton__TEXT: "Testo del bottone",
     BlockButton__TEXT_PLACEHOLDER: "Inserisci il testo del bottone",
     BlockButton__URL: "URL del bottone",
@@ -398,6 +429,10 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockVideo__TITLE: "Aggiungi un video di YouTube",
     BlockVideo__URL: "URL del video",
     BlockVideo__URL_PLACEHOLDER: "Inserisci l'URL del video",
+
+    LinkBlockToItem__LINK_GROUP: "Vincola un gruppo",
+    LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Scegli un gruppo",
+    LinkBlockToItem__UNLINK_GROUP: "Scollega questo gruppo",
 
     CREATE: "Crea",
     CONTENTS: "Contenuti",
@@ -430,7 +465,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     LEVEL: "Livello",
     NEUTRAL: "Neutro",
     DND_INFO: "Trascina e rilascia l'elemento per spostarlo",
-    ACCCORDION: "Accordion",
+    ACCORDION: "Accordion",
     ID: "ID",
     NAME: "Nome",
     TYPE: "Tipo",
@@ -451,5 +486,6 @@ export const messages: Record<string, { [key: string]: string}> = {
     DELETE_BLOCK: "Elimina questo Thelia Blocks",
     EDIT_BLOCK: "Modifica questo Thelia Blocks",
     OTHER: "altro",
+    LINK: "Link",
   }
 };

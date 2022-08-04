@@ -1,5 +1,5 @@
 .GroupTitle {
   &__Wrapper {
-    @apply w-full md:w-1/2 xl:w-2/5;
+    @apply w-full md:w-1/2;
   }
 }

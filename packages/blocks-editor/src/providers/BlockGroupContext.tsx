@@ -9,11 +9,13 @@ export const BlocksGroupContext = createContext<{
   groupId?: number;
   itemType?: string;
   itemId?: number;
+  setContextualGroupId: Function;
   noRedirect: boolean;
 }>({
   group: undefined,
   editGroup: () => {},
   noRedirect: false,
+  setContextualGroupId: () => {},
 });
 
 export const BlocksGroupProvider = ({
@@ -26,6 +28,10 @@ export const BlocksGroupProvider = ({
   children: ReactElement;
   noRedirect: boolean;
 }) => {
+  const [contextualGroupId, setContextualGroupId] = useState(groupId);
+
+  console.log(contextualGroupId);
+
   const [group, setGroup] = useState<GroupTypeResponse>({
     locales: [],
     visible: true,
@@ -33,7 +39,9 @@ export const BlocksGroupProvider = ({
     slug: null,
   });
 
-  const { data, editGroup } = useGroup(groupId);
+  const { data, editGroup } = useGroup(contextualGroupId);
+
+  useEffect(() => setContextualGroupId(groupId), [groupId]);
 
   useEffect(() => {
     if (data) {
@@ -43,7 +51,15 @@ export const BlocksGroupProvider = ({
 
   return (
     <BlocksGroupContext.Provider
-      value={{ group, editGroup, groupId, itemType, itemId, noRedirect }}
+      value={{
+        group,
+        editGroup,
+        groupId: contextualGroupId,
+        setContextualGroupId,
+        itemType,
+        itemId,
+        noRedirect,
+      }}
     >
       <Suspense fallback="loading group">{children}</Suspense>
     </BlocksGroupContext.Provider>

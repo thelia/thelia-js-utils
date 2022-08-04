@@ -1,9 +1,9 @@
-import { Suspense, useLayoutEffect } from "react";
+import { Suspense, useContext, useLayoutEffect } from "react";
 import AddBlocks from "./components/AddBlocks";
 import { BlockContextProvider } from "./providers/BlockContext";
 import BlocksContent from "./components/BlocksContent/BlocksContent";
-import { BlocksGroupProvider } from "./providers/BlockGroupContext";
-import { BlocksProvider } from "./utils/queries";
+import { BlocksGroupProvider, BlocksGroupContext } from "./providers/BlockGroupContext";
+import { BlocksProvider, useUnlinkContentFromGroup } from "./utils/queries";
 import GroupLocale from "./components/GroupLocale";
 import GroupTitle from "./components/GroupTitle";
 import { Locale } from "./types/types";
@@ -15,6 +15,8 @@ import ToolBar from "./components/ToolBar";
 import useWindowSize from "./hooks/useWindowSize";
 import { IntlProvider, useIntl } from "react-intl";
 import { messages, locale } from "./utils/intl";
+import LinkBlockToItem from "./components/LinkBlockToItem";
+import Tippy from "@tippyjs/react";
 
 interface IBlocksEditorProps {
   apiUrl: string;
@@ -23,6 +25,8 @@ interface IBlocksEditorProps {
   groupId?: number;
   itemId?: number;
   itemType?: string;
+  itemConfiguration?: boolean;
+  isEditing?: boolean;
   backlink: boolean;
   noRedirect: boolean;
 }
@@ -39,11 +43,25 @@ const BlocksEditorLoader = () => {
 };
 
 const BlocksEditorHeader = ({
+  itemType,
+  groupId,
+  itemId,
+  itemConfiguration,
   backlink,
-}: {
-  backlink: IBlocksEditorProps["backlink"];
-}) => {
+  isEditing,
+}: Partial<IBlocksEditorProps>) => {
+  const { group } = useContext(BlocksGroupContext);
+
+  const unlinkContent = useUnlinkContentFromGroup();
   const intl = useIntl();
+
+  const isGroupLinkedToCurrentContent = group?.itemBlockGroups?.some(
+    (linkedContent) => linkedContent.itemId === (itemId && +itemId)
+  );
+
+  const linkedContentId = group?.itemBlockGroups?.find(
+    (linkedContent) => linkedContent.itemId === (itemId && +itemId)
+  )?.id;
 
   return (
     <div className="BlocksEditor__Header">
@@ -53,11 +71,41 @@ const BlocksEditorHeader = ({
         </div>
       ) : null}
       <div className="BlocksEditor__Header__Title">
-        {intl.formatMessage({ id: "BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS" })}
+        {isEditing || (itemConfiguration && isGroupLinkedToCurrentContent)
+          ? intl.formatMessage({ id: "BlocksEditor__EDIT_A_THELIA_BLOCKS" })
+          : intl.formatMessage({ id: "BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS" })}
       </div>
 
       <div className="BlocksEditor__Header__Inputs__Wrapper">
-        <GroupTitle />
+        <div
+          className={`BlocksEditor__Header__GroupTitle__Wrapper ${
+            isGroupLinkedToCurrentContent
+              ? "BlocksEditor__Header__GroupTitle__Wrapper--isLinked"
+              : ""
+          }`}
+        >
+          <GroupTitle />
+          {itemConfiguration && !isGroupLinkedToCurrentContent ? (
+            <LinkBlockToItem itemId={itemId} groupId={groupId} itemType={itemType} />
+          ) : isGroupLinkedToCurrentContent ? (
+            <Tippy
+              delay={[500, 0]}
+              content={intl.formatMessage({ id: "LinkBlockToItem__UNLINK_GROUP" })}
+            >
+              <button
+                onClick={() => unlinkContent.mutate({ id: linkedContentId })}
+                className="BlocksEditor__Header__Unlink__Button"
+              >
+                {unlinkContent.isLoading ? (
+                  <i className="fa fa-circle-notch fa-spin"></i>
+                ) : (
+                  <i className="fas fa-unlink"></i>
+                )}
+              </button>
+            </Tippy>
+          ) : null}
+        </div>
+
         <GroupLocale />
       </div>
     </div>
@@ -71,6 +119,8 @@ export default function BlocksEditor({
   itemId,
   itemType,
   locales,
+  itemConfiguration = false,
+  isEditing = false,
   backlink = true,
   noRedirect = false,
 }: IBlocksEditorProps) {
@@ -101,7 +151,14 @@ export default function BlocksEditor({
                   <BlockContextProvider root>
                     <>
                       <div className="BlocksEditor__ContentWrapper">
-                        <BlocksEditorHeader backlink={backlink} />
+                        <BlocksEditorHeader
+                          itemType={itemType}
+                          itemId={itemId}
+                          groupId={groupId}
+                          backlink={backlink}
+                          itemConfiguration={itemConfiguration}
+                          isEditing={isEditing}
+                        />
 
                         <div className="BlocksEditor__Content">
                           <BlocksContent />

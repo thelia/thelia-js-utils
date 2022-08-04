@@ -30,10 +30,22 @@
     &__LinkedContent {
       &__Wrapper {
         @apply flex items-center gap-1 text-greyDark text-sm;
-
+       
         &--asLink {
+          i:last-child {
+            order: -1;
+          }
+  
           button {
             @apply underline;
+          }
+
+          button:hover {
+            @apply text-vermillon;
+            
+            + i {
+              @apply text-vermillon
+            }
           }
         }
       }
@@ -54,6 +66,14 @@
     &__Actions {
       &__Wrapper {
         @apply flex gap-5;
+      }
+    }
+
+    &__Action {
+      @apply text-darkCharbon disabled:text-mediumGrey enabled:hover:text-greyDark;
+
+      &__Delete {
+        @apply text-error enabled:hover:text-redLight disabled:text-mediumGrey;
       }
     }
   }

@@ -14,12 +14,14 @@ export default function Preview({
   isOpen,
   setIsOpen,
   setIsPreviewLoading,
+  showError,
   timestamp,
   data,
 }: {
   isOpen: boolean;
   setIsOpen: Function;
   setIsPreviewLoading: Function;
+  showError: Function;
   timestamp: number;
   data?: string;
 }) {
@@ -28,8 +30,17 @@ export default function Preview({
   const intl = useIntl();
 
   useEffect(() => {
+    if (preview.isError) {
+      showError();
+
+      return;
+    }
+  }, [preview]);
+
+  useEffect(() => {
     if (preview.isLoading) {
-      return setIsPreviewLoading(true);
+      setIsPreviewLoading(true);
+      return;
     }
 
     setIsPreviewLoading(false);
@@ -40,9 +51,7 @@ export default function Preview({
       setIsOpen(true);
     }
 
-    return () => {
-      setIsOpen(false);
-    };
+    return () => setIsOpen(false);
   }, [timestamp]);
 
   return (

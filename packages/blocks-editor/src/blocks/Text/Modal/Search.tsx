@@ -17,24 +17,22 @@ const SearchResults = ({
   return (
     <ul className="SearchResult">
       {data?.length > 0 ? (
-        <>
-          {data
-            ?.filter((element: any) => !data.includes(element.id))
-            .map((element: any) => (
-              <li
-                key={element.id}
-                onClick={() => {
-                  onUpdate(element);
-                }}
-                className="SearchResult__Item"
-              >
-                <span>{element.i18n.title}</span>
-                <span className="SearchResult__Item__Ref">
-                  #{element.reference || element.id}
-                </span>
-              </li>
-            ))}
-        </>
+        data
+          ?.filter((element: any) => !data.includes(element.id))
+          .map((element: any) => (
+            <li
+              key={element.id}
+              onClick={() => {
+                onUpdate(element);
+              }}
+              className="SearchResult__Item"
+            >
+              <span>{element.i18n.title}</span>
+              <span className="SearchResult__Item__Ref">
+                #{element.reference || element.id}
+              </span>
+            </li>
+          ))
       ) : value && value.length > 1 ? (
         <li className="SearchResult__NoResults">
           <span>
@@ -69,6 +67,7 @@ const Search = forwardRef(
   ) => {
     const [searchByRef, setSearchByRef] = useState<boolean>(false);
     const [query, setQuery] = useState<string>("");
+    const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
 
     const intl = useIntl();
 
@@ -95,6 +94,7 @@ const Search = forwardRef(
         <div className="Search__Content__Search">
           <Input
             onChange={(e) => setQuery(e.target.value)}
+            onBlur={() => setShowSuggestions(false)}
             value={query}
             placeholder={intl.formatMessage({ id: "SEARCH_BY" })}
             id="Search-field"
@@ -111,18 +111,20 @@ const Search = forwardRef(
               </div>
             }
           >
-            <SearchResults
-              searchIn={searchIn}
-              type={type}
-              value={value}
-              onUpdate={(content: any) => {
-                ref.current.editor.insertText(
-                  cursorIndex,
-                  `[${searchIn}_link id=${content.id} title="${content.i18n.title}"]`
-                );
-                setIsModalOpen(false);
-              }}
-            />
+            {showSuggestions && (
+              <SearchResults
+                searchIn={searchIn}
+                type={type}
+                value={value}
+                onUpdate={(content: any) => {
+                  ref.current.editor.insertText(
+                    cursorIndex,
+                    `[${searchIn}_link id=${content.id} title="${content.i18n.title}"]`
+                  );
+                  setIsModalOpen(false);
+                }}
+              />
+            )}
           </Suspense>
         </div>
       </div>

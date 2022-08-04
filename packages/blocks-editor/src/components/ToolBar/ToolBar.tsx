@@ -11,13 +11,21 @@ import "./ToolBar.css";
 import { useIntl } from "react-intl";
 
 const ToolBar = () => {
-  const { group } = useContext(BlocksGroupContext);
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const [timestamp, setTimestamp] = useState<number>(0);
   const [isPreviewLoading, setIsPreviewLoading] = useState<boolean>(false);
-  const intl = useIntl();
+
+  const { group } = useContext(BlocksGroupContext);
   const { blockList } = useBlocksContext();
+
   const mutation = useCreateOrUpdateGroup();
+
+  const intl = useIntl();
+
+  const showError = () => {
+    toast.error(intl.formatMessage({ id: "Toast__TOOLBAR_PREVIEW_ERROR" }));
+    setShowPreview(false);
+  };
 
   return (
     <>
@@ -63,7 +71,7 @@ const ToolBar = () => {
               {intl.formatMessage({ id: "SAVING" })}
             </>
           ) : (
-            <>{intl.formatMessage({ id: "SAVE" })}</>
+            intl.formatMessage({ id: "SAVE" })
           )}
         </button>
       </div>
@@ -72,6 +80,7 @@ const ToolBar = () => {
           isOpen={showPreview}
           setIsOpen={setShowPreview}
           setIsPreviewLoading={setIsPreviewLoading}
+          showError={showError}
           timestamp={timestamp}
         />
       </ErrorBoundary>

@@ -1,9 +1,9 @@
 import Tippy from "@tippyjs/react";
 import useWindowSize from "../../hooks/useWindowSize";
 import { useBlocksContext } from "../../hooks/useBlockContext";
+import { useIntl } from "react-intl";
 
 import "./BlockControls.css";
-import { useIntl } from "react-intl";
 
 const BlockControls = ({
   blockId,
@@ -90,7 +90,7 @@ const BlockControls = ({
           className={`${
             !inLayout && width > 1024
               ? "BlockControl BlockControl--right BlockControl--danger"
-              : "NestedBlockControl"
+              : "NestedBlockControl NestedBlockControl--danger"
           }`}
           onClick={() => removeBlock(blockId)}
         >

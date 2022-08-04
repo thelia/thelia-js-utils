@@ -189,7 +189,6 @@ const Column = {
 const TwoColumns = {
   ...Column,
   component: MultiColumnsComponent,
-  type: { id: "2cols" },
   title: {
     default: "2 Columns",
     fr: "2 Colonnes",
@@ -221,7 +220,6 @@ const ThreeColumns = {
 const FourColumns = {
   ...Column,
   component: MultiColumnsComponent,
-  type: { id: "4cols" },
   layout: moduleLayout,
   title: {
     default: "4 Columns",
@@ -237,7 +235,6 @@ const FourColumns = {
 const FiveColumns = {
   ...Column,
   component: MultiColumnsComponent,
-  type: { id: "5cols" },
   layout: moduleLayout,
   title: {
     default: "5 Columns",
@@ -253,7 +250,6 @@ const FiveColumns = {
 const SixColumns = {
   ...Column,
   component: MultiColumnsComponent,
-  type: { id: "6cols" },
   layout: moduleLayout,
   title: {
     default: "6 Columns",

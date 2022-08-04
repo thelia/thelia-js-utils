@@ -69,7 +69,13 @@ const BlockVideoComponent = ({ data, onUpdate }: BlockModuleComponentProps<Video
               url.length > 2 && isUrlValid && "border-greenDark bg-greenLight"
             }`}
             onChange={(e) => setUrl(e.target.value)}
-            onBlur={(e) => onUpdate({ ...data, url: e.target.value })}
+            onBlur={(e) =>
+              onUpdate({
+                ...data,
+                url: e.target.value,
+                videoId: getYouTubeID(url)?.trim(),
+              })
+            }
             value={url}
             icon={<i className="fa fa-link"></i>}
             iconAlignment="left"
@@ -84,6 +90,7 @@ const BlockVideoComponent = ({ data, onUpdate }: BlockModuleComponentProps<Video
 
 const initialData: Video = {
   url: "",
+  videoId: "",
 };
 
 const moduleType = {

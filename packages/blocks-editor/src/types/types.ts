@@ -106,6 +106,7 @@ export type uiStoreType = {
 
 export type Video = {
   url: string | null;
+  videoId: string | null;
 };
 
 export type Plugin = BlockModuleI18n & {

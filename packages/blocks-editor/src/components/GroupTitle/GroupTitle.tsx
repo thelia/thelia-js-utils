@@ -16,6 +16,8 @@ export default function GroupTitle() {
     if (group?.title) {
       setTitle(group.title);
     }
+
+    return () => setTitle("");
   }, [group]);
 
   return (
