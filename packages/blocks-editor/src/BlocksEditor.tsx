@@ -2,7 +2,10 @@ import { Suspense, useContext, useLayoutEffect } from "react";
 import AddBlocks from "./components/AddBlocks";
 import { BlockContextProvider } from "./providers/BlockContext";
 import BlocksContent from "./components/BlocksContent/BlocksContent";
-import { BlocksGroupProvider, BlocksGroupContext } from "./providers/BlockGroupContext";
+import {
+  BlocksGroupProvider,
+  BlocksGroupContext,
+} from "./providers/BlockGroupContext";
 import { BlocksProvider, useUnlinkContentFromGroup } from "./utils/queries";
 import GroupLocale from "./components/GroupLocale";
 import GroupTitle from "./components/GroupTitle";
@@ -73,7 +76,9 @@ const BlocksEditorHeader = ({
       <div className="BlocksEditor__Header__Title">
         {isEditing || (itemConfiguration && isGroupLinkedToCurrentContent)
           ? intl.formatMessage({ id: "BlocksEditor__EDIT_A_THELIA_BLOCKS" })
-          : intl.formatMessage({ id: "BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS" })}
+          : intl.formatMessage({
+              id: "BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS",
+            })}
       </div>
 
       <div className="BlocksEditor__Header__Inputs__Wrapper">
@@ -86,11 +91,17 @@ const BlocksEditorHeader = ({
         >
           <GroupTitle />
           {itemConfiguration && !isGroupLinkedToCurrentContent ? (
-            <LinkBlockToItem itemId={itemId} groupId={groupId} itemType={itemType} />
+            <LinkBlockToItem
+              itemId={itemId}
+              groupId={groupId}
+              itemType={itemType}
+            />
           ) : isGroupLinkedToCurrentContent ? (
             <Tippy
               delay={[500, 0]}
-              content={intl.formatMessage({ id: "LinkBlockToItem__UNLINK_GROUP" })}
+              content={intl.formatMessage({
+                id: "LinkBlockToItem__UNLINK_GROUP",
+              })}
             >
               <button
                 onClick={() => unlinkContent.mutate({ id: linkedContentId })}

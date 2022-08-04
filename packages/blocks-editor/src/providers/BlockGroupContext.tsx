@@ -1,4 +1,11 @@
-import { createContext, ReactElement, Suspense, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactElement,
+  Suspense,
+  useEffect,
+  useState,
+} from "react";
+import { useQueryClient } from "react-query";
 import { GroupTypeResponse, itemBlockGroupsType } from "../types/types";
 
 import { useGroup } from "../utils/queries";
@@ -9,17 +16,19 @@ export const BlocksGroupContext = createContext<{
   groupId?: number;
   itemType?: string;
   itemId?: number;
-  setContextualGroupId: Function;
+  setGroupId: Function;
   noRedirect: boolean;
+  resetContext: Function;
 }>({
   group: undefined,
   editGroup: () => {},
   noRedirect: false,
-  setContextualGroupId: () => {},
+  setGroupId: () => {},
+  resetContext: () => {},
 });
 
 export const BlocksGroupProvider = ({
-  groupId,
+  groupId: propsGroupId,
   itemType,
   itemId,
   children,
@@ -28,37 +37,26 @@ export const BlocksGroupProvider = ({
   children: ReactElement;
   noRedirect: boolean;
 }) => {
-  const [contextualGroupId, setContextualGroupId] = useState(groupId);
+  const [groupId, setGroupId] = useState(propsGroupId);
+  const { data: group, editGroup } = useGroup(groupId);
+  const queryClient = useQueryClient();
 
-  console.log(contextualGroupId);
-
-  const [group, setGroup] = useState<GroupTypeResponse>({
-    locales: [],
-    visible: true,
-    title: "",
-    slug: null,
-  });
-
-  const { data, editGroup } = useGroup(contextualGroupId);
-
-  useEffect(() => setContextualGroupId(groupId), [groupId]);
-
-  useEffect(() => {
-    if (data) {
-      setGroup(data);
-    }
-  }, [data]);
+  const resetContext = () => {
+    setGroupId(undefined);
+    queryClient.resetQueries("block_group");
+  };
 
   return (
     <BlocksGroupContext.Provider
       value={{
         group,
         editGroup,
-        groupId: contextualGroupId,
-        setContextualGroupId,
+        groupId,
+        setGroupId,
         itemType,
         itemId,
         noRedirect,
+        resetContext,
       }}
     >
       <Suspense fallback="loading group">{children}</Suspense>
