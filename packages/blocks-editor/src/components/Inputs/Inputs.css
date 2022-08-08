@@ -23,6 +23,10 @@
     &--withIcons {
       @apply px-10;
     }
+
+    &--emphasize {
+      @apply text-vermillon;
+    }
   }
   
   &__Text, &__Select, &__Number {

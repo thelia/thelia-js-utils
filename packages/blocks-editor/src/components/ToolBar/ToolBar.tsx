@@ -18,7 +18,7 @@ const ToolBar = () => {
   const { group } = useContext(BlocksGroupContext);
   const { blockList } = useBlocksContext();
 
-  const mutation = useCreateOrUpdateGroup();
+  const createGroup = useCreateOrUpdateGroup();
 
   const intl = useIntl();
 
@@ -51,16 +51,16 @@ const ToolBar = () => {
         </button>
         <button
           className="Toolbar__Save"
-          disabled={mutation.isLoading}
+          disabled={createGroup.isLoading}
           onClick={() => {
             if (!group?.title) {
               toast.error(intl.formatMessage({ id: "Toast__BLOCK_MUST_HAVE_A_NAME" }));
               return;
             }
-            mutation.mutate({ blocks: blockList });
+            createGroup.mutate({ blocks: blockList });
           }}
         >
-          {mutation.isLoading ? (
+          {createGroup.isLoading ? (
             <>
               <i className="fa fa-circle-notch fa-spin Toolbar__Save__Icon"></i>
               {intl.formatMessage({ id: "SAVING" })}

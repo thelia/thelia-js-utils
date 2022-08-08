@@ -186,7 +186,7 @@ const BlocksTable = () => {
       </thead>
       <tbody>
         {groups.map((group: GroupTypeResponse) => (
-          <BlocksTableRow group={group} />
+          <BlocksTableRow group={group} key={group.id} />
         ))}
       </tbody>
     </table>

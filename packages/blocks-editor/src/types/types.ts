@@ -37,7 +37,7 @@ export type IBlock = {
   readonly id: string;
   readonly type: BlockModuleType;
   parent: IBlock["id"] | null;
-  layout?: string;
+  layout?: i18nString;
   data: any;
 };
 
