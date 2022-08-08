@@ -116,7 +116,7 @@ const FromLibrary = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) 
         <Library
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          onSelect={(image) => {
+          onSelect={(image: LibraryImage) => {
             setIsOpen(false);
             onSelect(image);
           }}
@@ -175,7 +175,7 @@ const ImageInfos = ({
       }}
     >
       <div>
-        <label htmlFor="">{intl.formatMessage({ id: "BlockImage__TITLE" })}</label>
+        <label>{intl.formatMessage({ id: "BlockImage__TITLE" })}</label>
         <input
           className="Input__Text"
           type="text"

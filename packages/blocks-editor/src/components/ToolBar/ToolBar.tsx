@@ -22,11 +22,6 @@ const ToolBar = () => {
 
   const intl = useIntl();
 
-  const showError = () => {
-    toast.error(intl.formatMessage({ id: "Toast__TOOLBAR_PREVIEW_ERROR" }));
-    setShowPreview(false);
-  };
-
   return (
     <>
       <div className="Toolbar">
@@ -80,7 +75,6 @@ const ToolBar = () => {
           isOpen={showPreview}
           setIsOpen={setShowPreview}
           setIsPreviewLoading={setIsPreviewLoading}
-          showError={showError}
           timestamp={timestamp}
         />
       </ErrorBoundary>

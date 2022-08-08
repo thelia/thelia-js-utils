@@ -2,10 +2,7 @@ import { Suspense, useContext, useLayoutEffect } from "react";
 import AddBlocks from "./components/AddBlocks";
 import { BlockContextProvider } from "./providers/BlockContext";
 import BlocksContent from "./components/BlocksContent/BlocksContent";
-import {
-  BlocksGroupProvider,
-  BlocksGroupContext,
-} from "./providers/BlockGroupContext";
+import { BlocksGroupProvider, BlocksGroupContext } from "./providers/BlockGroupContext";
 import { BlocksProvider, useUnlinkContentFromGroup } from "./utils/queries";
 import GroupLocale from "./components/GroupLocale";
 import GroupTitle from "./components/GroupTitle";
@@ -91,11 +88,7 @@ const BlocksEditorHeader = ({
         >
           <GroupTitle />
           {itemConfiguration && !isGroupLinkedToCurrentContent ? (
-            <LinkBlockToItem
-              itemId={itemId}
-              groupId={groupId}
-              itemType={itemType}
-            />
+            <LinkBlockToItem itemId={itemId} groupId={groupId} itemType={itemType} />
           ) : isGroupLinkedToCurrentContent ? (
             <Tippy
               delay={[500, 0]}

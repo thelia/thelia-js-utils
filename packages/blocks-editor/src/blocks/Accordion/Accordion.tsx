@@ -12,10 +12,11 @@ import { DropResult } from "react-beautiful-dnd";
 
 import "./Accordion.css";
 import { useIntl } from "react-intl";
+import { Input } from "../../components/Inputs";
 
 type AccordionContentData = IBlock[];
 
-type AccordionData = AccordionContentData[];
+type AccordionData = { title: string; content: AccordionContentData[] };
 
 const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
   const { blockList, moveBlockTo } = useBlocksContext();
@@ -54,8 +55,15 @@ const AccordionContentComponent = ({
   data,
   onUpdate,
 }: BlockModuleComponentProps<AccordionData>) => {
+  const [title, setTitle] = useState<string>("");
   const [open, setOpen] = useState(true);
   const intl = useIntl();
+
+  useEffect(() => {
+    if (data.title) {
+      setTitle(data.title);
+    }
+  }, [data]);
 
   return (
     <div key={index} className="BlockAccordion">
@@ -65,19 +73,27 @@ const AccordionContentComponent = ({
         setOpen={setOpen}
       />
       <div className={`${!open ? "BlockAccordion--closed" : "BlockAccordion__Content"}`}>
+        <Input
+          id="BlockAccordion-field-title"
+          label={intl.formatMessage({ id: "BlockAccordion__TITLE" })}
+          placeholder={intl.formatMessage({ id: "BlockAccordion__TITLE_PLACEHOLDER" })}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          onBlur={() => onUpdate({ ...data, title: title })}
+        />
         <BlockContextProvider defaultBlocks={blocks}>
-          <>
+          <div>
             <NestedBlocks
               onUpdate={(columnNewData: IBlock[]) => {
                 const nextState = produce(data, (draft) => {
-                  draft[index] = columnNewData;
+                  draft.content[index] = columnNewData;
                 });
                 onUpdate(nextState);
               }}
             />
 
             <AddBlocks excludeLayout={["Column", "Accordion"]} />
-          </>
+          </div>
         </BlockContextProvider>
       </div>
     </div>
@@ -90,7 +106,7 @@ const AccordionComponent = ({
 }: BlockModuleComponentProps<AccordionData>) => {
   return (
     <>
-      {data.map((blocks, index) => {
+      {data.content.map((blocks, index) => {
         return (
           <AccordionContentComponent
             key={index}
@@ -103,6 +119,11 @@ const AccordionComponent = ({
       })}
     </>
   );
+};
+
+const initialData: AccordionData = {
+  title: "",
+  content: [[]],
 };
 
 const moduleLayout = {
@@ -120,7 +141,7 @@ const moduleType = {
 const Accordion = {
   type: moduleType,
   component: AccordionComponent,
-  initialData: [[]],
+  initialData: initialData,
   layout: moduleLayout,
   title: {
     default: "Accordion",

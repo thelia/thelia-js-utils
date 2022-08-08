@@ -13,6 +13,21 @@
   background-color: white;
 }
 
+.Modal-Tags {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: max-content;
+  max-width: 700px;
+  height: max-content;
+  max-height: 80%;
+  border-radius: 8px;
+  background-color: white;
+}
+
 .Modal__Content__Loader {
   display: flex;
   flex-direction: column;
@@ -23,6 +38,11 @@
 
 .Modal__Content__Loader span {
   display: block;
+}
+
+.Library__NoContent {
+  width: 100%;
+  text-align: center;
 }
 
 .Library {
@@ -144,6 +164,103 @@
   width: 30px;
   height: 30px;
   color: #fff;
+}
+
+.Library__Image__Tag__Action {
+  background-color: #008958;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  color: #fff;
+}
+
+.BlockImage__TagSelector {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: 6px;
+  outline: none;
+  border: 1px solid #9B9B9B;
+  height: max-content;
+  min-height: 40px;
+  padding: 5px;
+}
+
+.BlockImage__TagSelector__Add {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 4px;
+  background-color: #444444;
+}
+
+.BlockImage__TagSelector__Add:hover {
+  background-color: #333333;
+}
+
+.BlockImage__TagSelector__Tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.BlockImage__TagSelector__Tag {
+  max-width: 100px;
+  width: max-content;
+  max-height: 30px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border-radius: 90px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #333333;
+  color: white;
+  align-items: center;
+  padding: 4px;
+  padding-left: 14px;
+}
+
+.BlockImage__TagSelector__Tag > span {
+  font-weight: 600;
+  font-size: 14px;
+  margin-right: 7px;
+}
+
+.BlockImage__TagSelector__Tag__Remove {
+  background-color: white;
+  color: #111;
+  border-radius: 90px;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.TagList {
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border-radius: 6px;
+  overflow: scroll;
+  width: 100%;
+  position: absolute;
+  z-index: 30;
+  max-height: 200px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+}
+
+.TagList__Item {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
 }
 
 @media screen and (max-width: 1366px) {

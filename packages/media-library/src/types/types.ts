@@ -1,7 +1,14 @@
 export type ImageTag = {
-  id: number;
-  title: string;
-  colorCode: string;
+  imageTag: {
+    id: number;
+    imageId: number;
+    tagId: number
+  },
+  tag: {
+    id: number;
+    title: string;
+    colorCode: string;
+  }
 }
 
 export type LibraryImage = {

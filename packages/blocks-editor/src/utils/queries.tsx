@@ -46,13 +46,7 @@ export const queryClient = new QueryClient({
   },
 });
 
-export function BlocksProvider({
-  children,
-  api,
-}: {
-  children: ReactNode;
-  api: string;
-}) {
+export function BlocksProvider({ children, api }: { children: ReactNode; api: string }) {
   const [initialized, setInitialized] = useState<boolean>(false);
   useEffect(() => {
     instance.defaults.baseURL = api;
@@ -63,9 +57,7 @@ export function BlocksProvider({
     return null;
   }
 
-  return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }
 
 export function useGroups() {
@@ -99,12 +91,7 @@ export function useGroup(id?: number) {
       enabled: !!groupId,
       staleTime: 0,
       cacheTime: Infinity,
-      initialData: {
-        locales: [],
-        visible: true,
-        title: "",
-        slug: null,
-      },
+      initialData: undefined,
     }
   );
 
@@ -232,14 +219,10 @@ export function useDeleteItemBlockGroup() {
     {
       onSuccess: (data, groupId) => {
         queryClient.invalidateQueries(["item_block_group"]);
-        toast.success(
-          intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_DELETED" })
-        );
+        toast.success(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_DELETED" }));
       },
       onError: (error) => {
-        toast.error(
-          intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_NOT_DELETED" })
-        );
+        toast.error(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_NOT_DELETED" }));
       },
     }
   );
@@ -281,15 +264,7 @@ export function useLinkContentToGroup() {
   const intl = useIntl();
   const queryClient = useQueryClient();
   return useMutation(
-    ({
-      id,
-      itemId,
-      itemType,
-    }: {
-      id?: number;
-      itemId?: number;
-      itemType?: string;
-    }) =>
+    ({ id, itemId, itemType }: { id?: number; itemId?: number; itemType?: string }) =>
       fetcher(`/item_block_group`, {
         method: "POST",
         data: {
@@ -302,9 +277,7 @@ export function useLinkContentToGroup() {
       }),
     {
       onSuccess: (data: GroupTypeResponse) => {
-        toast.success(
-          intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_LINKED" })
-        );
+        toast.success(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_LINKED" }));
 
         setGroupId(data.id);
         queryClient.setQueryData(["block_group", data.id, currentLocale], data);
@@ -316,7 +289,7 @@ export function useLinkContentToGroup() {
 
 export function useUnlinkContentFromGroup() {
   const { resetContext } = useContext(BlocksGroupContext);
-  const { setBlocks } = useBlocksContext();
+  const { resetBlocks } = useBlocksContext();
   const intl = useIntl();
 
   return useMutation(
@@ -326,11 +299,9 @@ export function useUnlinkContentFromGroup() {
       }),
     {
       onSuccess: () => {
-        toast.success(
-          intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_UNLINKED" })
-        );
+        toast.success(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_UNLINKED" }));
 
-        setBlocks([]);
+        resetBlocks();
         resetContext();
         /* window.location.reload(); */
       },
@@ -340,6 +311,7 @@ export function useUnlinkContentFromGroup() {
 
 export function usePreviewGroup(timestamp: number, data: string) {
   const { currentLocale } = useContext(LocaleContext);
+  const intl = useIntl();
 
   const key = ["preview_block_group", currentLocale, timestamp];
 
@@ -362,7 +334,7 @@ export function usePreviewGroup(timestamp: number, data: string) {
       retry: false,
       suspense: false,
       onError: (error) => {
-        toast.error("Error while fetching preview");
+        toast.error(intl.formatMessage({ id: "Toast__TOOLBAR_PREVIEW_ERROR" }));
       },
     }
   );
@@ -404,11 +376,7 @@ export function useProductsBy({ type, value = null }: SearchProps) {
   );
 }
 
-export function useSearchBy({
-  searchIn,
-  type = "title",
-  value = null,
-}: SearchProps) {
+export function useSearchBy({ searchIn, type = "title", value = null }: SearchProps) {
   let params: {
     id: string | null;
     ids: string | null;

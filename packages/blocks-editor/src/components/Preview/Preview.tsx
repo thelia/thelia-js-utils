@@ -14,28 +14,18 @@ export default function Preview({
   isOpen,
   setIsOpen,
   setIsPreviewLoading,
-  showError,
   timestamp,
   data,
 }: {
   isOpen: boolean;
   setIsOpen: Function;
   setIsPreviewLoading: Function;
-  showError: Function;
   timestamp: number;
   data?: string;
 }) {
   const { blockList } = useBlocksContext();
   const preview = usePreviewGroup(timestamp, JSON.stringify(data || blockList));
   const intl = useIntl();
-
-  useEffect(() => {
-    if (preview.isError) {
-      showError();
-
-      return;
-    }
-  }, [preview]);
 
   useEffect(() => {
     if (preview.isLoading) {

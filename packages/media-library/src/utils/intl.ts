@@ -17,6 +17,8 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__TOAST_WRONG_FILE_TYPE: "Votre image n'a pas pu être téléchargée. Veuillez vérifier que votre fichier est bien une image.",
     BlockImage__TOAST_MAX_FILE: "Veuillez uploader une seule image.",
     BlockImage__DROP_TO_UPLOAD: "Relacher pour uploader votre image",
+    BlockImage__LIBRARY_NO_CONTENT: "Aucune image trouvée",
+    BlockImage__LIBRARY_SEARCHING: "Recherche en cours...",
 
     REPLACE: "Remplacer",
     REPLACE_IMAGE: "Remplacer l'image",
@@ -43,6 +45,8 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__TOAST_WRONG_FILE_TYPE: "Your image could not be uploaded. Please check that your file is an image.",
     BlockImage__TOAST_MAX_FILE: "Please upload only one image.",
     BlockImage__DROP_TO_UPLOAD: "Release to upload your image",
+    BlockImage__LIBRARY_NO_CONTENT: "No image found",
+    BlockImage__LIBRARY_SEARCHING: "Searching...",
 
     REPLACE: "Replace",
     REPLACE_IMAGE: "Replace image",
@@ -69,6 +73,8 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__TOAST_WRONG_FILE_TYPE: "Tu imagen no pudo ser subida. Por favor verifica que tu archivo es una imagen.",
     BlockImage__TOAST_MAX_FILE: "Por favor sube solo una imagen.",
     BlockImage__DROP_TO_UPLOAD: "Suelte para subir tu imagen",
+    BlockImage__LIBRARY_NO_CONTENT: "No se encontraron imagenes",
+    BlockImage__LIBRARY_SEARCHING: "Buscando...",
 
     REPLACE: "Reemplazar",
     REPLACE_IMAGE: "Reemplazar imagen",
@@ -95,6 +101,8 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__TOAST_WRONG_FILE_TYPE: "La tua immagine non può essere caricata. Per favore verifica che il tuo file sia un immagine.",
     BlockImage__TOAST_MAX_FILE: "Per favore carica solo una immagine.",
     BlockImage__DROP_TO_UPLOAD: "Rilascia per caricare la tua immagine",
+    BlockImage__LIBRARY_NO_CONTENT: "Nessuna immagine trovata",
+    BlockImage__LIBRARY_SEARCHING: "Ricerca in corso...",
 
     REPLACE: "Sostituisci",
     REPLACE_IMAGE: "Sostituisci immagine",

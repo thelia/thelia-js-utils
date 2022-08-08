@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactElement,
-  Suspense,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, ReactElement, useState } from "react";
 import { useQueryClient } from "react-query";
 import { GroupTypeResponse, itemBlockGroupsType } from "../types/types";
 
@@ -59,7 +53,7 @@ export const BlocksGroupProvider = ({
         resetContext,
       }}
     >
-      <Suspense fallback="loading group">{children}</Suspense>
+      {children}
     </BlocksGroupContext.Provider>
   );
 };

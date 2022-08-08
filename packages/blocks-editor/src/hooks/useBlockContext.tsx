@@ -43,6 +43,10 @@ export const useBlocksContext = () => {
     }
   }, []);
 
+  const resetBlocks = useCallback(() => {
+    setBlocks([]);
+  }, []);
+
   return {
     addBlock,
     removeBlock,
@@ -52,6 +56,6 @@ export const useBlocksContext = () => {
     moveBlockTo,
     findBlockIndex,
     blockList: blocks,
-    setBlocks,
+    resetBlocks,
   };
 };

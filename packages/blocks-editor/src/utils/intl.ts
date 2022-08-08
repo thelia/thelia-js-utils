@@ -66,6 +66,9 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockVideo__URL: "URL de la vidéo",
     BlockVideo__URL_PLACEHOLDER: "Indiquez l'URL de la vidéo",
 
+    BlockAccordion__TITLE: "Titre de l'accordéon",
+    BlockAccordion__TITLE_PLACEHOLDER: "Indiquez le titre de l'accordéon",
+
     LinkBlockToItem__LINK_GROUP: "Lier un groupe",
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Indiquez le nom du groupe",
     LinkBlockToItem__UNLINK_GROUP: "Délier ce groupe",
@@ -186,6 +189,9 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockVideo__TITLE: "Add a video from YouTube",
     BlockVideo__URL: "URL of the video",
     BlockVideo__URL_PLACEHOLDER: "Enter the URL of the video",
+
+    BlockAccordion__TITLE: "Title of the accordion",
+    BlockAccordion__TITLE_PLACEHOLDER: "Enter the title of the accordion",
 
     LinkBlockToItem__LINK_GROUP: "Link a group",
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Enter the name of the group",
@@ -308,6 +314,9 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockVideo__URL: "URL del vídeo",
     BlockVideo__URL_PLACEHOLDER: "Introduce la URL del vídeo",
 
+    BlockAccordion__TITLE: "Título del acordeón",
+    BlockAccordion__TITLE_PLACEHOLDER: "Introduce el título del acordeón",
+
     LinkBlockToItem__LINK_GROUP: "Vincula un grupo",
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Elige un grupo",
     LinkBlockToItem__UNLINK_GROUP: "Desvincula este grupo",
@@ -429,6 +438,9 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockVideo__TITLE: "Aggiungi un video di YouTube",
     BlockVideo__URL: "URL del video",
     BlockVideo__URL_PLACEHOLDER: "Inserisci l'URL del video",
+
+    BlockAccordion__TITLE: "titolo dell'accordion",
+    BlockAccordion__TITLE_PLACEHOLDER: "Inserisci il titolo dell'accordion",
 
     LinkBlockToItem__LINK_GROUP: "Vincola un gruppo",
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Scegli un gruppo",

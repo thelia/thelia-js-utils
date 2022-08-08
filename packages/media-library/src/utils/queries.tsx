@@ -132,7 +132,74 @@ export function useGetTags() {
       }),
     {
       keepPreviousData: true,
-      onSuccess: (data: ImageTag[]) => {},
+      onSuccess: (data: ImageTag["tag"][]) => {},
+    }
+  );
+}
+
+export function useDeleteTagAssociation() {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (id: ImageTag["tag"]["id"]) => {
+      return fetcher(`/library/image_tag/${id}`, {
+        method: "DELETE",
+      });
+    },
+    {
+      onSuccess: (data, id) => {
+        queryClient.setQueriesData(["LibraryImage"], (oldData: any) => {
+          if (oldData && Array.isArray(oldData)) {
+            return oldData.map((image) => {
+              if (image.tags && image.tags.length) {
+                return {
+                  ...image,
+                  tags: image.tags.filter(
+                    ({ imageTag }: { imageTag: ImageTag["imageTag"] }) =>
+                      imageTag.id !== id
+                  ),
+                };
+              }
+              return image;
+            });
+          }
+
+          return oldData;
+        });
+      },
+    }
+  );
+}
+
+export function useAssociateTag() {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (data: { imageId: number | null; tagId: number }) => {
+      return fetcher(`/library/image_tag`, {
+        method: "POST",
+        data,
+      });
+    },
+    {
+      onSuccess: (data) => {
+        queryClient.setQueriesData(["LibraryImage"], (oldData: any) => {
+          if (oldData && Array.isArray(oldData)) {
+            return oldData.map((image) => {
+              if (image.id === data.imageTag.imageId) {
+                return {
+                  ...image,
+                  tags: [...image.tags, data],
+                };
+              }
+
+              return image;
+            });
+          }
+
+          return oldData;
+        });
+      },
     }
   );
 }
