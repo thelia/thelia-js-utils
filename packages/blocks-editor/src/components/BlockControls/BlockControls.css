@@ -1,0 +1,40 @@
+.BlockControls {
+  @apply flex items-center;
+}
+
+.BlockControl {
+  @apply border-mediumGrey flex gap-2 tracking-wider items-center px-2 md:px-6 text-darkCharbon disabled:text-mediumGrey;
+  height: 30px;
+
+  &--danger {
+    @apply text-error enabled:hover:text-white enabled:hover:bg-error;
+  }
+
+  &--left {
+    @apply border-y border-l enabled:hover:text-white enabled:hover:bg-darkCharbon;
+  }
+
+  &--right {
+    @apply border-y border-r rounded-r-sm;
+  }
+
+  &--center {
+    @apply border enabled:hover:text-white enabled:hover:bg-darkCharbon;
+  }
+
+  &--drag {
+    @apply border-y border-l px-1 md:px-3 rounded-l-sm;
+  }
+
+  &__Label {
+    @apply uppercase text-xs font-semibold;
+  }
+}
+
+.NestedBlockControl {
+  @apply px-2 sm:px-3 text-darkCharbon disabled:text-mediumGrey enabled:hover:text-greyDark;
+
+  &--danger {
+    @apply text-error enabled:hover:text-redLight disabled:text-mediumGrey;
+  }
+}

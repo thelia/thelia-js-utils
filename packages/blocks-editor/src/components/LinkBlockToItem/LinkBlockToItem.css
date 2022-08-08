@@ -1,0 +1,17 @@
+.GroupLink {
+  &__Wrapper {
+    @apply w-full md:w-1/2;
+  }
+
+  &__Input__Wrapper {
+    @apply flex items-end gap-2;
+  }
+
+  &__GroupList__Loader {
+    @apply absolute w-full py-4 overflow-hidden text-2xl text-center bg-white rounded-md text-vermillon top-full;
+  }
+
+  &__LinkButton {
+    @apply h-10 px-2 text-sm font-semibold tracking-wider text-white uppercase rounded-md bg-vermillon enabled:hover:bg-lightVermillon md:px-4 md:py-1 disabled:text-white disabled:bg-mediumGrey;
+  }
+}

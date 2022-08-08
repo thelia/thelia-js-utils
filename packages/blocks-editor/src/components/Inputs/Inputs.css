@@ -1,0 +1,47 @@
+.Input {
+  &__Wrapper {
+    &__Header {
+      @apply flex justify-between;
+    }
+  
+    &__Error {
+      @apply text-error mt-1 text-sm;
+    }
+  }
+
+  &__Text, &__TextArea, &__Select, &__Number {
+    @apply relative w-full rounded-md border border-mediumGrey outline-none py-2 px-4;
+    
+    &__Wrapper {
+      @apply relative w-full flex flex-wrap items-stretch;
+    }
+    
+    &--withIcon {
+      @apply pl-10;
+    }
+    
+    &--withIcons {
+      @apply px-10;
+    }
+  }
+  
+  &__Text, &__Select, &__Number {
+    height: 40px;
+  }
+
+  &__TextArea {
+    height: 290px;
+  }
+
+  &__Icon {
+    @apply absolute py-1 px-5 w-8 h-full leading-snug rounded text-base font-normal text-center flex items-center justify-center;
+
+    &--left {
+      @apply left-0;
+    }
+
+    &--right {
+      @apply right-0;
+    }
+  }
+}

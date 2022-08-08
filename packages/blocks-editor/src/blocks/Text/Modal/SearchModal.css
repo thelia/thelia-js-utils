@@ -1,0 +1,37 @@
+.Search {
+  &__Loader {
+    @apply text-center py-4 text-2xl text-vermillon top-full bg-white rounded-md overflow-hidden w-full absolute;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  &__Content {
+    @apply bg-white border-l-8 border-vermillon rounded-md px-4 lg:px-14 py-4 lg:py-8;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  
+    &__Title {
+      @apply text-mediumCharbon font-bold md:text-xl;
+    }
+
+    &__Search {
+      @apply mt-4 xl:w-2/3 relative;
+    }
+  }
+}
+
+.SearchResult {
+  @apply top-full bg-white rounded-md overflow-scroll w-full absolute z-30;
+  max-height: 200px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+
+  &__Item {
+    @apply px-8 py-4 cursor-pointer hover:bg-gray-200 flex flex-col;
+
+    &__Ref {
+      @apply text-gray-400 text-sm;
+    }
+  }
+
+  &__NoResults {
+    @apply px-8 py-4 text-center;
+  }
+}

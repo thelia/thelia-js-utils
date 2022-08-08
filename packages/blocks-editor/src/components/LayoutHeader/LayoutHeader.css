@@ -1,0 +1,32 @@
+.LayoutHeader {
+  @apply p-4 lg:pl-11 md:pr-5 xl:pl-12 bg-mediumCharbon text-white rounded-tr-md flex justify-between items-center;
+
+  &--closed {
+    @apply rounded-br-md;
+  }
+
+  &__Infos {
+    @apply flex items-center gap-3 xl:gap-7;
+
+  }
+
+  &__Title {
+    @apply text-base font-extrabold;
+  }
+
+  &__Collapse {
+    @apply flex items-stretch;
+
+    &:hover &__Label {
+      @apply bg-lightVermillon;
+    }
+
+    &__Icon {
+      @apply bg-lightVermillon p-2 rounded-l-md;
+    }
+
+    &__Label {
+      @apply bg-vermillon font-semibold text-xs uppercase tracking-wider rounded-r-md py-2 px-2;
+    }
+  }
+}

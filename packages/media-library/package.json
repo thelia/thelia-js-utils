@@ -2,7 +2,7 @@
   "name": "@thelia/media-library",
   "version": "0.0.0",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./src/index.tsx",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
@@ -11,8 +11,8 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx --format esm --dts --env.NODE_ENV production",
-    "dev": "tsup src/index.tsx --format esm --watch --dts",
+    "build": "tsup --format esm,iife --minify",
+    "dev": "tsup-node --watch --format esm,iife",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
@@ -21,7 +21,13 @@
   },
   "dependencies": {
     "react": "*",
-    "@thelia/routes-back": "*"
+    "@thelia/blocks-editor": "*",
+    "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "@thelia/blocks-editor": "*",
+    "lodash": "^4.17.21"
   },
   "publishConfig": {
     "access": "public"

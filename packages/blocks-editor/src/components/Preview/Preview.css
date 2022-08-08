@@ -1,0 +1,25 @@
+.Preview {
+  &__Loader {
+    @apply text-green text-4xl;
+  }
+
+  &__Close {
+    @apply bg-vermillon px-4 py-2 text-white;
+  }
+
+  &__Modal {
+    @apply flex flex-col p-4;
+
+    &__Close {
+      @apply self-end;
+
+      &__Icon {
+        @apply text-xl text-darkCharbon hover:text-vermillon;
+      } 
+    }
+
+    &__Title {
+      @apply text-mediumCharbon mt-3 mb-6 font-extrabold text-center md:text-left md:text-xl;
+    }
+  }
+}

@@ -1,0 +1,92 @@
+.BlockProduct {
+  &__Loader {
+    @apply text-center py-4 text-2xl text-vermillon top-full bg-white rounded-md overflow-hidden w-full absolute;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  &__Content {
+    @apply bg-white border-l-8 border-vermillon rounded-md px-4 lg:px-14 py-4 lg:py-8;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  
+    &__Title {
+      @apply text-mediumCharbon font-bold md:text-xl;
+    }
+
+    &__Search {
+      @apply mt-4 xl:w-2/3 relative;
+    }
+  }
+
+  &__Product {
+    @apply w-full flex justify-between bg-white rounded-md gap-4 md:gap-8 p-2 mb-4 items-center sm:h-20;
+
+    &__Loader {
+      @apply w-full text-center bg-white rounded-md p-2 mb-4;
+    }
+    
+    .Product {
+      &__Image {
+        @apply h-full hidden sm:block;
+      }
+
+      &__Infos {
+        @apply flex flex-col md:flex-row md:w-1/5 md:justify-between md:gap-4;
+
+        &__Title {
+          @apply font-semibold text-left;
+        }
+
+        &__Ref {
+          @apply text-sm md:text-base text-left text-gray-400;
+        }
+      }
+
+      &__Actions {
+        @apply md:border-x md:border-gray-400 flex gap-8 px-2 md:px-4;
+      }
+
+      &__Link {
+        @apply hidden font-semibold tracking-wider border-2 border-vermillon text-vermillon hover:bg-vermillon hover:text-white px-2 md:px-4 md:py-1 rounded-md text-center lg:flex items-center;
+        
+        &__Icon {
+          @apply hidden md:block;
+        }
+
+        &__Label {
+          @apply md:mr-2;
+        }
+      }
+
+      &__Delete {
+        @apply md:self-start hover:text-vermillon pr-1;
+
+        > svg {
+          @apply h-3 w-3;
+        }
+      }
+
+    } 
+  }
+}
+
+.ProductList {
+  @apply top-full bg-white rounded-md overflow-scroll w-full absolute z-30;
+  max-height: 200px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+
+  &__Item {
+    @apply px-8 py-4 cursor-pointer hover:bg-gray-200 flex flex-col;
+
+    &__Ref {
+      @apply text-gray-400 text-sm;
+    }
+  }
+
+  &__NoResults {
+    @apply px-8 py-4 text-center;
+  }
+}
+
+.emphasize {
+  @apply font-bold text-vermillon;
+}

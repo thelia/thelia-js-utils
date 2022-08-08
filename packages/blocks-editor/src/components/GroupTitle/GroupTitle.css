@@ -1,0 +1,5 @@
+.GroupTitle {
+  &__Wrapper {
+    @apply w-full md:w-1/2;
+  }
+}

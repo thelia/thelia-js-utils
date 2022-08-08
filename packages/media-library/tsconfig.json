@@ -1,5 +1,5 @@
 {
-"extends": "@thelia/tsconfig/react-library.json",
-"include": ["."],
-"exclude": ["dist", "build", "node_modules"]
+  "extends": "@thelia/tsconfig/react-library.json",
+  "include": [".", "./custom.d.ts"],
+  "exclude": ["dist", "build", "node_modules"]
 }
