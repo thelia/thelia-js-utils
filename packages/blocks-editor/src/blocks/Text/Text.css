@@ -1,0 +1,3 @@
+.BlockText__Editor {
+  @apply flex flex-col-reverse bg-white relative border border-mediumGrey rounded p-2;
+}

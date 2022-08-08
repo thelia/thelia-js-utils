@@ -1,0 +1,9 @@
+.BlockTooltip {
+  &__Title {
+    @apply font-semibold;
+  }
+
+  &__Description {
+    @apply mt-2 text-sm;
+  } 
+}

@@ -1,0 +1,21 @@
+{
+  "pipeline": {
+    "build": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build"]
+    },
+    "build:css": {
+      "outputs": ["dist/index.css"]
+    },
+    "dev": {
+      "cache": false,
+      "dependsOn": ["^build:css"]
+    },
+    "clean": {
+      "cache": false
+    },
+    "test": {
+      "cache": false
+    }
+  }
+}

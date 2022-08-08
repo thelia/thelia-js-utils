@@ -1,0 +1,52 @@
+.AddBlocks {
+  @apply flex flex-col items-center justify-center p-4 border border-dotted rounded-md border-greyDark;
+
+  &__Icon {
+    @apply p-2 rounded-full bg-pearlLight;
+  }
+
+  &__Info {
+    @apply text-center my-3;
+  }
+
+  &__Button {
+    @apply px-2 text-xs font-semibold tracking-wider uppercase border-2 rounded-md w-max border-vermillon text-vermillon hover:bg-vermillon hover:text-white py-1;
+  }
+
+  &__Modal {
+    @apply flex flex-col p-4;
+
+    &__Close {
+      @apply self-end;
+
+      &__Icon {
+        @apply text-xl text-darkCharbon hover:text-vermillon;
+      } 
+    }
+
+    &__Content {
+      @apply lg:px-12 lg:pb-12;
+    }
+
+    &__Title {
+      @apply text-mediumCharbon mt-3 mb-6 font-extrabold text-center md:text-left md:text-xl;
+    }
+
+    &__BlocksList {
+      @apply flex flex-wrap justify-center lg:justify-start gap-4;
+
+      &__Wrapper {
+        @apply flex flex-wrap;
+      }
+    }
+
+    &__LayoutBlocksList {
+      @apply flex w-full flex-wrap gap-2;
+    }
+
+    &__Add {
+      @apply flex flex-col items-center justify-center w-24 h-24 gap-2 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon text-sm md:h-28 md:w-28;
+    }
+  }
+
+}

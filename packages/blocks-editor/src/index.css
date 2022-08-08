@@ -1,0 +1,136 @@
+@import "../assets/css/DragAndDrop.css";
+@import "../assets/css/BlocksEditor.css";
+@import "../assets/css/BlocksList.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+i.fa-info-circle {
+  @apply cursor-help mb-1;
+}
+
+i.fa-check {
+  @apply text-greenDark;
+}
+
+button:disabled {
+  @apply cursor-not-allowed;
+}
+
+input[type="checkbox"] {
+  @apply rounded;
+
+  &:checked {
+    @apply text-mediumCharbon;
+  }
+
+  &:focus {
+    @apply outline-none ring-transparent;
+  }
+}
+
+label {
+  @apply tracking-wider mb-1 uppercase text-lightCharbon text-xs select-none;
+}
+
+input::placeholder, textarea::placeholder {
+  @apply text-mediumGrey;  
+}
+
+.emphasize {
+  @apply font-bold text-vermillon;
+}
+
+.Loader {
+  @apply block text-2xl text-vermillon text-center;
+}
+
+.Modal-TheliaBlocks {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  overflow: hidden;
+  width: 60%;
+  max-height: 80%;
+  height: max-content;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.Modal-htmlWarning {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: max-content;
+  width: 25%;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.Modal-InsertLink {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 60%;
+  height: max-content;
+  max-height: 80%;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+}
+
+@media screen and (max-width: 1500px) {
+  .Modal-htmlWarning {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .Modal-htmlWarning {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .Modal-htmlWarning {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .Modal-TheliaBlocks {
+    width: 90%;
+    overflow: scroll;
+  }
+
+  .Modal-htmlWarning {
+    width: 60%;
+    overflow: scroll;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .Modal-htmlWarning {
+    width: 80%;
+    overflow: scroll;
+  }
+}

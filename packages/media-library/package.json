@@ -1,0 +1,35 @@
+{
+  "name": "@thelia/media-library",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "module": "./src/index.tsx",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "license": "MIT",
+  "files": [
+    "dist/**",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "tsup --format esm,iife --minify",
+    "dev": "tsup-node --watch --format esm,iife",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "tsup": "^5.10.1",
+    "typescript": "^4.5.3"
+  },
+  "dependencies": {
+    "react": "*",
+    "@thelia/blocks-editor": "*",
+    "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "@thelia/blocks-editor": "*",
+    "lodash": "^4.17.21"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
