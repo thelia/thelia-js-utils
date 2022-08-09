@@ -11,8 +11,8 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup --format esm,iife --minify",
-    "dev": "tsup-node --watch --format esm,iife",
+    "build": "tsup --format esm,iife --minify --dts",
+    "dev": "tsup-node --watch --format esm,iife --dts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
