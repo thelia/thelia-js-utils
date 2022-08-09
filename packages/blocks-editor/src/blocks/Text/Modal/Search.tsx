@@ -120,6 +120,7 @@ const Search = forwardRef(
                   `[${searchIn}_link id=${content.id} title="${content.i18n.title}"]`
                 );
                 setIsModalOpen(false);
+                ref.current.blur();
               }}
             />
           </Suspense>

@@ -132,6 +132,7 @@ export function useCreateOrUpdateGroup() {
       const data: BlockGroupPatch = {
         blockGroup: {
           ...groupOmitItemBlockGroups,
+          visible: true,
           jsonContent: JSON.stringify(blocks),
         },
 
