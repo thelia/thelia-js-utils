@@ -5,6 +5,6 @@ export const getContentUrl = (type: string, id: number): string => {
     category: `/admin/categories/update?category_id=${id}`,
     product: `/admin/products/update?product_id=${id}`,
   };
-
+  
   return typeUrl[type] ?? null;
 };
