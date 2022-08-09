@@ -18,7 +18,6 @@ import { BlocksGroupContext } from "../providers/BlockGroupContext";
 import { LocaleContext } from "../providers/LocaleContext";
 import toast from "react-hot-toast";
 import { useIntl } from "react-intl";
-import { BlockContext } from "../providers/BlockContext";
 import { useBlocksContext } from "../hooks/useBlockContext";
 
 const instance = axios.create();
@@ -130,9 +129,10 @@ export function useCreateOrUpdateGroup() {
     }) => {
       const { itemBlockGroups = {}, ...groupOmitItemBlockGroups } = group;
 
-      let data: BlockGroupPatch = {
+      const data: BlockGroupPatch = {
         blockGroup: {
           ...groupOmitItemBlockGroups,
+          visible: true,
           jsonContent: JSON.stringify(blocks),
         },
 

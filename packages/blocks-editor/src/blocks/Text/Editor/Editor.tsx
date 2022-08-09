@@ -35,12 +35,10 @@ const Editor = forwardRef(
       value,
       setValue,
       setIsModalOpen,
-      onBlur,
     }: {
       value: string;
       setValue: Function;
       setIsModalOpen: Function;
-      onBlur: () => void;
     },
     ref: any
   ) => {
@@ -63,7 +61,6 @@ const Editor = forwardRef(
           value={value}
           placeholder={intl.formatMessage({ id: "BlockText__TEXT_PLACEHOLDER" })}
           onChange={(value) => setValue(value)}
-          onBlur={onBlur}
         />
       </>
     );

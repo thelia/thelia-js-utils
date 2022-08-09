@@ -57,7 +57,7 @@ const SearchModal = forwardRef(
               ref={ref}
             />
           ) : (
-            <div className="flex flex-col gap-4 overflow-scroll md:flex-row">
+            <div className="flex flex-col gap-4 overflow-auto md:flex-row">
               <button
                 className="flex flex-col items-center justify-center w-full gap-4 p-12 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon md:w-1/4"
                 onClick={() => {

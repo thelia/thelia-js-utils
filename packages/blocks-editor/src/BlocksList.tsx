@@ -5,6 +5,7 @@ import BlocksTable from "./components/BlocksTable";
 import { IntlProvider, useIntl } from "react-intl";
 import { messages, locale } from "./utils/intl";
 import ReactModal from "react-modal";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const BlocksListHeader = () => {
   const intl = useIntl();
@@ -59,7 +60,9 @@ const BlocksList = ({ apiUrl, containerId }: { apiUrl: string; containerId: stri
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>
       <BlocksProvider api={apiUrl}>
-        <BlocksListContent />
+        <ErrorBoundary>
+          <BlocksListContent />
+        </ErrorBoundary>
       </BlocksProvider>
     </IntlProvider>
   );

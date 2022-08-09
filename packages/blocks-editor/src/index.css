@@ -119,18 +119,18 @@ input::placeholder, textarea::placeholder {
 @media screen and (max-width: 768px) {
   .Modal-TheliaBlocks {
     width: 90%;
-    overflow: scroll;
+    overflow: auto;
   }
 
   .Modal-htmlWarning {
     width: 60%;
-    overflow: scroll;
+    overflow: auto;
   }
 }
 
 @media screen and (max-width: 640px) {
   .Modal-htmlWarning {
     width: 80%;
-    overflow: scroll;
+    overflow: auto;
   }
 }
