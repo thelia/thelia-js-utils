@@ -130,8 +130,7 @@ const BlocksTableRow = ({ group }: { group: GroupTypeResponse }) => {
 
                 copied.error
                   ? toast.error(intl.formatMessage({ id: "COPY_ERROR" }))
-                  : copied.value &&
-                    toast.success(
+                  : toast.success(
                       `${shortcode} ${intl.formatMessage({ id: "COPY_SUCCESS" })}`
                     );
               }}
@@ -186,7 +185,7 @@ const BlocksTable = () => {
       </thead>
       <tbody>
         {groups.map((group: GroupTypeResponse) => (
-          <BlocksTableRow group={group} />
+          <BlocksTableRow group={group} key={group.id} />
         ))}
       </tbody>
     </table>

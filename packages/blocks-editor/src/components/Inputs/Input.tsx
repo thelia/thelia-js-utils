@@ -29,7 +29,8 @@ const Input = forwardRef(
     {
       value,
       onChange,
-      className,
+      className = "",
+      emphasize,
       placeholder,
       icon,
       iconAlignment = "left",
@@ -43,8 +44,8 @@ const Input = forwardRef(
     }: {
       value: string;
       onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-      onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
       className?: string;
+      emphasize?: boolean;
       placeholder?: string;
       icon?: ReactNode;
       iconAlignment?: "left" | "right";
@@ -66,7 +67,7 @@ const Input = forwardRef(
             value={value}
             id={id}
             onChange={onChange}
-            className={`Input__Text ${
+            className={`Input__Text ${emphasize ? "Input__Text--emphasize" : ""} ${
               iconAlignment === "left" && icon
                 ? "Input__Text--withIcon"
                 : icon && isValid

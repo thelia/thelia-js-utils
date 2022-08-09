@@ -101,10 +101,11 @@ const Product = ({
 };
 
 const ProductsList = ({
+  currentProductList,
   type,
   value,
   onUpdate,
-}: { onUpdate: Function } & SearchProps) => {
+}: { currentProductList: string[]; onUpdate: Function } & SearchProps) => {
   const { data: products } = useProductsBy({ type, value });
   const intl = useIntl();
 
@@ -113,7 +114,7 @@ const ProductsList = ({
       {products?.length > 0 ? (
         <>
           {products
-            ?.filter((product: any) => !products.includes(product.id))
+            ?.filter((product: any) => !currentProductList.includes(product.id))
             .map((product: any) => (
               <li
                 key={product.id}
@@ -151,10 +152,10 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
   const [query, setQuery] = useState<string>("");
   const intl = useIntl();
 
-  useEffect(
-    () => (query.startsWith("#") ? setSearchByRef(true) : setSearchByRef(false)),
-    [query]
-  );
+  useEffect(() => {
+    query.startsWith("#") ? setSearchByRef(true) : setSearchByRef(false);
+  }, [query]);
+
   const type = searchByRef ? "reference" : "title";
   const value = searchByRef ? query.substring(1) : query;
 
@@ -191,8 +192,8 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
             placeholder={intl.formatMessage({ id: "SEARCH_BY" })}
             id="BlockProduct-field-product"
             type="text"
-            className={searchByRef ? "text-vermillon" : ""}
-            icon={<i className="fa fa-search text-vermillon"></i>}
+            emphasize={searchByRef}
+            icon={<i className="fa fa-search emphasize"></i>}
             iconAlignment="right"
             label={intl.formatMessage({ id: "SEARCH" })}
           />
@@ -204,6 +205,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
             }
           >
             <ProductsList
+              currentProductList={data.productList}
               searchIn="product"
               type={type}
               value={value}

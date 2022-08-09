@@ -26,14 +26,17 @@
     
     .Product {
       &__Image {
-        @apply h-full hidden sm:block;
+        @apply h-full hidden sm:block object-contain;
+        width: 70px;
       }
 
       &__Infos {
-        @apply flex flex-col md:flex-row md:w-1/5 md:justify-between md:gap-4;
+        @apply flex flex-col md:flex-row md:justify-between md:gap-4;
 
         &__Title {
-          @apply font-semibold text-left;
+          @apply font-semibold text-left flex items-center text-ellipsis overflow-hidden;
+          width: 90px;
+          max-width: 90px;
         }
 
         &__Ref {
@@ -46,7 +49,7 @@
       }
 
       &__Link {
-        @apply hidden font-semibold tracking-wider border-2 border-vermillon text-vermillon hover:bg-vermillon hover:text-white px-2 md:px-4 md:py-1 rounded-md text-center lg:flex items-center;
+        @apply hidden font-semibold tracking-wider border-2 border-vermillon text-vermillon hover:bg-vermillon hover:text-white px-2 md:px-4 md:py-1 rounded-md text-center xl:flex items-center;
         
         &__Icon {
           @apply hidden md:block;
@@ -85,8 +88,4 @@
   &__NoResults {
     @apply px-8 py-4 text-center;
   }
-}
-
-.emphasize {
-  @apply font-bold text-vermillon;
 }

@@ -1,4 +1,4 @@
-import { IBlock, Plugin } from "../../types/types";
+import { Plugin } from "../../types/types";
 
 import BlockTooltip from "../BlockTooltip";
 import { ReactComponent as DragIcon } from "../../../assets/svg/drag.svg";
@@ -10,7 +10,7 @@ import partition from "lodash/partition";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
 import useWindowSize from "../../hooks/useWindowSize";
-import { CSSProperties, ReactNode, useState } from "react";
+import { CSSProperties, Fragment, ReactNode, useState } from "react";
 import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
 
 import "./AddBlocks.css";
@@ -96,7 +96,7 @@ const ModalContent = ({
   excludeLayout,
   setIsOpen,
 }: {
-  excludeLayout?: IBlock["layout"][];
+  excludeLayout?: boolean;
   setIsOpen: Function;
 }) => {
   const [subModalOpen, setSubModalOpen] = useState(false);
@@ -107,7 +107,7 @@ const ModalContent = ({
   let availablePLugins = plugins;
 
   if (excludeLayout) {
-    availablePLugins = plugins.filter((plugin) => !excludeLayout.includes(plugin.layout));
+    availablePLugins = plugins.filter((plugin) => !plugin["layout"]);
   }
 
   const [commonBlocks, layoutPlugins] = partition(availablePLugins, (i) => !i.layout);
@@ -126,38 +126,38 @@ const ModalContent = ({
         ([layoutType, layoutPluginsByType], index) => {
           const LayoutIcon = layoutPluginsByType[index].icon;
 
-          return (
-            <>
-              {layoutPluginsByType.length === 1 ? (
-                <AddButton plugin={layoutPluginsByType[index]} setIsOpen={setIsOpen} />
-              ) : (
-                <>
-                  <button
-                    onClick={() => setSubModalOpen(true)}
-                    className="AddBlocks__Modal__Add"
-                  >
-                    <LayoutIcon />
-                    {layoutType}
-                  </button>
-                  <AddBlockModal
-                    title={intl.formatMessage({ id: "AddBlocks__COLUMNS_NUMBER" })}
-                    isOpen={subModalOpen}
-                    setIsOpen={setSubModalOpen}
-                  >
-                    <ol className="AddBlocks__Modal__LayoutBlocksList">
-                      {layoutPluginsByType.map((plugin, index) => (
-                        <AddButton
-                          style={{ flex: width > 768 ? "0 0 32%" : "0 0 100%" }}
-                          key={index}
-                          plugin={plugin}
-                          setIsOpen={setIsOpen}
-                        />
-                      ))}
-                    </ol>
-                  </AddBlockModal>
-                </>
-              )}
-            </>
+          return layoutPluginsByType.length === 1 ? (
+            <AddButton
+              key={index}
+              plugin={layoutPluginsByType[index]}
+              setIsOpen={setIsOpen}
+            />
+          ) : (
+            <Fragment key={index}>
+              <button
+                onClick={() => setSubModalOpen(true)}
+                className="AddBlocks__Modal__Add"
+              >
+                <LayoutIcon />
+                {layoutType}
+              </button>
+              <AddBlockModal
+                title={intl.formatMessage({ id: "AddBlocks__COLUMNS_NUMBER" })}
+                isOpen={subModalOpen}
+                setIsOpen={setSubModalOpen}
+              >
+                <ol className="AddBlocks__Modal__LayoutBlocksList">
+                  {layoutPluginsByType.map((plugin, index) => (
+                    <AddButton
+                      style={{ flex: width > 768 ? "0 0 32%" : "0 0 100%" }}
+                      key={index}
+                      plugin={plugin}
+                      setIsOpen={setIsOpen}
+                    />
+                  ))}
+                </ol>
+              </AddBlockModal>
+            </Fragment>
           );
         }
       )}
@@ -165,7 +165,7 @@ const ModalContent = ({
   );
 };
 
-const AddBlocks = ({ excludeLayout }: { excludeLayout?: IBlock["layout"][] }) => {
+const AddBlocks = ({ excludeLayout }: { excludeLayout?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const intl = useIntl();

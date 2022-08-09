@@ -2,17 +2,17 @@ import produce from "immer";
 import AddBlocks from "../../components/AddBlocks";
 import Block from "../../components/Block";
 import useDragAndDrop from "../../hooks/useDragAndDrop";
+import LayoutHeader from "../../components/LayoutHeader";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { BlockContextProvider } from "../../providers/BlockContext";
 import { BlockModuleComponentProps, IBlock } from "../../types/types";
-import LayoutHeader from "../../components/LayoutHeader";
 import { ReactComponent as Icon } from "./assets/accordion.svg";
 import { useEffect, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
-
-import "./Accordion.css";
 import { useIntl } from "react-intl";
 import { Input } from "../../components/Inputs";
+
+import "./Accordion.css";
 
 type AccordionContentData = IBlock[];
 
@@ -92,7 +92,7 @@ const AccordionContentComponent = ({
               }}
             />
 
-            <AddBlocks excludeLayout={["Column", "Accordion"]} />
+            <AddBlocks excludeLayout />
           </div>
         </BlockContextProvider>
       </div>
