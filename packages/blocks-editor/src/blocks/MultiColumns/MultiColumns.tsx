@@ -120,7 +120,7 @@ const ColumnComponent = ({
               }}
             />
 
-            <AddBlocks excludeLayout={["Column", "Accordion"]} />
+            <AddBlocks excludeLayout />
           </>
         </BlockContextProvider>
       </div>

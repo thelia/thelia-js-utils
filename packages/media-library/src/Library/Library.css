@@ -78,6 +78,7 @@
 
 .Library__Image img {
   border-radius: 4px;
+  object-fit: contain;
 }
 
 .Library__Image__Title {

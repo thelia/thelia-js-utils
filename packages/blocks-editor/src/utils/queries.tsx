@@ -82,6 +82,7 @@ export function useGroup(id?: number) {
         params: {
           id: groupId,
           locale: currentLocale,
+          disable_shortcode: 1,
         },
       });
 

@@ -67,7 +67,6 @@ const Search = forwardRef(
   ) => {
     const [searchByRef, setSearchByRef] = useState<boolean>(false);
     const [query, setQuery] = useState<string>("");
-    const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
 
     const intl = useIntl();
 
@@ -94,10 +93,10 @@ const Search = forwardRef(
         <div className="Search__Content__Search">
           <Input
             onChange={(e) => setQuery(e.target.value)}
-            onBlur={() => setShowSuggestions(false)}
             value={query}
             placeholder={intl.formatMessage({ id: "SEARCH_BY" })}
             id="Search-field"
+            emphasize={searchByRef}
             type="text"
             icon={<i className="fa fa-search text-vermillon"></i>}
             iconAlignment="right"
@@ -111,20 +110,18 @@ const Search = forwardRef(
               </div>
             }
           >
-            {showSuggestions && (
-              <SearchResults
-                searchIn={searchIn}
-                type={type}
-                value={value}
-                onUpdate={(content: any) => {
-                  ref.current.editor.insertText(
-                    cursorIndex,
-                    `[${searchIn}_link id=${content.id} title="${content.i18n.title}"]`
-                  );
-                  setIsModalOpen(false);
-                }}
-              />
-            )}
+            <SearchResults
+              searchIn={searchIn}
+              type={type}
+              value={value}
+              onUpdate={(content: any) => {
+                ref.current.editor.insertText(
+                  cursorIndex,
+                  `[${searchIn}_link id=${content.id} title="${content.i18n.title}"]`
+                );
+                setIsModalOpen(false);
+              }}
+            />
           </Suspense>
         </div>
       </div>

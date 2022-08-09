@@ -359,7 +359,7 @@ const LibraryContent = ({
   );
 };
 
-export function Library({
+export default function Library({
   isOpen,
   setIsOpen,
   limit = 20,
@@ -377,6 +377,7 @@ export function Library({
       isOpen={isOpen}
       onRequestClose={() => setIsOpen(false)}
       className="Modal-Library"
+      ariaHideApp={false}
       overlayClassName="Overlay"
     >
       <div className="Modal__Wrapper">
@@ -405,16 +406,4 @@ export function Library({
       </div>
     </ReactModal>
   );
-}
-
-export default function (props: any) {
-  const ref = useRef(null);
-
-  useLayoutEffect(() => {
-    if (ref.current) {
-      ReactModal.setAppElement(ref.current);
-    }
-  }, [ref]);
-
-  return <div ref={ref}>{ref.current ? <Library {...props} /> : null}</div>;
 }

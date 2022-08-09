@@ -53,7 +53,7 @@
 
     &__Locales {
       &__Wrapper {
-        @apply flex items-center overflow-scroll;
+        @apply flex items-center overflow-auto;
         gap: 10px;
 
         span.Locale {
