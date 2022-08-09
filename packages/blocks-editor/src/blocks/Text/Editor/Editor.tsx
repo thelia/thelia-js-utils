@@ -52,11 +52,7 @@ const Editor = forwardRef(
       <>
         <EditorToolbar setIsModalOpen={setIsModalOpen} toolbarId={toolbarId} />
         <ReactQuill
-          modules={{
-            toolbar: {
-              container: `#${toolbarId}`,
-            },
-          }}
+          modules={{ toolbar: { container: `#${toolbarId}` } }}
           ref={ref}
           value={value}
           placeholder={intl.formatMessage({ id: "BlockText__TEXT_PLACEHOLDER" })}

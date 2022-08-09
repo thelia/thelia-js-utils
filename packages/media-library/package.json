@@ -22,11 +22,13 @@
   "dependencies": {
     "react": "*",
     "@thelia/blocks-editor": "*",
+    "@thelia/fetcher": "*",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "react": "^17.0.2",
     "@thelia/blocks-editor": "*",
+    "@thelia/fetcher": "*",
     "lodash": "^4.17.21"
   },
   "publishConfig": {
