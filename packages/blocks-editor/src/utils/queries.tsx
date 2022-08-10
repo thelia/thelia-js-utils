@@ -5,45 +5,15 @@ import {
   IBlock,
   itemBlockGroupsType,
 } from "../types/types";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "react-query";
+import { QueryClientProvider, useMutation, useQuery, useQueryClient } from "react-query";
 import { ReactNode, useContext, useEffect, useState } from "react";
-import axios, { AxiosRequestConfig } from "axios";
 import { BlocksGroupContext } from "../providers/BlockGroupContext";
 import { LocaleContext } from "../providers/LocaleContext";
 import toast from "react-hot-toast";
 import { useIntl } from "react-intl";
 import { useBlocksContext } from "../hooks/useBlockContext";
 
-const instance = axios.create();
-
-export async function fetcher<T>(url: string, config: AxiosRequestConfig = {}) {
-  try {
-    const response = await instance({
-      url,
-      withCredentials: true,
-      ...config,
-    });
-    return response.data;
-  } catch (error: any) {
-    throw Error(error);
-  }
-}
-
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      suspense: true,
-      refetchOnWindowFocus: false,
-      cacheTime: Infinity,
-    },
-  },
-});
+import { fetcher, instance, queryClient } from "@thelia/fetcher";
 
 export function BlocksProvider({ children, api }: { children: ReactNode; api: string }) {
   const [initialized, setInitialized] = useState<boolean>(false);

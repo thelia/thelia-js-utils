@@ -1,13 +1,17 @@
-import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
+import {
+  BlockModuleComponentProps,
+  BlockPluginDefinition,
+  IBlock,
+} from "../../types/types";
 import { SearchProps, useProductsBy } from "../../utils/queries";
 import { Suspense, useEffect, useState } from "react";
 import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
 import { ReactComponent as Icon } from "./assets/product.svg";
 import { Input } from "../../components/Inputs";
 import { reorder } from "../../utils/array";
+import { useIntl } from "react-intl";
 
 import "./Product.css";
-import { useIntl } from "react-intl";
 
 export type BlockProductData = {
   productList: string[];
@@ -21,9 +25,9 @@ const Product = ({
   data,
   onUpdate,
 }: {
-  productId: any;
+  productId: string;
   productIndex: number;
-  data: any;
+  data: BlockProductData;
   onUpdate: Function;
 }) => {
   const { data: product } = useProductsBy({ type: "ids", value: productId });
@@ -90,7 +94,7 @@ const Product = ({
         onClick={() =>
           onUpdate({
             ...data,
-            productList: data.productList.filter((id: any) => id != product?.[0]?.id),
+            productList: data.productList.filter((id: string) => id != product?.[0]?.id),
           })
         }
       >
@@ -161,7 +165,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
 
   return (
     <div className="BlockProduct">
-      {data.productList.map((productId: any, index) => {
+      {data.productList.map((productId: string, index) => {
         return (
           <Suspense
             key={index}

@@ -16,6 +16,7 @@
     "@lexical/react": "^0.2.3",
     "@react-hookz/web": "^14.2.2",
     "@thelia/blocks-editor": "*",
+    "@thelia/fetcher": "*",
     "@tippyjs/react": "^4.2.6",
     "ace-builds": "^1.7.1",
     "axios": "^0.25",

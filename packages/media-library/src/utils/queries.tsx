@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import { ImageTag, LibraryImage } from "../types/types";
-import { fetcher } from "@thelia/blocks-editor";
+import { fetcher } from "@thelia/fetcher";
 
 export function useLibraryImage(options: {
   id?: number | null;
