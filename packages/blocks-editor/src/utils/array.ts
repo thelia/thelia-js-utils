@@ -1,7 +1,5 @@
-import { IBlock } from "../types/types";
-
 export const reorder = (
-  list: IBlock[],
+  list: any[],
   startIndex: number,
   endIndex: number
 ) => {

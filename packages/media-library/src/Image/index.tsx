@@ -1,8 +1,4 @@
-import {
-  BlockModuleComponentProps,
-  BlockPluginDefinition,
-  queryClient,
-} from "@thelia/blocks-editor";
+import { BlockModuleComponentProps, BlockPluginDefinition } from "@thelia/blocks-editor";
 import { useEffect, useState } from "react";
 import { IntlProvider, useIntl } from "react-intl";
 import { ReactComponent as Icon } from "./assets/image.svg";
@@ -15,6 +11,7 @@ import { LibraryImage } from "../types/types";
 import { QueryClientProvider } from "react-query";
 import { useCreateImage } from "../utils/queries";
 import { Toaster, toast } from "react-hot-toast";
+import { queryClient } from "@thelia/fetcher";
 
 import "./Image.css";
 
