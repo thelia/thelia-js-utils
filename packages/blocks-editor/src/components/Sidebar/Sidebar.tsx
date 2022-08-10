@@ -39,14 +39,21 @@ const AddButton = ({
         className={`Sidebar__Add ${
           isSidebarOpen && plugin?.customIcon ? "Sidebar__Add--withCustomIcon" : ""
         } ${isSidebarOpen ? "Sidebar__Add--expanded" : "Sidebar__Add--collapsed"}`}
-        onClick={() =>
+        onClick={() => {
           addBlock({
             id: nanoid(),
             data: plugin.initialData,
             parent: null,
             type: { id: plugin.type.id },
-          })
-        }
+          });
+
+          setTimeout(() => {
+            window.scrollTo({
+              top: document.body.scrollHeight,
+              behavior: "smooth",
+            });
+          }, 250);
+        }}
         key={plugin.id}
       >
         {isSidebarOpen && plugin?.customIcon ? (
@@ -105,18 +112,18 @@ const Sidebar = () => {
 
       <div className="Sidebar__Content__Wrapper">
         {isDisplayingSubMenu && (
-          <button
-            className="Sidebar__Back"
-            onClick={() => {
-              setPluginList(commonBlocks);
-              setIsDisplayingSubMenu(false);
-            }}
-          >
-            <i className="fa fa-chevron-left"></i>
-            <span className="Sidebar__Back__Label">
+          <div className="Sidebar__Back__Wrapper">
+            <button
+              className="Sidebar__Back"
+              onClick={() => {
+                setPluginList(commonBlocks);
+                setIsDisplayingSubMenu(false);
+              }}
+            >
               {intl.formatMessage({ id: "BACK" })}
-            </span>
-          </button>
+            </button>
+            <i className="fa fa-chevron-left"></i>
+          </div>
         )}
 
         <ol className="Sidebar__Content">

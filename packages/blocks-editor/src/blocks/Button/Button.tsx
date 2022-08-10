@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { Input } from "../../components/Inputs";
 import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/button.svg";
+import { ReactComponent as LinkIcon } from "../../../assets/svg/link.svg";
 
 import "./Button.css";
 
@@ -67,7 +68,7 @@ const BlockButtonComponent = ({
         id="BlockButton-field-url"
         placeholder={intl.formatMessage({ id: "BlockButton__URL_PLACEHOLDER" })}
         value={url}
-        icon={<i className="fa fa-link text-darkCharbon"></i>}
+        icon={<LinkIcon />}
         iconAlignment="left"
         onChange={onChangeUrl}
         onBlur={onBlurUrl}

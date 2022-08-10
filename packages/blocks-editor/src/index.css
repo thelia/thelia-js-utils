@@ -30,6 +30,11 @@ input[type="checkbox"] {
   }
 }
 
+/* Override for Chrome only, this is the default behavior for Firefox and Safari */ 
+input[type="number"]::-webkit-inner-spin-button {
+  opacity: 1
+}
+
 label {
   @apply tracking-wider mb-1 uppercase text-lightCharbon text-xs select-none;
 }

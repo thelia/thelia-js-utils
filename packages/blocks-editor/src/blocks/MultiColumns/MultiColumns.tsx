@@ -120,7 +120,7 @@ const ColumnComponent = ({
               }}
             />
 
-            <AddBlocks excludeLayout />
+            <AddBlocks excludeLayout inLayout />
           </>
         </BlockContextProvider>
       </div>

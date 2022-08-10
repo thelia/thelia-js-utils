@@ -48,12 +48,23 @@
     }
   }
 
-  &__Back {
-    @apply bg-pearlMedium hover:bg-pearlLight text-mediumCharbon text-sm p-2 px-3 rounded-md mb-2 flex gap-3 w-full items-center;
+  &__Back__Wrapper {
+    @apply flex items-center gap-1 text-greyDark text-sm mb-2;
 
-    &__Label {
-      @apply font-bold;
+    i:last-child {
+      order: -1;
+    }
+
+    button {
+      @apply underline;
+    }
+
+    button:hover {
+      @apply text-vermillon;
+      
+      + i {
+        @apply text-vermillon
+      }
     }
   } 
-  
 }

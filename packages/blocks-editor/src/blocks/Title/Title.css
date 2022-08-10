@@ -1,3 +1,11 @@
 .BlockTitle {
-  @apply md:w-1/2 flex flex-col gap-4;
+  @apply flex md:items-end flex-col md:flex-row gap-4;
+
+  >:first-child {
+    @apply w-5/12;
+  }
+
+  >:nth-child(2) {
+    @apply w-7/12;
+  }
 }

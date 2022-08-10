@@ -11,7 +11,7 @@ import { useIntl } from "react-intl";
 const SearchModal = forwardRef(
   ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Function }, ref: any) => {
     const [isSearching, setIsSearching] = useState(false);
-    const [searchIn, setSearchIn] = useState<SearchProps["searchIn"]>("product");
+    const [mode, setMode] = useState<SearchProps["searchIn"] | "link">("product");
     const intl = useIntl();
 
     return (
@@ -27,13 +27,12 @@ const SearchModal = forwardRef(
         <div className="flex flex-col px-4 pt-2 pb-4">
           <div className="flex mb-8">
             {isSearching ? (
-              <button
-                className="flex items-center gap-2 px-2 py-1 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon"
-                onClick={() => setIsSearching(false)}
-              >
+              <div className="Search__Back__Wrapper">
+                <button className="Search__Back" onClick={() => setIsSearching(false)}>
+                  {intl.formatMessage({ id: "BACK" })}
+                </button>
                 <i className="fa fa-chevron-left"></i>
-                <span className="font-bold">{intl.formatMessage({ id: "BACK" })}</span>
-              </button>
+              </div>
             ) : (
               <div className="text-2xl font-bold">
                 {intl.formatMessage({ id: "INSERT_LINK" })}
@@ -47,8 +46,9 @@ const SearchModal = forwardRef(
 
           {isSearching ? (
             <Search
-              searchIn={searchIn}
+              mode={mode}
               setIsModalOpen={setIsOpen}
+              setIsSearching={setIsSearching}
               cursorIndex={
                 ref?.current?.editor?.getText()?.index ||
                 ref?.current?.editor?.getLength() - 1 ||
@@ -62,7 +62,17 @@ const SearchModal = forwardRef(
                 className="flex flex-col items-center justify-center w-full gap-4 p-12 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon md:w-1/4"
                 onClick={() => {
                   setIsSearching(true);
-                  setSearchIn("product");
+                  setMode("link");
+                }}
+              >
+                <i className="text-2xl fas fa-link"></i>
+                <span className="text-center">{intl.formatMessage({ id: "LINK" })}</span>
+              </button>
+              <button
+                className="flex flex-col items-center justify-center w-full gap-4 p-12 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon md:w-1/4"
+                onClick={() => {
+                  setIsSearching(true);
+                  setMode("product");
                 }}
               >
                 <i className="text-2xl fas fa-box"></i>
@@ -74,7 +84,7 @@ const SearchModal = forwardRef(
                 className="flex flex-col items-center justify-center w-full gap-4 p-12 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon md:w-1/4"
                 onClick={() => {
                   setIsSearching(true);
-                  setSearchIn("folder");
+                  setMode("folder");
                 }}
               >
                 <i className="text-2xl fas fa-folder-open"></i>
@@ -86,7 +96,7 @@ const SearchModal = forwardRef(
                 className="flex flex-col items-center justify-center w-full gap-4 p-12 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon md:w-1/4"
                 onClick={() => {
                   setIsSearching(true);
-                  setSearchIn("category");
+                  setMode("category");
                 }}
               >
                 <i className="text-2xl fas fa-book"></i>
@@ -98,7 +108,7 @@ const SearchModal = forwardRef(
                 className="flex flex-col items-center justify-center w-full gap-4 p-12 rounded-md bg-pearlMedium hover:bg-pearlLight text-mediumCharbon md:w-1/4"
                 onClick={() => {
                   setIsSearching(true);
-                  setSearchIn("content");
+                  setMode("content");
                 }}
               >
                 <i className="text-2xl fas fa-file-alt"></i>

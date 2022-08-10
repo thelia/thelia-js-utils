@@ -14,6 +14,8 @@ import { Suspense, useLayoutEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
 
 import "./Library.css";
+import Input from "../Input";
+import ErrorBoundary from "../ErrorBoundary";
 
 const TagsList = ({
   currentTags,
@@ -299,20 +301,17 @@ const LibraryContent = ({
   return (
     <div className="Library">
       <div className="Library__Filters">
-        <div>
-          <label htmlFor="library-search">
-            {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_SEARCH" })}
-          </label>
-          <input
-            className="Input__Text"
-            placeholder={intl.formatMessage({ id: "SEARCH_BY" })}
-            type="text"
-            name="library-search"
-            id="library-search"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
+        <Input
+          placeholder={intl.formatMessage({ id: "SEARCH_BY" })}
+          type="text"
+          name="library-search"
+          id="library-search"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          label={intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_SEARCH" })}
+          icon={<i className="fa fa-search emphasize"></i>}
+          iconAlignment="right"
+        />
 
         <TagFilter images={images} setTagId={setTagId} />
       </div>
@@ -400,7 +399,9 @@ export default function Library({
               </div>
             }
           >
-            <LibraryContent onSelect={onSelect} limit={limit} />
+            <ErrorBoundary>
+              <LibraryContent onSelect={onSelect} limit={limit} />
+            </ErrorBoundary>
           </Suspense>
         </div>
       </div>

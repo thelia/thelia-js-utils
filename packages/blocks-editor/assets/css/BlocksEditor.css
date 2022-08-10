@@ -16,7 +16,11 @@
   }
 
   &__AddBlocksWrapper {
-    @apply p-4 sm:p-8 md:px-32 lg:px-24 xl:px-44 2xl:px-72;
+    @apply p-4 sm:p-8 md:px-32 lg:px-24 xl:px-44;
+
+    @screen 2xl {
+      padding: 279px 0;
+    }
   }
 
   &__Header {
@@ -27,19 +31,13 @@
     }
 
     &__Inputs__Wrapper {
-      @apply flex gap-4 flex-col;
-    }
-
-    &__GroupTitle__Wrapper {
-      @apply flex flex-col items-end md:flex-row gap-6;
-
-      &--isLinked {
-        @apply gap-4;
-      }
+      @apply flex items-end gap-4;
     }
 
     &__Unlink__Button {
-      @apply h-10 p-3 text-white rounded-md bg-vermillon hover:bg-lightVermillon;
+      @apply h-8 px-2 flex items-center gap-2 text-sm font-semibold tracking-wider text-white uppercase rounded-md bg-vermillon enabled:hover:bg-lightVermillon md:py-1 disabled:text-white disabled:bg-mediumGrey absolute;
+      bottom: 4px;
+      right: 4px;
 
       > i {
         @apply block;
