@@ -44,7 +44,6 @@ const AddButton = ({
             id: nanoid(),
             data: plugin.initialData,
             parent: null,
-            layout: plugin.layout,
             title: plugin.title,
             type: { id: plugin.type.id },
           });
