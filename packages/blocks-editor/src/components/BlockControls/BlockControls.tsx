@@ -21,7 +21,7 @@ const BlockControls = ({
   const { width } = useWindowSize();
 
   return (
-    <div className="BlockControls">
+    <div className={`${inLayout ? "NestedBlockControls" : "BlockControls"}`}>
       {DndDragHandle && (
         <div
           className={`${

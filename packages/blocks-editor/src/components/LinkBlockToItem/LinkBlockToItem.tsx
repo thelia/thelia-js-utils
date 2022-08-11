@@ -1,12 +1,13 @@
-import { BlocksProvider, useGroups, useLinkContentToGroup } from "../../utils/queries";
-import { ChangeEvent, Suspense, useRef, useState } from "react";
+import { useGroups, useLinkContentToGroup } from "../../utils/queries";
+import { Suspense, useRef, useState } from "react";
 import { GroupTypeStore } from "../../types/types";
 import slugify from "../../utils/slugify";
-import { IntlProvider, useIntl } from "react-intl";
-import { locale, messages } from "../../utils/intl";
+import { useIntl } from "react-intl";
 import { Input } from "../Inputs";
+import { ReactComponent as LinkIcon } from "../../../assets/svg/link.svg";
 
 import "./LinkBlockToItem.css";
+import Modal from "../Modal";
 
 interface ILinkBlockToItemprops {
   apiUrl: string;
@@ -74,6 +75,8 @@ function BlockSelector({ itemId, itemType }: Omit<ILinkBlockToItemprops, "apiUrl
   const [search, setSearch] = useState<string>("");
   const [selectedGroup, setSelectedGroup] = useState<GroupTypeStore>();
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
+  /* const [showWarning, setShowWarning] = useState<boolean>(false); */
+
   const intl = useIntl();
 
   const mutation = useLinkContentToGroup();
@@ -83,6 +86,7 @@ function BlockSelector({ itemId, itemType }: Omit<ILinkBlockToItemprops, "apiUrl
     setSearch(group.title);
     setSelectedGroup(group);
     setShowSuggestions(false);
+    /* setShowWarning(true); */
   };
 
   return (
@@ -101,6 +105,7 @@ function BlockSelector({ itemId, itemType }: Omit<ILinkBlockToItemprops, "apiUrl
             })}
             type="text"
             value={search}
+            autoComplete="off"
             onFocus={() => setShowSuggestions(true)}
             onChange={(event) => {
               setSearch(event.target.value);
@@ -118,20 +123,34 @@ function BlockSelector({ itemId, itemType }: Omit<ILinkBlockToItemprops, "apiUrl
           </Suspense>
         </div>
 
-        <button
-          className="GroupLink__LinkButton"
-          onClick={() =>
-            selectedGroup && mutation.mutate({ id: selectedGroup.id, itemId, itemType })
-          }
-          disabled={!selectedGroup}
-        >
-          {mutation.isLoading ? (
-            <i className="fa fa-circle-notch fa-spin"></i>
-          ) : (
-            intl.formatMessage({ id: "LINK" })
-          )}
-        </button>
+        {selectedGroup ? (
+          <button
+            className="GroupLink__LinkButton"
+            onClick={() =>
+              selectedGroup && mutation.mutate({ id: selectedGroup.id, itemId, itemType })
+            }
+          >
+            {mutation.isLoading ? (
+              <i className="fa fa-circle-notch fa-spin"></i>
+            ) : (
+              <>
+                <LinkIcon />
+                {intl.formatMessage({ id: "LINK" })}
+              </>
+            )}
+          </button>
+        ) : null}
       </div>
+
+      {/* <Modal
+        isOpen={showWarning}
+        setIsOpen={setShowWarning}
+        title={intl.formatMessage({ id: "LinkBlockToItem__LINK_GROUP" })}
+      >
+        <p>
+
+        </p>
+      </Modal> */}
     </div>
   );
 }

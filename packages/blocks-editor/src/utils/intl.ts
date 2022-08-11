@@ -46,6 +46,8 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockButton__TEXT_PLACEHOLDER: "Indiquez le texte du bouton",
     BlockButton__URL: "URL du bouton",
     BlockButton__URL_PLACEHOLDER: "Indiquez le lien du bouton",
+    BlockButton__TYPE: "Type de bouton",
+    
 
     BlockProduct__ADD_PRODUCT: "Ajouter un produit",
     BlockProduct__PRODUCT_LOADING: "Chargement du produit...",
@@ -57,7 +59,12 @@ export const messages: Record<string, { [key: string]: string}> = {
 
     BlockText__TEXT_PLACEHOLDER: "Votre texte ici",
     BlockText__TEXT_LINK_MODAL_TITLE: "Sélectionnez un élément à insérer",
+    BlockText__TEXT_INSERT_LINK: "Insérer un lien",
     BlockText__SEARCH_INFO: "Préfixez votre recherche par un # pour faire une recherche par référence",
+    BlockText__LINK_LABEL: "Titre de votre lien",
+    BlockText__LINK_LABEL_PLACEHOLDER: "Indiquez le titre de votre lien",
+    BlockText__LINK_URL: "URL de votre lien",
+    BlockText__LINK_URL_PLACEHOLDER: "Indiquez le lien de votre lien",
 
     BlockTitle__TEXT_PLACEHOLDER: "Votre titre ici",
     BlockTitle__LEVEL: "Niveau du titre",
@@ -125,7 +132,12 @@ export const messages: Record<string, { [key: string]: string}> = {
     DELETE_BLOCK: "Supprimer ce Thelia Blocks",
     EDIT_BLOCK: "Editer ce Thelia Blocks",
     OTHER: "autre", 
-    LINK: "Lier"
+    LINK: "Lier",
+    UNLINK: "Délier",
+    INSERT: "Insérer",
+    PRIMARY: "Primaire",
+    SECONDARY: "Secondaire",
+    TERTIARY: "Tertiaire",
   },
   "en": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creation of a new Thelia Blocks",
@@ -170,6 +182,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockButton__TEXT_PLACEHOLDER: "Enter the text of the button",
     BlockButton__URL: "URL of the button",
     BlockButton__URL_PLACEHOLDER: "Enter the URL of the button",
+    BlockButton__TYPE: "Type of the button",
 
     BlockProduct__ADD_PRODUCT: "Add a product",
     BlockProduct__PRODUCT_LOADING: "Loading product...",
@@ -181,8 +194,13 @@ export const messages: Record<string, { [key: string]: string}> = {
 
     BlockText__TEXT_PLACEHOLDER: "Your text here",
     BlockText__TEXT_LINK_MODAL_TITLE: "Select an element to insert",
+    BlockText__TEXT_INSERT_LINK: "Insert a link",
     BlockText__SEARCH_INFO: "Prefix your search by a # to search by reference",
-
+    BlockText__LINK_LABEL: "Label of the link",
+    BlockText__LINK_LABEL_PLACEHOLDER: "Enter the label of the link",
+    BlockText__LINK_URL: "URL of the link",
+    BlockText__LINK_URL_PLACEHOLDER: "Enter the URL of the link",
+    
     BlockTitle__TEXT_PLACEHOLDER: "Your title here",
     BlockTitle__LEVEL: "Title level",
 
@@ -250,6 +268,11 @@ export const messages: Record<string, { [key: string]: string}> = {
     EDIT_BLOCK: "Edit this Thelia Blocks",
     OTHER: "other",
     LINK: "Link",
+    UNLINK: "Unlink",
+    INSERT: "Insert",
+    PRIMARY: "Primary",
+    SECONDARY: "Secondary",
+    TERTIARY: "Tertiary",
   },
   "es": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creación de un nuevo Thelia Blocks",
@@ -294,6 +317,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockButton__TEXT_PLACEHOLDER: "Introduce el texto del botón",
     BlockButton__URL: "URL del botón",
     BlockButton__URL_PLACEHOLDER: "Introduce la URL del botón",
+    BlockButton__TYPE: "Tipo de botón",
 
     BlockProduct__ADD_PRODUCT: "Añade un producto",
     BlockProduct__PRODUCT_LOADING: "Cargando producto...",
@@ -305,7 +329,12 @@ export const messages: Record<string, { [key: string]: string}> = {
 
     BlockText__TEXT_PLACEHOLDER: "Tu texto aquí",
     BlockText__TEXT_LINK_MODAL_TITLE: "Elige un elemento para insertar",
+    BlockText__TEXT_INSERT_LINK: "Insertar un enlace",
     BlockText__SEARCH_INFO: "Prefijate tu búsqueda con un # para buscar por referencia",
+    BlockText__LINK_LABEL: "Label del enlace",
+    BlockText__LINK_LABEL_PLACEHOLDER: "Introduce el label del enlace",
+    BlockText__LINK_URL: "URL del enlace",
+    BlockText__LINK_URL_PLACEHOLDER: "Introduce la URL del enlace",
 
     BlockTitle__TEXT_PLACEHOLDER: "Tu título aquí",
     BlockTitle__LEVEL: "Nivel de título",
@@ -375,6 +404,11 @@ export const messages: Record<string, { [key: string]: string}> = {
     EDIT_BLOCK: "Editar este Thelia Blocks",
     OTHER: "otro",
     LINK: "Enlace",
+    UNLINK: "Desvincular",
+    INSERT: "Insertar",
+    PRIMARY: "Primario",
+    SECONDARY: "Secundario",
+    TERTIARY: "Terciario",
   },
   "it": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creazione di un nuovo Thelia Blocks",
@@ -419,6 +453,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockButton__TEXT_PLACEHOLDER: "Inserisci il testo del bottone",
     BlockButton__URL: "URL del bottone",
     BlockButton__URL_PLACEHOLDER: "Inserisci l'URL del bottone",
+    BlockButton__TYPE: "Tipo di bottone",
 
     BlockProduct__ADD_PRODUCT: "Aggiungi un prodotto",
     BlockProduct__PRODUCT_LOADING: "Caricamento del prodotto...",
@@ -430,7 +465,12 @@ export const messages: Record<string, { [key: string]: string}> = {
 
     BlockText__TEXT_PLACEHOLDER: "Il tuo testo qui",
     BlockText__TEXT_LINK_MODAL_TITLE: "Scegli un elemento da inserire",
+    BlockText__TEXT_INSERT_LINK: "Inserisci un link",
     BlockText__SEARCH_INFO: "Prefissa la tua ricerca con un # per cercare per riferimento",
+    BlockText__LINK_LABEL: "Label del link",
+    BlockText__LINK_LABEL_PLACEHOLDER: "Inserisci il label del link",
+    BlockText__LINK_URL: "URL del link",
+    BlockText__LINK_URL_PLACEHOLDER: "Inserisci l'URL del link",
 
     BlockTitle__TEXT_PLACEHOLDER: "Il tuo titolo qui",
     BlockTitle__LEVEL: "Livello del titolo",
@@ -499,5 +539,10 @@ export const messages: Record<string, { [key: string]: string}> = {
     EDIT_BLOCK: "Modifica questo Thelia Blocks",
     OTHER: "altro",
     LINK: "Link",
+    UNLINK: "Scollega",
+    INSERT: "Inserisci",
+    PRIMARY: "Primario",
+    SECONDARY: "Secondario",
+    TERTIARY: "Terziario",
   }
 };

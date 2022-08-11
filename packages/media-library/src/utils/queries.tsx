@@ -13,7 +13,7 @@ export function useLibraryImage(options: {
   return useQuery(
     ["LibraryImage", options],
     () =>
-      fetcher(`/library/image`, {
+      fetcher(`/open_api/library/image`, {
         method: "GET",
         params: {
           id: options.id || null,
@@ -34,7 +34,7 @@ export function useLibraryImageById(id: number | null) {
   return useQuery(
     ["LibraryImage", id],
     () =>
-      fetcher(`/library/image`, {
+      fetcher(`/open_api/library/image`, {
         method: "GET",
         params: {
           id: id || null,
@@ -58,7 +58,7 @@ export function useCreateImage() {
     FormData
   >(
     (data) => {
-      return fetcher(`/library/image`, {
+      return fetcher(`/open_api/library/image`, {
         method: "POST",
         headers: {
           "content-type": "multipart/form-data",
@@ -84,7 +84,7 @@ export function useDeleteImage() {
   const queryClient = useQueryClient();
   return useMutation(
     (id: LibraryImage["id"]) => {
-      return fetcher(`/library/image/${id}`, {
+      return fetcher(`/open_api/library/image/${id}`, {
         method: "DELETE",
       });
     },
@@ -105,7 +105,7 @@ export function useUpdateImage() {
   const queryClient = useQueryClient();
   return useMutation(
     (id: LibraryImage["id"]) => {
-      return fetcher(`/library/image/${id}`, {
+      return fetcher(`/open_api/library/image/${id}`, {
         method: "POST",
       });
     },
@@ -127,7 +127,7 @@ export function useGetTags() {
   return useQuery(
     ["LibraryTag"],
     () =>
-      fetcher(`/library/tag`, {
+      fetcher(`/open_api/library/tag`, {
         method: "GET",
       }),
     {
@@ -142,7 +142,7 @@ export function useDeleteTagAssociation() {
 
   return useMutation(
     (id: ImageTag["tag"]["id"]) => {
-      return fetcher(`/library/image_tag/${id}`, {
+      return fetcher(`/open_api/library/image_tag/${id}`, {
         method: "DELETE",
       });
     },
@@ -176,7 +176,7 @@ export function useAssociateTag() {
 
   return useMutation(
     (data: { imageId: number | null; tagId: number }) => {
-      return fetcher(`/library/image_tag`, {
+      return fetcher(`/open_api/library/image_tag`, {
         method: "POST",
         data,
       });

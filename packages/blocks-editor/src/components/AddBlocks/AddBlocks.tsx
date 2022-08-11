@@ -20,10 +20,12 @@ const AddButton = ({
   plugin,
   setIsOpen,
   style,
+  inLayout,
 }: {
   plugin: Plugin;
   setIsOpen: Function;
   style?: CSSProperties;
+  inLayout?: boolean;
 }) => {
   const { addBlock } = useBlocksContext();
   const intl = useIntl();
@@ -48,9 +50,19 @@ const AddButton = ({
             id: nanoid(),
             data: plugin.initialData,
             parent: null,
+            title: plugin.title,
             type: { id: plugin.type.id },
           });
           setIsOpen(false);
+
+          if (!inLayout) {
+            setTimeout(() => {
+              window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: "smooth",
+              });
+            }, 250);
+          }
         }}
         key={plugin.id}
       >
@@ -95,9 +107,11 @@ const AddBlockModal = ({
 const ModalContent = ({
   excludeLayout,
   setIsOpen,
+  inLayout,
 }: {
   excludeLayout?: boolean;
   setIsOpen: Function;
+  inLayout?: boolean;
 }) => {
   const [subModalOpen, setSubModalOpen] = useState(false);
   const { width } = useWindowSize();
@@ -119,7 +133,14 @@ const ModalContent = ({
   return (
     <ol className="AddBlocks__Modal__BlocksList">
       {commonBlocks.map((plugin, index) => {
-        return <AddButton key={index} plugin={plugin} setIsOpen={setIsOpen} />;
+        return (
+          <AddButton
+            key={index}
+            plugin={plugin}
+            setIsOpen={setIsOpen}
+            inLayout={inLayout}
+          />
+        );
       })}
 
       {Object.entries(layoutPluginsByType).map(
@@ -129,8 +150,9 @@ const ModalContent = ({
           return layoutPluginsByType.length === 1 ? (
             <AddButton
               key={index}
-              plugin={layoutPluginsByType[index]}
+              plugin={layoutPluginsByType[0]}
               setIsOpen={setIsOpen}
+              inLayout={inLayout}
             />
           ) : (
             <Fragment key={index}>
@@ -153,6 +175,7 @@ const ModalContent = ({
                       key={index}
                       plugin={plugin}
                       setIsOpen={setIsOpen}
+                      inLayout={inLayout}
                     />
                   ))}
                 </ol>
@@ -165,7 +188,13 @@ const ModalContent = ({
   );
 };
 
-const AddBlocks = ({ excludeLayout }: { excludeLayout?: boolean }) => {
+const AddBlocks = ({
+  excludeLayout,
+  inLayout,
+}: {
+  excludeLayout?: boolean;
+  inLayout?: boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const intl = useIntl();
@@ -188,7 +217,11 @@ const AddBlocks = ({ excludeLayout }: { excludeLayout?: boolean }) => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       >
-        <ModalContent excludeLayout={excludeLayout} setIsOpen={setIsOpen} />
+        <ModalContent
+          excludeLayout={excludeLayout}
+          setIsOpen={setIsOpen}
+          inLayout={inLayout}
+        />
       </AddBlockModal>
     </>
   );

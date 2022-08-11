@@ -6,7 +6,15 @@ import { Input } from "../Inputs";
 
 import "./GroupTitle.css";
 
-export default function GroupTitle() {
+export default function GroupTitle({
+  isGroupLinkedToCurrentContent,
+  onLink,
+  isLinking,
+}: {
+  isGroupLinkedToCurrentContent: boolean;
+  onLink: () => void;
+  isLinking: boolean;
+}) {
   const intl = useIntl();
 
   const { group, editGroup } = useContext(BlocksGroupContext);
@@ -26,6 +34,18 @@ export default function GroupTitle() {
           editGroup({ ...group, title: e.target.value })
         }
       />
+      {isGroupLinkedToCurrentContent ? (
+        <button onClick={onLink} className="BlocksEditor__Header__Unlink__Button">
+          {isLinking ? (
+            <i className="fa fa-circle-notch fa-spin"></i>
+          ) : (
+            <>
+              <i className="fas fa-unlink"></i>
+              {intl.formatMessage({ id: "UNLINK" })}
+            </>
+          )}
+        </button>
+      ) : null}
     </div>
   );
 }

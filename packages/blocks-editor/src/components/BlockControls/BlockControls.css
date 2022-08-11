@@ -2,6 +2,10 @@
   @apply flex items-center;
 }
 
+.NestedBlockControls {
+  @apply flex items-center self-end;
+} 
+
 .BlockControl {
   @apply border-mediumGrey flex gap-2 tracking-wider items-center px-2 md:px-6 text-darkCharbon disabled:text-mediumGrey;
   height: 30px;

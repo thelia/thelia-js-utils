@@ -25,7 +25,13 @@ const Block = ({
 
   const plugins = usePlugins();
 
-  const currentPlugin = plugins.find((plugin) => plugin.type.id === block.type.id);
+  const currentPlugin = plugins.find((plugin) => {
+    if (plugin.layout) {
+      return plugin?.title?.default === block?.title?.default;
+    }
+
+    return plugin.type.id === block.type.id;
+  });
 
   if (!currentPlugin) {
     return (

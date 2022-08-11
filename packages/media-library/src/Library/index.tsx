@@ -14,6 +14,8 @@ import { Suspense, useLayoutEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
 
 import "./Library.css";
+import Input from "../Input";
+import ErrorBoundary from "../ErrorBoundary";
 
 const TagsList = ({
   currentTags,
@@ -175,17 +177,12 @@ const TagFilterOptions = () => {
   );
 };
 
-const TagFilter = ({
-  images,
-  setTagId,
-}: {
-  images: LibraryImageType[];
-  setTagId: Function;
-}) => {
+const TagFilter = ({ setTagId }: { setTagId: Function }) => {
   const intl = useIntl();
 
   return (
-    <div>
+    <div className="Select__Wrapper">
+      <div className="Input__Select__Separator"></div>
       <label htmlFor="tag-filter">
         {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_TAG_FILTER" })}
       </label>
@@ -299,22 +296,19 @@ const LibraryContent = ({
   return (
     <div className="Library">
       <div className="Library__Filters">
-        <div>
-          <label htmlFor="library-search">
-            {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_SEARCH" })}
-          </label>
-          <input
-            className="Input__Text"
-            placeholder={intl.formatMessage({ id: "SEARCH_BY" })}
-            type="text"
-            name="library-search"
-            id="library-search"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
+        <Input
+          placeholder={intl.formatMessage({ id: "SEARCH_BY" })}
+          type="text"
+          name="library-search"
+          id="library-search"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          label={intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_SEARCH" })}
+          icon={<i className="fa fa-search emphasize"></i>}
+          iconAlignment="right"
+        />
 
-        <TagFilter images={images} setTagId={setTagId} />
+        <TagFilter setTagId={setTagId} />
       </div>
       <div className="Library__Content">
         {isFetching ? (
@@ -400,7 +394,9 @@ export default function Library({
               </div>
             }
           >
-            <LibraryContent onSelect={onSelect} limit={limit} />
+            <ErrorBoundary>
+              <LibraryContent onSelect={onSelect} limit={limit} />
+            </ErrorBoundary>
           </Suspense>
         </div>
       </div>

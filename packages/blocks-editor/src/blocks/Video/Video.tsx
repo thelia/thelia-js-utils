@@ -1,5 +1,6 @@
 import { Input } from "../../components/Inputs";
 import { ReactComponent as Icon } from "./assets/video.svg";
+import { ReactComponent as LinkIcon } from "../../../assets/svg/link.svg";
 import {
   BlockModuleComponentProps,
   BlockPluginDefinition,
@@ -77,7 +78,7 @@ const BlockVideoComponent = ({ data, onUpdate }: BlockModuleComponentProps<Video
               })
             }
             value={url}
-            icon={<i className="fa fa-link"></i>}
+            icon={<LinkIcon />}
             iconAlignment="left"
             isValid={isUrlValid}
             label={intl.formatMessage({ id: "BlockVideo__URL" })}

@@ -92,7 +92,7 @@ const AccordionContentComponent = ({
               }}
             />
 
-            <AddBlocks excludeLayout />
+            <AddBlocks excludeLayout inLayout />
           </div>
         </BlockContextProvider>
       </div>
