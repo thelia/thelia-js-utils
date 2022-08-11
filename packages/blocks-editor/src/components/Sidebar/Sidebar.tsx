@@ -44,6 +44,8 @@ const AddButton = ({
             id: nanoid(),
             data: plugin.initialData,
             parent: null,
+            layout: plugin.layout,
+            title: plugin.title,
             type: { id: plugin.type.id },
           });
 
@@ -76,6 +78,7 @@ const Sidebar = () => {
   const [isDisplayingSubMenu, setIsDisplayingSubMenu] = useState(false);
 
   const [commonBlocks, layoutPlugins] = partition(plugins, (i) => !i.layout);
+
   const layoutPluginsByType = groupBy(
     layoutPlugins,
     `layout["${intl.locale || "default"}"]`
@@ -140,7 +143,7 @@ const Sidebar = () => {
                   <Fragment key={index}>
                     {layoutPluginsByType.length === 1 ? (
                       <AddButton
-                        plugin={layoutPluginsByType[index]}
+                        plugin={layoutPluginsByType[0]}
                         isSidebarOpen={isSidebarOpen}
                       />
                     ) : (

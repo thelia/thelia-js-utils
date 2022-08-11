@@ -38,6 +38,7 @@ export type IBlock = {
   readonly type: BlockModuleType;
   parent: IBlock["id"] | null;
   layout?: i18nString;
+  title?: i18nString;
   data: any;
 };
 
@@ -116,5 +117,6 @@ export type Plugin = BlockModuleI18n & {
   initialData: Record<string, any>;
   icon: FunctionComponent<SVGProps<SVGSVGElement>>;
   customIcon?: JSX.Element;
-  layout?: string;
+  layout?: i18nString;
+  title?: i18nString;
 };
