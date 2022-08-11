@@ -50,6 +50,7 @@ const AddButton = ({
             id: nanoid(),
             data: plugin.initialData,
             parent: null,
+            title: plugin.title,
             type: { id: plugin.type.id },
           });
           setIsOpen(false);
@@ -149,7 +150,7 @@ const ModalContent = ({
           return layoutPluginsByType.length === 1 ? (
             <AddButton
               key={index}
-              plugin={layoutPluginsByType[index]}
+              plugin={layoutPluginsByType[0]}
               setIsOpen={setIsOpen}
               inLayout={inLayout}
             />
