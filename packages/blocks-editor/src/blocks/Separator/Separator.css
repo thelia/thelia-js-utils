@@ -1,7 +1,7 @@
 .BlockSeparator {
 
   &__Config {
-    @apply flex md:items-end flex-col md:flex-row gap-4 mb-6;
+    @apply flex items-end flex-row gap-4 mb-6;
   
     >:first-child {
       @apply w-1/2;
