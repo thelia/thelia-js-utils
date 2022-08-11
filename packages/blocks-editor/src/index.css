@@ -74,7 +74,7 @@ input::placeholder, textarea::placeholder {
   bottom: 0;
   margin: auto;
   height: max-content;
-  width: 25%;
+  width: 450px;
   border-radius: 8px;
   background-color: white;
 }
@@ -105,19 +105,7 @@ input::placeholder, textarea::placeholder {
 
 @media screen and (max-width: 1500px) {
   .Modal-htmlWarning {
-    width: 30%;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  .Modal-htmlWarning {
-    width: 40%;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .Modal-htmlWarning {
-    width: 50%;
+    width: 375px;
   }
 }
 
@@ -128,14 +116,12 @@ input::placeholder, textarea::placeholder {
   }
 
   .Modal-htmlWarning {
-    width: 60%;
     overflow: auto;
   }
 }
 
 @media screen and (max-width: 640px) {
   .Modal-htmlWarning {
-    width: 80%;
     overflow: auto;
   }
 }
