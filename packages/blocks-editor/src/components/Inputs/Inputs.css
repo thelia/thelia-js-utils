@@ -1,5 +1,7 @@
 .Input {
   &__Wrapper {
+    @apply relative; 
+
     &__Header {
       @apply flex justify-between;
     }
@@ -11,6 +13,14 @@
 
   &__Text, &__TextArea, &__Select, &__Number {
     @apply relative w-full rounded-md border border-mediumGrey outline-none py-2 px-4;
+
+    &:hover, &:focus {
+      @apply border-darkCharbon;
+    }
+
+    /* &:focus {
+      @apply outline-vermillon outline-1 outline-offset-1;
+    } */
     
     &__Wrapper {
       @apply relative w-full flex flex-wrap items-stretch;
@@ -31,6 +41,19 @@
   
   &__Text, &__Select, &__Number {
     height: 40px;
+  }
+
+  &__Select {
+    background: url("data:image/svg+xml,<svg height='10px' width='10px' viewBox='0 0 16 16' fill='currentcolor' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") no-repeat;
+    background-position: calc(100% - 12px) center;
+    -moz-appearance:none;
+    -webkit-appearance: none; 
+    appearance: none;
+
+    &__Separator {
+      @apply absolute h-6 bg-darkCharbon bottom-2 right-8;
+      width: 1px;
+    }
   }
 
   &__TextArea {

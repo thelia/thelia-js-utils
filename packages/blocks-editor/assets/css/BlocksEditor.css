@@ -35,9 +35,7 @@
     }
 
     &__Unlink__Button {
-      @apply h-8 px-2 flex items-center gap-2 text-sm font-semibold tracking-wider text-white uppercase rounded-md bg-vermillon enabled:hover:bg-lightVermillon md:py-1 disabled:text-white disabled:bg-mediumGrey absolute;
-      bottom: 4px;
-      right: 4px;
+      @apply h-8 px-2 top-1 bottom-1 flex items-center gap-2 font-semibold tracking-wider text-white uppercase rounded-md bg-vermillon enabled:hover:bg-lightVermillon md:py-1 disabled:text-white disabled:bg-mediumGrey absolute;
 
       > i {
         @apply block;

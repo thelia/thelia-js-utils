@@ -177,17 +177,12 @@ const TagFilterOptions = () => {
   );
 };
 
-const TagFilter = ({
-  images,
-  setTagId,
-}: {
-  images: LibraryImageType[];
-  setTagId: Function;
-}) => {
+const TagFilter = ({ setTagId }: { setTagId: Function }) => {
   const intl = useIntl();
 
   return (
-    <div>
+    <div className="Select__Wrapper">
+      <div className="Input__Select__Separator"></div>
       <label htmlFor="tag-filter">
         {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_TAG_FILTER" })}
       </label>
@@ -313,7 +308,7 @@ const LibraryContent = ({
           iconAlignment="right"
         />
 
-        <TagFilter images={images} setTagId={setTagId} />
+        <TagFilter setTagId={setTagId} />
       </div>
       <div className="Library__Content">
         {isFetching ? (
