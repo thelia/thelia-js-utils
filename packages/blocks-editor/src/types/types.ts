@@ -1,4 +1,4 @@
-import { FunctionComponent, SVGProps } from "react";
+import { FunctionComponent, ReactNode, SVGProps } from "react";
 
 export type ErrorType = {
   message: string;
@@ -91,7 +91,7 @@ export type BlockPluginDefinition<TProp = { [key: string]: any }> =
       [key: string]: any;
     }) => JSX.Element;
     initialData: TProp;
-    icon: FunctionComponent<SVGProps<SVGSVGElement>>;
+    icon: FunctionComponent<SVGProps<SVGSVGElement>> | ReactNode;
     layout?: string;
   };
 

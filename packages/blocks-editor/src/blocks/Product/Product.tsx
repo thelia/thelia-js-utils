@@ -39,12 +39,14 @@ const Product = ({
         <img
           className="Product__Image"
           src={product?.[0]?.images[0].url}
+          loading="lazy"
           alt="product image"
         />
       ) : (
         <img
           className="Product__Image"
           src="https://via.placeholder.com/150"
+          loading="lazy"
           alt="product image"
         />
       )}

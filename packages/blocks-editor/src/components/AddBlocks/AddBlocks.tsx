@@ -1,7 +1,6 @@
 import { Plugin } from "../../types/types";
 
 import BlockTooltip from "../BlockTooltip";
-import { ReactComponent as DragIcon } from "../../../assets/svg/drag.svg";
 import Modal from "react-modal";
 import Tippy from "@tippyjs/react";
 import groupBy from "lodash/groupBy";
@@ -202,12 +201,6 @@ const AddBlocks = ({
   return (
     <>
       <div className="AddBlocks">
-        <div className="AddBlocks__Icon">
-          <DragIcon />
-        </div>
-        <span className="AddBlocks__Info">
-          {intl.formatMessage({ id: "AddBlocks__DROP_CONTENT" })}
-        </span>
         <button className="AddBlocks__Button" onClick={() => setIsOpen(true)}>
           {intl.formatMessage({ id: "AddBlocks__ADD_CONTENT" })}
         </button>

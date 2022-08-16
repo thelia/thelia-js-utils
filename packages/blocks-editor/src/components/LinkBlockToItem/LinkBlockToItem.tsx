@@ -7,7 +7,6 @@ import { Input } from "../Inputs";
 import { ReactComponent as LinkIcon } from "../../../assets/svg/link.svg";
 
 import "./LinkBlockToItem.css";
-import Modal from "../Modal";
 
 interface ILinkBlockToItemprops {
   apiUrl: string;

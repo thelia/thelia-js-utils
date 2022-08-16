@@ -6,6 +6,8 @@ import { IntlProvider, useIntl } from "react-intl";
 import { messages, locale } from "./utils/intl";
 import ReactModal from "react-modal";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { LocaleProvider } from "./providers/LocaleContext";
+import { Locale } from "./types/types";
 
 const BlocksListHeader = () => {
   const intl = useIntl();
@@ -63,7 +65,15 @@ const BlocksListContent = () => {
   );
 };
 
-const BlocksList = ({ apiUrl, containerId }: { apiUrl: string; containerId: string }) => {
+const BlocksList = ({
+  apiUrl,
+  containerId,
+  locales,
+}: {
+  apiUrl: string;
+  containerId: string;
+  locales: Locale[];
+}) => {
   useLayoutEffect(() => {
     if (containerId) {
       ReactModal.setAppElement("#" + containerId);
@@ -74,11 +84,13 @@ const BlocksList = ({ apiUrl, containerId }: { apiUrl: string; containerId: stri
 
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>
-      <BlocksProvider api={apiUrl}>
-        <ErrorBoundary>
-          <BlocksListContent />
-        </ErrorBoundary>
-      </BlocksProvider>
+      <LocaleProvider locales={locales}>
+        <BlocksProvider api={apiUrl}>
+          <ErrorBoundary>
+            <BlocksListContent />
+          </ErrorBoundary>
+        </BlocksProvider>
+      </LocaleProvider>
     </IntlProvider>
   );
 };

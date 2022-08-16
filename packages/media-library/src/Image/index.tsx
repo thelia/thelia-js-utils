@@ -138,7 +138,11 @@ const Preview = ({
 
   return (
     <div className="BlockImage__Preview">
-      <img src={`/image-library/${id}/full/^!220,220/0/default.webp`} alt="" />
+      <img
+        src={`/image-library/${id}/full/^!220,220/0/default.webp`}
+        alt=""
+        loading="lazy"
+      />
 
       <div className="BlockImage__Preview__Infos">
         <span className="BlockImage__Preview__FileName">{fileName}</span>

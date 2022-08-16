@@ -284,7 +284,11 @@ const LibraryContent = ({
   const [title, setTitle] = useState<string>("");
   const [tagId, setTagId] = useState<number>();
 
-  const { data: images = [], isFetching } = useLibraryImage({
+  const {
+    data: images = [],
+    isFetching,
+    isPreviousData,
+  } = useLibraryImage({
     offset,
     limit,
     title,
@@ -326,29 +330,30 @@ const LibraryContent = ({
           </div>
         )}
       </div>
-      {/* <div className="Library__Pagination">
+
+      <div className="Pagination">
         <button
-          type="button"
-          className="Button"
+          className="Pagination__Button Pagination__Button--previous"
           onClick={() => setOffset((old) => Math.max(old - limit, 0))}
           disabled={offset === 0}
         >
-          page précédente
+          <i className="fa fa-chevron-left"></i>
         </button>
-        <div className="px-4 Button">{offset / limit + 1}</div>
+        <div className="Pagination__Button Pagination__Button--page">
+          {offset / limit + 1}
+        </div>
         <button
-          type="button"
-          className="Button"
+          className="Pagination__Button Pagination__Button--next"
           onClick={() => {
-            if (!images.isPreviousData && (images?.data?.length || 0) >= limit) {
+            if (!isPreviousData && (images?.length || 0) >= limit) {
               setOffset((old) => old + limit);
             }
           }}
-          disabled={images.isPreviousData || (images?.data?.length || 0) < limit}
+          disabled={isPreviousData || (images?.length || 0) < limit}
         >
-          page suivante
+          <i className="fa fa-chevron-right"></i>
         </button>
-        </div> */}
+      </div>
     </div>
   );
 };
