@@ -11,11 +11,14 @@ import { ReactComponent as TagXMarkIcon } from "./assets/tag-xmark.svg";
 import ReactModal from "react-modal";
 import { ImageTag, LibraryImage as LibraryImageType } from "../types/types";
 import { Suspense, useLayoutEffect, useRef, useState } from "react";
-import { useIntl } from "react-intl";
+import { IntlProvider, useIntl } from "react-intl";
 
 import "./Library.css";
 import Input from "../Input";
 import ErrorBoundary from "../ErrorBoundary";
+import { locale, messages } from "../utils/intl";
+import { QueryClientProvider } from "react-query";
+import { queryClient } from "@thelia/fetcher";
 
 const TagsList = ({
   currentTags,
@@ -68,6 +71,8 @@ const TagConfigurationModal = ({
 }) => {
   const [showTags, setShowTags] = useState(false);
 
+  const intl = useIntl();
+
   const deleteTagAssociation = useDeleteTagAssociation();
   const associateTag = useAssociateTag();
 
@@ -92,13 +97,16 @@ const TagConfigurationModal = ({
           </button>
 
           <div className="Modal__Header__Title">
-            Configuration des tags de {image.title}
+            {intl.formatMessage({ id: "BlockImage__LIBRARY_IMAGE_TAG_CONFIG" })}{" "}
+            {image.title}
           </div>
         </div>
 
         <div className="Modal__Content" style={{ overflow: "inherit" }}>
           <div>
-            <label>Ajouter un ou plusieurs tag</label>
+            <label>
+              {intl.formatMessage({ id: "BlockImage__LIBRARY_IMAGE_ADD_TAG" })}
+            </label>
             <div className="BlockImage__TagSelector">
               <div
                 className="BlockImage__TagSelector__Tags"
@@ -117,7 +125,7 @@ const TagConfigurationModal = ({
                       </div>
                     ))
                   : !associateTag.isLoading
-                  ? "Sélectionnez un ou plusieurs tag"
+                  ? intl.formatMessage({ id: "BlockImage__LIBRARY_IMAGE_SELECT_TAG" })
                   : null}
 
                 {associateTag.isLoading && (
@@ -358,7 +366,7 @@ const LibraryContent = ({
   );
 };
 
-export default function Library({
+function Library({
   isOpen,
   setIsOpen,
   limit = 20,
@@ -406,5 +414,20 @@ export default function Library({
         </div>
       </div>
     </ReactModal>
+  );
+}
+
+export default function WrappedComponent(props: {
+  isOpen: boolean;
+  setIsOpen: Function;
+  limit?: number;
+  onSelect: (image: LibraryImageType) => void;
+}) {
+  return (
+    <IntlProvider messages={messages[locale]} locale={locale}>
+      <QueryClientProvider client={queryClient}>
+        <Library {...props} />
+      </QueryClientProvider>
+    </IntlProvider>
   );
 }

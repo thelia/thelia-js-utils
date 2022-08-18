@@ -1,7 +1,9 @@
+import Tippy from "@tippyjs/react";
 import { forwardRef, useState } from "react";
 import { useIntl } from "react-intl";
 import ReactQuill, { Quill } from "react-quill";
 import { ReactComponent as LinkIcon } from "../../../../assets/svg/link.svg";
+import { EditorModule } from "../../../types/types";
 
 import "./Editor.css";
 
@@ -12,19 +14,43 @@ const EditorToolbar = ({
   setIsModalOpen: Function;
   toolbarId: string;
 }) => {
+  const intl = useIntl();
+
+  const editorModules: EditorModule[] = [
+    { name: "bold", tooltip: intl.formatMessage({ id: "BOLD" }) },
+    { name: "italic", tooltip: intl.formatMessage({ id: "ITALIC" }) },
+    { name: "underline", tooltip: intl.formatMessage({ id: "UNDERLINE" }) },
+    { name: "align", value: "", tooltip: intl.formatMessage({ id: "ALIGN_LEFT" }) },
+    {
+      name: "align",
+      value: "center",
+      tooltip: intl.formatMessage({ id: "ALIGN_CENTER" }),
+    },
+    { name: "align", value: "right", tooltip: intl.formatMessage({ id: "ALIGN_RIGHT" }) },
+    {
+      name: "list",
+      value: "ordered",
+      tooltip: intl.formatMessage({ id: "ORDERED_LIST" }),
+    },
+    {
+      name: "list",
+      value: "bullet",
+      tooltip: intl.formatMessage({ id: "UNORDERED_LIST" }),
+    },
+  ];
+
   return (
     <div id={toolbarId}>
-      <button className="ql-bold" />
-      <button className="ql-italic" />
-      <button className="ql-underline" />
-      <button className="ql-align" value="" />
-      <button className="ql-align" value="center" />
-      <button className="ql-align" value="right" />
-      <button className="ql-list" value="bullet" />
-      <button className="ql-list" value="ordered" />
-      <button className="search" onClick={() => setIsModalOpen(true)}>
-        <LinkIcon style={{ display: "block" }} />
-      </button>
+      {editorModules.map((module, index) => (
+        <Tippy delay={[500, 0]} content={module.tooltip} key={index}>
+          <button className={`ql-${module.name}`} value={module.value} />
+        </Tippy>
+      ))}
+      <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "INSERT_LINK" })}>
+        <button className="search" onClick={() => setIsModalOpen(true)}>
+          <LinkIcon style={{ display: "block" }} />
+        </button>
+      </Tippy>
     </div>
   );
 };

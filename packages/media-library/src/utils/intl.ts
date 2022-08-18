@@ -19,6 +19,9 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__DROP_TO_UPLOAD: "Relacher pour uploader votre image",
     BlockImage__LIBRARY_NO_CONTENT: "Aucune image trouvée",
     BlockImage__LIBRARY_SEARCHING: "Recherche en cours...",
+    BlockImage__LIBRARY_IMAGE_TAG_CONFIG: "Configuration des tags de",
+    BlockImage__LIBRARY_IMAGE_ADD_TAG: "Ajouter un ou plusieurs tag",
+    BlockImage__LIBRARY_IMAGE_SELECT_TAG: "Sélectionnez un ou plusieurs tag",
 
     REPLACE: "Remplacer",
     REPLACE_IMAGE: "Remplacer l'image",
@@ -47,6 +50,9 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__DROP_TO_UPLOAD: "Release to upload your image",
     BlockImage__LIBRARY_NO_CONTENT: "No image found",
     BlockImage__LIBRARY_SEARCHING: "Searching...",
+    BlockImage__LIBRARY_IMAGE_TAG_CONFIG: "Configure tags of",
+    BlockImage__LIBRARY_IMAGE_ADD_TAG: "Add one or more tag",
+    BlockImage__LIBRARY_IMAGE_SELECT_TAG: "Select one or more tag",
 
     REPLACE: "Replace",
     REPLACE_IMAGE: "Replace image",
@@ -75,6 +81,9 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__DROP_TO_UPLOAD: "Suelte para subir tu imagen",
     BlockImage__LIBRARY_NO_CONTENT: "No se encontraron imagenes",
     BlockImage__LIBRARY_SEARCHING: "Buscando...",
+    BlockImage__LIBRARY_IMAGE_TAG_CONFIG: "Configurar tags de",
+    BlockImage__LIBRARY_IMAGE_ADD_TAG: "Agregar uno o más tags",
+    BlockImage__LIBRARY_IMAGE_SELECT_TAG: "Seleccionar uno o más tags",
 
     REPLACE: "Reemplazar",
     REPLACE_IMAGE: "Reemplazar imagen",
@@ -103,6 +112,9 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockImage__DROP_TO_UPLOAD: "Rilascia per caricare la tua immagine",
     BlockImage__LIBRARY_NO_CONTENT: "Nessuna immagine trovata",
     BlockImage__LIBRARY_SEARCHING: "Ricerca in corso...",
+    BlockImage__LIBRARY_IMAGE_TAG_CONFIG: "Configura i tag di",
+    BlockImage__LIBRARY_IMAGE_ADD_TAG: "Aggiungi uno o più tag",
+    BlockImage__LIBRARY_IMAGE_SELECT_TAG: "Seleziona uno o più tag",
 
     REPLACE: "Sostituisci",
     REPLACE_IMAGE: "Sostituisci immagine",

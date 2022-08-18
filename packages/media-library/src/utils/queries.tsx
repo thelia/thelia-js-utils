@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-
 import { ImageTag, LibraryImage } from "../types/types";
 import { fetcher } from "@thelia/fetcher";
 
@@ -182,7 +181,7 @@ export function useAssociateTag() {
       });
     },
     {
-      onSuccess: (data) => {
+      onSuccess: (data: any) => {
         queryClient.setQueriesData(["LibraryImage"], (oldData: any) => {
           if (oldData && Array.isArray(oldData)) {
             return oldData.map((image) => {

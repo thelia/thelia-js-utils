@@ -16,6 +16,8 @@ import useWindowSize from "./hooks/useWindowSize";
 import { IntlProvider, useIntl } from "react-intl";
 import { messages, locale } from "./utils/intl";
 import LinkBlockToItem from "./components/LinkBlockToItem";
+import { toastOptions } from "./utils/toast";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 interface IBlocksEditorProps {
   apiUrl: string;
@@ -129,22 +131,7 @@ export default function BlocksEditor({
               noRedirect={noRedirect}
             >
               <div className="BlocksEditor">
-                <Toaster
-                  toastOptions={{
-                    success: {
-                      style: {
-                        background: "#EAFBF5",
-                        border: "1px solid #005A3A",
-                      },
-                    },
-                    error: {
-                      style: {
-                        background: "#FFEDED",
-                        border: "1px solid #D21919",
-                      },
-                    },
-                  }}
-                />
+                <Toaster toastOptions={toastOptions} />
                 <div className="BlocksEditor__Wrapper">
                   <BlockContextProvider root>
                     <>
@@ -170,7 +157,9 @@ export default function BlocksEditor({
                       </div>
                       {width > 1080 ? (
                         <div className="Sidebar__Wrapper">
-                          <Sidebar />
+                          <ErrorBoundary>
+                            <Sidebar />
+                          </ErrorBoundary>
                         </div>
                       ) : null}
                     </>

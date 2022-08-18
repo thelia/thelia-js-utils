@@ -59,8 +59,15 @@ const AddButton = ({
       >
         {isSidebarOpen && plugin?.customIcon ? (
           plugin?.customIcon
-        ) : (
+        ) : typeof plugin?.icon === "function" ? (
           <Icon className="Sidebar__Add__Icon" />
+        ) : (
+          <Tippy content={"Icone introuvable"}>
+            <i
+              className="far fa-question-circle"
+              style={{ fontSize: "24px", color: "#333333" }}
+            ></i>
+          </Tippy>
         )}
 
         {isSidebarOpen ? plugin.title[intl.locale || "default"] : null}

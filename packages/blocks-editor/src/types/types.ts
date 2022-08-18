@@ -119,3 +119,9 @@ export type Plugin = BlockModuleI18n & {
   layout?: i18nString;
   title?: i18nString;
 };
+
+export type EditorModule = {
+  name: string;
+  tooltip: string;
+  value?: string;
+}

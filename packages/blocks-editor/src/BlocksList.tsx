@@ -8,6 +8,7 @@ import ReactModal from "react-modal";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { LocaleProvider } from "./providers/LocaleContext";
 import { Locale } from "./types/types";
+import { toastOptions } from "./utils/toast";
 
 const BlocksListHeader = () => {
   const intl = useIntl();
@@ -33,23 +34,7 @@ const BlocksListContent = () => {
 
   return (
     <div className="BlocksList">
-      <Toaster
-        toastOptions={{
-          success: {
-            style: {
-              background: "#EAFBF5",
-              border: "1px solid #005A3A",
-            },
-          },
-          error: {
-            style: {
-              background: "#FFEDED",
-              border: "1px solid #D21919",
-            },
-          },
-        }}
-      />
-
+      <Toaster toastOptions={toastOptions} />
       <BlocksListHeader />
       <div className="BlocksList__Wrapper">
         <div className="BlocksList__Title">

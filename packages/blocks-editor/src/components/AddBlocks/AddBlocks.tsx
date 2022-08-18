@@ -1,5 +1,4 @@
 import { Plugin } from "../../types/types";
-
 import BlockTooltip from "../BlockTooltip";
 import Modal from "react-modal";
 import Tippy from "@tippyjs/react";
@@ -11,9 +10,9 @@ import { usePlugins } from "../../hooks/usePlugins";
 import useWindowSize from "../../hooks/useWindowSize";
 import { CSSProperties, Fragment, ReactNode, useState } from "react";
 import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
+import { useIntl } from "react-intl";
 
 import "./AddBlocks.css";
-import { useIntl } from "react-intl";
 
 const AddButton = ({
   plugin,
@@ -65,7 +64,18 @@ const AddButton = ({
         }}
         key={plugin.id}
       >
-        {plugin?.customIcon ? plugin?.customIcon : <Icon />}
+        {plugin?.customIcon ? (
+          plugin?.customIcon
+        ) : typeof plugin?.icon === "function" ? (
+          <Icon className="Sidebar__Add__Icon" />
+        ) : (
+          <Tippy content={"Icone introuvable"}>
+            <i
+              className="far fa-question-circle"
+              style={{ fontSize: "24px", color: "#333333" }}
+            ></i>
+          </Tippy>
+        )}
         {plugin.title[intl.locale || "default"]}
       </button>
     </Tippy>
