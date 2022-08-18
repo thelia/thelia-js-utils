@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { Plugin } from "../types/types";
+import { nanoid } from "nanoid";
 import {
   Accordion,
   Button,
@@ -9,10 +12,6 @@ import {
   Title,
   Video,
 } from "../blocks";
-import { useEffect, useState } from "react";
-
-import { Plugin } from "../types/types";
-import { nanoid } from "nanoid";
 
 export const TB_DEFAULT_PLUGINS: any = [
   { id: nanoid(), ...Title },

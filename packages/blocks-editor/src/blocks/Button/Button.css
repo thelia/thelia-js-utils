@@ -2,7 +2,7 @@
   @apply flex flex-col gap-4;
 
   &__Config {
-    @apply flex items-end flex-row gap-4 md:gap-8;
+    @apply flex items-end flex-row gap-4;
   
     >:first-child {
       @apply w-1/2 md:w-2/3;

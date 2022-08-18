@@ -15,14 +15,22 @@ export default function GroupTitle({
   onLink: () => void;
   isLinking: boolean;
 }) {
+  const [title, setTitle] = useState<string>("");
+
   const intl = useIntl();
 
   const { group, editGroup } = useContext(BlocksGroupContext);
 
+  useEffect(() => {
+    if (group?.title) {
+      setTitle(group.title);
+    }
+  }, [group]);
+
   return (
     <div className="GroupTitle__Wrapper">
       <Input
-        value={group?.title || ""}
+        value={title}
         id="GroupTitle-field-title"
         type="text"
         label={intl.formatMessage({ id: "GroupTitle__BLOCK_NAME" })}
@@ -30,9 +38,8 @@ export default function GroupTitle({
           id: "GroupTitle__BLOCK_NAME_PLACEHOLDER",
         })}
         info={intl.formatMessage({ id: "GroupTitle__BLOCK_NAME_INFO" })}
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          editGroup({ ...group, title: e.target.value })
-        }
+        onChange={(e) => setTitle(e.target.value)}
+        onBlur={(e) => editGroup({ ...group, title: e.target.value })}
       />
       {isGroupLinkedToCurrentContent ? (
         <button onClick={onLink} className="BlocksEditor__Header__Unlink__Button">

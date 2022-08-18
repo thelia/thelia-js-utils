@@ -5,6 +5,7 @@ import { usePlugins } from "../../hooks/usePlugins";
 
 import "./Block.css";
 import { useIntl } from "react-intl";
+import Tippy from "@tippyjs/react";
 
 const Block = ({
   block,
@@ -58,7 +59,16 @@ const Block = ({
     <div className={`${inLayout ? "NestedBlock" : "Block"}`}>
       <div className={`${inLayout ? "NestedBlock__Header" : "Block__Header"}`}>
         <div className="Block__Header__Infos">
-          {!inLayout && <Icon />}
+          {!inLayout && typeof Icon === "function" ? (
+            <Icon />
+          ) : (
+            <Tippy content={"Icone introuvable"}>
+              <i
+                className="far fa-question-circle"
+                style={{ fontSize: "24px", color: "#333333" }}
+              ></i>
+            </Tippy>
+          )}
 
           <div
             className={`${

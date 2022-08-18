@@ -103,6 +103,26 @@ input::placeholder, textarea::placeholder {
   z-index: 200;
 }
 
+.Pagination {
+  @apply flex justify-end mt-8 text-lightCharbon;
+
+  &__Button {
+    @apply flex items-center justify-center disabled:bg-greyMedium disabled:text-white text-lightCharbon enabled:hover:bg-pearlMedium border-greyMedium bg-white w-9 h-9;
+
+    &--previous {
+      @apply border-l border-y rounded-l-md;
+    }
+
+    &--next {
+      @apply border-r border-y rounded-r-md;
+    }
+
+    &--page {
+      @apply border select-none;
+    }
+  }
+}
+
 @media screen and (max-width: 1500px) {
   .Modal-htmlWarning {
     width: 375px;

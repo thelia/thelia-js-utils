@@ -1,8 +1,8 @@
 {
   "name": "@thelia/fetcher",
   "version": "0.0.0",
-  "main": "./dist/index.js",
-  "module": "./src/index.ts",
+  "main": "./dist/index.global.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
