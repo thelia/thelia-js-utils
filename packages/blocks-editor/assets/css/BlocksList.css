@@ -8,7 +8,7 @@
     @apply bg-pearlLight p-4 sm:p-8 md:px-32 lg:px-24 xl:px-44 2xl:px-72 pb-12 pt-10;
 
     &__Infos {
-      @apply flex justify-between;
+      @apply flex justify-between gap-3;
     }
 
     &__Description {
@@ -30,7 +30,7 @@
 
   &__List {
     &__Wrapper {
-      @apply bg-white rounded-md px-14 py-6 overflow-auto text-center;
+      @apply bg-white rounded-md px-14 py-6 overflow-hidden text-center;
       box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
     }
   }

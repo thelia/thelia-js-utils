@@ -39,20 +39,35 @@ const AddButton = ({
         className={`Sidebar__Add ${
           isSidebarOpen && plugin?.customIcon ? "Sidebar__Add--withCustomIcon" : ""
         } ${isSidebarOpen ? "Sidebar__Add--expanded" : "Sidebar__Add--collapsed"}`}
-        onClick={() =>
+        onClick={() => {
           addBlock({
             id: nanoid(),
             data: plugin.initialData,
             parent: null,
+            title: plugin.title,
             type: { id: plugin.type.id },
-          })
-        }
+          });
+
+          setTimeout(() => {
+            window.scrollTo({
+              top: document.body.scrollHeight,
+              behavior: "smooth",
+            });
+          }, 250);
+        }}
         key={plugin.id}
       >
         {isSidebarOpen && plugin?.customIcon ? (
           plugin?.customIcon
-        ) : (
+        ) : typeof plugin?.icon === "function" ? (
           <Icon className="Sidebar__Add__Icon" />
+        ) : (
+          <Tippy content={"Icone introuvable"}>
+            <i
+              className="far fa-question-circle"
+              style={{ fontSize: "24px", color: "#333333" }}
+            ></i>
+          </Tippy>
         )}
 
         {isSidebarOpen ? plugin.title[intl.locale || "default"] : null}
@@ -69,6 +84,7 @@ const Sidebar = () => {
   const [isDisplayingSubMenu, setIsDisplayingSubMenu] = useState(false);
 
   const [commonBlocks, layoutPlugins] = partition(plugins, (i) => !i.layout);
+
   const layoutPluginsByType = groupBy(
     layoutPlugins,
     `layout["${intl.locale || "default"}"]`
@@ -105,18 +121,18 @@ const Sidebar = () => {
 
       <div className="Sidebar__Content__Wrapper">
         {isDisplayingSubMenu && (
-          <button
-            className="Sidebar__Back"
-            onClick={() => {
-              setPluginList(commonBlocks);
-              setIsDisplayingSubMenu(false);
-            }}
-          >
-            <i className="fa fa-chevron-left"></i>
-            <span className="Sidebar__Back__Label">
+          <div className="Sidebar__Back__Wrapper">
+            <button
+              className="Sidebar__Back"
+              onClick={() => {
+                setPluginList(commonBlocks);
+                setIsDisplayingSubMenu(false);
+              }}
+            >
               {intl.formatMessage({ id: "BACK" })}
-            </span>
-          </button>
+            </button>
+            <i className="fa fa-chevron-left"></i>
+          </div>
         )}
 
         <ol className="Sidebar__Content">
@@ -133,7 +149,7 @@ const Sidebar = () => {
                   <Fragment key={index}>
                     {layoutPluginsByType.length === 1 ? (
                       <AddButton
-                        plugin={layoutPluginsByType[index]}
+                        plugin={layoutPluginsByType[0]}
                         isSidebarOpen={isSidebarOpen}
                       />
                     ) : (

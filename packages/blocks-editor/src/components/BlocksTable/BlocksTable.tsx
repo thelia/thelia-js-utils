@@ -2,18 +2,17 @@ import { useState } from "react";
 import useCopyToClipboard from "react-use/esm/useCopyToClipboard";
 import { GroupTypeResponse } from "../../types/types";
 import { useDeleteGroup, useDuplicateGroup, useGroups } from "../../utils/queries";
-
 import { ReactComponent as DeleteIcon } from "../../../assets/svg/delete.svg";
 import { ReactComponent as CopyIcon } from "../../../assets/svg/copy.svg";
 import { ReactComponent as CodeIcon } from "../../../assets/svg/code.svg";
 import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg";
 import toast from "react-hot-toast";
-
-import "./BlocksTable.css";
 import Tippy from "@tippyjs/react";
 import Modal from "../Modal";
 import ItemBlockGroupTable from "../ItemBlockGroupTable";
 import { useIntl } from "react-intl";
+
+import "./BlocksTable.css";
 
 const BlocksTableRow = ({ group }: { group: GroupTypeResponse }) => {
   const intl = useIntl();
@@ -159,7 +158,11 @@ const BlocksTableRow = ({ group }: { group: GroupTypeResponse }) => {
 };
 
 const BlocksTable = () => {
-  const { data: groups = [], isError } = useGroups();
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(10);
+
+  const { data: groups = [], isError, isPreviousData } = useGroups({ limit, offset });
+
   const intl = useIntl();
 
   if (groups.length <= 0) {
@@ -173,22 +176,48 @@ const BlocksTable = () => {
   }
 
   return (
-    <table className="BlocksTable">
-      <thead className="BlocksTable__Header">
-        <tr>
-          <th scope="col">{intl.formatMessage({ id: "ID" })}</th>
-          <th scope="col">{intl.formatMessage({ id: "NAME" })}</th>
-          <th scope="col">{intl.formatMessage({ id: "LINKED_CONTENTS" })}</th>
-          <th scope="col">{intl.formatMessage({ id: "AVAILABLE_LOCALES" })}</th>
-          <th scope="col">{intl.formatMessage({ id: "ACTIONS" })}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {groups.map((group: GroupTypeResponse) => (
-          <BlocksTableRow group={group} key={group.id} />
-        ))}
-      </tbody>
-    </table>
+    <>
+      <table className="BlocksTable">
+        <thead className="BlocksTable__Header">
+          <tr>
+            <th scope="col">{intl.formatMessage({ id: "ID" })}</th>
+            <th scope="col">{intl.formatMessage({ id: "NAME" })}</th>
+            <th scope="col">{intl.formatMessage({ id: "LINKED_CONTENTS" })}</th>
+            <th scope="col">{intl.formatMessage({ id: "AVAILABLE_LOCALES" })}</th>
+            <th scope="col">{intl.formatMessage({ id: "ACTIONS" })}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {groups.map((group: GroupTypeResponse) => (
+            <BlocksTableRow group={group} key={group.id} />
+          ))}
+        </tbody>
+      </table>
+
+      <div className="Pagination">
+        <button
+          className="Pagination__Button Pagination__Button--previous"
+          onClick={() => setOffset((old) => Math.max(old - limit, 0))}
+          disabled={offset === 0}
+        >
+          <i className="fa fa-chevron-left"></i>
+        </button>
+        <div className="Pagination__Button Pagination__Button--page">
+          {offset / limit + 1}
+        </div>
+        <button
+          className="Pagination__Button Pagination__Button--next"
+          onClick={() => {
+            if (!isPreviousData && (groups?.length || 0) >= limit) {
+              setOffset((old) => old + limit);
+            }
+          }}
+          disabled={isPreviousData || (groups?.length || 0) < limit}
+        >
+          <i className="fa fa-chevron-right"></i>
+        </button>
+      </div>
+    </>
   );
 };
 

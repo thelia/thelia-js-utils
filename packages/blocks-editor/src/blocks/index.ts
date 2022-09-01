@@ -14,6 +14,7 @@ import Separator from "./Separator";
 import Text from "./Text";
 import Title from "./Title";
 import Video from "./Video";
+import List from "./List";
 
 const Columns = {
   TwoColumns,
@@ -33,4 +34,5 @@ export {
   Button,
   Accordion,
   Product,
+  List,
 };

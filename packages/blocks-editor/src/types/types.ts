@@ -1,4 +1,4 @@
-import { FunctionComponent, SVGProps } from "react";
+import { FunctionComponent, ReactNode, SVGProps } from "react";
 
 export type ErrorType = {
   message: string;
@@ -37,7 +37,7 @@ export type IBlock = {
   readonly id: string;
   readonly type: BlockModuleType;
   parent: IBlock["id"] | null;
-  layout?: i18nString;
+  title?: i18nString;
   data: any;
 };
 
@@ -91,7 +91,7 @@ export type BlockPluginDefinition<TProp = { [key: string]: any }> =
       [key: string]: any;
     }) => JSX.Element;
     initialData: TProp;
-    icon: FunctionComponent<SVGProps<SVGSVGElement>>;
+    icon: FunctionComponent<SVGProps<SVGSVGElement>> | ReactNode;
     layout?: string;
   };
 
@@ -116,5 +116,12 @@ export type Plugin = BlockModuleI18n & {
   initialData: Record<string, any>;
   icon: FunctionComponent<SVGProps<SVGSVGElement>>;
   customIcon?: JSX.Element;
-  layout?: string;
+  layout?: i18nString;
+  title?: i18nString;
 };
+
+export type EditorModule = {
+  name: string;
+  tooltip: string;
+  value?: string;
+}

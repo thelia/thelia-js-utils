@@ -138,7 +138,11 @@ const Preview = ({
 
   return (
     <div className="BlockImage__Preview">
-      <img src={`/image-library/${id}/full/^!220,220/0/default.webp`} alt="" />
+      <img
+        src={`/image-library/${id}/full/^!220,220/0/default.webp`}
+        alt=""
+        loading="lazy"
+      />
 
       <div className="BlockImage__Preview__Infos">
         <span className="BlockImage__Preview__FileName">{fileName}</span>
@@ -285,7 +289,22 @@ const WrappedComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
   return (
     <IntlProvider messages={messages[locale]} locale={locale}>
       <QueryClientProvider client={queryClient}>
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            success: {
+              style: {
+                background: "#EAFBF5",
+                border: "1px solid #005A3A",
+              },
+            },
+            error: {
+              style: {
+                background: "#FFEDED",
+                border: "1px solid #D21919",
+              },
+            },
+          }}
+        />
         <BlockImageComponent {...props} />
       </QueryClientProvider>
     </IntlProvider>

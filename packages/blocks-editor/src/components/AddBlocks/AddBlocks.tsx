@@ -1,7 +1,5 @@
 import { Plugin } from "../../types/types";
-
 import BlockTooltip from "../BlockTooltip";
-import { ReactComponent as DragIcon } from "../../../assets/svg/drag.svg";
 import Modal from "react-modal";
 import Tippy from "@tippyjs/react";
 import groupBy from "lodash/groupBy";
@@ -12,18 +10,20 @@ import { usePlugins } from "../../hooks/usePlugins";
 import useWindowSize from "../../hooks/useWindowSize";
 import { CSSProperties, Fragment, ReactNode, useState } from "react";
 import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
+import { useIntl } from "react-intl";
 
 import "./AddBlocks.css";
-import { useIntl } from "react-intl";
 
 const AddButton = ({
   plugin,
   setIsOpen,
   style,
+  inLayout,
 }: {
   plugin: Plugin;
   setIsOpen: Function;
   style?: CSSProperties;
+  inLayout?: boolean;
 }) => {
   const { addBlock } = useBlocksContext();
   const intl = useIntl();
@@ -48,13 +48,34 @@ const AddButton = ({
             id: nanoid(),
             data: plugin.initialData,
             parent: null,
+            title: plugin.title,
             type: { id: plugin.type.id },
           });
           setIsOpen(false);
+
+          if (!inLayout) {
+            setTimeout(() => {
+              window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: "smooth",
+              });
+            }, 250);
+          }
         }}
         key={plugin.id}
       >
-        {plugin?.customIcon ? plugin?.customIcon : <Icon />}
+        {plugin?.customIcon ? (
+          plugin?.customIcon
+        ) : typeof plugin?.icon === "function" ? (
+          <Icon className="Sidebar__Add__Icon" />
+        ) : (
+          <Tippy content={"Icone introuvable"}>
+            <i
+              className="far fa-question-circle"
+              style={{ fontSize: "24px", color: "#333333" }}
+            ></i>
+          </Tippy>
+        )}
         {plugin.title[intl.locale || "default"]}
       </button>
     </Tippy>
@@ -95,9 +116,11 @@ const AddBlockModal = ({
 const ModalContent = ({
   excludeLayout,
   setIsOpen,
+  inLayout,
 }: {
   excludeLayout?: boolean;
   setIsOpen: Function;
+  inLayout?: boolean;
 }) => {
   const [subModalOpen, setSubModalOpen] = useState(false);
   const { width } = useWindowSize();
@@ -119,7 +142,14 @@ const ModalContent = ({
   return (
     <ol className="AddBlocks__Modal__BlocksList">
       {commonBlocks.map((plugin, index) => {
-        return <AddButton key={index} plugin={plugin} setIsOpen={setIsOpen} />;
+        return (
+          <AddButton
+            key={index}
+            plugin={plugin}
+            setIsOpen={setIsOpen}
+            inLayout={inLayout}
+          />
+        );
       })}
 
       {Object.entries(layoutPluginsByType).map(
@@ -129,8 +159,9 @@ const ModalContent = ({
           return layoutPluginsByType.length === 1 ? (
             <AddButton
               key={index}
-              plugin={layoutPluginsByType[index]}
+              plugin={layoutPluginsByType[0]}
               setIsOpen={setIsOpen}
+              inLayout={inLayout}
             />
           ) : (
             <Fragment key={index}>
@@ -153,6 +184,7 @@ const ModalContent = ({
                       key={index}
                       plugin={plugin}
                       setIsOpen={setIsOpen}
+                      inLayout={inLayout}
                     />
                   ))}
                 </ol>
@@ -165,7 +197,13 @@ const ModalContent = ({
   );
 };
 
-const AddBlocks = ({ excludeLayout }: { excludeLayout?: boolean }) => {
+const AddBlocks = ({
+  excludeLayout,
+  inLayout,
+}: {
+  excludeLayout?: boolean;
+  inLayout?: boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const intl = useIntl();
@@ -173,12 +211,6 @@ const AddBlocks = ({ excludeLayout }: { excludeLayout?: boolean }) => {
   return (
     <>
       <div className="AddBlocks">
-        <div className="AddBlocks__Icon">
-          <DragIcon />
-        </div>
-        <span className="AddBlocks__Info">
-          {intl.formatMessage({ id: "AddBlocks__DROP_CONTENT" })}
-        </span>
         <button className="AddBlocks__Button" onClick={() => setIsOpen(true)}>
           {intl.formatMessage({ id: "AddBlocks__ADD_CONTENT" })}
         </button>
@@ -188,7 +220,11 @@ const AddBlocks = ({ excludeLayout }: { excludeLayout?: boolean }) => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       >
-        <ModalContent excludeLayout={excludeLayout} setIsOpen={setIsOpen} />
+        <ModalContent
+          excludeLayout={excludeLayout}
+          setIsOpen={setIsOpen}
+          inLayout={inLayout}
+        />
       </AddBlockModal>
     </>
   );

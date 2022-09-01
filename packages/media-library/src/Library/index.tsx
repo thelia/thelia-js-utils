@@ -11,9 +11,14 @@ import { ReactComponent as TagXMarkIcon } from "./assets/tag-xmark.svg";
 import ReactModal from "react-modal";
 import { ImageTag, LibraryImage as LibraryImageType } from "../types/types";
 import { Suspense, useLayoutEffect, useRef, useState } from "react";
-import { useIntl } from "react-intl";
+import { IntlProvider, useIntl } from "react-intl";
 
 import "./Library.css";
+import Input from "../Input";
+import ErrorBoundary from "../ErrorBoundary";
+import { locale, messages } from "../utils/intl";
+import { QueryClientProvider } from "react-query";
+import { queryClient } from "@thelia/fetcher";
 
 const TagsList = ({
   currentTags,
@@ -66,6 +71,8 @@ const TagConfigurationModal = ({
 }) => {
   const [showTags, setShowTags] = useState(false);
 
+  const intl = useIntl();
+
   const deleteTagAssociation = useDeleteTagAssociation();
   const associateTag = useAssociateTag();
 
@@ -90,13 +97,16 @@ const TagConfigurationModal = ({
           </button>
 
           <div className="Modal__Header__Title">
-            Configuration des tags de {image.title}
+            {intl.formatMessage({ id: "BlockImage__LIBRARY_IMAGE_TAG_CONFIG" })}{" "}
+            {image.title}
           </div>
         </div>
 
         <div className="Modal__Content" style={{ overflow: "inherit" }}>
           <div>
-            <label>Ajouter un ou plusieurs tag</label>
+            <label>
+              {intl.formatMessage({ id: "BlockImage__LIBRARY_IMAGE_ADD_TAG" })}
+            </label>
             <div className="BlockImage__TagSelector">
               <div
                 className="BlockImage__TagSelector__Tags"
@@ -115,7 +125,7 @@ const TagConfigurationModal = ({
                       </div>
                     ))
                   : !associateTag.isLoading
-                  ? "Sélectionnez un ou plusieurs tag"
+                  ? intl.formatMessage({ id: "BlockImage__LIBRARY_IMAGE_SELECT_TAG" })
                   : null}
 
                 {associateTag.isLoading && (
@@ -175,17 +185,12 @@ const TagFilterOptions = () => {
   );
 };
 
-const TagFilter = ({
-  images,
-  setTagId,
-}: {
-  images: LibraryImageType[];
-  setTagId: Function;
-}) => {
+const TagFilter = ({ setTagId }: { setTagId: Function }) => {
   const intl = useIntl();
 
   return (
-    <div>
+    <div className="Select__Wrapper">
+      <div className="Input__Select__Separator"></div>
       <label htmlFor="tag-filter">
         {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_TAG_FILTER" })}
       </label>
@@ -287,7 +292,11 @@ const LibraryContent = ({
   const [title, setTitle] = useState<string>("");
   const [tagId, setTagId] = useState<number>();
 
-  const { data: images = [], isFetching } = useLibraryImage({
+  const {
+    data: images = [],
+    isFetching,
+    isPreviousData,
+  } = useLibraryImage({
     offset,
     limit,
     title,
@@ -299,22 +308,19 @@ const LibraryContent = ({
   return (
     <div className="Library">
       <div className="Library__Filters">
-        <div>
-          <label htmlFor="library-search">
-            {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_SEARCH" })}
-          </label>
-          <input
-            className="Input__Text"
-            placeholder={intl.formatMessage({ id: "SEARCH_BY" })}
-            type="text"
-            name="library-search"
-            id="library-search"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
+        <Input
+          placeholder={intl.formatMessage({ id: "SEARCH_BY" })}
+          type="text"
+          name="library-search"
+          id="library-search"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          label={intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_SEARCH" })}
+          icon={<i className="fa fa-search emphasize"></i>}
+          iconAlignment="right"
+        />
 
-        <TagFilter images={images} setTagId={setTagId} />
+        <TagFilter setTagId={setTagId} />
       </div>
       <div className="Library__Content">
         {isFetching ? (
@@ -332,34 +338,35 @@ const LibraryContent = ({
           </div>
         )}
       </div>
-      {/* <div className="Library__Pagination">
+
+      <div className="Pagination">
         <button
-          type="button"
-          className="Button"
+          className="Pagination__Button Pagination__Button--previous"
           onClick={() => setOffset((old) => Math.max(old - limit, 0))}
           disabled={offset === 0}
         >
-          page précédente
+          <i className="fa fa-chevron-left"></i>
         </button>
-        <div className="px-4 Button">{offset / limit + 1}</div>
+        <div className="Pagination__Button Pagination__Button--page">
+          {offset / limit + 1}
+        </div>
         <button
-          type="button"
-          className="Button"
+          className="Pagination__Button Pagination__Button--next"
           onClick={() => {
-            if (!images.isPreviousData && (images?.data?.length || 0) >= limit) {
+            if (!isPreviousData && (images?.length || 0) >= limit) {
               setOffset((old) => old + limit);
             }
           }}
-          disabled={images.isPreviousData || (images?.data?.length || 0) < limit}
+          disabled={isPreviousData || (images?.length || 0) < limit}
         >
-          page suivante
+          <i className="fa fa-chevron-right"></i>
         </button>
-        </div> */}
+      </div>
     </div>
   );
 };
 
-export default function Library({
+function Library({
   isOpen,
   setIsOpen,
   limit = 20,
@@ -400,10 +407,27 @@ export default function Library({
               </div>
             }
           >
-            <LibraryContent onSelect={onSelect} limit={limit} />
+            <ErrorBoundary>
+              <LibraryContent onSelect={onSelect} limit={limit} />
+            </ErrorBoundary>
           </Suspense>
         </div>
       </div>
     </ReactModal>
+  );
+}
+
+export default function WrappedComponent(props: {
+  isOpen: boolean;
+  setIsOpen: Function;
+  limit?: number;
+  onSelect: (image: LibraryImageType) => void;
+}) {
+  return (
+    <IntlProvider messages={messages[locale]} locale={locale}>
+      <QueryClientProvider client={queryClient}>
+        <Library {...props} />
+      </QueryClientProvider>
+    </IntlProvider>
   );
 }

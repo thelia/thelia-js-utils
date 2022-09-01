@@ -56,6 +56,10 @@
   gap: 15px;
 }
 
+.Library__Filters .Input__Wrapper {
+  width: 400px
+}
+
 .Library__Content {
   display: flex;
   flex-wrap: wrap;
@@ -264,13 +268,22 @@
   padding: 20px 15px;
 }
 
-@media screen and (max-width: 1366px) {
+.Select__Wrapper {
+  position: relative;
+  width: 250px;
+}
+
+@media screen and (max-width: 768px) {
   .Library__Image__Title {
     max-width: 100px;
   }
 
   .Library__Filters {
     flex-direction: column;
+  }
+
+  .Library__Filters .Input__Wrapper, .Library__Filters .Select__Wrapper {
+    width: auto;
   }
 
   .Library__Item {

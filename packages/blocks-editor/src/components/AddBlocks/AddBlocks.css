@@ -1,13 +1,5 @@
 .AddBlocks {
-  @apply flex flex-col items-center justify-center p-4 border border-dotted rounded-md border-greyDark;
-
-  &__Icon {
-    @apply p-2 rounded-full bg-pearlLight;
-  }
-
-  &__Info {
-    @apply text-center my-3;
-  }
+  @apply flex flex-col items-center justify-center p-7 bg-pearlLight;
 
   &__Button {
     @apply px-2 text-xs font-semibold tracking-wider uppercase border-2 rounded-md w-max border-vermillon text-vermillon hover:bg-vermillon hover:text-white py-1;

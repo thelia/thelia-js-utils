@@ -16,7 +16,8 @@ import useWindowSize from "./hooks/useWindowSize";
 import { IntlProvider, useIntl } from "react-intl";
 import { messages, locale } from "./utils/intl";
 import LinkBlockToItem from "./components/LinkBlockToItem";
-import Tippy from "@tippyjs/react";
+import { toastOptions } from "./utils/toast";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 interface IBlocksEditorProps {
   apiUrl: string;
@@ -55,9 +56,10 @@ const BlocksEditorHeader = ({
   const unlinkContent = useUnlinkContentFromGroup();
   const intl = useIntl();
 
-  const isGroupLinkedToCurrentContent = group?.itemBlockGroups?.some(
-    (linkedContent) => linkedContent.itemId === (itemId && +itemId)
-  );
+  const isGroupLinkedToCurrentContent =
+    group?.itemBlockGroups?.some(
+      (linkedContent) => linkedContent.itemId === (itemId && +itemId)
+    ) || false;
 
   const linkedContentId = group?.itemBlockGroups?.find(
     (linkedContent) => linkedContent.itemId === (itemId && +itemId)
@@ -79,36 +81,15 @@ const BlocksEditorHeader = ({
       </div>
 
       <div className="BlocksEditor__Header__Inputs__Wrapper">
-        <div
-          className={`BlocksEditor__Header__GroupTitle__Wrapper ${
-            isGroupLinkedToCurrentContent
-              ? "BlocksEditor__Header__GroupTitle__Wrapper--isLinked"
-              : ""
-          }`}
-        >
-          <GroupTitle />
-          {itemConfiguration && !isGroupLinkedToCurrentContent ? (
-            <LinkBlockToItem itemId={itemId} groupId={groupId} itemType={itemType} />
-          ) : isGroupLinkedToCurrentContent ? (
-            <Tippy
-              delay={[500, 0]}
-              content={intl.formatMessage({
-                id: "LinkBlockToItem__UNLINK_GROUP",
-              })}
-            >
-              <button
-                onClick={() => unlinkContent.mutate({ id: linkedContentId })}
-                className="BlocksEditor__Header__Unlink__Button"
-              >
-                {unlinkContent.isLoading ? (
-                  <i className="fa fa-circle-notch fa-spin"></i>
-                ) : (
-                  <i className="fas fa-unlink"></i>
-                )}
-              </button>
-            </Tippy>
-          ) : null}
-        </div>
+        <GroupTitle
+          isGroupLinkedToCurrentContent={isGroupLinkedToCurrentContent}
+          onLink={() => unlinkContent.mutate({ id: linkedContentId })}
+          isLinking={unlinkContent.isLoading}
+        />
+
+        {itemConfiguration && !isGroupLinkedToCurrentContent ? (
+          <LinkBlockToItem itemId={itemId} groupId={groupId} itemType={itemType} />
+        ) : null}
 
         <GroupLocale />
       </div>
@@ -150,7 +131,7 @@ export default function BlocksEditor({
               noRedirect={noRedirect}
             >
               <div className="BlocksEditor">
-                <Toaster />
+                <Toaster toastOptions={toastOptions} />
                 <div className="BlocksEditor__Wrapper">
                   <BlockContextProvider root>
                     <>
@@ -176,7 +157,9 @@ export default function BlocksEditor({
                       </div>
                       {width > 1080 ? (
                         <div className="Sidebar__Wrapper">
-                          <Sidebar />
+                          <ErrorBoundary>
+                            <Sidebar />
+                          </ErrorBoundary>
                         </div>
                       ) : null}
                     </>

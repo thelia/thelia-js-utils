@@ -30,6 +30,11 @@ input[type="checkbox"] {
   }
 }
 
+/* Override for Chrome only, this is the default behavior for Firefox and Safari */ 
+input[type="number"]::-webkit-inner-spin-button {
+  opacity: 1
+}
+
 label {
   @apply tracking-wider mb-1 uppercase text-lightCharbon text-xs select-none;
 }
@@ -69,7 +74,7 @@ input::placeholder, textarea::placeholder {
   bottom: 0;
   margin: auto;
   height: max-content;
-  width: 25%;
+  width: 450px;
   border-radius: 8px;
   background-color: white;
 }
@@ -98,21 +103,29 @@ input::placeholder, textarea::placeholder {
   z-index: 200;
 }
 
+.Pagination {
+  @apply flex justify-end mt-8 text-lightCharbon;
+
+  &__Button {
+    @apply flex items-center justify-center disabled:bg-greyMedium disabled:text-white text-lightCharbon enabled:hover:bg-pearlMedium border-greyMedium bg-white w-9 h-9;
+
+    &--previous {
+      @apply border-l border-y rounded-l-md;
+    }
+
+    &--next {
+      @apply border-r border-y rounded-r-md;
+    }
+
+    &--page {
+      @apply border select-none;
+    }
+  }
+}
+
 @media screen and (max-width: 1500px) {
   .Modal-htmlWarning {
-    width: 30%;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  .Modal-htmlWarning {
-    width: 40%;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .Modal-htmlWarning {
-    width: 50%;
+    width: 375px;
   }
 }
 
@@ -123,14 +136,12 @@ input::placeholder, textarea::placeholder {
   }
 
   .Modal-htmlWarning {
-    width: 60%;
     overflow: auto;
   }
 }
 
 @media screen and (max-width: 640px) {
   .Modal-htmlWarning {
-    width: 80%;
     overflow: auto;
   }
 }

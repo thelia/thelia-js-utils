@@ -27,6 +27,7 @@ const Select = forwardRef(
   ) => {
     return (
       <InputWrapper id={id} label={label} error={error} info={info}>
+        <div className="Input__Select__Separator"></div>
         <select
           id={id}
           ref={ref}

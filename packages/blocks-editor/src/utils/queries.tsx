@@ -29,9 +29,23 @@ export function BlocksProvider({ children, api }: { children: ReactNode; api: st
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }
 
-export function useGroups() {
-  return useQuery<GroupTypeResponse[]>(["block_group"], () =>
-    fetcher(`/block_group/list`)
+export function useGroups(options?: { limit?: number; offset?: number }) {
+  const { currentLocale } = useContext(LocaleContext);
+
+  return useQuery<GroupTypeResponse[]>(
+    ["block_group", options],
+    () =>
+      fetcher(`/block_group/list`, {
+        method: "GET",
+        params: {
+          limit: options?.limit || 10,
+          offset: options?.offset || 0,
+          locale: currentLocale,
+        },
+      }),
+    {
+      keepPreviousData: true,
+    }
   );
 }
 

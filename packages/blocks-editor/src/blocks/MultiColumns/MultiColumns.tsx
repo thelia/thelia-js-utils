@@ -110,20 +110,17 @@ const ColumnComponent = ({
       />
       <div className={`${!open ? "BlockColumn--closed" : "BlockColumn__Content"}`}>
         <BlockContextProvider defaultBlocks={column}>
-          <>
-            <NestedColumn
-              onUpdate={(columnNewData: IBlock[]) => {
-                const nextState = produce(data, (draft) => {
-                  draft[index] = columnNewData;
-                });
-                onUpdate(nextState);
-              }}
-            />
-
-            <AddBlocks excludeLayout />
-          </>
+          <NestedColumn
+            onUpdate={(columnNewData: IBlock[]) => {
+              const nextState = produce(data, (draft) => {
+                draft[index] = columnNewData;
+              });
+              onUpdate(nextState);
+            }}
+          />
         </BlockContextProvider>
       </div>
+      <AddBlocks excludeLayout inLayout />
     </div>
   );
 };
@@ -134,17 +131,15 @@ const MultiColumnsComponent = ({
 }: BlockModuleComponentProps<MultiColumnsData>) => {
   return (
     <div className="BlockMultiColumns__Wrapper">
-      {data.map((column, index) => {
-        return (
-          <ColumnComponent
-            key={index}
-            data={data}
-            onUpdate={onUpdate}
-            column={column}
-            index={index}
-          />
-        );
-      })}
+      {data.map((column, index) => (
+        <ColumnComponent
+          key={index}
+          data={data}
+          onUpdate={onUpdate}
+          column={column}
+          index={index}
+        />
+      ))}
     </div>
   );
 };

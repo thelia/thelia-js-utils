@@ -91,11 +91,10 @@ const AccordionContentComponent = ({
                 onUpdate(nextState);
               }}
             />
-
-            <AddBlocks excludeLayout />
           </div>
         </BlockContextProvider>
       </div>
+      <AddBlocks excludeLayout inLayout />
     </div>
   );
 };
