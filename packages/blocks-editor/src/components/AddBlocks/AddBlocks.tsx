@@ -127,10 +127,10 @@ const ModalContent = ({
   const plugins = usePlugins();
   const intl = useIntl();
 
-  let availablePLugins = plugins;
+  let availablePLugins = plugins.filter((plugin) => !plugin.internalOnly);
 
   if (excludeLayout) {
-    availablePLugins = plugins.filter((plugin) => !plugin["layout"]);
+    availablePLugins = availablePLugins.filter((plugin) => !plugin["layout"]);
   }
 
   const [commonBlocks, layoutPlugins] = partition(availablePLugins, (i) => !i.layout);

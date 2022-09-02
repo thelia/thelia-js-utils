@@ -6,6 +6,7 @@ import { usePlugins } from "../../hooks/usePlugins";
 import "./Block.css";
 import { useIntl } from "react-intl";
 import Tippy from "@tippyjs/react";
+import ErrorBoundary from "../ErrorBoundary";
 
 const Block = ({
   block,
@@ -39,11 +40,14 @@ const Block = ({
       <div
         style={{
           backgroundColor: "red",
+          color: "white",
           padding: "1rem",
           margin: "1rem 0",
         }}
       >
-        <div>{intl.formatMessage({ id: "UNSUPPORTED_BLOCK" })}</div>
+        <div>
+          {intl.formatMessage({ id: "UNSUPPORTED_BLOCK" })} : {block.type.id}
+        </div>
         <BlockControls
           blockIndex={blockIndex}
           blockId={block.id}
@@ -56,39 +60,44 @@ const Block = ({
   const { component: Component, icon: Icon } = currentPlugin;
 
   return (
-    <div className={`${inLayout ? "NestedBlock" : "Block"}`}>
-      <div className={`${inLayout ? "NestedBlock__Header" : "Block__Header"}`}>
-        <div className="Block__Header__Infos">
-          {!inLayout && typeof Icon === "function" ? (
-            <Icon />
-          ) : (
-            <Tippy content={"Icone introuvable"}>
-              <i
-                className="far fa-question-circle"
-                style={{ fontSize: "24px", color: "#333333" }}
-              ></i>
-            </Tippy>
-          )}
+    <ErrorBoundary>
+      <div className={`${inLayout ? "NestedBlock" : "Block"}`}>
+        <div className={`${inLayout ? "NestedBlock__Header" : "Block__Header"}`}>
+          <div className="Block__Header__Infos">
+            {!inLayout && typeof Icon === "function" ? (
+              <Icon />
+            ) : (
+              <Tippy content={"Icone introuvable"}>
+                <i
+                  className="far fa-question-circle"
+                  style={{ fontSize: "24px", color: "#333333" }}
+                ></i>
+              </Tippy>
+            )}
 
-          <div
-            className={`${
-              inLayout
-                ? "NestedBlock__Header__Infos__Title"
-                : "Block__Header__Infos__Title"
-            }`}
-          >
-            {currentPlugin.title[intl.locale || "default"]}
+            <div
+              className={`${
+                inLayout
+                  ? "NestedBlock__Header__Infos__Title"
+                  : "Block__Header__Infos__Title"
+              }`}
+            >
+              {currentPlugin.title[intl.locale || "default"]}
+            </div>
           </div>
+          <BlockControls
+            blockIndex={blockIndex}
+            inLayout={inLayout}
+            blockId={block.id}
+            DndDragHandle={DndDragHandle}
+          />
         </div>
-        <BlockControls
-          blockIndex={blockIndex}
-          inLayout={inLayout}
-          blockId={block.id}
-          DndDragHandle={DndDragHandle}
+        <Component
+          data={block.data}
+          onUpdate={(data: {}) => updateBlock(block.id, data)}
         />
       </div>
-      <Component data={block.data} onUpdate={(data: {}) => updateBlock(block.id, data)} />
-    </div>
+    </ErrorBoundary>
   );
 };
 

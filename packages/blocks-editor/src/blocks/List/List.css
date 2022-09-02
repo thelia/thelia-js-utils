@@ -1,0 +1,11 @@
+.BlockList {
+  @apply flex flex-col gap-4;
+
+  &__Config {
+    @apply w-full md:w-1/2;
+  }
+
+  &__Add, &__Delete {
+
+  }
+}

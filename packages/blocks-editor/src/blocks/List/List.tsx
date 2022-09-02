@@ -3,6 +3,8 @@ import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/ty
 import BlockText, { BlockTextData } from "../Text";
 import { nanoid } from "nanoid";
 import { ReactComponent as Icon } from "../Button/assets/button.svg";
+import { Select } from "../../components/Inputs";
+import "./List.css";
 
 enum typeList {
   Unordered = "ul",
@@ -69,24 +71,18 @@ function BlockListComponent({
 
   return (
     <div className="BlockList">
-      <div className="BlockList-config">
-        <label htmlFor="title-level">Type</label>
-        <select
-          name="title-level"
-          id="title-level"
-          onChange={onChangeType}
-          value={data.type}
-        >
+      <div className="BlockList__Config">
+        <Select id="type-field" label="Type" value={data.type} onChange={onChangeType}>
           {types.map(({ label, value }) => (
             <option key={value} value={value}>
               {label}
             </option>
           ))}
-        </select>
+        </Select>
       </div>
-      <div className="BlockList-list">
+      <div className="BlockList__List">
         {listItems.map((listItem) => (
-          <div className="BlockList-line" key={listItem.id}>
+          <div className="BlockList__Line" key={listItem.id}>
             <BlockText.component
               id={`text-${listItem.id}`}
               data={{ value: listItem.value }}
@@ -99,13 +95,14 @@ function BlockListComponent({
               type="button"
               onClick={() => deleteLine(listItem.id)}
               disabled={listItems.length < 2}
+              className="BlockList__Delete"
             >
               <i className="fa fa-trash"></i>
             </button>
           </div>
         ))}
         <div className="text-center">
-          <button type="button" className="BlockList-add" onClick={addLine}>
+          <button type="button" className="BlockList__Add" onClick={addLine}>
             Ajouter un élément
           </button>
         </div>
@@ -128,13 +125,20 @@ const BlockList: BlockPluginDefinition<BlockListData> = {
   component: BlockListComponent,
   initialData,
   icon: Icon,
+  internalOnly: true,
   title: {
     default: "List",
-    fr_FR: "Liste",
+    fr: "Liste",
+    en: "List",
+    es: "Lista",
+    it: "Lista",
   },
   description: {
     default: "Display a list",
-    fr_FR: "Affiche une liste",
+    fr: "Affiche une liste",
+    en: "Display a list",
+    es: "Mostrar una lista",
+    it: "Mostra una lista",
   },
   image: {
     default: "https://source.unsplash.com/featured/300x250?nature&blockList",

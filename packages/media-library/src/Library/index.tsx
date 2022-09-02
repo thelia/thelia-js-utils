@@ -10,15 +10,14 @@ import { ReactComponent as TrashIcon } from "./assets/trash.svg";
 import { ReactComponent as TagXMarkIcon } from "./assets/tag-xmark.svg";
 import ReactModal from "react-modal";
 import { ImageTag, LibraryImage as LibraryImageType } from "../types/types";
-import { Suspense, useLayoutEffect, useRef, useState } from "react";
+import { Suspense, useState } from "react";
 import { IntlProvider, useIntl } from "react-intl";
-
-import "./Library.css";
 import Input from "../Input";
 import ErrorBoundary from "../ErrorBoundary";
 import { locale, messages } from "../utils/intl";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "@thelia/fetcher";
+import "./Library.css";
 
 const TagsList = ({
   currentTags,

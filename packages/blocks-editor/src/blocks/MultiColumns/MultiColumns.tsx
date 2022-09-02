@@ -36,21 +36,19 @@ const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
     }
   };
 
-  return (
-    <>
-      {blockList.length > 0 && (
-        <DndWrapper id="main" onDragEnd={onDragEnd}>
-          {blockList.map((block, index) => (
-            <DndWrapElement key={block.id} id={block.id} index={index}>
-              {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
-                <Block DndDragHandle={DndDragHandle} inLayout key={index} block={block} />
-              )}
-            </DndWrapElement>
-          ))}
-        </DndWrapper>
-      )}
-    </>
-  );
+  return blockList.length > 0 ? (
+    <div className="flex flex-col gap-6 px-6 pt-4 xl:pt-8 xl:px-10">
+      <DndWrapper id="main" onDragEnd={onDragEnd}>
+        {blockList.map((block, index) => (
+          <DndWrapElement key={block.id} id={block.id} index={index}>
+            {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
+              <Block DndDragHandle={DndDragHandle} inLayout key={index} block={block} />
+            )}
+          </DndWrapElement>
+        ))}
+      </DndWrapper>
+    </div>
+  ) : null;
 };
 
 export const ColumnIcon = ({
@@ -110,17 +108,20 @@ const ColumnComponent = ({
       />
       <div className={`${!open ? "BlockColumn--closed" : "BlockColumn__Content"}`}>
         <BlockContextProvider defaultBlocks={column}>
-          <NestedColumn
-            onUpdate={(columnNewData: IBlock[]) => {
-              const nextState = produce(data, (draft) => {
-                draft[index] = columnNewData;
-              });
-              onUpdate(nextState);
-            }}
-          />
+          <>
+            <NestedColumn
+              onUpdate={(columnNewData: IBlock[]) => {
+                const nextState = produce(data, (draft) => {
+                  draft[index] = columnNewData;
+                });
+                onUpdate(nextState);
+              }}
+            />
+
+            <AddBlocks excludeLayout inLayout />
+          </>
         </BlockContextProvider>
       </div>
-      <AddBlocks excludeLayout inLayout />
     </div>
   );
 };

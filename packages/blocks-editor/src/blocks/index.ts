@@ -15,6 +15,7 @@ import Text from "./Text";
 import Title from "./Title";
 import Video from "./Video";
 import List from "./List";
+import Group from "./Group";
 
 const Columns = {
   TwoColumns,
@@ -35,4 +36,5 @@ export {
   Accordion,
   Product,
   List,
+  Group
 };

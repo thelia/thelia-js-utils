@@ -83,7 +83,8 @@ const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isDisplayingSubMenu, setIsDisplayingSubMenu] = useState(false);
 
-  const [commonBlocks, layoutPlugins] = partition(plugins, (i) => !i.layout);
+  const availablePLugins = plugins.filter((plugin) => !plugin.internalOnly);
+  const [commonBlocks, layoutPlugins] = partition(availablePLugins, (i) => !i.layout);
 
   const layoutPluginsByType = groupBy(
     layoutPlugins,

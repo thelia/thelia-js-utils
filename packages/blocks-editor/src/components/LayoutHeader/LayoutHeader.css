@@ -14,6 +14,10 @@
     @apply text-base font-extrabold;
   }
 
+  &__Actions {
+    @apply flex items-center flex-row-reverse gap-3;
+  }
+
   &__Collapse {
     @apply flex items-stretch;
 
@@ -26,7 +30,20 @@
     }
 
     &__Label {
-      @apply bg-vermillon font-semibold text-xs uppercase tracking-wider rounded-r-md py-2 px-2;
+      @apply bg-vermillon font-semibold text-xs uppercase tracking-wider rounded-r-md p-2;
+    }
+  }
+
+  &__DeleteButton {
+    @apply bg-vermillon p-2 rounded-md flex items-center justify-center;
+
+    > svg {
+      height: 16px;
+      width: 16px;
+    }
+
+    &:hover {
+      @apply bg-lightVermillon;
     }
   }
 }

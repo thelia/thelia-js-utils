@@ -91,6 +91,7 @@ export type BlockPluginDefinition<TProp = { [key: string]: any }> =
       [key: string]: any;
     }) => JSX.Element;
     initialData: TProp;
+    internalOnly?: boolean;
     icon: FunctionComponent<SVGProps<SVGSVGElement>> | ReactNode;
     layout?: string;
   };
@@ -115,6 +116,7 @@ export type Plugin = BlockModuleI18n & {
   readonly component: Function;
   initialData: Record<string, any>;
   icon: FunctionComponent<SVGProps<SVGSVGElement>>;
+  internalOnly?: boolean;
   customIcon?: JSX.Element;
   layout?: i18nString;
   title?: i18nString;

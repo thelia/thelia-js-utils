@@ -75,6 +75,7 @@ export const messages: Record<string, { [key: string]: string}> = {
 
     BlockAccordion__TITLE: "Titre de l'accordéon",
     BlockAccordion__TITLE_PLACEHOLDER: "Indiquez le titre de l'accordéon",
+    BlockAccordion__ADD: "Ajouter un accordéon",
 
     LinkBlockToItem__LINK_GROUP: "Lier un groupe",
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Indiquez le nom du groupe",
@@ -147,6 +148,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     ORDERED_LIST: "Liste ordonnée",
     UNORDERED_LIST: "Liste non ordonnée",
     URL: "Lien",
+    CONTENT_GROUP: "Contenu du groupe",
   },
   "en": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creation of a new Thelia Blocks",
@@ -219,6 +221,7 @@ export const messages: Record<string, { [key: string]: string}> = {
 
     BlockAccordion__TITLE: "Title of the accordion",
     BlockAccordion__TITLE_PLACEHOLDER: "Enter the title of the accordion",
+    BlockAccordion__ADD: "Add an accordion",
 
     LinkBlockToItem__LINK_GROUP: "Link a group",
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Enter the name of the group",
@@ -291,6 +294,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     ORDERED_LIST: "Ordered list",
     UNORDERED_LIST: "Unordered list",
     URL: "Link",
+    CONTENT_GROUP: "Content group",
   },
   "es": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creación de un nuevo Thelia Blocks",
@@ -363,6 +367,7 @@ export const messages: Record<string, { [key: string]: string}> = {
 
     BlockAccordion__TITLE: "Título del acordeón",
     BlockAccordion__TITLE_PLACEHOLDER: "Introduce el título del acordeón",
+    BlockAccordion__ADD: "Añade un acordeón",
 
     LinkBlockToItem__LINK_GROUP: "Vincula un grupo",
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Elige un grupo",
@@ -436,6 +441,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     ORDERED_LIST: "Lista ordenada",
     UNORDERED_LIST: "Lista desordenada",
     URL: "Enlace",
+    CONTENT_GROUP: "Contenido del grupo",
   },
   "it": {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creazione di un nuovo Thelia Blocks",
@@ -508,6 +514,7 @@ export const messages: Record<string, { [key: string]: string}> = {
 
     BlockAccordion__TITLE: "titolo dell'accordion",
     BlockAccordion__TITLE_PLACEHOLDER: "Inserisci il titolo dell'accordion",
+    BlockAccordion__ADD: "Aggiungi un accordion",
 
     LinkBlockToItem__LINK_GROUP: "Vincola un gruppo",
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Scegli un gruppo",
@@ -579,6 +586,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     ALIGN_RIGHT: "Allinea a destra",
     ORDERED_LIST: "Elenco ordinato",
     UNORDERED_LIST: "Elenco non ordinato",
-    URL: "Link"
+    URL: "Link",
+    CONTENT_GROUP: "Contenuto del gruppo"
   }
 };

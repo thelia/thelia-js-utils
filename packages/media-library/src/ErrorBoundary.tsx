@@ -25,7 +25,11 @@ class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       console.log(this.state);
-      return <span className="p-8 text-3xl text-red">Une erreur est survenue</span>;
+      return (
+        <span className="block p-8 text-2xl text-center text-red">
+          Une erreur est survenue
+        </span>
+      );
     }
 
     return this.props.children;
