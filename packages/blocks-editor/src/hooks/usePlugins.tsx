@@ -12,6 +12,7 @@ import {
   Group,
   Text,
   Title,
+  Highlight,
   Video,
 } from "../blocks";
 
@@ -24,6 +25,7 @@ export const TB_DEFAULT_PLUGINS: any = [
   { id: nanoid(), ...Group },
   { id: nanoid(), ...Accordion },
   { id: nanoid(), ...Product },
+  { id: nanoid(), ...Highlight },
   { id: nanoid(), ...Raw },
   { id: nanoid(), ...Video },
   ...Object.values(Columns).map((colType) => ({ id: nanoid(), ...colType })),
@@ -35,9 +37,7 @@ window.eventTBPlugins = new CustomEvent("update-tb-plugins");
 export function registerPlugin(plugin: any) {
   if (!window.TB__PLUGINS) window.TB__PLUGINS = [];
 
-  const alreadyExist = window.TB__PLUGINS.find(
-    (p) => p.type.id === plugin.type.id
-  );
+  const alreadyExist = window.TB__PLUGINS.find((p) => p.type.id === plugin.type.id);
 
   if (alreadyExist) return;
 
