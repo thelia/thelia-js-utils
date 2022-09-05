@@ -35,6 +35,12 @@ window.eventTBPlugins = new CustomEvent("update-tb-plugins");
 export function registerPlugin(plugin: any) {
   if (!window.TB__PLUGINS) window.TB__PLUGINS = [];
 
+  const alreadyExist = window.TB__PLUGINS.find(
+    (p) => p.type.id === plugin.type.id
+  );
+
+  if (alreadyExist) return;
+
   window.TB__PLUGINS.push({ ...plugin, id: nanoid() } as Plugin);
 
   document.dispatchEvent(window.eventTBPlugins);
