@@ -1,6 +1,6 @@
 import Tippy from "@tippyjs/react";
 import { ReactNode } from "react";
-
+import { ReactComponent as InfoIcon } from "../../../assets/svg/info.svg";
 import "./Inputs.css";
 
 const InputWrapper = ({
@@ -22,7 +22,9 @@ const InputWrapper = ({
         {label && <label htmlFor={id}>{label}</label>}
         {info && (
           <Tippy delay={[700, 0]} content={info}>
-            <i className="fa fa-info-circle"></i>
+            <>
+              <InfoIcon />
+            </>
           </Tippy>
         )}
       </div>

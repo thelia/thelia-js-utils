@@ -60,11 +60,11 @@ const Block = ({
   const { component: Component, icon: Icon } = currentPlugin;
 
   return (
-    <ErrorBoundary>
-      <div className={`${inLayout ? "NestedBlock" : "Block"}`}>
-        <div className={`${inLayout ? "NestedBlock__Header" : "Block__Header"}`}>
-          <div className="Block__Header__Infos">
-            {!inLayout && typeof Icon === "function" ? (
+    <div className={`${inLayout ? "NestedBlock" : "Block"}`}>
+      <div className={`${inLayout ? "NestedBlock__Header" : "Block__Header"}`}>
+        <div className="Block__Header__Infos">
+          {!inLayout ? (
+            typeof Icon === "function" ? (
               <Icon />
             ) : (
               <Tippy content={"Icone introuvable"}>
@@ -73,31 +73,33 @@ const Block = ({
                   style={{ fontSize: "24px", color: "#333333" }}
                 ></i>
               </Tippy>
-            )}
+            )
+          ) : null}
 
-            <div
-              className={`${
-                inLayout
-                  ? "NestedBlock__Header__Infos__Title"
-                  : "Block__Header__Infos__Title"
-              }`}
-            >
-              {currentPlugin.title[intl.locale || "default"]}
-            </div>
+          <div
+            className={`${
+              inLayout
+                ? "NestedBlock__Header__Infos__Title"
+                : "Block__Header__Infos__Title"
+            }`}
+          >
+            {currentPlugin.title[intl.locale || "default"]}
           </div>
-          <BlockControls
-            blockIndex={blockIndex}
-            inLayout={inLayout}
-            blockId={block.id}
-            DndDragHandle={DndDragHandle}
-          />
         </div>
+        <BlockControls
+          blockIndex={blockIndex}
+          inLayout={inLayout}
+          blockId={block.id}
+          DndDragHandle={DndDragHandle}
+        />
+      </div>
+      <ErrorBoundary>
         <Component
           data={block.data}
           onUpdate={(data: {}) => updateBlock(block.id, data)}
         />
-      </div>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </div>
   );
 };
 

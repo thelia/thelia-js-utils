@@ -142,6 +142,9 @@ const Preview = ({
         src={`/image-library/${id}/full/^!220,220/0/default.webp`}
         alt=""
         loading="lazy"
+        onError={(e) =>
+          ((e.target as HTMLImageElement).src = `https://via.placeholder.com/220`)
+        }
       />
 
       <div className="BlockImage__Preview__Infos">

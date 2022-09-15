@@ -1,5 +1,20 @@
 .Block {
-  @apply bg-gradient-to-b from-pearlMedium to-pearlLight p-4 sm:p-8 md:px-32 lg:px-24 xl:px-44 2xl:px-72;
+  @apply bg-gradient-to-b from-pearlMedium to-pearlLight py-4 sm:py-8;
+
+  > * {
+    margin-left: 5%;
+    margin-right: 5%;
+  
+    @screen lg {
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+  
+    @screen xl {
+      margin-left: 15%;
+      margin-right: 15%;
+    }
+  }
 
   &:hover {
     @apply bg-gradient-to-b from-white to-pearlLight;

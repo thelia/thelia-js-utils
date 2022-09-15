@@ -12,6 +12,7 @@ import { reorder } from "../../utils/array";
 import { useIntl } from "react-intl";
 
 import "./Product.css";
+import ErrorBoundary from "../../components/ErrorBoundary";
 
 export type BlockProductData = {
   productList: string[];
@@ -196,6 +197,7 @@ function BlockProductComponent({ data, onUpdate }: BlockProductComponentProps) {
             onChange={(e) => setQuery(e.target.value)}
             value={query}
             placeholder={intl.formatMessage({ id: "SEARCH_BY" })}
+            info={intl.formatMessage({ id: "SEARCH_BY_INFO" })}
             id="BlockProduct-field-product"
             type="text"
             emphasize={searchByRef}
