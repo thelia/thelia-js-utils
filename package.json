@@ -57,5 +57,6 @@
     "tailwindcss": "*",
     "turbo": "latest"
   },
-  "packageManager": "npm@8.4.1"
+  "packageManager": "npm@8.4.1",
+  "version": "0.0.1"
 }
