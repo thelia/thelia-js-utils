@@ -22,9 +22,9 @@ const InputWrapper = ({
         {label && <label htmlFor={id}>{label}</label>}
         {info && (
           <Tippy delay={[700, 0]} content={info}>
-            <>
+            <div>
               <InfoIcon />
-            </>
+            </div>
           </Tippy>
         )}
       </div>

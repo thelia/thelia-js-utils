@@ -88,7 +88,9 @@ const SearchResults = ({
               }}
               className="SearchResult__Item"
             >
-              <span>{element.i18n.title}</span>
+              <span>
+                {element.i18n.title} - {element.i18n.chapo.substring(0, 150)}
+              </span>
               <span className="SearchResult__Item__Ref">
                 #{element.reference || element.id}
               </span>

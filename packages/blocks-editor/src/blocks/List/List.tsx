@@ -125,7 +125,6 @@ const BlockList: BlockPluginDefinition<BlockListData> = {
   component: BlockListComponent,
   initialData,
   icon: Icon,
-  internalOnly: true,
   title: {
     default: "List",
     fr: "Liste",

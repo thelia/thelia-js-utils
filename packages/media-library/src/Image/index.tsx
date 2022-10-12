@@ -169,6 +169,9 @@ const ImageInfos = ({
   image: LibraryImage;
   onChange: (data: Partial<LibraryImage>) => void;
 }) => {
+  const [title, setTitle] = useState(image.title);
+  const [url, setUrl] = useState(image.link?.url || "");
+
   const intl = useIntl();
 
   return (
@@ -184,13 +187,10 @@ const ImageInfos = ({
           className="Input__Text"
           type="text"
           name="title"
-          value={image.title}
+          value={title}
           placeholder={intl.formatMessage({ id: "BlockImage__TITLE" })}
-          onChange={(e) => {
-            onChange({
-              title: e.target.value,
-            });
-          }}
+          onChange={(e) => setTitle(e.target.value)}
+          onBlur={() => onChange({ title: title })}
         />
       </div>
       <div>
@@ -202,15 +202,10 @@ const ImageInfos = ({
           className="Input__Text"
           type="text"
           name="linkUrl"
-          value={image.link?.url || ""}
+          value={url}
           placeholder={intl.formatMessage({ id: "BlockImage__LINK_PLACEHOLDER" })}
-          onChange={(e) => {
-            onChange({
-              link: {
-                url: e.target.value,
-              },
-            });
-          }}
+          onChange={(e) => setUrl(e.target.value)}
+          onBlur={() => onChange({ link: { url: url } })}
         />
       </div>
     </form>
