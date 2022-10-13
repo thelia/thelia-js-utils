@@ -1,4 +1,4 @@
-import Image from "./Image";
+import Image, { UploadImage } from "./Image";
 import { registerPlugin } from "@thelia/blocks-editor";
 import Library from "./Library";
 import { LibraryImage } from "./types/types";
@@ -6,4 +6,5 @@ import { LibraryImage } from "./types/types";
 registerPlugin(Image);
 
 export default Library;
+export { UploadImage };
 export type { LibraryImage };

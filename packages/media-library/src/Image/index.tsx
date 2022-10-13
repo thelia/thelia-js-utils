@@ -44,8 +44,9 @@ const FromLocal = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) =>
 
   return (
     <div
-      className="BlockImage__FromLocal"
-      style={{ border: isDragActive ? "2px dashed #dc3018" : "1px dashed #787878" }}
+      className={`BlockImage__FromLocal ${
+        isDragActive ? "BlockImage__FromLocal--active" : ""
+      }`}
       {...getRootProps()}
     >
       <div className="BlockImage__FromLocal__Icon">
@@ -102,12 +103,16 @@ const FromLibrary = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) 
         <MediathequeIcon />
       </div>
       <button
+        className="BlockImage__Button"
+        style={{ marginBottom: "0.25rem" }}
         onClick={() => {
           setIsOpen(true);
         }}
       >
-        <span>{intl.formatMessage({ id: "BlockImage__UPLOAD" })}</span>
+        <span>{intl.formatMessage({ id: "BlockImage__SELECT_BUTTON" })}</span>
       </button>
+
+      <span>{intl.formatMessage({ id: "BlockImage__SELECT" })}</span>
 
       {isOpen ? (
         <Library
@@ -212,6 +217,29 @@ const ImageInfos = ({
   );
 };
 
+export const UploadImage = ({
+  onSelect,
+  compact,
+}: {
+  onSelect: (image: LibraryImage) => void;
+  compact?: boolean;
+}) => {
+  return (
+    <IntlProvider messages={messages[locale]} locale={locale}>
+      <QueryClientProvider client={queryClient}>
+        <div
+          className={`BlockImage__Upload__Wrapper ${
+            compact ? "BlockImage__Upload--light" : ""
+          }`}
+        >
+          <FromLocal onSelect={onSelect} />
+          <FromLibrary onSelect={onSelect} />
+        </div>
+      </QueryClientProvider>
+    </IntlProvider>
+  );
+};
+
 const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
   const { data, onUpdate } = props;
 
@@ -262,10 +290,7 @@ const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => 
               {intl.formatMessage({ id: "REPLACE_IMAGE" })} "{image.title}"
             </span>
           ) : null}
-          <div className="BlockImage__Upload__Wrapper">
-            <FromLocal onSelect={onSelect} />
-            <FromLibrary onSelect={onSelect} />
-          </div>
+          <UploadImage onSelect={onSelect} />
           {image?.id ? (
             <button
               onClick={() => {

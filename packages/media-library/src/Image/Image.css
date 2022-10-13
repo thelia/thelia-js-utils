@@ -32,6 +32,11 @@
   border-radius: 4px;
   padding: 50px 20px;
   height: 200px;
+  border: 1px dashed #787878;
+}
+
+.BlockImage__FromLocal.BlockImage__FromLocal--active {
+  border: 2px dashed #dc3018;
 }
 
 input.BlockImage__FromLocal__FileInput {
@@ -108,6 +113,18 @@ input.BlockImage__FromLocal__FileInput {
 .BlockImage__Infos {
   display: flex;
   gap: 40px;
+}
+
+.BlockImage__Upload--light .BlockImage__FromLocal, .BlockImage__Upload--light .BlockImage__FromLibrary {
+  border: none;
+  background-color: inherit;
+  padding: 0px;
+  width: auto;
+  height: auto;
+}
+
+.BlockImage__Upload--light .BlockImage__FromLocal .BlockImage__FromLocal__Icon, .BlockImage__Upload--light .BlockImage__FromLibrary .BlockImage__FromLibrary__Icon {
+  display: none;
 }
 
 @media screen and (max-width: 1366px) {

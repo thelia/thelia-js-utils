@@ -6,7 +6,8 @@ export const messages: Record<string, { [key: string]: string}> = {
   fr: {
     BlockImage__DOWNLOAD: "Télécharger une image",
     BlockImage__OR_DROP: "ou glisser-déposer une image",
-    BlockImage__UPLOAD: "Sélectionnez une image depuis votre médiathèque",
+    BlockImage__SELECT_BUTTON: "Sélectionner une image",
+    BlockImage__SELECT: "depuis votre médiathèque",
     BlockImage__TITLE: "Titre de l'image",
     BlockImage__LINK: "Lien de l'image",
     BlockImage__LINK_PLACEHOLDER: "Lien au clic sur l'image",
@@ -37,7 +38,8 @@ export const messages: Record<string, { [key: string]: string}> = {
   en: {
     BlockImage__DOWNLOAD: "Download an image",
     BlockImage__OR_DROP: "or drop an image",
-    BlockImage__UPLOAD: "Select an image from your library",
+    BlockImage__SELECT_BUTTON: "Select an image",
+    BlockImage__SELECT: "from your library",
     BlockImage__TITLE: "Image title",
     BlockImage__LINK: "Image link",
     BlockImage__LINK_PLACEHOLDER: "Link on click on image",
@@ -68,7 +70,8 @@ export const messages: Record<string, { [key: string]: string}> = {
   es: {
     BlockImage__DOWNLOAD: "Descargar una imagen",
     BlockImage__OR_DROP: "o arrastrar una imagen",
-    BlockImage__UPLOAD: "Seleccionar una imagen de tu biblioteca",
+    BlockImage__SELECT_BUTTON: "Seleccionar una imagen",
+    BlockImage__SELECT: "de tu biblioteca",
     BlockImage__TITLE: "Título de la imagen",
     BlockImage__LINK: "Enlace de la imagen",
     BlockImage__LINK_PLACEHOLDER: "Enlace al hacer clic en la imagen",
@@ -99,7 +102,8 @@ export const messages: Record<string, { [key: string]: string}> = {
   it: {
     BlockImage__DOWNLOAD: "Scarica un immagine",
     BlockImage__OR_DROP: "o trascina un immagine",
-    BlockImage__UPLOAD: "Seleziona un immagine dalla tua libreria",
+    BlockImage__SELECT_BUTTON: "Seleziona un immagine",
+    BlockImage__SELECT: "dalla tua libreria",
     BlockImage__TITLE: "Titolo dell immagine",
     BlockImage__LINK: "Link dell immagine",
     BlockImage__LINK_PLACEHOLDER: "Link al click sull immagine",

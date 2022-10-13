@@ -22,7 +22,12 @@ const Iframe = ({ content }: { content: string }) => {
   }, [ref, content]);
 
   return (
-    <iframe src="about:blank" frameBorder="0" ref={ref} sandbox="allow-same-origin" />
+    <iframe
+      src="about:blank"
+      frameBorder="0"
+      ref={ref}
+      sandbox="allow-same-origin allow-scripts"
+    />
   );
 };
 export default Iframe;
