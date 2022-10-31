@@ -70,7 +70,7 @@ const GroupContentComponent = ({
   );
 };
 
-const AccordionComponent = ({ data, onUpdate }: BlockModuleComponentProps<GroupData>) => {
+const GroupComponent = ({ data, onUpdate }: BlockModuleComponentProps<GroupData>) => {
   return (
     <>
       {data.content.map((blocks, index) => {
@@ -98,7 +98,7 @@ const moduleType = {
 
 const Group = {
   type: moduleType,
-  component: AccordionComponent,
+  component: GroupComponent,
   initialData: initialData,
   title: {
     default: "Group",

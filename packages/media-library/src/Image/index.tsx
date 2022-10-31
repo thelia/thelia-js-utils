@@ -335,7 +335,6 @@ const WrappedComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
 };
 
 const initialData: LibraryImage = {
-  url: null,
   id: null,
   title: "",
   fileName: "",

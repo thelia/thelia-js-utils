@@ -13,7 +13,6 @@ export type ImageTag = {
 
 export type LibraryImage = {
   id: number | null;
-  url: string | null;
   fileName: string;
   title: string;
   tags: ImageTag[];
