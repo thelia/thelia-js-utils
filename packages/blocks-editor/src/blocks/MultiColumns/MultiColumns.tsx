@@ -200,7 +200,6 @@ const TwoColumns = {
 const ThreeColumns = {
   ...Column,
   component: MultiColumnsComponent,
-  type: { id: "3cols" },
   layout: moduleLayout,
   title: {
     default: "3 Columns",
