@@ -35,7 +35,12 @@ const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
         {blockList.map((block, index) => (
           <DndWrapElement key={block.id} id={block.id} index={index}>
             {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
-              <Block DndDragHandle={DndDragHandle} inLayout key={index} block={block} />
+              <Block
+                DndDragHandle={DndDragHandle}
+                inLayout
+                key={index}
+                block={block}
+              />
             )}
           </DndWrapElement>
         ))}
@@ -49,6 +54,7 @@ const GroupContentComponent = ({
   index,
   data,
   onUpdate,
+  noExclude = false,
 }: BlockModuleComponentProps<GroupData>) => {
   const [open, setOpen] = useState(true);
   const intl = useIntl();
@@ -64,13 +70,17 @@ const GroupContentComponent = ({
             onUpdate(nextState);
           }}
         />
-        <AddBlocks excludeLayout inLayout />
+        <AddBlocks excludeLayout={!noExclude} inLayout />
       </>
     </BlockContextProvider>
   );
 };
 
-const GroupComponent = ({ data, onUpdate }: BlockModuleComponentProps<GroupData>) => {
+const GroupComponent = ({
+  data,
+  onUpdate,
+  noExclude,
+}: BlockModuleComponentProps<GroupData> & { noExclude?: boolean }) => {
   return (
     <>
       {data.content.map((blocks, index) => {
@@ -81,6 +91,7 @@ const GroupComponent = ({ data, onUpdate }: BlockModuleComponentProps<GroupData>
             onUpdate={onUpdate}
             blocks={blocks}
             index={index}
+            noExclude={noExclude}
           />
         );
       })}
