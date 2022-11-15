@@ -12,14 +12,14 @@ import {
   useQueryClient,
 } from "react-query";
 import { ReactNode, useContext, useEffect, useState } from "react";
+import { fetcher, instance, queryClient } from "@thelia/fetcher";
+
+import { BlockContext } from "../providers/BlockContext";
 import { BlocksGroupContext } from "../providers/BlockGroupContext";
 import { LocaleContext } from "../providers/LocaleContext";
 import toast from "react-hot-toast";
-import { useIntl } from "react-intl";
 import { useBlocksContext } from "../hooks/useBlockContext";
-
-import { fetcher, instance, queryClient } from "@thelia/fetcher";
-import { BlockContext } from "../providers/BlockContext";
+import { useIntl } from "react-intl";
 
 export function BlocksProvider({
   children,
@@ -159,7 +159,7 @@ export function useCreateOrUpdateGroup() {
         toast.success(intl.formatMessage({ id: "Toast__BLOCK_SAVED" }));
 
         if (noRedirect) {
-          //window.location.reload();
+          window.location.reload();
           return;
         }
         window.location.replace(`/admin/TheliaBlocks/${data.id}`);

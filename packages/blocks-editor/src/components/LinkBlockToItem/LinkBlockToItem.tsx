@@ -47,7 +47,8 @@ function List({
             onClick={() => onClickGroup(group)}
           >
             <span>
-              #{group.id} - {group.title || intl.formatMessage({ id: "NO_TITLE" })}
+              #{group.id} -{" "}
+              {group.title || intl.formatMessage({ id: "NO_TITLE" })}
             </span>
           </li>
         ))
@@ -70,7 +71,10 @@ function List({
   );
 }
 
-function BlockSelector({ itemId, itemType }: Omit<ILinkBlockToItemprops, "apiUrl">) {
+function BlockSelector({
+  itemId,
+  itemType,
+}: Omit<ILinkBlockToItemprops, "apiUrl">) {
   const [search, setSearch] = useState<string>("");
   const [selectedGroup, setSelectedGroup] = useState<GroupTypeStore>();
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
@@ -82,7 +86,7 @@ function BlockSelector({ itemId, itemType }: Omit<ILinkBlockToItemprops, "apiUrl
   const selectRef = useRef(null);
 
   const onClickGroup = (group: GroupTypeStore) => {
-    setSearch(group.title);
+    setSearch(group.title || "");
     setSelectedGroup(group);
     setShowSuggestions(false);
     /* setShowWarning(true); */
@@ -118,7 +122,9 @@ function BlockSelector({ itemId, itemType }: Omit<ILinkBlockToItemprops, "apiUrl
               </div>
             }
           >
-            {showSuggestions && <List search={search} onClickGroup={onClickGroup} />}
+            {showSuggestions && (
+              <List search={search} onClickGroup={onClickGroup} />
+            )}
           </Suspense>
         </div>
 
@@ -126,7 +132,8 @@ function BlockSelector({ itemId, itemType }: Omit<ILinkBlockToItemprops, "apiUrl
           <button
             className="GroupLink__LinkButton"
             onClick={() =>
-              selectedGroup && mutation.mutate({ id: selectedGroup.id, itemId, itemType })
+              selectedGroup &&
+              mutation.mutate({ id: selectedGroup.id, itemId, itemType })
             }
           >
             {mutation.isLoading ? (
@@ -159,7 +166,9 @@ const LinkBlockToItem = ({
   itemId,
   itemType,
 }: Partial<ILinkBlockToItemprops>) => {
-  return <BlockSelector groupId={groupId} itemId={itemId} itemType={itemType} />;
+  return (
+    <BlockSelector groupId={groupId} itemId={itemId} itemType={itemType} />
+  );
 };
 
 export default LinkBlockToItem;

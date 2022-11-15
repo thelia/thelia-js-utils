@@ -1,4 +1,7 @@
-import { BlockModuleComponentProps, BlockPluginDefinition } from "@thelia/blocks-editor";
+import {
+  BlockModuleComponentProps,
+  BlockPluginDefinition,
+} from "@thelia/blocks-editor";
 import { useEffect, useState } from "react";
 import { IntlProvider, useIntl } from "react-intl";
 import { ReactComponent as Icon } from "./assets/image.svg";
@@ -15,14 +18,18 @@ import { queryClient } from "@thelia/fetcher";
 
 import "./Image.css";
 
-const FromLocal = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) => {
+const FromLocal = ({
+  onSelect,
+}: {
+  onSelect: (value: LibraryImage) => void;
+}) => {
   const intl = useIntl();
   const createImage = useCreateImage();
 
   const { getRootProps, isDragActive } = useDropzone({
     multiple: false,
     accept: {
-      "image/*": ["*"],
+      "image/*": [".png", ".gif", ".jpeg", ".jpg", ".webp", ".svg"],
     },
     noClick: true,
     maxFiles: 1,
@@ -38,7 +45,9 @@ const FromLocal = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) =>
     onDropRejected: (rejectedFiles) => {
       rejectedFiles.length > 1
         ? toast.error(intl.formatMessage({ id: "BlockImage__TOAST_MAX_FILE" }))
-        : toast.error(intl.formatMessage({ id: "BlockImage__TOAST_WRONG_FILE_TYPE" }));
+        : toast.error(
+            intl.formatMessage({ id: "BlockImage__TOAST_WRONG_FILE_TYPE" })
+          );
     },
   });
 
@@ -93,7 +102,11 @@ const FromLocal = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) =>
   );
 };
 
-const FromLibrary = ({ onSelect }: { onSelect: (value: LibraryImage) => void }) => {
+const FromLibrary = ({
+  onSelect,
+}: {
+  onSelect: (value: LibraryImage) => void;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const intl = useIntl();
 
@@ -148,7 +161,9 @@ const Preview = ({
         alt=""
         loading="lazy"
         onError={(e) =>
-          ((e.target as HTMLImageElement).src = `https://via.placeholder.com/220`)
+          ((
+            e.target as HTMLImageElement
+          ).src = `https://via.placeholder.com/220`)
         }
       />
 
@@ -208,7 +223,9 @@ const ImageInfos = ({
           type="text"
           name="linkUrl"
           value={url}
-          placeholder={intl.formatMessage({ id: "BlockImage__LINK_PLACEHOLDER" })}
+          placeholder={intl.formatMessage({
+            id: "BlockImage__LINK_PLACEHOLDER",
+          })}
           onChange={(e) => setUrl(e.target.value)}
           onBlur={() => onChange({ link: { url: url } })}
         />
@@ -240,7 +257,9 @@ export const UploadImage = ({
   );
 };
 
-const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
+const BlockImageComponent = (
+  props: BlockModuleComponentProps<LibraryImage>
+) => {
   const { data, onUpdate } = props;
 
   const [image, setImage] = useState<LibraryImage | null>(null);
@@ -266,7 +285,11 @@ const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => 
     <div className="BlockImage">
       {image && !isEditMode ? (
         <div className="BlockImage__Infos">
-          <Preview id={image.id} fileName={image.fileName} setEditMode={setEditMode} />
+          <Preview
+            id={image.id}
+            fileName={image.fileName}
+            setEditMode={setEditMode}
+          />
 
           <ImageInfos
             image={image}

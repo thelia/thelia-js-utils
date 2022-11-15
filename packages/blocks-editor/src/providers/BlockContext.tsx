@@ -1,17 +1,17 @@
 import {
-  createContext,
   Dispatch,
   ReactElement,
   SetStateAction,
+  createContext,
   useContext,
   useEffect,
   useState,
 } from "react";
+import { isEqual, isEqualWith } from "lodash";
 
 import { BlocksGroupContext } from "./BlockGroupContext";
 import { IBlock } from "../types/types";
 import { usePrevious } from "react-use";
-import { isEqual, isEqualWith } from "lodash";
 
 export const BlockContext = createContext<{
   blocks: IBlock[];
@@ -31,6 +31,7 @@ export const BlockContextProvider = ({
   const prevBlocks = usePrevious(blocks);
   const { group } = useContext(BlocksGroupContext);
   const hasChanged = prevBlocks && blocks && !isEqual(prevBlocks, blocks);
+  console.log(group?.jsonContent);
 
   useEffect(() => {
     if (root && group) {

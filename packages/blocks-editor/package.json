@@ -21,27 +21,28 @@
     "test": "jest"
   },
   "dependencies": {
-    "swr": "^1.2.1",
+    "@thelia/fetcher": "*",
+    "@thelia/tsconfig": "*",
     "axios": "^0.25",
     "nanoid": "^3.1.20",
     "react": "^17.0.2",
     "react-quill": "^2.0.0",
-    "@thelia/fetcher": "*"
+    "swr": "^1.2.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
     "@testing-library/react": "^12.1.4",
     "@testing-library/react-hooks": "^7.0.2",
     "@testing-library/user-event": "^13.5.0",
-    "@babel/preset-typescript": "^7.16.7",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
-    "ts-node": "^10.7.0",
     "@types/jest": "^27.4.1",
     "jest": "^27.5.1",
-    "tailwindcss": "*",
     "postcss": "*",
     "postcss-import": "^14.0.2",
     "postcss-nested": "^5.0.6",
+    "tailwindcss": "*",
+    "ts-node": "^10.7.0",
     "tsup": "^5.10.1",
     "typescript": "^4.5.3"
   },
