@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
+import {
+  BlockModuleComponentProps,
+  BlockPluginDefinition,
+} from "../../types/types";
 import { ReactComponent as Icon } from "./assets/text.svg";
 
 import "./Text.css";
 import Editor from "./Editor";
 import SearchModal from "./Modal";
+import { useDebounce } from "react-use";
 
 export type BlockTextData = {
   value: string;
@@ -17,10 +21,19 @@ const BlockTextComponent = ({
   const quillRef = useRef<any>(null);
 
   const [localData, setData] = useState<string>(data.value);
+  const [deboundedData, setDeboundedData] = useState<string>(data.value);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
+  useDebounce(
+    () => {
+      setDeboundedData(localData);
+    },
+    2000,
+    [localData]
+  );
+
   useEffect(() => setData(data.value), [data]);
-  useEffect(() => onUpdate({ value: localData }), [localData]);
+  useEffect(() => onUpdate({ value: deboundedData }), [deboundedData]);
 
   return (
     <div className="BlockText">
@@ -34,7 +47,11 @@ const BlockTextComponent = ({
           />
         </div>
       ) : null}
-      <SearchModal ref={quillRef} isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+      <SearchModal
+        ref={quillRef}
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+      />
     </div>
   );
 };

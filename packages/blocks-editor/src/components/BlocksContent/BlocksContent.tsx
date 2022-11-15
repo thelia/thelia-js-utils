@@ -32,12 +32,16 @@ export default function BlocksContent() {
 
   return (
     <div className="BlocksContent">
-      {blockList.length > 0 ? (
+      {blockList && blockList.length > 0 ? (
         <DndWrapper id="main" onDragEnd={onDragEnd}>
           {blockList.map((block, index) => (
             <DndWrapElement key={block.id} id={block.id} index={index}>
               {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
-                <Block DndDragHandle={DndDragHandle} key={index} block={block} />
+                <Block
+                  DndDragHandle={DndDragHandle}
+                  key={index}
+                  block={block}
+                />
               )}
             </DndWrapElement>
           ))}

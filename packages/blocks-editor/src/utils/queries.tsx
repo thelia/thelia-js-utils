@@ -5,7 +5,12 @@ import {
   IBlock,
   itemBlockGroupsType,
 } from "../types/types";
-import { QueryClientProvider, useMutation, useQuery, useQueryClient } from "react-query";
+import {
+  QueryClientProvider,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "react-query";
 import { ReactNode, useContext, useEffect, useState } from "react";
 import { BlocksGroupContext } from "../providers/BlockGroupContext";
 import { LocaleContext } from "../providers/LocaleContext";
@@ -14,8 +19,15 @@ import { useIntl } from "react-intl";
 import { useBlocksContext } from "../hooks/useBlockContext";
 
 import { fetcher, instance, queryClient } from "@thelia/fetcher";
+import { BlockContext } from "../providers/BlockContext";
 
-export function BlocksProvider({ children, api }: { children: ReactNode; api: string }) {
+export function BlocksProvider({
+  children,
+  api,
+}: {
+  children: ReactNode;
+  api: string;
+}) {
   const [initialized, setInitialized] = useState<boolean>(false);
   useEffect(() => {
     instance.defaults.baseURL = api;
@@ -26,7 +38,9 @@ export function BlocksProvider({ children, api }: { children: ReactNode; api: st
     return null;
   }
 
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
 }
 
 export function useGroups(options?: { limit?: number; offset?: number }) {
@@ -69,7 +83,7 @@ export function useGroup(id?: number) {
         },
       });
 
-      return data;
+      return { ...data, jsonContent: JSON.parse(data.jsonContent) };
     },
     {
       enabled: !!groupId,
@@ -143,8 +157,9 @@ export function useCreateOrUpdateGroup() {
     {
       onSuccess: (data: GroupTypeStore) => {
         toast.success(intl.formatMessage({ id: "Toast__BLOCK_SAVED" }));
+
         if (noRedirect) {
-          window.location.reload();
+          //window.location.reload();
           return;
         }
         window.location.replace(`/admin/TheliaBlocks/${data.id}`);
@@ -204,10 +219,14 @@ export function useDeleteItemBlockGroup() {
     {
       onSuccess: (data, groupId) => {
         queryClient.invalidateQueries(["item_block_group"]);
-        toast.success(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_DELETED" }));
+        toast.success(
+          intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_DELETED" })
+        );
       },
       onError: (error) => {
-        toast.error(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_NOT_DELETED" }));
+        toast.error(
+          intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_NOT_DELETED" })
+        );
       },
     }
   );
@@ -249,7 +268,15 @@ export function useLinkContentToGroup() {
   const intl = useIntl();
   const queryClient = useQueryClient();
   return useMutation(
-    ({ id, itemId, itemType }: { id?: number; itemId?: number; itemType?: string }) =>
+    ({
+      id,
+      itemId,
+      itemType,
+    }: {
+      id?: number;
+      itemId?: number;
+      itemType?: string;
+    }) =>
       fetcher(`/item_block_group`, {
         method: "POST",
         data: {
@@ -262,7 +289,9 @@ export function useLinkContentToGroup() {
       }),
     {
       onSuccess: (data: GroupTypeResponse) => {
-        toast.success(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_LINKED" }));
+        toast.success(
+          intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_LINKED" })
+        );
 
         setGroupId(data.id);
         queryClient.setQueryData(["block_group", data.id, currentLocale], data);
@@ -284,7 +313,9 @@ export function useUnlinkContentFromGroup() {
       }),
     {
       onSuccess: () => {
-        toast.success(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_UNLINKED" }));
+        toast.success(
+          intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_UNLINKED" })
+        );
 
         resetBlocks();
         resetContext();
@@ -361,7 +392,11 @@ export function useProductsBy({ type, value = null }: SearchProps) {
   );
 }
 
-export function useSearchBy({ searchIn, type = "title", value = null }: SearchProps) {
+export function useSearchBy({
+  searchIn,
+  type = "title",
+  value = null,
+}: SearchProps) {
   let params: {
     id: string | null;
     ids: string | null;

@@ -10,6 +10,8 @@ import {
 
 import { BlocksGroupContext } from "./BlockGroupContext";
 import { IBlock } from "../types/types";
+import { usePrevious } from "react-use";
+import { isEqual, isEqualWith } from "lodash";
 
 export const BlockContext = createContext<{
   blocks: IBlock[];
@@ -26,13 +28,31 @@ export const BlockContextProvider = ({
   root?: boolean;
 }) => {
   const [blocks, setBlocks] = useState<IBlock[]>(defaultBlocks || []);
+  const prevBlocks = usePrevious(blocks);
   const { group } = useContext(BlocksGroupContext);
+  const hasChanged = prevBlocks && blocks && !isEqual(prevBlocks, blocks);
 
   useEffect(() => {
-    if (root && group?.jsonContent) {
-      setBlocks(JSON.parse(group?.jsonContent));
+    if (root && group) {
+      setBlocks(group?.jsonContent);
     }
   }, [group?.jsonContent, root]);
+
+  useEffect(() => {
+    const handler = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+
+    if (root && hasChanged) {
+      window.addEventListener("beforeunload", handler);
+      return () => {
+        window.removeEventListener("beforeunload", handler);
+      };
+    }
+
+    return () => {};
+  }, [root, hasChanged]);
 
   return (
     <BlockContext.Provider value={{ blocks, setBlocks }}>

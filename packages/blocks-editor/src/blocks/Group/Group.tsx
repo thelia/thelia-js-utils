@@ -29,7 +29,7 @@ const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
     }
   };
 
-  return blockList.length > 0 ? (
+  return blockList && blockList.length > 0 ? (
     <div className="px-3 pt-2 xl:pt-4 xl:px-5">
       <DndWrapper id="main" onDragEnd={onDragEnd}>
         {blockList.map((block, index) => (

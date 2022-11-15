@@ -53,10 +53,10 @@ export type itemBlockGroupsType = {
 
 export type GroupTypeStore = {
   id?: number;
-  visible: boolean;
-  title: string;
-  slug: string | null;
-  locales: string[];
+  visible?: boolean;
+  title?: string;
+  slug?: string | null;
+  locales?: string[];
   itemBlockGroups?: itemBlockGroupsType[];
 };
 
@@ -78,7 +78,7 @@ export type BlockGroupPatch = {
 };
 
 export type GroupTypeResponse = GroupTypeStore & {
-  jsonContent?: any;
+  jsonContent: IBlock[];
 };
 
 export type BlockPluginDefinition<TProp = { [key: string]: any }> =
@@ -126,4 +126,4 @@ export type EditorModule = {
   name: string;
   tooltip: string;
   value?: string;
-}
+};

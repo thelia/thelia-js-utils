@@ -1,5 +1,5 @@
 import Tippy from "@tippyjs/react";
-import { forwardRef, useState } from "react";
+import { forwardRef, useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 import ReactQuill, { Quill } from "react-quill";
 import { ReactComponent as LinkIcon } from "../../../../assets/svg/link.svg";
@@ -20,13 +20,21 @@ const EditorToolbar = ({
     { name: "bold", tooltip: intl.formatMessage({ id: "BOLD" }) },
     { name: "italic", tooltip: intl.formatMessage({ id: "ITALIC" }) },
     { name: "underline", tooltip: intl.formatMessage({ id: "UNDERLINE" }) },
-    { name: "align", value: "", tooltip: intl.formatMessage({ id: "ALIGN_LEFT" }) },
+    {
+      name: "align",
+      value: "",
+      tooltip: intl.formatMessage({ id: "ALIGN_LEFT" }),
+    },
     {
       name: "align",
       value: "center",
       tooltip: intl.formatMessage({ id: "ALIGN_CENTER" }),
     },
-    { name: "align", value: "right", tooltip: intl.formatMessage({ id: "ALIGN_RIGHT" }) },
+    {
+      name: "align",
+      value: "right",
+      tooltip: intl.formatMessage({ id: "ALIGN_RIGHT" }),
+    },
     {
       name: "list",
       value: "ordered",
@@ -46,7 +54,10 @@ const EditorToolbar = ({
           <button className={`ql-${module.name}`} value={module.value} />
         </Tippy>
       ))}
-      <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "INSERT_LINK" })}>
+      <Tippy
+        delay={[500, 0]}
+        content={intl.formatMessage({ id: "INSERT_LINK" })}
+      >
         <button className="search" onClick={() => setIsModalOpen(true)}>
           <LinkIcon style={{ display: "block" }} />
         </button>
@@ -84,15 +95,23 @@ const Editor = forwardRef(
       `editor-toolbar-${Math.random().toString(36).substring(7)}`
     );
 
+    const modules = useMemo(() => {
+      return { toolbar: { container: `#${toolbarId}` } };
+    }, []);
+
     return (
       <>
         <EditorToolbar setIsModalOpen={setIsModalOpen} toolbarId={toolbarId} />
         <ReactQuill
-          modules={{ toolbar: { container: `#${toolbarId}` } }}
+          modules={modules}
           ref={ref}
           value={value}
-          placeholder={intl.formatMessage({ id: "BlockText__TEXT_PLACEHOLDER" })}
-          onChange={(value) => setValue(value)}
+          placeholder={intl.formatMessage({
+            id: "BlockText__TEXT_PLACEHOLDER",
+          })}
+          onChange={(value) => {
+            setValue(value);
+          }}
         />
       </>
     );

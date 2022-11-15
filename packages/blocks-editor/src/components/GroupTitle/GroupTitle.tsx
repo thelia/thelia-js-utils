@@ -24,6 +24,8 @@ export default function GroupTitle({
   useEffect(() => {
     if (group?.title) {
       setTitle(group.title);
+    } else if (group?.title === null) {
+      setTitle("");
     }
   }, [group]);
 
@@ -42,7 +44,10 @@ export default function GroupTitle({
         onBlur={(e) => editGroup({ ...group, title: e.target.value })}
       />
       {isGroupLinkedToCurrentContent ? (
-        <button onClick={onLink} className="BlocksEditor__Header__Unlink__Button">
+        <button
+          onClick={onLink}
+          className="BlocksEditor__Header__Unlink__Button"
+        >
           {isLinking ? (
             <i className="fa fa-circle-notch fa-spin"></i>
           ) : (
