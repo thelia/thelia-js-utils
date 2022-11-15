@@ -21,19 +21,19 @@ const BlockTextComponent = ({
   const quillRef = useRef<any>(null);
 
   const [localData, setData] = useState<string>(data.value);
-  const [deboundedData, setDeboundedData] = useState<string>(data.value);
+  const [debouncedData, setdebouncedData] = useState<string>(data.value);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useDebounce(
     () => {
-      setDeboundedData(localData);
+      setdebouncedData(localData);
     },
-    2000,
+    1000,
     [localData]
   );
 
   useEffect(() => setData(data.value), [data]);
-  useEffect(() => onUpdate({ value: deboundedData }), [deboundedData]);
+  useEffect(() => onUpdate({ value: debouncedData }), [debouncedData]);
 
   return (
     <div className="BlockText">

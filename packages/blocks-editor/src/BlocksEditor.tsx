@@ -127,8 +127,8 @@ export default function BlocksEditor({
   const { width } = useWindowSize();
 
   return (
-    <LocaleProvider locales={locales}>
-      <IntlProvider messages={messages[locale]} locale={locale}>
+    <IntlProvider messages={messages[locale]} locale={locale}>
+      <LocaleProvider locales={locales}>
         <BlocksProvider api={apiUrl}>
           <Suspense fallback={<BlocksEditorLoader />}>
             <BlocksGroupProvider
@@ -176,7 +176,7 @@ export default function BlocksEditor({
             </BlocksGroupProvider>
           </Suspense>
         </BlocksProvider>
-      </IntlProvider>
-    </LocaleProvider>
+      </LocaleProvider>
+    </IntlProvider>
   );
 }

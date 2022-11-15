@@ -20,6 +20,7 @@ import { LocaleContext } from "../providers/LocaleContext";
 import toast from "react-hot-toast";
 import { useBlocksContext } from "../hooks/useBlockContext";
 import { useIntl } from "react-intl";
+import { useGlobalHasChanged } from "./globalState";
 
 export function BlocksProvider({
   children,
@@ -87,7 +88,7 @@ export function useGroup(id?: number) {
     },
     {
       enabled: !!groupId,
-      staleTime: 0,
+      staleTime: Infinity,
       cacheTime: Infinity,
       initialData: undefined,
     }
@@ -113,6 +114,8 @@ export function useCreateOrUpdateGroup() {
   const intl = useIntl();
   const { currentLocale } = useContext(LocaleContext);
   const { group: contextGroup } = useContext(BlocksGroupContext);
+  const [hasChanged, setHasChanged] = useGlobalHasChanged();
+  const queryClient = useQueryClient();
 
   return useMutation(
     ({
@@ -158,11 +161,16 @@ export function useCreateOrUpdateGroup() {
       onSuccess: (data: GroupTypeStore) => {
         toast.success(intl.formatMessage({ id: "Toast__BLOCK_SAVED" }));
 
-        if (noRedirect) {
-          window.location.reload();
-          return;
+        setHasChanged(false);
+
+        if (
+          !noRedirect &&
+          window.location.pathname !== `/admin/TheliaBlocks/${data.id}`
+        ) {
+          window.location.replace(`/admin/TheliaBlocks/${data.id}`);
+        } else {
+          queryClient.invalidateQueries("block_group");
         }
-        window.location.replace(`/admin/TheliaBlocks/${data.id}`);
       },
       onError: () => {
         toast.error(intl.formatMessage({ id: "Toast__BLOCK_NOT_SAVED" }));

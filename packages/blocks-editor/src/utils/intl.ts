@@ -1,53 +1,74 @@
-const getLocale = () => document.documentElement.lang || (navigator.languages && navigator.languages[0]) || navigator.language || 'en'
+const getLocale = () =>
+  document.documentElement.lang ||
+  (navigator.languages && navigator.languages[0]) ||
+  navigator.language ||
+  "en";
 
-export const locale = getLocale()
+export const locale = getLocale();
 
-export const messages: Record<string, { [key: string]: string}> = {
-  "fr": {
-    BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Création d'un nouveau Thelia Blocks",
+export const messages: Record<string, { [key: string]: string }> = {
+  fr: {
+    BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS:
+      "Création d'un nouveau Thelia Blocks",
     BlocksEditor__EDIT_A_THELIA_BLOCKS: "Edition d'un Thelia Blocks",
     BlocksEditor__LOADING: "Chargement de Thelia Blocks...",
+    BlocksEditor__UNSAVED_LEAVE:
+      "Les modifications que vous avez apportées ne seront peut-être pas enregistrées.",
 
     BlocksList__EXISTING_THELIA_BLOCKS: "Thelia Blocks existants",
-    BlocksList__NO_THELIA_BLOCKS: "Vous n'avez pas encore créé de Thelia Blocks",
-    BlocksList__ERROR_LOADING_THELIA_BLOCKS: "Erreur lors du chargement des Thelia Blocks",
-    
+    BlocksList__NO_THELIA_BLOCKS:
+      "Vous n'avez pas encore créé de Thelia Blocks",
+    BlocksList__ERROR_LOADING_THELIA_BLOCKS:
+      "Erreur lors du chargement des Thelia Blocks",
+
     GroupTitle__BLOCK_NAME: "Nom de votre Thelia Blocks",
-    GroupTitle__BLOCK_NAME_PLACEHOLDER: "Indiquez le nom de votre Thelia Blocks",
-    GroupTitle__BLOCK_NAME_INFO: "Ce nom sera utilisé dans le titre de votre Thelia Blocks",
+    GroupTitle__BLOCK_NAME_PLACEHOLDER:
+      "Indiquez le nom de votre Thelia Blocks",
+    GroupTitle__BLOCK_NAME_INFO:
+      "Ce nom sera utilisé dans le titre de votre Thelia Blocks",
 
     GroupLocale__BLOCK_LOCALE: "Langue",
-    GroupLocale__BLOCK_LOCALE_INFO: "Sélectionnez la langue de votre Thelia Blocks",
+    GroupLocale__BLOCK_LOCALE_INFO:
+      "Sélectionnez la langue de votre Thelia Blocks",
 
     AddBlocks__COLUMNS_NUMBER: "Choisissez le nombre de colonnes",
-    AddBlocks__DROP_CONTENT: "Glissez-déposez le type de contenu souhaité depuis le menu de droite",
+    AddBlocks__DROP_CONTENT:
+      "Glissez-déposez le type de contenu souhaité depuis le menu de droite",
     AddBlocks__ADD_CONTENT: "Ajouter du contenu",
     AddBlocks__SELECT_CONTENT: "Choisissez le contenu souhaité",
 
-    BlocksContent__EMPTY_BLOCK: "Vous n'avez pas encore de contenu dans votre Thelia Blocks. Pour commencer, sélectionnez un type de contenu depuis le menu latéral droit.",
+    BlocksContent__EMPTY_BLOCK:
+      "Vous n'avez pas encore de contenu dans votre Thelia Blocks. Pour commencer, sélectionnez un type de contenu depuis le menu latéral droit.",
 
     PreviewModal__TITLE: "Aperçu de votre Thelia Blocks",
 
-    HTMLWarningModal__DESCRIPTION: "Ici un petit message pour informer sur l'utilisation de HTML directement dans le back-office. Ce message apparait en pop-in à chaque fois que l'utilisateur ajoute un bloc de HTML.",
+    HTMLWarningModal__DESCRIPTION:
+      "Ici un petit message pour informer sur l'utilisation de HTML directement dans le back-office. Ce message apparait en pop-in à chaque fois que l'utilisateur ajoute un bloc de HTML.",
 
-    Toast__BLOCK_MUST_HAVE_A_NAME: "Vous devez indiquer un nom pour votre Thelia Blocks",
-    Toast__NO_BLOCKS_TO_DISPLAY: "Vous ne pouvez pas prévisualiser un Thelia Blocks sans contenu",
+    Toast__BLOCK_MUST_HAVE_A_NAME:
+      "Vous devez indiquer un nom pour votre Thelia Blocks",
+    Toast__NO_BLOCKS_TO_DISPLAY:
+      "Vous ne pouvez pas prévisualiser un Thelia Blocks sans contenu",
     Toast__BLOCK_SAVED: "Votre Thelia Blocks a été enregistré avec succès",
-    Toast__BLOCK_NOT_SAVED: "Une erreur est survenue lors de l'enregistrement de votre Thelia Blocks",
+    Toast__BLOCK_NOT_SAVED:
+      "Une erreur est survenue lors de l'enregistrement de votre Thelia Blocks",
     Toast__BLOCK_DELETED: "Ce Thelia Blocks a été supprimé avec succès",
-    Toast__BLOCK_NOT_DELETED: "Une erreur est survenue lors de la suppression de ce Thelia Blocks",
-    Toast__ITEM_BLOCK_GROUP_DELETED: "Ce contenu lié a été supprimé avec succès",
-    Toast__ITEM_BLOCK_GROUP_NOT_DELETED: "Une erreur est survenue lors de la suppression de ce contenu lié",
+    Toast__BLOCK_NOT_DELETED:
+      "Une erreur est survenue lors de la suppression de ce Thelia Blocks",
+    Toast__ITEM_BLOCK_GROUP_DELETED:
+      "Ce contenu lié a été supprimé avec succès",
+    Toast__ITEM_BLOCK_GROUP_NOT_DELETED:
+      "Une erreur est survenue lors de la suppression de ce contenu lié",
     Toast__ITEM_BLOCK_GROUP_LINKED: "Ce contenu a été lié avec succès",
     Toast__ITEM_BLOCK_GROUP_UNLINKED: "Ce contenu a été délié avec succès",
-    Toast__TOOLBAR_PREVIEW_ERROR: "Une erreur est survenue lors de la prévisualisation de votre Thelia Blocks",
+    Toast__TOOLBAR_PREVIEW_ERROR:
+      "Une erreur est survenue lors de la prévisualisation de votre Thelia Blocks",
 
     BlockButton__TEXT: "Texte du bouton",
     BlockButton__TEXT_PLACEHOLDER: "Indiquez le texte du bouton",
     BlockButton__URL: "URL du bouton",
     BlockButton__URL_PLACEHOLDER: "Indiquez le lien du bouton",
     BlockButton__TYPE: "Type de bouton",
-    
 
     BlockProduct__ADD_PRODUCT: "Ajouter un produit",
     BlockProduct__PRODUCT_LOADING: "Chargement du produit...",
@@ -60,7 +81,8 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockText__TEXT_PLACEHOLDER: "Votre texte ici",
     BlockText__TEXT_LINK_MODAL_TITLE: "Sélectionnez un élément à insérer",
     BlockText__TEXT_INSERT_LINK: "Insérer un lien",
-    BlockText__SEARCH_INFO: "Préfixez votre recherche par un # pour faire une recherche par référence",
+    BlockText__SEARCH_INFO:
+      "Préfixez votre recherche par un # pour faire une recherche par référence",
     BlockText__LINK_LABEL: "Titre de votre lien",
     BlockText__LINK_LABEL_PLACEHOLDER: "Indiquez le titre de votre lien",
     BlockText__LINK_URL: "URL de votre lien",
@@ -89,7 +111,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     DOWN: "Descendre",
     DELETE: "Supprimer",
     SELECT: "Sélectionnez",
-    FOLD: "Replier", 
+    FOLD: "Replier",
     UNFOLD: "Déplier",
     SAVE: "Enregistrer",
     SAVING: "Enregistrement...",
@@ -101,7 +123,8 @@ export const messages: Record<string, { [key: string]: string}> = {
     FOR: "pour",
     SEARCH: "Rechercher",
     SEARCH_BY: "Référence, nom, ...",
-    SEARCH_BY_INFO: "Préfixez votre recherche par un # pour faire une recherche par référence",
+    SEARCH_BY_INFO:
+      "Préfixez votre recherche par un # pour faire une recherche par référence",
     DO_NOT_SHOW_AGAIN: "Ne plus afficher ce message",
     I_UNDERSTOOD: "J'ai compris",
     SPACE: "Espace",
@@ -133,7 +156,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     COPY_SUCCESS: "copié avec succès",
     DELETE_BLOCK: "Supprimer ce Thelia Blocks",
     EDIT_BLOCK: "Editer ce Thelia Blocks",
-    OTHER: "autre", 
+    OTHER: "autre",
     LINK: "Lier",
     UNLINK: "Délier",
     INSERT: "Insérer",
@@ -151,44 +174,57 @@ export const messages: Record<string, { [key: string]: string}> = {
     URL: "Lien",
     CONTENT_GROUP: "Contenu du groupe",
   },
-  "en": {
+  en: {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creation of a new Thelia Blocks",
     BlocksEditor__EDIT_A_THELIA_BLOCKS: "Edition of a Thelia Blocks",
     BlocksEditor__LOADING: "Thelia Blocks loading...",
+    BlocksEditor__UNSAVED_LEAVE: "You have unfinished changes!",
 
     BlocksList__EXISTING_THELIA_BLOCKS: "Existing Thelia Blocks",
     BlocksList__NO_THELIA_BLOCKS: "You haven't created any Thelia Blocks yet",
-    BlocksList__ERROR_LOADING_THELIA_BLOCKS: "Error while loading Thelia Blocks",
+    BlocksList__ERROR_LOADING_THELIA_BLOCKS:
+      "Error while loading Thelia Blocks",
 
     GroupTitle__BLOCK_NAME: "Name of your Thelia Blocks",
     GroupTitle__BLOCK_NAME_PLACEHOLDER: "Enter the name of your Thelia Blocks",
-    GroupTitle__BLOCK_NAME_INFO: "This name will be used in the title of your Thelia Blocks",
+    GroupTitle__BLOCK_NAME_INFO:
+      "This name will be used in the title of your Thelia Blocks",
 
     GroupLocale__BLOCK_LOCALE: "Language",
     GroupLocale__BLOCK_LOCALE_INFO: "Select the language of your Thelia Blocks",
 
     AddBlocks__COLUMNS_NUMBER: "Choose the number of columns",
-    AddBlocks__DROP_CONTENT: "Drop the type of content you want from the right menu",
+    AddBlocks__DROP_CONTENT:
+      "Drop the type of content you want from the right menu",
     AddBlocks__ADD_CONTENT: "Add content",
     AddBlocks__SELECT_CONTENT: "Select the content you want",
 
-    BlocksContent__EMPTY_BLOCK: "You don't have any content in your Thelia Blocks. To start, select a type of content from the right menu.",
+    BlocksContent__EMPTY_BLOCK:
+      "You don't have any content in your Thelia Blocks. To start, select a type of content from the right menu.",
 
     PreviewModal__TITLE: "Preview of your Thelia Blocks",
 
-    HTMLWarningModal__DESCRIPTION: "Here is a little message to inform you about the use of HTML directly in the back-office. This message appears in a pop-in every time you add a block of HTML.",
+    HTMLWarningModal__DESCRIPTION:
+      "Here is a little message to inform you about the use of HTML directly in the back-office. This message appears in a pop-in every time you add a block of HTML.",
 
-    Toast__BLOCK_MUST_HAVE_A_NAME: "You must enter a name for your Thelia Blocks",
-    Toast__NO_BLOCKS_TO_DISPLAY: "You can't preview a Thelia Blocks without content",
+    Toast__BLOCK_MUST_HAVE_A_NAME:
+      "You must enter a name for your Thelia Blocks",
+    Toast__NO_BLOCKS_TO_DISPLAY:
+      "You can't preview a Thelia Blocks without content",
     Toast__BLOCK_SAVED: "Your Thelia Blocks has been saved successfully",
     Toast__BLOCK_NOT_SAVED: "An error occurred while saving your Thelia Blocks",
     Toast__BLOCK_DELETED: "This Thelia Blocks has been deleted successfully",
-    Toast__BLOCK_NOT_DELETED: "An error occurred while deleting this Thelia Blocks",
-    Toast__ITEM_BLOCK_GROUP_DELETED: "This content linked has been deleted successfully",
-    Toast__ITEM_BLOCK_GROUP_NOT_DELETED: "An error occurred while deleting this linked content",
+    Toast__BLOCK_NOT_DELETED:
+      "An error occurred while deleting this Thelia Blocks",
+    Toast__ITEM_BLOCK_GROUP_DELETED:
+      "This content linked has been deleted successfully",
+    Toast__ITEM_BLOCK_GROUP_NOT_DELETED:
+      "An error occurred while deleting this linked content",
     Toast__ITEM_BLOCK_GROUP_LINKED: "This content has been linked successfully",
-    Toast__ITEM_BLOCK_GROUP_UNLINKED: "This content has been unlinked successfully",
-    Toast__TOOLBAR_PREVIEW_ERROR: "An error occurred while previewing your Thelia Blocks",
+    Toast__ITEM_BLOCK_GROUP_UNLINKED:
+      "This content has been unlinked successfully",
+    Toast__TOOLBAR_PREVIEW_ERROR:
+      "An error occurred while previewing your Thelia Blocks",
 
     BlockButton__TEXT: "Text of the button",
     BlockButton__TEXT_PLACEHOLDER: "Enter the text of the button",
@@ -201,7 +237,7 @@ export const messages: Record<string, { [key: string]: string}> = {
 
     BlockSeparator__STYLE: "Style of the separator",
     BlockSeparator__SIZE: "Size of the separator",
-    
+
     BlockHTML__HTML_PLACEHOLDER: "Enter the HTML code",
 
     BlockText__TEXT_PLACEHOLDER: "Your text here",
@@ -212,7 +248,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockText__LINK_LABEL_PLACEHOLDER: "Enter the label of the link",
     BlockText__LINK_URL: "URL of the link",
     BlockText__LINK_URL_PLACEHOLDER: "Enter the URL of the link",
-    
+
     BlockTitle__TEXT_PLACEHOLDER: "Your title here",
     BlockTitle__LEVEL: "Title level",
 
@@ -298,8 +334,9 @@ export const messages: Record<string, { [key: string]: string}> = {
     URL: "Link",
     CONTENT_GROUP: "Content group",
   },
-  "es": {
-    BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creación de un nuevo Thelia Blocks",
+  es: {
+    BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS:
+      "Creación de un nuevo Thelia Blocks",
     BlocksEditor__EDIT_A_THELIA_BLOCKS: "Edición de un Thelia Blocks",
     BlocksEditor__LOADING: "Cargando Thelia Blocks...",
 
@@ -308,34 +345,47 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlocksList__ERROR_LOADING_THELIA_BLOCKS: "Error al cargar Thelia Blocks",
 
     GroupTitle__BLOCK_NAME: "Nombre de tu Thelia Blocks",
-    GroupTitle__BLOCK_NAME_PLACEHOLDER: "Introduce el nombre de tu Thelia Blocks",
-    GroupTitle__BLOCK_NAME_INFO: "Este nombre se utilizará en el título de tu Thelia Blocks",
+    GroupTitle__BLOCK_NAME_PLACEHOLDER:
+      "Introduce el nombre de tu Thelia Blocks",
+    GroupTitle__BLOCK_NAME_INFO:
+      "Este nombre se utilizará en el título de tu Thelia Blocks",
 
     GroupLocale__BLOCK_LOCALE: "Idioma",
     GroupLocale__BLOCK_LOCALE_INFO: "Selecciona el idioma de tu Thelia Blocks",
 
     AddBlocks__COLUMNS_NUMBER: "Elige el número de columnas",
-    AddBlocks__DROP_CONTENT: "Solta el tipo de contenido que quieres desde el menú derecho",
+    AddBlocks__DROP_CONTENT:
+      "Solta el tipo de contenido que quieres desde el menú derecho",
     AddBlocks__ADD_CONTENT: "Añade contenido",
     AddBlocks__SELECT_CONTENT: "Elige el contenido que quieres",
 
-    BlocksContent__EMPTY_BLOCK: "No tienes ningún contenido en tu Thelia Blocks. Para comenzar, selecciona un tipo de contenido desde el menú derecho.",
+    BlocksContent__EMPTY_BLOCK:
+      "No tienes ningún contenido en tu Thelia Blocks. Para comenzar, selecciona un tipo de contenido desde el menú derecho.",
 
     PreviewModal__TITLE: "Vista previa de tu Thelia Blocks",
 
-    HTMLWarningModal__DESCRIPTION: "Aquí hay un pequeño mensaje para informarte sobre el uso de HTML directamente en el back-office. Este mensaje aparece en un pop-in cada vez que añades un bloque de HTML.",
+    HTMLWarningModal__DESCRIPTION:
+      "Aquí hay un pequeño mensaje para informarte sobre el uso de HTML directamente en el back-office. Este mensaje aparece en un pop-in cada vez que añades un bloque de HTML.",
 
-    Toast__BLOCK_MUST_HAVE_A_NAME: "Debes introducir un nombre para tu Thelia Blocks",
-    Toast__NO_BLOCKS_TO_DISPLAY: "No puedes previsualizar un Thelia Blocks sin contenido",
+    Toast__BLOCK_MUST_HAVE_A_NAME:
+      "Debes introducir un nombre para tu Thelia Blocks",
+    Toast__NO_BLOCKS_TO_DISPLAY:
+      "No puedes previsualizar un Thelia Blocks sin contenido",
     Toast__BLOCK_SAVED: "Tu Thelia Blocks ha sido guardado con éxito",
     Toast__BLOCK_NOT_SAVED: "Ha ocurrido un error al guardar tu Thelia Blocks",
     Toast__BLOCK_DELETED: "Este Thelia Blocks ha sido eliminado con éxito",
-    Toast__BLOCK_NOT_DELETED: "Ha ocurrido un error al eliminar este Thelia Blocks",
-    Toast__ITEM_BLOCK_GROUP_DELETED: "Este contenido vinculado ha sido eliminado con éxito",
-    Toast__ITEM_BLOCK_GROUP_NOT_DELETED: "Ha ocurrido un error al eliminar este contenido vinculado",
-    Toast__ITEM_BLOCK_GROUP_LINKED: "Este contenido ha sido vinculado con éxito",
-    Toast__ITEM_BLOCK_GROUP_UNLINKED: "Este contenido ha sido desvinculado con éxito",
-    Toast__TOOLBAR_PREVIEW_ERROR: "Ha ocurrido un error al cargar la vista previa",
+    Toast__BLOCK_NOT_DELETED:
+      "Ha ocurrido un error al eliminar este Thelia Blocks",
+    Toast__ITEM_BLOCK_GROUP_DELETED:
+      "Este contenido vinculado ha sido eliminado con éxito",
+    Toast__ITEM_BLOCK_GROUP_NOT_DELETED:
+      "Ha ocurrido un error al eliminar este contenido vinculado",
+    Toast__ITEM_BLOCK_GROUP_LINKED:
+      "Este contenido ha sido vinculado con éxito",
+    Toast__ITEM_BLOCK_GROUP_UNLINKED:
+      "Este contenido ha sido desvinculado con éxito",
+    Toast__TOOLBAR_PREVIEW_ERROR:
+      "Ha ocurrido un error al cargar la vista previa",
 
     BlockButton__TEXT: "Texto del botón",
     BlockButton__TEXT_PLACEHOLDER: "Introduce el texto del botón",
@@ -354,7 +404,8 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockText__TEXT_PLACEHOLDER: "Tu texto aquí",
     BlockText__TEXT_LINK_MODAL_TITLE: "Elige un elemento para insertar",
     BlockText__TEXT_INSERT_LINK: "Insertar un enlace",
-    BlockText__SEARCH_INFO: "Prefijate tu búsqueda con un # para buscar por referencia",
+    BlockText__SEARCH_INFO:
+      "Prefijate tu búsqueda con un # para buscar por referencia",
     BlockText__LINK_LABEL: "Label del enlace",
     BlockText__LINK_LABEL_PLACEHOLDER: "Introduce el label del enlace",
     BlockText__LINK_URL: "URL del enlace",
@@ -446,45 +497,61 @@ export const messages: Record<string, { [key: string]: string}> = {
     URL: "Enlace",
     CONTENT_GROUP: "Contenido del grupo",
   },
-  "it": {
-    BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creazione di un nuovo Thelia Blocks",
+  it: {
+    BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS:
+      "Creazione di un nuovo Thelia Blocks",
     BlocksEditor__EDIT_A_THELIA_BLOCKS: "Modifica di un Thelia Blocks",
     BlocksEditor__LOADING: "Thelia Blocks caricamento...",
 
     BlocksList__EXISTING_THELIA_BLOCKS: "Thelia Blocks esistenti",
     BlocksList__NO_THELIA_BLOCKS: "Non hai ancora creato nessun Thelia Blocks",
-    BlocksList__ERROR_LOADING_THELIA_BLOCKS: "Errore nel caricamento dei Thelia Blocks",
+    BlocksList__ERROR_LOADING_THELIA_BLOCKS:
+      "Errore nel caricamento dei Thelia Blocks",
 
     GroupTitle__BLOCK_NAME: "Nome del tuo Thelia Blocks",
-    GroupTitle__BLOCK_NAME_PLACEHOLDER: "Inserisci il nome del tuo Thelia Blocks",
-    GroupTitle__BLOCK_NAME_INFO: "Questo nome verrà utilizzato nel titolo del tuo Thelia Blocks", 
+    GroupTitle__BLOCK_NAME_PLACEHOLDER:
+      "Inserisci il nome del tuo Thelia Blocks",
+    GroupTitle__BLOCK_NAME_INFO:
+      "Questo nome verrà utilizzato nel titolo del tuo Thelia Blocks",
 
     GroupLocale__BLOCK_LOCALE: "Lingua",
     GroupLocale__BLOCK_LOCALE_INFO: "Seleziona la lingua del tuo Thelia Blocks",
-    
+
     AddBlocks__COLUMNS_NUMBER: "Scegli il numero di colonne",
-    AddBlocks__DROP_CONTENT: "Rilascia il tipo di contenuto che vuoi dal menu a destra",
+    AddBlocks__DROP_CONTENT:
+      "Rilascia il tipo di contenuto che vuoi dal menu a destra",
     AddBlocks__ADD_CONTENT: "Aggiungi contenuto",
     AddBlocks__SELECT_CONTENT: "Scegli il contenuto che vuoi",
 
-    BlocksContent__EMPTY_BLOCK: "Non hai nessun contenuto nel tuo Thelia Blocks. Per iniziare, seleziona un tipo di contenuto dal menu a destra.",
+    BlocksContent__EMPTY_BLOCK:
+      "Non hai nessun contenuto nel tuo Thelia Blocks. Per iniziare, seleziona un tipo di contenuto dal menu a destra.",
 
     PreviewModal__TITLE: "Anteprima del tuo Thelia Blocks",
 
-    HTMLWarningModal__DESCRIPTION: "Qui c'è un piccolo messaggio per informarti sull'uso di HTML direttamente nel back-office. Questo messaggio compare in un pop-in ogni volta che aggiungi un blocco di HTML.",
+    HTMLWarningModal__DESCRIPTION:
+      "Qui c'è un piccolo messaggio per informarti sull'uso di HTML direttamente nel back-office. Questo messaggio compare in un pop-in ogni volta che aggiungi un blocco di HTML.",
 
-    Toast__BLOCK_MUST_HAVE_A_NAME: "Devi inserire un nome per il tuo Thelia Blocks",
-    Toast__NO_BLOCKS_TO_DISPLAY: "Non puoi visualizzare un Thelia Blocks senza contenuto",
+    Toast__BLOCK_MUST_HAVE_A_NAME:
+      "Devi inserire un nome per il tuo Thelia Blocks",
+    Toast__NO_BLOCKS_TO_DISPLAY:
+      "Non puoi visualizzare un Thelia Blocks senza contenuto",
     Toast__BLOCK_SAVED: "Il tuo Thelia Blocks è stato salvato con successo",
-    Toast__BLOCK_NOT_SAVED: "Si è verificato un errore durante il salvataggio del tuo Thelia Blocks",
+    Toast__BLOCK_NOT_SAVED:
+      "Si è verificato un errore durante il salvataggio del tuo Thelia Blocks",
     Toast__BLOCK_DELETED: "Questo Thelia Blocks è stato eliminato con successo",
-    Toast__BLOCK_NOT_DELETED: "Si è verificato un errore durante l'eliminazione di questo Thelia Blocks",
-    Toast__ITEM_BLOCK_GROUP_DELETED: "Questo contenuto vincolato è stato eliminato con successo",
-    Toast__ITEM_BLOCK_GROUP_NOT_DELETED: "Si è verificato un errore durante l'eliminazione di questo contenuto vincolato",
-    Toast__ITEM_BLOCK_GROUP_LINKED: "Questo contenuto è stato vincolato con successo",
-    Toast__ITEM_BLOCK_GROUP_UNLINKED: "Questo contenuto è stato scollegato con successo",
-    Toast__TOOLBAR_PREVIEW_ERROR: "Si è verificato un errore durante la visualizzazione dell'anteprima",
-    
+    Toast__BLOCK_NOT_DELETED:
+      "Si è verificato un errore durante l'eliminazione di questo Thelia Blocks",
+    Toast__ITEM_BLOCK_GROUP_DELETED:
+      "Questo contenuto vincolato è stato eliminato con successo",
+    Toast__ITEM_BLOCK_GROUP_NOT_DELETED:
+      "Si è verificato un errore durante l'eliminazione di questo contenuto vincolato",
+    Toast__ITEM_BLOCK_GROUP_LINKED:
+      "Questo contenuto è stato vincolato con successo",
+    Toast__ITEM_BLOCK_GROUP_UNLINKED:
+      "Questo contenuto è stato scollegato con successo",
+    Toast__TOOLBAR_PREVIEW_ERROR:
+      "Si è verificato un errore durante la visualizzazione dell'anteprima",
+
     BlockButton__TEXT: "Testo del bottone",
     BlockButton__TEXT_PLACEHOLDER: "Inserisci il testo del bottone",
     BlockButton__URL: "URL del bottone",
@@ -493,7 +560,7 @@ export const messages: Record<string, { [key: string]: string}> = {
 
     BlockProduct__ADD_PRODUCT: "Aggiungi un prodotto",
     BlockProduct__PRODUCT_LOADING: "Caricamento del prodotto...",
-  
+
     BlockSeparator__STYLE: "Stile del separatore",
     BlockSeparator__SIZE: "Dimensione del separatore",
 
@@ -502,7 +569,8 @@ export const messages: Record<string, { [key: string]: string}> = {
     BlockText__TEXT_PLACEHOLDER: "Il tuo testo qui",
     BlockText__TEXT_LINK_MODAL_TITLE: "Scegli un elemento da inserire",
     BlockText__TEXT_INSERT_LINK: "Inserisci un link",
-    BlockText__SEARCH_INFO: "Prefissa la tua ricerca con un # per cercare per riferimento",
+    BlockText__SEARCH_INFO:
+      "Prefissa la tua ricerca con un # per cercare per riferimento",
     BlockText__LINK_LABEL: "Label del link",
     BlockText__LINK_LABEL_PLACEHOLDER: "Inserisci il label del link",
     BlockText__LINK_URL: "URL del link",
@@ -526,7 +594,7 @@ export const messages: Record<string, { [key: string]: string}> = {
     CREATE: "Crea",
     CONTENTS: "Contenuti",
     BACK: "Indietro",
-    UNSUPPORTED_BLOCK: "Questo blocco non è supportato da Thelia Blocks", 
+    UNSUPPORTED_BLOCK: "Questo blocco non è supportato da Thelia Blocks",
     UP: "Su",
     DOWN: "Giù",
     DELETE: "Elimina",
@@ -543,7 +611,8 @@ export const messages: Record<string, { [key: string]: string}> = {
     FOR: "per",
     SEARCH: "Cerca",
     SEARCH_BY: "Riferimento, nome, ...",
-    SEARCH_BY_INFO: "Prefissa la tua ricerca con un # per cercare per riferimento",
+    SEARCH_BY_INFO:
+      "Prefissa la tua ricerca con un # per cercare per riferimento",
     DO_NOT_SHOW_AGAIN: "Non mostrare più questo messaggio",
     I_UNDERSTOOD: "Ho capito",
     SPACE: "Spazio",
@@ -591,6 +660,6 @@ export const messages: Record<string, { [key: string]: string}> = {
     ORDERED_LIST: "Elenco ordinato",
     UNORDERED_LIST: "Elenco non ordinato",
     URL: "Link",
-    CONTENT_GROUP: "Contenuto del gruppo"
-  }
+    CONTENT_GROUP: "Contenuto del gruppo",
+  },
 };
