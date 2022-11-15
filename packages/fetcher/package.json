@@ -17,8 +17,7 @@
   },
   "devDependencies": {
     "tsup": "^5.10.1",
-    "typescript": "^4.5.3",
-    "@thelia/tsconfig": "*"
+    "typescript": "^4.5.3"
   },
   "dependencies": {
     "react": "*",
