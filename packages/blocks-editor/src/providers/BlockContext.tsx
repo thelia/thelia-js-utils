@@ -33,7 +33,7 @@ export const BlockContextProvider = ({
   const [blocks, setBlocks] = useState<IBlock[]>(defaultBlocks || []);
 
   const { group } = useContext(BlocksGroupContext);
-  const [hasChanged, setHasChanged] = useGlobalHasChanged();
+  const [, setHasChanged] = useGlobalHasChanged();
 
   useEffect(() => {
     setHasChanged(!isEqual(group?.jsonContent, blocks));
@@ -44,6 +44,12 @@ export const BlockContextProvider = ({
       setBlocks(group?.jsonContent || []);
     }
   }, [group?.jsonContent, root]);
+
+  useEffect(() => {
+    if (defaultBlocks) {
+      setBlocks(defaultBlocks);
+    }
+  }, [defaultBlocks]);
 
   return (
     <BlockContext.Provider value={{ blocks: blocks || [], setBlocks }}>

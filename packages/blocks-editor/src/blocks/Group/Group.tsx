@@ -20,6 +20,7 @@ const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
   const { DndWrapper, DndWrapElement } = useDragAndDrop();
 
   useEffect(() => {
+    console.log(blockList);
     onUpdate(blockList);
   }, [blockList]);
 
