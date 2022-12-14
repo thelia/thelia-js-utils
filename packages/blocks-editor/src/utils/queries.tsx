@@ -400,6 +400,34 @@ export function useProductsBy({ type, value = null }: SearchProps) {
   );
 }
 
+export function useCategoriesBy({ type, value = null }: SearchProps) {
+  let params: {
+    id: string | null;
+    ids: string | null;
+    reference: string | null;
+    title: string | null;
+  } = {
+    id: null,
+    ids: null,
+    reference: null,
+    title: null,
+  };
+
+  params[type] = value;
+
+  return useQuery(
+    ["categories", type, value],
+    () =>
+      fetcher(`/category/search`, {
+        method: "GET",
+        params,
+      }),
+    {
+      enabled: !!value,
+    }
+  );
+}
+
 export function useSearchBy({
   searchIn,
   type = "title",

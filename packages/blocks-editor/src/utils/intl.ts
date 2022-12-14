@@ -73,6 +73,9 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockProduct__ADD_PRODUCT: "Ajouter un produit",
     BlockProduct__PRODUCT_LOADING: "Chargement du produit...",
 
+    BlockCategory__ADD_CATEGORY: "Ajouter un catégorie",
+    BlockCategory__CATEGORY_LOADING: "Chargement du catégorie...",
+
     BlockSeparator__STYLE: "Style du séparateur",
     BlockSeparator__SIZE: "Taille du séparateur",
 
@@ -119,6 +122,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     PREVIEW: "Prévisualiser",
     COLUMN: "Colonne",
     PRODUCT_SHEET: "Fiche produit",
+    CATEGORY_SHEET: "Fiche catégorie",
     NO_RESULTS: "Aucun résultat",
     FOR: "pour",
     SEARCH: "Rechercher",
@@ -235,6 +239,9 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockProduct__ADD_PRODUCT: "Add a product",
     BlockProduct__PRODUCT_LOADING: "Loading product...",
 
+    BlockCategory__ADD_CATEGORY: "Add a category",
+    BlockCategory__CATEGORY_LOADING: "Loading category...",
+
     BlockSeparator__STYLE: "Style of the separator",
     BlockSeparator__SIZE: "Size of the separator",
 
@@ -280,6 +287,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     PREVIEW: "Preview",
     COLUMN: "Column",
     PRODUCT_SHEET: "Product sheet",
+    CATEGORY_SHEET: "Category sheet",
     NO_RESULTS: "No results",
     FOR: "for",
     SEARCH: "Search",
@@ -396,6 +404,9 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockProduct__ADD_PRODUCT: "Añade un producto",
     BlockProduct__PRODUCT_LOADING: "Cargando producto...",
 
+    BlockCategory__ADD_CATEGORY: "Añade un categoría",
+    BlockCategory__CATEGORY_LOADING: "Cargando categoría...",
+
     BlockSeparator__STYLE: "Estilo del separador",
     BlockSeparator__SIZE: "Tamaño del separador",
 
@@ -442,6 +453,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     PREVIEW: "Vista previa",
     COLUMN: "Columna",
     PRODUCT_SHEET: "Hoja de producto",
+    CATEGORY_SHEET: "Hoja de categoría",
     NO_RESULTS: "No hay resultados",
     FOR: "para",
     SEARCH: "Buscar",
@@ -561,6 +573,9 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockProduct__ADD_PRODUCT: "Aggiungi un prodotto",
     BlockProduct__PRODUCT_LOADING: "Caricamento del prodotto...",
 
+    BlockCategory__ADD_CATEGORY: "Aggiungi un categoria",
+    BlockCategory__CATEGORY_LOADING: "Caricamento del categoria...",
+
     BlockSeparator__STYLE: "Stile del separatore",
     BlockSeparator__SIZE: "Dimensione del separatore",
 
@@ -607,6 +622,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     PREVIEW: "Anteprima",
     COLUMN: "Colonna",
     PRODUCT_SHEET: "Foglio di prodotto",
+    CATEGORY_SHEET: "Foglio di categoria",
     NO_RESULTS: "Nessun risultato",
     FOR: "per",
     SEARCH: "Cerca",
