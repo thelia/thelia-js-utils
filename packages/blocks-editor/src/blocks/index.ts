@@ -10,6 +10,7 @@ import Accordion from "./Accordion";
 import Button from "./Button";
 import Product from "./Product";
 import Category from "./Category";
+import Table from "./Table";
 import Raw from "./Raw";
 import Separator from "./Separator";
 import Text from "./Text";
@@ -38,6 +39,7 @@ export {
   Accordion,
   Product,
   Category,
+  Table,
   List,
   Group,
   Highlight,

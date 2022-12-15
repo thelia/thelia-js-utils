@@ -106,6 +106,20 @@ export const messages: Record<string, { [key: string]: string }> = {
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Indiquez le nom du groupe",
     LinkBlockToItem__UNLINK_GROUP: "Délier ce groupe",
 
+    BlockTable__ROWS: "Lignes",
+    BlockTable__ROW: "Ligne",
+    BlockTable__HEADER: "Entêtes",
+    BlockTable__OPTIONS_TEXT: "Texte",
+    BlockTable__OPTIONS_LINK: "Liens",
+    BlockTable__SELECT_TYPE_LABEL: "Type de champs",
+    BlockTable__FIELD_LABEL_LABEL: "Libellé",
+    BlockTable__FIELD_LABEL_LINK: "Liens",
+    BlockTable__FIELD_TITLE_LAYOUT: "Structure du tableau",
+    BlockTable__FIELD_LABEL_LAYOUT_COL:
+      "Selectionner le nombre de colonne que vous souhaitez.",
+    BlockTable__FIELD_LABEL_LAYOUT_ROW:
+      "Selectionner le nombre de ligne que vous souhaitez.",
+
     CREATE: "Créer",
     CONTENTS: "Contenus",
     BACK: "Retour",
@@ -270,6 +284,18 @@ export const messages: Record<string, { [key: string]: string }> = {
     LinkBlockToItem__LINK_GROUP: "Link a group",
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Enter the name of the group",
     LinkBlockToItem__UNLINK_GROUP: "Unlink this group",
+
+    BlockTable__ROWS: "Rows",
+    BlockTable__ROW: "Row",
+    BlockTable__HEADER: "Headers",
+    BlockTable__OPTIONS_TEXT: "Text",
+    BlockTable__OPTIONS_LINK: "Link",
+    BlockTable__SELECT_TYPE_LABEL: "Field type",
+    BlockTable__FIELD_LABEL_LABEL: "Label",
+    BlockTable__FIELD_LABEL_LINK: "Link",
+    BlockTable__FIELD_TITLE_LAYOUT: "Table structure",
+    BlockTable__FIELD_LABEL_LAYOUT_COL: "Select the number of columns you want",
+    BlockTable__FIELD_LABEL_LAYOUT_ROW: "Select the number of lines you want.",
 
     CREATE: "Create",
     CONTENTS: "Contents",
@@ -436,6 +462,20 @@ export const messages: Record<string, { [key: string]: string }> = {
     LinkBlockToItem__LINK_GROUP: "Vincula un grupo",
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Elige un grupo",
     LinkBlockToItem__UNLINK_GROUP: "Desvincula este grupo",
+
+    BlockTable__ROWS: "Líneas",
+    BlockTable__ROW: "Línea",
+    BlockTable__HEADER: "Cabeceras",
+    BlockTable__OPTIONS_TEXT: "Texto",
+    BlockTable__OPTIONS_LINK: "Enlaces",
+    BlockTable__SELECT_TYPE_LABEL: "Tipo de campo",
+    BlockTable__FIELD_LABEL_LABEL: "Redacción",
+    BlockTable__FIELD_LABEL_LINK: "Enlaces",
+    BlockTable__FIELD_TITLE_LAYOUT: "Estructura de la tabla",
+    BlockTable__FIELD_LABEL_LAYOUT_COL:
+      "Seleccione el número de columnas que desea",
+    BlockTable__FIELD_LABEL_LAYOUT_ROW:
+      "Seleccione el número de filas que desea",
 
     CREATE: "Crear",
     CONTENTS: "Contenidos",
@@ -605,6 +645,20 @@ export const messages: Record<string, { [key: string]: string }> = {
     LinkBlockToItem__LINK_GROUP: "Vincola un gruppo",
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Scegli un gruppo",
     LinkBlockToItem__UNLINK_GROUP: "Scollega questo gruppo",
+
+    BlockTable__ROWS: "Linee",
+    BlockTable__ROW: "Linea",
+    BlockTable__HEADER: "Intestazioni",
+    BlockTable__OPTIONS_TEXT: "Testo",
+    BlockTable__OPTIONS_LINK: "Collegamenti",
+    BlockTable__SELECT_TYPE_LABEL: "Tipo di campo",
+    BlockTable__FIELD_LABEL_LABEL: "Formulazione",
+    BlockTable__FIELD_LABEL_LINK: "Collegamenti",
+    BlockTable__FIELD_TITLE_LAYOUT: "Struttura della tabella",
+    BlockTable__FIELD_LABEL_LAYOUT_COL:
+      "Selezionare il numero di colonne desiderato",
+    BlockTable__FIELD_LABEL_LAYOUT_ROW:
+      "Selezionare il numero di righe desiderato",
 
     CREATE: "Crea",
     CONTENTS: "Contenuti",
