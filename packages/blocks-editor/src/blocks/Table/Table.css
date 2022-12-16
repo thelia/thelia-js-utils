@@ -1,0 +1,95 @@
+.BlockTable {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  &-rowsCol,
+  .Input__Wrapper {
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+
+  .Title {
+    @apply text-mediumCharbon font-bold md:text-xl w-full;
+
+    &--2 {
+      @apply font-semibold text-sm uppercase;
+    }
+  }
+
+  &-layout,
+  &-rowsList,
+  &-headers {
+    @apply bg-white border-l-8 border-vermillon rounded-md px-4 lg:px-14 py-4 lg:py-8 flex-wrap;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+
+    .Title {
+      width: 100%;
+    }
+  }
+
+  &-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  &-headers{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &List {
+      display: flex;
+      gap: 16px;
+
+      &Item {
+        flex-grow: 1;
+        flex-shrink: 0;
+      }
+
+      &Item + &Item {
+        border-left: 1px solid theme('colors.gray.300');
+        padding-left: 16px;
+      }
+
+      .Input__Wrapper label {
+        @apply text-mediumCharbon w-full font-semibold text-sm uppercase;
+      }
+    }
+  }
+
+  &-rows{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &Wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    &List {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    &Col + &Col {
+      border-left: 1px solid theme('colors.gray.300');
+      padding-left: 16px;
+    }
+
+    &Col {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 16px;
+
+      .Input__Wrapper {
+        flex-grow: 0;
+      }
+    }
+  }
+}

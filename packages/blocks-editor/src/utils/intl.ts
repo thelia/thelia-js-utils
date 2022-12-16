@@ -73,6 +73,9 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockProduct__ADD_PRODUCT: "Ajouter un produit",
     BlockProduct__PRODUCT_LOADING: "Chargement du produit...",
 
+    BlockCategory__ADD_CATEGORY: "Ajouter un catégorie",
+    BlockCategory__CATEGORY_LOADING: "Chargement du catégorie...",
+
     BlockSeparator__STYLE: "Style du séparateur",
     BlockSeparator__SIZE: "Taille du séparateur",
 
@@ -103,6 +106,20 @@ export const messages: Record<string, { [key: string]: string }> = {
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Indiquez le nom du groupe",
     LinkBlockToItem__UNLINK_GROUP: "Délier ce groupe",
 
+    BlockTable__ROWS: "Lignes",
+    BlockTable__ROW: "Ligne",
+    BlockTable__HEADER: "Entêtes",
+    BlockTable__OPTIONS_TEXT: "Texte",
+    BlockTable__OPTIONS_LINK: "Liens",
+    BlockTable__SELECT_TYPE_LABEL: "Type de champs",
+    BlockTable__FIELD_LABEL_LABEL: "Libellé",
+    BlockTable__FIELD_LABEL_LINK: "Liens",
+    BlockTable__FIELD_TITLE_LAYOUT: "Structure du tableau",
+    BlockTable__FIELD_LABEL_LAYOUT_COL:
+      "Selectionner le nombre de colonne que vous souhaitez.",
+    BlockTable__FIELD_LABEL_LAYOUT_ROW:
+      "Selectionner le nombre de ligne que vous souhaitez.",
+
     CREATE: "Créer",
     CONTENTS: "Contenus",
     BACK: "Retour",
@@ -119,6 +136,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     PREVIEW: "Prévisualiser",
     COLUMN: "Colonne",
     PRODUCT_SHEET: "Fiche produit",
+    CATEGORY_SHEET: "Fiche catégorie",
     NO_RESULTS: "Aucun résultat",
     FOR: "pour",
     SEARCH: "Rechercher",
@@ -235,6 +253,9 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockProduct__ADD_PRODUCT: "Add a product",
     BlockProduct__PRODUCT_LOADING: "Loading product...",
 
+    BlockCategory__ADD_CATEGORY: "Add a category",
+    BlockCategory__CATEGORY_LOADING: "Loading category...",
+
     BlockSeparator__STYLE: "Style of the separator",
     BlockSeparator__SIZE: "Size of the separator",
 
@@ -264,6 +285,18 @@ export const messages: Record<string, { [key: string]: string }> = {
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Enter the name of the group",
     LinkBlockToItem__UNLINK_GROUP: "Unlink this group",
 
+    BlockTable__ROWS: "Rows",
+    BlockTable__ROW: "Row",
+    BlockTable__HEADER: "Headers",
+    BlockTable__OPTIONS_TEXT: "Text",
+    BlockTable__OPTIONS_LINK: "Link",
+    BlockTable__SELECT_TYPE_LABEL: "Field type",
+    BlockTable__FIELD_LABEL_LABEL: "Label",
+    BlockTable__FIELD_LABEL_LINK: "Link",
+    BlockTable__FIELD_TITLE_LAYOUT: "Table structure",
+    BlockTable__FIELD_LABEL_LAYOUT_COL: "Select the number of columns you want",
+    BlockTable__FIELD_LABEL_LAYOUT_ROW: "Select the number of lines you want.",
+
     CREATE: "Create",
     CONTENTS: "Contents",
     BACK: "Back",
@@ -280,6 +313,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     PREVIEW: "Preview",
     COLUMN: "Column",
     PRODUCT_SHEET: "Product sheet",
+    CATEGORY_SHEET: "Category sheet",
     NO_RESULTS: "No results",
     FOR: "for",
     SEARCH: "Search",
@@ -396,6 +430,9 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockProduct__ADD_PRODUCT: "Añade un producto",
     BlockProduct__PRODUCT_LOADING: "Cargando producto...",
 
+    BlockCategory__ADD_CATEGORY: "Añade un categoría",
+    BlockCategory__CATEGORY_LOADING: "Cargando categoría...",
+
     BlockSeparator__STYLE: "Estilo del separador",
     BlockSeparator__SIZE: "Tamaño del separador",
 
@@ -426,6 +463,20 @@ export const messages: Record<string, { [key: string]: string }> = {
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Elige un grupo",
     LinkBlockToItem__UNLINK_GROUP: "Desvincula este grupo",
 
+    BlockTable__ROWS: "Líneas",
+    BlockTable__ROW: "Línea",
+    BlockTable__HEADER: "Cabeceras",
+    BlockTable__OPTIONS_TEXT: "Texto",
+    BlockTable__OPTIONS_LINK: "Enlaces",
+    BlockTable__SELECT_TYPE_LABEL: "Tipo de campo",
+    BlockTable__FIELD_LABEL_LABEL: "Redacción",
+    BlockTable__FIELD_LABEL_LINK: "Enlaces",
+    BlockTable__FIELD_TITLE_LAYOUT: "Estructura de la tabla",
+    BlockTable__FIELD_LABEL_LAYOUT_COL:
+      "Seleccione el número de columnas que desea",
+    BlockTable__FIELD_LABEL_LAYOUT_ROW:
+      "Seleccione el número de filas que desea",
+
     CREATE: "Crear",
     CONTENTS: "Contenidos",
     BACK: "Atrás",
@@ -442,6 +493,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     PREVIEW: "Vista previa",
     COLUMN: "Columna",
     PRODUCT_SHEET: "Hoja de producto",
+    CATEGORY_SHEET: "Hoja de categoría",
     NO_RESULTS: "No hay resultados",
     FOR: "para",
     SEARCH: "Buscar",
@@ -561,6 +613,9 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockProduct__ADD_PRODUCT: "Aggiungi un prodotto",
     BlockProduct__PRODUCT_LOADING: "Caricamento del prodotto...",
 
+    BlockCategory__ADD_CATEGORY: "Aggiungi un categoria",
+    BlockCategory__CATEGORY_LOADING: "Caricamento del categoria...",
+
     BlockSeparator__STYLE: "Stile del separatore",
     BlockSeparator__SIZE: "Dimensione del separatore",
 
@@ -591,6 +646,20 @@ export const messages: Record<string, { [key: string]: string }> = {
     LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Scegli un gruppo",
     LinkBlockToItem__UNLINK_GROUP: "Scollega questo gruppo",
 
+    BlockTable__ROWS: "Linee",
+    BlockTable__ROW: "Linea",
+    BlockTable__HEADER: "Intestazioni",
+    BlockTable__OPTIONS_TEXT: "Testo",
+    BlockTable__OPTIONS_LINK: "Collegamenti",
+    BlockTable__SELECT_TYPE_LABEL: "Tipo di campo",
+    BlockTable__FIELD_LABEL_LABEL: "Formulazione",
+    BlockTable__FIELD_LABEL_LINK: "Collegamenti",
+    BlockTable__FIELD_TITLE_LAYOUT: "Struttura della tabella",
+    BlockTable__FIELD_LABEL_LAYOUT_COL:
+      "Selezionare il numero di colonne desiderato",
+    BlockTable__FIELD_LABEL_LAYOUT_ROW:
+      "Selezionare il numero di righe desiderato",
+
     CREATE: "Crea",
     CONTENTS: "Contenuti",
     BACK: "Indietro",
@@ -607,6 +676,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     PREVIEW: "Anteprima",
     COLUMN: "Colonna",
     PRODUCT_SHEET: "Foglio di prodotto",
+    CATEGORY_SHEET: "Foglio di categoria",
     NO_RESULTS: "Nessun risultato",
     FOR: "per",
     SEARCH: "Cerca",

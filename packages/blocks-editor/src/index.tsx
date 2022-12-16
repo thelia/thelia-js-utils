@@ -15,4 +15,11 @@ export type {
 
 import * as blocks from "./blocks";
 
-export { BlocksEditor, BlocksList, registerPlugin, LinkBlockToItem, blocks, nanoid as generateId };
+export {
+  BlocksEditor,
+  BlocksList,
+  registerPlugin,
+  LinkBlockToItem,
+  blocks,
+  nanoid as generateId,
+};
