@@ -36,7 +36,9 @@ export const BlockContextProvider = ({
   const [, setHasChanged] = useGlobalHasChanged();
 
   useEffect(() => {
-    setHasChanged(!isEqual(group?.jsonContent, blocks));
+    if (blocks.length > 0 || group?.jsonContent !== undefined) {
+      setHasChanged(!isEqual(group?.jsonContent, blocks));
+    }
   }, [group?.jsonContent, blocks]);
 
   useEffect(() => {
