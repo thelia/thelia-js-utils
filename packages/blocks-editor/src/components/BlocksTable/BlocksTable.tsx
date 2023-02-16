@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useCopyToClipboard from "react-use/esm/useCopyToClipboard";
 import { GroupTypeResponse } from "../../types/types";
 import {
@@ -17,8 +17,10 @@ import ItemBlockGroupTable from "../ItemBlockGroupTable";
 import { useIntl } from "react-intl";
 
 import "./BlocksTable.css";
+import { LocaleContext } from "../../providers/LocaleContext";
+import { getUrlWithPrefix } from "../../utils/content-url";
 
-const BlocksTableRow = ({ group }: { group: GroupTypeResponse }) => {
+const BlocksTableRow = ({ group,prefix }: { group: GroupTypeResponse,prefix: string }) => {
   const intl = useIntl();
 
   const [copied, copyToClipboard] = useCopyToClipboard();
@@ -34,7 +36,7 @@ const BlocksTableRow = ({ group }: { group: GroupTypeResponse }) => {
     <tr className="BlocksTable__Row" key={group.id}>
       <td className="BlocksTable__Row__Id">#{group.id}</td>
       <td className="BlocksTable__Row__Title">
-        <a href={`/admin/TheliaBlocks/${group.id}`}>
+        <a href={getUrlWithPrefix(`/admin/TheliaBlocks/${group.id}`, prefix)}>
           {group.title || intl.formatMessage({ id: "NO_TITLE" })}
         </a>
       </td>
@@ -110,7 +112,7 @@ const BlocksTableRow = ({ group }: { group: GroupTypeResponse }) => {
           >
             <a
               className="BlocksTable__Row__Action"
-              href={`/admin/TheliaBlocks/${group.id}`}
+              href={getUrlWithPrefix(`/admin/TheliaBlocks/${group.id}`, prefix)}
             >
               <EditIcon />
             </a>
@@ -180,6 +182,7 @@ const BlocksTableRow = ({ group }: { group: GroupTypeResponse }) => {
 const BlocksTable = () => {
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(10);
+  const { prefix } = useContext(LocaleContext);
 
   const {
     data: groups = [],
@@ -219,7 +222,7 @@ const BlocksTable = () => {
         </thead>
         <tbody>
           {groups.map((group: GroupTypeResponse) => (
-            <BlocksTableRow group={group} key={group.id} />
+            <BlocksTableRow group={group} key={group.id} prefix={prefix}/>
           ))}
         </tbody>
       </table>

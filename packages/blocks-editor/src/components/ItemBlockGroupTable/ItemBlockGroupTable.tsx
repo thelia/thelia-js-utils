@@ -8,7 +8,9 @@ import { ReactComponent as ViewIcon } from "../../../assets/svg/view.svg";
 
 import { useUnlinkContentFromGroup } from "../../utils/queries";
 import { useIntl } from "react-intl";
-import { getContentUrl } from "../../utils/content-url";
+import { getContentUrl, getUrlWithPrefix } from "../../utils/content-url";
+import { useContext } from "react";
+import { LocaleContext } from "../../providers/LocaleContext";
 
 const LinkedContentTable = ({
   linkedContents,
@@ -19,7 +21,9 @@ const LinkedContentTable = ({
 }) => {
   const mutationDelete = useUnlinkContentFromGroup();
   const intl = useIntl();
-
+  const {prefix} = useContext(LocaleContext);
+    console.log(linkedContents);
+    
   return (
     <table className="BlocksTable">
       <thead className="BlocksTable__Header">
@@ -57,10 +61,10 @@ const LinkedContentTable = ({
                   >
                     <a
                       className="BlocksTable__Row__Action"
-                      href={`${getContentUrl(
+                      href={getUrlWithPrefix(getContentUrl(
                         content.itemType as string,
                         content.itemId as number
-                      )}`}
+                      ), prefix) }
                     >
                       <EditIcon />
                     </a>

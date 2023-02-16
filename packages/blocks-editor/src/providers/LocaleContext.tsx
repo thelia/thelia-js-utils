@@ -7,18 +7,22 @@ import { useIntl } from "react-intl";
 export const LocaleContext = createContext<{
   currentLocale: Locale["code"];
   locales: Locale[];
+  prefix: string;
   setCurrentLocale: Function;
 }>({
   currentLocale: "",
   locales: [],
   setCurrentLocale: () => {},
+  prefix: ''
 });
 
 export function LocaleProvider({
   locales,
+  prefix,
   children,
 }: {
   locales: Locale[];
+  prefix: string;
   children: ReactElement;
 }) {
   const intl = useIntl();
@@ -68,7 +72,7 @@ export function LocaleProvider({
 
   return (
     <LocaleContext.Provider
-      value={{ locales, currentLocale, setCurrentLocale }}
+      value={{ locales, currentLocale, setCurrentLocale, prefix }}
     >
       {children}
     </LocaleContext.Provider>
