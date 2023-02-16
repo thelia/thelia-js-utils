@@ -21,7 +21,6 @@ import toast from "react-hot-toast";
 import { useBlocksContext } from "../hooks/useBlockContext";
 import { useIntl } from "react-intl";
 import { useGlobalHasChanged } from "./globalState";
-import { getUrlWithPrefix } from "./content-url";
 
 export function BlocksProvider({
   children,
@@ -113,7 +112,7 @@ export function useCreateOrUpdateGroup() {
     noRedirect = false,
   } = useContext(BlocksGroupContext);
   const intl = useIntl();
-  const { currentLocale, prefix } = useContext(LocaleContext);
+  const { currentLocale, getUrlWithPrefix } = useContext(LocaleContext);
   const { group: contextGroup } = useContext(BlocksGroupContext);
   const [hasChanged, setHasChanged] = useGlobalHasChanged();
   const queryClient = useQueryClient();
@@ -166,9 +165,9 @@ export function useCreateOrUpdateGroup() {
 
         if (
           !noRedirect &&
-          window.location.pathname !== getUrlWithPrefix(`/admin/TheliaBlocks/${data.id}`, prefix)
+          window.location.pathname !== getUrlWithPrefix(`/admin/TheliaBlocks/${data.id}`)
         ) {
-          window.location.replace(getUrlWithPrefix(`/admin/TheliaBlocks/${data.id}`, prefix));
+          window.location.replace(getUrlWithPrefix(`/admin/TheliaBlocks/${data.id}`));
         } else {
           queryClient.invalidateQueries("block_group");
         }
@@ -243,7 +242,7 @@ export function useDeleteItemBlockGroup() {
 
 export function useDuplicateGroup() {
   const { groupId } = useContext(BlocksGroupContext);
-  const { prefix } = useContext(LocaleContext);
+  const { getUrlWithPrefix } = useContext(LocaleContext);
 
   return useMutation(
     (id?: number) => {
@@ -259,7 +258,7 @@ export function useDuplicateGroup() {
     },
     {
       onSuccess: (newGroupId: number) => {
-        window.location.replace(getUrlWithPrefix(`/admin/TheliaBlocks/${newGroupId}`, prefix));
+        window.location.replace(getUrlWithPrefix(`/admin/TheliaBlocks/${newGroupId}`));
       },
     }
   );

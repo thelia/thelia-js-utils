@@ -21,7 +21,6 @@ import { messages, locale } from "./utils/intl";
 import LinkBlockToItem from "./components/LinkBlockToItem";
 import { toastOptions } from "./utils/toast";
 import ErrorBoundary from "./components/ErrorBoundary";
-import { getUrlWithPrefix } from "./utils/content-url";
 
 interface IBlocksEditorProps {
   apiUrl: string;
@@ -57,9 +56,7 @@ const BlocksEditorHeader = ({
   isEditing,
 }: Partial<IBlocksEditorProps>) => {
   const { group } = useContext(BlocksGroupContext);
-  const { prefix } = useContext(LocaleContext);
-
-  
+  const { getUrlWithPrefix } = useContext(LocaleContext);
   const unlinkContent = useUnlinkContentFromGroup();
   const intl = useIntl();
 
@@ -76,7 +73,7 @@ const BlocksEditorHeader = ({
     <div className="BlocksEditor__Header">
       {backlink ? (
         <div>
-          <a href={getUrlWithPrefix(`/admin/TheliaBlocks`,prefix)}>{intl.formatMessage({id: "BlocksEditor__BACK_TO_BLOCKS_LIST"})}</a>
+          <a href={getUrlWithPrefix(`/admin/TheliaBlocks`)}>{intl.formatMessage({id: "BlocksEditor__BACK_TO_BLOCKS_LIST"})}</a>
         </div>
       ) : null}
       <div className="BlocksEditor__Header__Title">

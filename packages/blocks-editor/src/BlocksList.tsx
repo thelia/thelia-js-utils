@@ -9,11 +9,10 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { LocaleContext, LocaleProvider } from "./providers/LocaleContext";
 import { Locale } from "./types/types";
 import { toastOptions } from "./utils/toast";
-import { getUrlWithPrefix } from "./utils/content-url";
 
 const BlocksListHeader = () => {
   const intl = useIntl();
-  const {prefix} = useContext(LocaleContext);
+  const {getUrlWithPrefix} = useContext(LocaleContext);
   return (
     <div className="BlocksList__Header">
       <div className="BlocksList__Header__Title">Thelia Blocks</div>
@@ -22,7 +21,7 @@ const BlocksListHeader = () => {
           Ici, un texte expliquant rapidement le fonctionnement des Thelia Blocks. Cela
           permettera aux utilisateurs de comprendre plus facilement l'outil
         </span>
-        <a href={getUrlWithPrefix("/admin/TheliaBlocks/new",prefix)} className="BlocksList__Header__Create">
+        <a href={getUrlWithPrefix("/admin/TheliaBlocks/new")} className="BlocksList__Header__Create">
           {intl.formatMessage({ id: "CREATE" })}
         </a>
       </div>

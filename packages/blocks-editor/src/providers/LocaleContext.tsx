@@ -8,12 +8,14 @@ export const LocaleContext = createContext<{
   currentLocale: Locale["code"];
   locales: Locale[];
   prefix: string;
+  getUrlWithPrefix: (url: string, prefix?: string) => string;
   setCurrentLocale: Function;
 }>({
   currentLocale: "",
   locales: [],
   setCurrentLocale: () => {},
-  prefix: ''
+  prefix: '',
+  getUrlWithPrefix: () => ''
 });
 
 export function LocaleProvider({
@@ -70,9 +72,18 @@ export function LocaleProvider({
     setCurrentLocaleState(params.get("blocks_locale") || current?.code || "");
   }, [params]);
 
+  const getUrlWithPrefix = (url: string, overridePrefix?: string): string => {
+    
+    let usedPrefix = overridePrefix ?? prefix;
+
+    if (usedPrefix ==='' || typeof usedPrefix === "undefined") return url;
+  
+    return `/${usedPrefix}${url}`
+  }
+
   return (
     <LocaleContext.Provider
-      value={{ locales, currentLocale, setCurrentLocale, prefix }}
+      value={{ locales, currentLocale, setCurrentLocale, prefix, getUrlWithPrefix }}
     >
       {children}
     </LocaleContext.Provider>

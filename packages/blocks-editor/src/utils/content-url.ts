@@ -9,9 +9,3 @@ export const getContentUrl = (type: string, id: number): string => {
   
   return typeUrl[type] ?? null;
 };
-
-export const getUrlWithPrefix = (url: string, prefix: string): string => {
-  if (prefix ==='' || typeof prefix === "undefined") return url;
-
-  return `/${prefix}${url}`
-}

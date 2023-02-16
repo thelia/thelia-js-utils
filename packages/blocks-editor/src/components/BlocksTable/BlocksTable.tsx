@@ -18,9 +18,8 @@ import { useIntl } from "react-intl";
 
 import "./BlocksTable.css";
 import { LocaleContext } from "../../providers/LocaleContext";
-import { getUrlWithPrefix } from "../../utils/content-url";
 
-const BlocksTableRow = ({ group,prefix }: { group: GroupTypeResponse,prefix: string }) => {
+const BlocksTableRow = ({ group,getUrlWithPrefix }: { group: GroupTypeResponse,getUrlWithPrefix: Function }) => {
   const intl = useIntl();
 
   const [copied, copyToClipboard] = useCopyToClipboard();
@@ -36,7 +35,7 @@ const BlocksTableRow = ({ group,prefix }: { group: GroupTypeResponse,prefix: str
     <tr className="BlocksTable__Row" key={group.id}>
       <td className="BlocksTable__Row__Id">#{group.id}</td>
       <td className="BlocksTable__Row__Title">
-        <a href={getUrlWithPrefix(`/admin/TheliaBlocks/${group.id}`, prefix)}>
+        <a href={getUrlWithPrefix(`/admin/TheliaBlocks/${group.id}`)}>
           {group.title || intl.formatMessage({ id: "NO_TITLE" })}
         </a>
       </td>
@@ -112,7 +111,7 @@ const BlocksTableRow = ({ group,prefix }: { group: GroupTypeResponse,prefix: str
           >
             <a
               className="BlocksTable__Row__Action"
-              href={getUrlWithPrefix(`/admin/TheliaBlocks/${group.id}`, prefix)}
+              href={getUrlWithPrefix(`/admin/TheliaBlocks/${group.id}`)}
             >
               <EditIcon />
             </a>
@@ -182,7 +181,7 @@ const BlocksTableRow = ({ group,prefix }: { group: GroupTypeResponse,prefix: str
 const BlocksTable = () => {
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(10);
-  const { prefix } = useContext(LocaleContext);
+  const { getUrlWithPrefix } = useContext(LocaleContext);
 
   const {
     data: groups = [],
@@ -222,7 +221,7 @@ const BlocksTable = () => {
         </thead>
         <tbody>
           {groups.map((group: GroupTypeResponse) => (
-            <BlocksTableRow group={group} key={group.id} prefix={prefix}/>
+            <BlocksTableRow group={group} key={group.id} getUrlWithPrefix={getUrlWithPrefix}/>
           ))}
         </tbody>
       </table>
