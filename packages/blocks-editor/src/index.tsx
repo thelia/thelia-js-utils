@@ -6,6 +6,7 @@ import BlocksList from "./BlocksList";
 import LinkBlockToItem from "./components/LinkBlockToItem/LinkBlockToItem";
 import { registerPlugin } from "./hooks/usePlugins";
 import { nanoid } from "nanoid";
+import { LocaleContext } from "./providers/LocaleContext";
 
 export type {
   BlockModuleComponentProps,
@@ -20,6 +21,7 @@ export {
   BlocksList,
   registerPlugin,
   LinkBlockToItem,
+  LocaleContext,
   blocks,
   nanoid as generateId,
 };

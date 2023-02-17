@@ -59,7 +59,7 @@ const BlocksEditorHeader = ({
   const { getUrlWithPrefix } = useContext(LocaleContext);
   const unlinkContent = useUnlinkContentFromGroup();
   const intl = useIntl();
-
+  
   const isGroupLinkedToCurrentContent =
     group?.itemBlockGroups?.some(
       (linkedContent) => linkedContent.itemId === (itemId && +itemId)
@@ -68,7 +68,7 @@ const BlocksEditorHeader = ({
   const linkedContentId = group?.itemBlockGroups?.find(
     (linkedContent) => linkedContent.itemId === (itemId && +itemId)
   )?.id;
-
+  
   return (
     <div className="BlocksEditor__Header">
       {backlink ? (

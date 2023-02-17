@@ -10,7 +10,7 @@ import { ReactComponent as TrashIcon } from "./assets/trash.svg";
 import { ReactComponent as TagXMarkIcon } from "./assets/tag-xmark.svg";
 import ReactModal from "react-modal";
 import { ImageTag, LibraryImage as LibraryImageType } from "../types/types";
-import { Suspense, useState } from "react";
+import { Suspense, useContext, useState } from "react";
 import { IntlProvider, useIntl } from "react-intl";
 import Input from "../Input";
 import ErrorBoundary from "../ErrorBoundary";
@@ -18,6 +18,7 @@ import { locale, messages } from "../utils/intl";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "@thelia/fetcher";
 import "./Library.css";
+import { LocaleContext } from "@thelia/blocks-editor";
 
 const TagsList = ({
   currentTags,
@@ -219,7 +220,8 @@ const LibraryImage = ({
   const intl = useIntl();
 
   const deleteMutation = useDeleteImage();
-
+  const {getUrlWithPrefix} = useContext(LocaleContext);
+  
   return (
     <>
       <div className="Library__Image">
@@ -236,13 +238,15 @@ const LibraryImage = ({
             >
               {tag.title}
             </span>
+          
           ))}
         </div>
+
         <img
           width="150"
           height="150"
           loading="lazy"
-          src={`/image-library/${image.id}/full/^!150,150/0/default.webp`}
+          src={getUrlWithPrefix(`/image-library/${image.id}/full/^!150,150/0/default.webp`)}
         />
         <span className="Library__Image__Title">{image.title}</span>
 
@@ -290,7 +294,7 @@ const LibraryContent = ({
   const [offset, setOffset] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
   const [tagId, setTagId] = useState<number>();
-
+  
   const {
     data: images = [],
     isFetching,
