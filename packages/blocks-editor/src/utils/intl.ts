@@ -11,6 +11,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS:
       "Création d'un nouveau Thelia Blocks",
     BlocksEditor__EDIT_A_THELIA_BLOCKS: "Edition d'un Thelia Blocks",
+    BlocksEditor__BACK_TO_BLOCKS_LIST: "Retour à la liste des Thelia Blocks",
     BlocksEditor__LOADING: "Chargement de Thelia Blocks...",
     BlocksEditor__UNSAVED_LEAVE:
       "Les modifications que vous avez apportées ne seront peut-être pas enregistrées.",
@@ -195,6 +196,7 @@ export const messages: Record<string, { [key: string]: string }> = {
   en: {
     BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS: "Creation of a new Thelia Blocks",
     BlocksEditor__EDIT_A_THELIA_BLOCKS: "Edition of a Thelia Blocks",
+    BlocksEditor__BACK_TO_BLOCKS_LIST: "Back to BlocksList",
     BlocksEditor__LOADING: "Thelia Blocks loading...",
     BlocksEditor__UNSAVED_LEAVE: "You have unfinished changes!",
 

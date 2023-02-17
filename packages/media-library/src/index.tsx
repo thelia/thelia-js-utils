@@ -6,5 +6,6 @@ import { LibraryImage } from "./types/types";
 registerPlugin(Image);
 
 export default Library;
+
 export { UploadImage };
 export type { LibraryImage };

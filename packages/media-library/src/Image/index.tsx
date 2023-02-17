@@ -1,8 +1,9 @@
 import {
   BlockModuleComponentProps,
   BlockPluginDefinition,
+  LocaleContext
 } from "@thelia/blocks-editor";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IntlProvider, useIntl } from "react-intl";
 import { ReactComponent as Icon } from "./assets/image.svg";
 import { ReactComponent as DownloadIcon } from "./assets/download.svg";
@@ -151,13 +152,13 @@ const Preview = ({
   setEditMode: Function;
 }) => {
   const intl = useIntl();
+  const {getUrlWithPrefix} = useContext(LocaleContext);
 
   if (!id) return null;
-
   return (
     <div className="BlockImage__Preview">
       <img
-        src={`/image-library/${id}/full/^!220,220/0/default.webp`}
+        src={getUrlWithPrefix(`/image-library/${id}/full/^!220,220/0/default.webp`)}
         alt=""
         loading="lazy"
         onError={(e) =>
@@ -166,7 +167,6 @@ const Preview = ({
           ).src = `https://via.placeholder.com/220`)
         }
       />
-
       <div className="BlockImage__Preview__Infos">
         <span className="BlockImage__Preview__FileName">{fileName}</span>
         <button
@@ -264,7 +264,7 @@ const BlockImageComponent = (
 
   const [image, setImage] = useState<LibraryImage | null>(null);
   const [isEditMode, setEditMode] = useState<boolean>(false);
-
+  
   const intl = useIntl();
 
   useEffect(() => {
@@ -290,7 +290,6 @@ const BlockImageComponent = (
             fileName={image.fileName}
             setEditMode={setEditMode}
           />
-
           <ImageInfos
             image={image}
             onChange={(values) => {
@@ -334,6 +333,7 @@ const BlockImageComponent = (
 const WrappedComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
   return (
     <IntlProvider messages={messages[locale]} locale={locale}>
+      
       <QueryClientProvider client={queryClient}>
         <Toaster
           toastOptions={{

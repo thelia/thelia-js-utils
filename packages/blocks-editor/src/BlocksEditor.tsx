@@ -10,7 +10,7 @@ import { BlocksProvider, useUnlinkContentFromGroup } from "./utils/queries";
 import GroupLocale from "./components/GroupLocale";
 import GroupTitle from "./components/GroupTitle";
 import { Locale } from "./types/types";
-import { LocaleProvider } from "./providers/LocaleContext";
+import { LocaleContext, LocaleProvider } from "./providers/LocaleContext";
 import ReactModal from "react-modal";
 import Sidebar from "./components/Sidebar";
 import { Toaster } from "react-hot-toast";
@@ -29,6 +29,7 @@ interface IBlocksEditorProps {
   groupId?: number;
   itemId?: number;
   itemType?: string;
+  urlPrefix: string;
   itemConfiguration?: boolean;
   isEditing?: boolean;
   backlink: boolean;
@@ -55,10 +56,10 @@ const BlocksEditorHeader = ({
   isEditing,
 }: Partial<IBlocksEditorProps>) => {
   const { group } = useContext(BlocksGroupContext);
-
+  const { getUrlWithPrefix } = useContext(LocaleContext);
   const unlinkContent = useUnlinkContentFromGroup();
   const intl = useIntl();
-
+  
   const isGroupLinkedToCurrentContent =
     group?.itemBlockGroups?.some(
       (linkedContent) => linkedContent.itemId === (itemId && +itemId)
@@ -67,12 +68,12 @@ const BlocksEditorHeader = ({
   const linkedContentId = group?.itemBlockGroups?.find(
     (linkedContent) => linkedContent.itemId === (itemId && +itemId)
   )?.id;
-
+  
   return (
     <div className="BlocksEditor__Header">
       {backlink ? (
         <div>
-          <a href="/admin/TheliaBlocks">Back to BlocksList</a>
+          <a href={getUrlWithPrefix(`/admin/TheliaBlocks`)}>{intl.formatMessage({id: "BlocksEditor__BACK_TO_BLOCKS_LIST"})}</a>
         </div>
       ) : null}
       <div className="BlocksEditor__Header__Title">
@@ -111,6 +112,7 @@ export default function BlocksEditor({
   itemId,
   itemType,
   locales,
+  urlPrefix,
   itemConfiguration = false,
   isEditing = false,
   backlink = true,
@@ -128,7 +130,7 @@ export default function BlocksEditor({
 
   return (
     <IntlProvider messages={messages[locale]} locale={locale}>
-      <LocaleProvider locales={locales}>
+      <LocaleProvider locales={locales} prefix={urlPrefix}>
         <BlocksProvider api={apiUrl}>
           <Suspense fallback={<BlocksEditorLoader />}>
             <BlocksGroupProvider

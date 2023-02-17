@@ -1,4 +1,4 @@
-import { Suspense, useLayoutEffect } from "react";
+import { Suspense, useContext, useLayoutEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { BlocksProvider } from "./utils/queries";
 import BlocksTable from "./components/BlocksTable";
@@ -6,13 +6,13 @@ import { IntlProvider, useIntl } from "react-intl";
 import { messages, locale } from "./utils/intl";
 import ReactModal from "react-modal";
 import ErrorBoundary from "./components/ErrorBoundary";
-import { LocaleProvider } from "./providers/LocaleContext";
+import { LocaleContext, LocaleProvider } from "./providers/LocaleContext";
 import { Locale } from "./types/types";
 import { toastOptions } from "./utils/toast";
 
 const BlocksListHeader = () => {
   const intl = useIntl();
-
+  const {getUrlWithPrefix} = useContext(LocaleContext);
   return (
     <div className="BlocksList__Header">
       <div className="BlocksList__Header__Title">Thelia Blocks</div>
@@ -21,7 +21,7 @@ const BlocksListHeader = () => {
           Ici, un texte expliquant rapidement le fonctionnement des Thelia Blocks. Cela
           permettera aux utilisateurs de comprendre plus facilement l'outil
         </span>
-        <a href="/admin/TheliaBlocks/new" className="BlocksList__Header__Create">
+        <a href={getUrlWithPrefix("/admin/TheliaBlocks/new")} className="BlocksList__Header__Create">
           {intl.formatMessage({ id: "CREATE" })}
         </a>
       </div>
@@ -42,7 +42,7 @@ const BlocksListContent = () => {
         </div>
         <div className="BlocksList__List__Wrapper">
           <Suspense fallback={<i className="Loader fa fa-circle-notch fa-spin"></i>}>
-            <BlocksTable />
+            <BlocksTable/>
           </Suspense>
         </div>
       </div>
@@ -54,11 +54,14 @@ const BlocksList = ({
   apiUrl,
   containerId,
   locales,
+  urlPrefix,
 }: {
   apiUrl: string;
   containerId: string;
   locales: Locale[];
+  urlPrefix: string;
 }) => {
+  
   useLayoutEffect(() => {
     if (containerId) {
       ReactModal.setAppElement("#" + containerId);
@@ -69,7 +72,7 @@ const BlocksList = ({
 
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>
-      <LocaleProvider locales={locales}>
+      <LocaleProvider locales={locales} prefix={urlPrefix}>
         <BlocksProvider api={apiUrl}>
           <ErrorBoundary>
             <BlocksListContent />
