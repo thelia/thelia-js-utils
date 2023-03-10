@@ -7,13 +7,14 @@ import { useBlocksContext } from "../../hooks/useBlockContext";
 import { BlockContextProvider } from "../../providers/BlockContext";
 import { BlockModuleComponentProps, IBlock } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/accordion.svg";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
 import { useIntl } from "react-intl";
 import { Input } from "../../components/Inputs";
-
+import { isEqual } from "lodash";
 import "./Accordion.css";
 import { generateId } from "../..";
+import ErrorBoundary from "../../components/ErrorBoundary";
 
 type AccordionContentData = IBlock[];
 
@@ -31,17 +32,27 @@ type AccordionData = {
 const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
   const { blockList, moveBlockTo } = useBlocksContext();
   const { DndWrapper, DndWrapElement } = useDragAndDrop();
+  const blockListRef = useRef<{blockList: IBlock[]}>({
+    blockList : []
+  });
+  
+  useEffect(() => {
+    blockListRef.current.blockList = blockList ?? []
+  }, []);
 
   useEffect(() => {
-    onUpdate(blockList);
+    if(!isEqual(blockListRef.current.blockList,blockList)) {
+      onUpdate(blockList);
+      blockListRef.current.blockList = blockList
+    }
   }, [blockList]);
 
   const onDragEnd = (e: DropResult) => {
-    if (e.destination) {
+    if (e.destination && blockList.length > 1) {
       moveBlockTo(e.source.index, e.destination.index);
     }
   };
-
+  
   return blockList.length > 0 ? (
     <DndWrapper id="main" onDragEnd={onDragEnd}>
       {blockList.map((block, index) => (
@@ -101,20 +112,21 @@ const AccordionItemComponent = ({
                 onChange={(e) => setItemTitle(e.target.value)}
                 onBlur={() => onUpdate({ ...item, title: itemTitle })}
               />
-              <NestedBlocks
-                onUpdate={(columnNewData: IBlock[]) => {
-                  const nextState = produce(data, (draft) => {
-                    draft.group[index].content = columnNewData;
-                  });
-
-                  onUpdate({
-                    title: item.title,
-                    content: nextState.group[index].content,
-                  });
-                }}
-              />
+              <ErrorBoundary>
+                <NestedBlocks
+                  onUpdate={(columnNewData: IBlock[]) => {
+                    const nextState = produce(data, (draft) => {
+                      draft.group[index].content = columnNewData;
+                    });
+                    
+                    onUpdate({
+                      title: item.title,
+                      content: nextState.group[index].content,
+                    });
+                  }}
+                />
+              </ErrorBoundary>
             </div>
-
             <AddBlocks excludeLayout inLayout />
           </>
         </BlockContextProvider>

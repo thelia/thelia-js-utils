@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AddBlocks from "../../components/AddBlocks";
 import Block from "../../components/Block";
 import { BlockContextProvider } from "../../providers/BlockContext";
@@ -13,6 +13,7 @@ import { DropResult } from "react-beautiful-dnd";
 
 import "./MultiColumns.css";
 import { useIntl } from "react-intl";
+import { isEqual } from "lodash";
 
 type ColumnData = IBlock[];
 
@@ -25,13 +26,23 @@ export type MultiColumnsComponentProps = {
 const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
   const { blockList, moveBlockTo } = useBlocksContext();
   const { DndWrapper, DndWrapElement } = useDragAndDrop();
+  const blockListRef = useRef<{blockList: IBlock[]}>({
+    blockList : []
+  });
+  
+  useEffect(() => {
+    blockListRef.current.blockList = blockList ?? []
+  }, []);
 
   useEffect(() => {
-    onUpdate(blockList);
+    if(!isEqual(blockListRef.current.blockList,blockList)) {
+      onUpdate(blockList);
+      blockListRef.current.blockList = blockList
+    }
   }, [blockList]);
 
   const onDragEnd = (e: DropResult) => {
-    if (e.destination) {
+    if (e.destination && blockList.length > 1) {
       moveBlockTo(e.source.index, e.destination.index);
     }
   };
