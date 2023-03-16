@@ -5,11 +5,12 @@ import useDragAndDrop from "../../hooks/useDragAndDrop";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { BlockContextProvider } from "../../providers/BlockContext";
 import { BlockModuleComponentProps, IBlock } from "../../types/types";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
 import { useIntl } from "react-intl";
 
 import "./Group.css";
+import { isEqual } from "lodash";
 
 type GroupContentData = IBlock[];
 
@@ -18,13 +19,23 @@ type GroupData = { content: GroupContentData[] };
 const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
   const { blockList, moveBlockTo } = useBlocksContext();
   const { DndWrapper, DndWrapElement } = useDragAndDrop();
+  const blockListRef = useRef<{blockList: IBlock[]}>({
+    blockList : []
+  });
+  
+  useEffect(() => {
+    blockListRef.current.blockList = blockList ?? []
+  }, []);
 
   useEffect(() => {
-    onUpdate(blockList);
+    if(!isEqual(blockListRef.current.blockList,blockList)) {
+      onUpdate(blockList);
+      blockListRef.current.blockList = blockList
+    }
   }, [blockList]);
 
   const onDragEnd = (e: DropResult) => {
-    if (e.destination) {
+    if (e.destination && blockList.length > 1) {
       moveBlockTo(e.source.index, e.destination.index);
     }
   };
