@@ -37,12 +37,8 @@ const AddButton = ({
     >
       <button
         className={`Sidebar__Add ${
-          isSidebarOpen && plugin?.customIcon
-            ? "Sidebar__Add--withCustomIcon"
-            : ""
-        } ${
-          isSidebarOpen ? "Sidebar__Add--expanded" : "Sidebar__Add--collapsed"
-        }`}
+          isSidebarOpen && plugin?.customIcon ? "Sidebar__Add--withCustomIcon" : ""
+        } ${isSidebarOpen ? "Sidebar__Add--expanded" : "Sidebar__Add--collapsed"}`}
         onClick={() => {
           addBlock({
             id: nanoid(),
@@ -88,10 +84,7 @@ const Sidebar = () => {
   const [isDisplayingSubMenu, setIsDisplayingSubMenu] = useState(false);
 
   const availablePLugins = plugins.filter((plugin) => !plugin.internalOnly);
-  const [commonBlocks, layoutPlugins] = partition(
-    availablePLugins,
-    (i) => !i.layout
-  );
+  const [commonBlocks, layoutPlugins] = partition(availablePLugins, (i) => !i.layout);
 
   const layoutPluginsByType = groupBy(
     layoutPlugins,
@@ -127,7 +120,7 @@ const Sidebar = () => {
         ) : null}
       </div>
 
-      <div className="Sidebar__Content__Wrapper">
+      <div className="Sidebar__Content__Wrapper overflow-auto">
         {isDisplayingSubMenu && (
           <div className="Sidebar__Back__Wrapper">
             <button
@@ -145,11 +138,7 @@ const Sidebar = () => {
 
         <ol className="Sidebar__Content">
           {pluginList.map((plugin) => (
-            <AddButton
-              plugin={plugin}
-              isSidebarOpen={isSidebarOpen}
-              key={plugin.id}
-            />
+            <AddButton plugin={plugin} isSidebarOpen={isSidebarOpen} key={plugin.id} />
           ))}
 
           {!isDisplayingSubMenu &&

@@ -1,7 +1,7 @@
 import {
   BlockModuleComponentProps,
   BlockPluginDefinition,
-  LocaleContext
+  LocaleContext,
 } from "@thelia/blocks-editor";
 import { useContext, useEffect, useState } from "react";
 import { IntlProvider, useIntl } from "react-intl";
@@ -21,8 +21,10 @@ import "./Image.css";
 
 const FromLocal = ({
   onSelect,
+  isWide = false,
 }: {
   onSelect: (value: LibraryImage) => void;
+  isWide?: boolean;
 }) => {
   const intl = useIntl();
   const createImage = useCreateImage();
@@ -46,9 +48,7 @@ const FromLocal = ({
     onDropRejected: (rejectedFiles) => {
       rejectedFiles.length > 1
         ? toast.error(intl.formatMessage({ id: "BlockImage__TOAST_MAX_FILE" }))
-        : toast.error(
-            intl.formatMessage({ id: "BlockImage__TOAST_WRONG_FILE_TYPE" })
-          );
+        : toast.error(intl.formatMessage({ id: "BlockImage__TOAST_WRONG_FILE_TYPE" }));
     },
   });
 
@@ -57,6 +57,7 @@ const FromLocal = ({
       className={`BlockImage__FromLocal ${
         isDragActive ? "BlockImage__FromLocal--active" : ""
       }`}
+      style={{ width: isWide ? "100%" : "50%" }}
       {...getRootProps()}
     >
       <div className="BlockImage__FromLocal__Icon">
@@ -105,14 +106,16 @@ const FromLocal = ({
 
 const FromLibrary = ({
   onSelect,
+  isWide = false,
 }: {
   onSelect: (value: LibraryImage) => void;
+  isWide?: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const intl = useIntl();
 
   return (
-    <div className="BlockImage__FromLibrary">
+    <div className="BlockImage__FromLibrary" style={{ width: isWide ? "100%" : "50%" }}>
       <div className="BlockImage__FromLibrary__Icon">
         <MediathequeIcon />
       </div>
@@ -152,7 +155,7 @@ const Preview = ({
   setEditMode: Function;
 }) => {
   const intl = useIntl();
-  const {getUrlWithPrefix} = useContext(LocaleContext);
+  const { getUrlWithPrefix } = useContext(LocaleContext);
 
   if (!id) return null;
   return (
@@ -162,9 +165,7 @@ const Preview = ({
         alt=""
         loading="lazy"
         onError={(e) =>
-          ((
-            e.target as HTMLImageElement
-          ).src = `https://via.placeholder.com/220`)
+          ((e.target as HTMLImageElement).src = `https://via.placeholder.com/220`)
         }
       />
       <div className="BlockImage__Preview__Infos">
@@ -237,10 +238,17 @@ const ImageInfos = ({
 export const UploadImage = ({
   onSelect,
   compact,
+  uploadModes = ["local", "library"],
 }: {
   onSelect: (image: LibraryImage) => void;
   compact?: boolean;
+  uploadModes?: ("local" | "library")[];
 }) => {
+  const uploadModesComponents = {
+    local: FromLocal,
+    library: FromLibrary,
+  };
+
   return (
     <IntlProvider messages={messages[locale]} locale={locale}>
       <QueryClientProvider client={queryClient}>
@@ -249,22 +257,25 @@ export const UploadImage = ({
             compact ? "BlockImage__Upload--light" : ""
           }`}
         >
-          <FromLocal onSelect={onSelect} />
-          <FromLibrary onSelect={onSelect} />
+          {uploadModes.map((mode) => {
+            const Component = uploadModesComponents[mode];
+
+            return (
+              <Component key={mode} onSelect={onSelect} isWide={uploadModes.length < 2} />
+            );
+          })}
         </div>
       </QueryClientProvider>
     </IntlProvider>
   );
 };
 
-const BlockImageComponent = (
-  props: BlockModuleComponentProps<LibraryImage>
-) => {
+const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
   const { data, onUpdate } = props;
 
   const [image, setImage] = useState<LibraryImage | null>(null);
   const [isEditMode, setEditMode] = useState<boolean>(false);
-  
+
   const intl = useIntl();
 
   useEffect(() => {
@@ -285,11 +296,7 @@ const BlockImageComponent = (
     <div className="BlockImage">
       {image && !isEditMode ? (
         <div className="BlockImage__Infos">
-          <Preview
-            id={image.id}
-            fileName={image.fileName}
-            setEditMode={setEditMode}
-          />
+          <Preview id={image.id} fileName={image.fileName} setEditMode={setEditMode} />
           <ImageInfos
             image={image}
             onChange={(values) => {
@@ -333,7 +340,6 @@ const BlockImageComponent = (
 const WrappedComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
   return (
     <IntlProvider messages={messages[locale]} locale={locale}>
-      
       <QueryClientProvider client={queryClient}>
         <Toaster
           toastOptions={{

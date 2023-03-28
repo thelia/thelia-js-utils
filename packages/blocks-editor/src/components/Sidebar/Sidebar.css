@@ -29,7 +29,7 @@
   }
 
   &__Add {
-    @apply flex items-center bg-pearlMedium hover:bg-pearlLight rounded-md text-mediumCharbon text-sm gap-3 p-2 h-9;
+    @apply flex items-center bg-pearlMedium hover:bg-pearlLight rounded-md text-mediumCharbon text-sm gap-3 p-2 h-9 text-left;
     
     &__Icon {
       @apply w-6;

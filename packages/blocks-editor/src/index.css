@@ -59,7 +59,7 @@ input::placeholder, textarea::placeholder {
   bottom: 0;
   margin: auto;
   overflow: hidden;
-  width: 60%;
+  width: 85%;
   max-height: 80%;
   height: max-content;
   border-radius: 8px;

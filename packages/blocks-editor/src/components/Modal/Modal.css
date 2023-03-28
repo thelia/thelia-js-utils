@@ -11,7 +11,7 @@
     }
 
     &__Title {
-      @apply text-mediumCharbon text-xl font-extrabold;
+      @apply text-mediumCharbon text-xl font-extrabold flex gap-4 items-center;
 
       @screen md {
         padding: 0 60px;
