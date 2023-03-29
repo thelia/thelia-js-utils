@@ -120,7 +120,7 @@ const Sidebar = () => {
         ) : null}
       </div>
 
-      <div className="Sidebar__Content__Wrapper overflow-auto">
+      <div className="Sidebar__Content__Wrapper">
         {isDisplayingSubMenu && (
           <div className="Sidebar__Back__Wrapper">
             <button
