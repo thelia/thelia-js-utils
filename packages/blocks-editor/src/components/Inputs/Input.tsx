@@ -17,9 +17,7 @@ const InputIcon = ({
 }) => {
   return (
     <span
-      className={`Input__Icon Input__Icon${
-        alignment === "left" ? "--left" : "--right"
-      }`}
+      className={`Input__Icon Input__Icon${alignment === "left" ? "--left" : "--right"}`}
     >
       {icon}
     </span>
@@ -69,9 +67,7 @@ const Input = forwardRef(
             value={value}
             id={id}
             onChange={onChange}
-            className={`Input__Text ${
-              emphasize ? "Input__Text--emphasize" : ""
-            } ${
+            className={`Input__Text ${emphasize ? "Input__Text--emphasize" : ""} ${
               iconAlignment === "left" && icon
                 ? "Input__Text--withIcon"
                 : icon && isValid

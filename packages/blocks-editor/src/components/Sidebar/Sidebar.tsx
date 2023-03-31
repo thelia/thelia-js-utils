@@ -122,18 +122,16 @@ const Sidebar = () => {
 
       <div className="Sidebar__Content__Wrapper">
         {isDisplayingSubMenu && (
-          <div className="Sidebar__Back__Wrapper">
-            <button
-              className="Sidebar__Back"
-              onClick={() => {
-                setPluginList(commonBlocks);
-                setIsDisplayingSubMenu(false);
-              }}
-            >
-              {intl.formatMessage({ id: "BACK" })}
-            </button>
+          <button
+            className="Sidebar__Back"
+            onClick={() => {
+              setPluginList(commonBlocks);
+              setIsDisplayingSubMenu(false);
+            }}
+          >
             <i className="fa fa-chevron-left"></i>
-          </div>
+            {intl.formatMessage({ id: "BACK" })}
+          </button>
         )}
 
         <ol className="Sidebar__Content">

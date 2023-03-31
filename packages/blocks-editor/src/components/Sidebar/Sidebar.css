@@ -40,7 +40,7 @@
     }
 
     &--expanded {
-      @apply w-52;
+      @apply w-52 text-center;
     }
 
     &--collapsed {
@@ -48,21 +48,13 @@
     }
   }
 
-  &__Back__Wrapper {
-    @apply flex items-center gap-1 text-greyDark text-sm mb-2;
+  &__Back {
+    @apply flex gap-2 items-center text-greyDark text-sm mb-2 border-b border-b-greyDark;
 
-    i:last-child {
-      order: -1;
-    }
-
-    button {
-      @apply underline;
-    }
-
-    button:hover {
-      @apply text-vermillon;
+    &:hover {
+      @apply text-vermillon border-b-vermillon;
       
-      + i {
+      i {
         @apply text-vermillon
       }
     }
