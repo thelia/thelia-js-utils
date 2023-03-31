@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { CSSProperties, useEffect, useRef, useState } from "react";
 import AddBlocks from "../../components/AddBlocks";
 import Block from "../../components/Block";
 import { BlockContextProvider } from "../../providers/BlockContext";
@@ -17,7 +17,10 @@ import { isEqual } from "lodash";
 
 type ColumnData = IBlock[];
 
-type MultiColumnsData = ColumnData[];
+type MultiColumnsData = {
+  backgroundColor: string;
+  content: ColumnData;
+}[];
 
 export type MultiColumnsComponentProps = {
   data: MultiColumnsData;
@@ -26,18 +29,18 @@ export type MultiColumnsComponentProps = {
 const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
   const { blockList, moveBlockTo } = useBlocksContext();
   const { DndWrapper, DndWrapElement } = useDragAndDrop();
-  const blockListRef = useRef<{blockList: IBlock[]}>({
-    blockList : []
+  const blockListRef = useRef<{ blockList: IBlock[] }>({
+    blockList: [],
   });
-  
+
   useEffect(() => {
-    blockListRef.current.blockList = blockList ?? []
+    blockListRef.current.blockList = blockList ?? [];
   }, []);
 
   useEffect(() => {
-    if(!isEqual(blockListRef.current.blockList,blockList)) {
+    if (!isEqual(blockListRef.current.blockList, blockList)) {
       onUpdate(blockList);
-      blockListRef.current.blockList = blockList
+      blockListRef.current.blockList = blockList;
     }
   }, [blockList]);
 
@@ -66,10 +69,12 @@ export const ColumnIcon = ({
   cols,
   currentCol,
   asIcon,
+  layout,
 }: {
   cols: number;
   currentCol?: number;
   asIcon?: boolean;
+  layout?: string[];
 }) => {
   const { width } = useWindowSize();
 
@@ -82,19 +87,23 @@ export const ColumnIcon = ({
       }`}
       style={{ minWidth: width > 1024 ? "60px" : "40px" }}
     >
-      {[...Array(cols)].map((_, index) => (
-        <div
-          key={index}
-          style={{ width: 100 / cols + "%" }}
-          className={`${index !== cols - 1 ? "ColumnIcon__Chip" : ""} ${
-            currentCol === index
-              ? "ColumnIcon__Chip--current"
-              : asIcon
-              ? "ColumnIcon__Chip--asCompactIcon"
-              : "ColumnIcon__Chip--asLayoutIcon"
-          }`}
-        ></div>
-      ))}
+      {[...Array(cols)].map((_, index) => {
+        console.log(layout && layout[index]);
+
+        return (
+          <div
+            key={index}
+            style={{ width: (layout && layout[index]) || "100%" }}
+            className={`${index !== cols - 1 ? "ColumnIcon__Chip" : ""} ${
+              currentCol === index
+                ? "ColumnIcon__Chip--current"
+                : asIcon
+                ? "ColumnIcon__Chip--asCompactIcon"
+                : "ColumnIcon__Chip--asLayoutIcon"
+            }`}
+          ></div>
+        );
+      })}
     </div>
   );
 };
@@ -116,6 +125,13 @@ const ColumnComponent = ({
         open={open}
         setOpen={setOpen}
         icon={width > 400 && <ColumnIcon cols={data.length} currentCol={index} />}
+        colBackgroundColor={data[index].backgroundColor}
+        onBackgroundColorChange={(color: string) => {
+          const nextState = produce(data, (draft) => {
+            draft[index].backgroundColor = color;
+          });
+          onUpdate(nextState);
+        }}
       />
       <div className={`${!open ? "BlockColumn--closed" : "BlockColumn__Content"}`}>
         <BlockContextProvider defaultBlocks={column}>
@@ -123,7 +139,7 @@ const ColumnComponent = ({
             <NestedColumn
               onUpdate={(columnNewData: IBlock[]) => {
                 const nextState = produce(data, (draft) => {
-                  draft[index] = columnNewData;
+                  draft[index].content = columnNewData;
                 });
                 onUpdate(nextState);
               }}
@@ -249,7 +265,16 @@ const FiveColumns = {
     es: "5 Columnas",
     it: "5 Colonne",
   },
-  initialData: [[], [], [], [], []],
+  initialData: [
+    {
+      style: "",
+      content: [],
+    },
+    [],
+    [],
+    [],
+    [],
+  ],
   customIcon: <ColumnIcon asIcon cols={5} />,
 };
 
@@ -269,3 +294,41 @@ const SixColumns = {
 };
 
 export { TwoColumns, ThreeColumns, FourColumns, FiveColumns, SixColumns };
+
+const layouts = [
+  ["100%"],
+  ["50%", "50%"],
+  ["33%", "33%", "33%"],
+  ["25%", "25%", "25%", "25%"],
+  ["25%", "75%"],
+  ["75%", "25%"],
+  ["25%", "25%", "50%"],
+  ["50%", "25%", "25%"],
+  ["25%", "50%", "25%"],
+  ["20%", "20%", "20%", "20%", "20%"],
+  ["20%", "60%", "20%"],
+  ["16%", "16%", "16%", "16%", "16%", "16%"],
+];
+
+export const layoutsAsColumn = layouts.map((layout) => ({
+  ...Column,
+  component: MultiColumnsComponent,
+  layout: moduleLayout,
+  title: {
+    default: `${layout.length} Column(s) (${layout.join(", ")})`,
+    fr: `${layout.length} Colonne(s) (${layout.join(", ")})`,
+    en: `${layout.length} Column(s) (${layout.join(", ")})`,
+    es: `${layout.length} Columna(s) (${layout.join(", ")})`,
+    it: `${layout.length} Colonne (${layout.join(", ")})`,
+  },
+  initialData: layout.map(() => [
+    {
+      style: "",
+      content: [],
+    },
+  ]),
+  customIcon: <ColumnIcon asIcon cols={layout.length} layout={layout} />,
+}));
+
+// columns -> bgcolor
+// square info list -> maquette Damien -> médiatèque pour icon

@@ -1,4 +1,5 @@
 import {
+  layoutsAsColumn,
   TwoColumns,
   ThreeColumns,
   FourColumns,
@@ -21,6 +22,7 @@ import Group from "./Group";
 import Highlight from "./Highlight";
 
 const Columns = {
+  ...layoutsAsColumn,
   TwoColumns,
   ThreeColumns,
   FourColumns,

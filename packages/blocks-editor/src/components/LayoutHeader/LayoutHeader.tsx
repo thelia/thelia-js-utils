@@ -12,12 +12,16 @@ const LayoutHeader = ({
   open,
   setOpen,
   onDelete,
+  colBackgroundColor,
+  onBackgroundColorChange,
 }: {
   title: string;
   icon?: ReactNode;
   open: boolean;
   setOpen: Function;
   onDelete?: Function;
+  colBackgroundColor?: string;
+  onBackgroundColorChange?: Function;
 }) => {
   const intl = useIntl();
 
@@ -28,6 +32,17 @@ const LayoutHeader = ({
         <span className="LayoutHeader__Title">{title}</span>
       </div>
       <div className="LayoutHeader__Actions">
+        {onBackgroundColorChange && (
+          <div className="LayoutHeader__BackgroundColorButton">
+            <input
+              type="color"
+              value={colBackgroundColor || "#ffffff"}
+              onChange={(e) => onBackgroundColorChange(e.target.value)}
+            />
+
+            <i className="fa fa-paint-brush"></i>
+          </div>
+        )}
         {onDelete && (
           <button
             className="LayoutHeader__DeleteButton"

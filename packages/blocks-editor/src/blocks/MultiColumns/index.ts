@@ -1,4 +1,5 @@
 export {
+  layoutsAsColumn,
   TwoColumns,
   ThreeColumns,
   FourColumns,
