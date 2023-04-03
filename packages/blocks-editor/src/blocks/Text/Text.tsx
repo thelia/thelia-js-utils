@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
+import {
+  BlockModuleComponentProps,
+  BlockPluginDefinition,
+} from "../../types/types";
 import { ReactComponent as Icon } from "./assets/text.svg";
 import "./Text.css";
 import Editor from "./Editor";
@@ -37,7 +40,11 @@ const BlockTextComponent = ({
           />
         </div>
       ) : null}
-      <SearchModal ref={quillRef} isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+      <SearchModal
+        ref={quillRef}
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+      />
     </div>
   );
 };
@@ -68,9 +75,6 @@ const Blocktext: BlockPluginDefinition<BlockTextData> = {
     en: "Display a formated text",
     es: "Muestra un texto en formato",
     it: "Visualizza un testo formattato",
-  },
-  image: {
-    default: "https://source.unsplash.com/featured/300x250?nature&blockText",
   },
 };
 

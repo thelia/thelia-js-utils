@@ -19,18 +19,18 @@ type GroupData = { content: GroupContentData[] };
 const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
   const { blockList, moveBlockTo } = useBlocksContext();
   const { DndWrapper, DndWrapElement } = useDragAndDrop();
-  const blockListRef = useRef<{blockList: IBlock[]}>({
-    blockList : []
+  const blockListRef = useRef<{ blockList: IBlock[] }>({
+    blockList: [],
   });
-  
+
   useEffect(() => {
-    blockListRef.current.blockList = blockList ?? []
+    blockListRef.current.blockList = blockList ?? [];
   }, []);
 
   useEffect(() => {
-    if(!isEqual(blockListRef.current.blockList,blockList)) {
+    if (!isEqual(blockListRef.current.blockList, blockList)) {
       onUpdate(blockList);
-      blockListRef.current.blockList = blockList
+      blockListRef.current.blockList = blockList;
     }
   }, [blockList]);
 
@@ -135,9 +135,6 @@ const Group = {
     en: "Group blocks",
     es: "Grupo de bloques",
     it: "Gruppo di blocchi",
-  },
-  image: {
-    default: "https://source.unsplash.com/featured/300x250?nature&group",
   },
 };
 

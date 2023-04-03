@@ -18,7 +18,8 @@ export type BlockProductData = {
   productList: string[];
 };
 
-export type BlockProductComponentProps = BlockModuleComponentProps<BlockProductData>;
+export type BlockProductComponentProps =
+  BlockModuleComponentProps<BlockProductData>;
 
 const Product = ({
   productId,
@@ -62,7 +63,9 @@ const Product = ({
           onClick={() =>
             onUpdate({
               ...data,
-              productList: [...reorder(data.productList, productIndex, productIndex - 1)],
+              productList: [
+                ...reorder(data.productList, productIndex, productIndex - 1),
+              ],
             })
           }
         >
@@ -74,7 +77,9 @@ const Product = ({
           onClick={() =>
             onUpdate({
               ...data,
-              productList: [...reorder(data.productList, productIndex, productIndex + 1)],
+              productList: [
+                ...reorder(data.productList, productIndex, productIndex + 1),
+              ],
             })
           }
         >
@@ -97,7 +102,9 @@ const Product = ({
         onClick={() =>
           onUpdate({
             ...data,
-            productList: data.productList.filter((id: string) => id != product?.[0]?.id),
+            productList: data.productList.filter(
+              (id: string) => id != product?.[0]?.id
+            ),
           })
         }
       >
@@ -131,7 +138,9 @@ const ProductsList = ({
                 className="ProductList__Item"
               >
                 <span>{product.i18n.title}</span>
-                <span className="ProductList__Item__Ref">#{product.reference}</span>
+                <span className="ProductList__Item__Ref">
+                  #{product.reference}
+                </span>
               </li>
             ))}
         </>
@@ -258,9 +267,6 @@ const blockProduct: BlockPluginDefinition<BlockProductData> = {
     en: "Display a product",
     es: "Mostrar un producto",
     it: "Mostra un prodotto",
-  },
-  image: {
-    default: "https://source.unsplash.com/featured/300x250?nature&blockProduct",
   },
 };
 

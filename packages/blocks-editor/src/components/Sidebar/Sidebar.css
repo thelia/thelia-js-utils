@@ -11,7 +11,7 @@
 
     &__Toggle {
       &--open {
-        @apply mr-5
+        @apply mr-5;
       }
     }
 
@@ -30,7 +30,7 @@
 
   &__Add {
     @apply flex items-center bg-pearlMedium hover:bg-pearlLight rounded-md text-mediumCharbon text-sm gap-3 p-2 h-9 text-left;
-    
+
     &__Icon {
       @apply w-6;
     }
@@ -40,7 +40,7 @@
     }
 
     &--expanded {
-      @apply w-52 text-center;
+      @apply w-52;
     }
 
     &--collapsed {
@@ -53,10 +53,10 @@
 
     &:hover {
       @apply text-vermillon border-b-vermillon;
-      
+
       i {
-        @apply text-vermillon
+        @apply text-vermillon;
       }
     }
-  } 
+  }
 }

@@ -1,7 +1,10 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { Input, Select } from "../../components/Inputs";
-import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
+import {
+  BlockModuleComponentProps,
+  BlockPluginDefinition,
+} from "../../types/types";
 import { ReactComponent as Icon } from "./assets/title.svg";
 
 import "./Title.css";
@@ -129,9 +132,6 @@ const BlockTitle: BlockPluginDefinition<BlockTitleData> = {
     en: "Display a title",
     es: "Muestra un titulo",
     it: "Visualizza un titolo",
-  },
-  image: {
-    default: "https://source.unsplash.com/featured/300x250?nature&blockTitle",
   },
 };
 

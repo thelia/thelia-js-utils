@@ -5,5 +5,11 @@
 
   &__Description {
     @apply mt-2 text-sm;
-  } 
+  }
+  &__Image {
+    @apply mb-2;
+    img {
+      @apply max-w-full;
+    }
+  }
 }

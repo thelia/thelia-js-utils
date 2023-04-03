@@ -26,18 +26,18 @@ export type MultiColumnsComponentProps = {
 const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
   const { blockList, moveBlockTo } = useBlocksContext();
   const { DndWrapper, DndWrapElement } = useDragAndDrop();
-  const blockListRef = useRef<{blockList: IBlock[]}>({
-    blockList : []
+  const blockListRef = useRef<{ blockList: IBlock[] }>({
+    blockList: [],
   });
-  
+
   useEffect(() => {
-    blockListRef.current.blockList = blockList ?? []
+    blockListRef.current.blockList = blockList ?? [];
   }, []);
 
   useEffect(() => {
-    if(!isEqual(blockListRef.current.blockList,blockList)) {
+    if (!isEqual(blockListRef.current.blockList, blockList)) {
       onUpdate(blockList);
-      blockListRef.current.blockList = blockList
+      blockListRef.current.blockList = blockList;
     }
   }, [blockList]);
 
@@ -53,7 +53,12 @@ const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
         {blockList.map((block, index) => (
           <DndWrapElement key={block.id} id={block.id} index={index}>
             {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
-              <Block DndDragHandle={DndDragHandle} inLayout key={index} block={block} />
+              <Block
+                DndDragHandle={DndDragHandle}
+                inLayout
+                key={index}
+                block={block}
+              />
             )}
           </DndWrapElement>
         ))}
@@ -115,9 +120,13 @@ const ColumnComponent = ({
         title={`${intl.formatMessage({ id: "COLUMN" })} #${index + 1}`}
         open={open}
         setOpen={setOpen}
-        icon={width > 400 && <ColumnIcon cols={data.length} currentCol={index} />}
+        icon={
+          width > 400 && <ColumnIcon cols={data.length} currentCol={index} />
+        }
       />
-      <div className={`${!open ? "BlockColumn--closed" : "BlockColumn__Content"}`}>
+      <div
+        className={`${!open ? "BlockColumn--closed" : "BlockColumn__Content"}`}
+      >
         <BlockContextProvider defaultBlocks={column}>
           <>
             <NestedColumn
@@ -187,9 +196,6 @@ const Column = {
     en: "Display blocks in multiple columns",
     es: "Mostrar bloques en columnas",
     it: "Mostra i blocchi in colonne",
-  },
-  image: {
-    default: "https://source.unsplash.com/featured/300x250?nature&multiColumns",
   },
 };
 
