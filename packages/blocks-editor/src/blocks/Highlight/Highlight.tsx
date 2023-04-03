@@ -1,9 +1,15 @@
 import { nanoid } from "nanoid";
+import { ChangeEvent, FocusEvent, useState } from "react";
+import { Input } from "../../components/Inputs";
 import { BlockModuleComponentProps, IBlock } from "../../types/types";
 import Blocktext from "../Text";
+import "./Highlight.css";
 
 export type BlockHighlightData = {
   value: string;
+  style: {
+    backgroundColor: string;
+  };
 };
 
 function BlockHighlightComponent({
@@ -13,16 +19,55 @@ function BlockHighlightComponent({
   const handleUpdate = (newData: IBlock["data"]) => {
     onUpdate(newData);
   };
+  const [backgroundColor, setBackgroundColor] = useState<string>(
+    data?.style?.backgroundColor ||
+      initialData.style.backgroundColor ||
+      "#ffffff"
+  );
+
+  const onChangeBackgroundColor = (e: ChangeEvent<HTMLInputElement>) => {
+    setBackgroundColor(e.target.value);
+  };
+
+  const onBlurBackgroundColor = (e: FocusEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      onUpdate({
+        ...data,
+        style: {
+          backgroundColor: e.target.value,
+        },
+      });
+    }
+  };
 
   return (
     <div className="BlockHighlight">
-      <Blocktext.component data={data} onUpdate={handleUpdate} id={nanoid()} />
+      <div className="mb-4 max-w-xs">
+        <Input
+          type="color"
+          id="BlockButton-field-text"
+          value={backgroundColor}
+          onChange={onChangeBackgroundColor}
+          onBlur={onBlurBackgroundColor}
+          label="Couleur de fond"
+        />
+      </div>
+      <div>
+        <Blocktext.component
+          data={data}
+          onUpdate={handleUpdate}
+          id={nanoid()}
+        />
+      </div>
     </div>
   );
 }
 
 const initialData = {
   value: "",
+  style: {
+    backgroundColor: "#ffffff",
+  },
 };
 
 const moduleType = {
@@ -46,9 +91,6 @@ const BlockHighlight = {
     en: "Display a highlighted text",
     es: "Muestra un texto resaltado",
     it: "Mostra un testo evidenziato",
-  },
-  image: {
-    default: "https://source.unsplash.com/featured/300x250?nature&blockHighlight",
   },
 };
 

@@ -19,6 +19,7 @@ import { QueryClientProvider } from "react-query";
 import { queryClient } from "@thelia/fetcher";
 import "./Library.css";
 import { LocaleContext } from "@thelia/blocks-editor";
+import { UploadImage } from "../Image";
 
 const TagsList = ({
   currentTags,
@@ -114,18 +115,25 @@ const TagConfigurationModal = ({
               >
                 {image.tags.length
                   ? image.tags.map(({ tag, imageTag }: ImageTag) => (
-                      <div key={tag.id} className="BlockImage__TagSelector__Tag">
+                      <div
+                        key={tag.id}
+                        className="BlockImage__TagSelector__Tag"
+                      >
                         <span>{tag.title}</span>
                         <button
                           className="BlockImage__TagSelector__Tag__Remove"
-                          onClick={() => deleteTagAssociation.mutate(imageTag.id || 57)}
+                          onClick={() =>
+                            deleteTagAssociation.mutate(imageTag.id || 57)
+                          }
                         >
                           <TagXMarkIcon />
                         </button>
                       </div>
                     ))
                   : !associateTag.isLoading
-                  ? intl.formatMessage({ id: "BlockImage__LIBRARY_IMAGE_SELECT_TAG" })
+                  ? intl.formatMessage({
+                      id: "BlockImage__LIBRARY_IMAGE_SELECT_TAG",
+                    })
                   : null}
 
                 {associateTag.isLoading && (
@@ -139,7 +147,9 @@ const TagConfigurationModal = ({
               <button
                 className="BlockImage__TagSelector__Add"
                 onClick={() => setShowTags(!showTags)}
-                disabled={associateTag.isLoading || deleteTagAssociation.isLoading}
+                disabled={
+                  associateTag.isLoading || deleteTagAssociation.isLoading
+                }
               >
                 <i className="block fas fa-plus"></i>
               </button>
@@ -154,7 +164,10 @@ const TagConfigurationModal = ({
                   <TagsList
                     currentTags={image.tags}
                     onUpdate={(selectedTag: ImageTag["tag"]) => {
-                      associateTag.mutate({ imageId: image.id, tagId: selectedTag.id });
+                      associateTag.mutate({
+                        imageId: image.id,
+                        tagId: selectedTag.id,
+                      });
                       setShowTags(false);
                     }}
                   />
@@ -191,7 +204,7 @@ const TagFilter = ({ setTagId }: { setTagId: Function }) => {
   return (
     <div className="Select__Wrapper">
       <div className="Input__Select__Separator"></div>
-      <label htmlFor="tag-filter">
+      <label htmlFor="tag-filter" style={{ display: "flex" }}>
         {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_TAG_FILTER" })}
       </label>
       <select
@@ -200,7 +213,9 @@ const TagFilter = ({ setTagId }: { setTagId: Function }) => {
         id="tag-filter"
         onChange={(e) => setTagId(e.target.value)}
       >
-        <Suspense fallback={<option>{intl.formatMessage({ id: "LOADING" })}</option>}>
+        <Suspense
+          fallback={<option>{intl.formatMessage({ id: "LOADING" })}</option>}
+        >
           <TagFilterOptions />
         </Suspense>
       </select>
@@ -220,8 +235,8 @@ const LibraryImage = ({
   const intl = useIntl();
 
   const deleteMutation = useDeleteImage();
-  const {getUrlWithPrefix} = useContext(LocaleContext);
-  
+  const { getUrlWithPrefix } = useContext(LocaleContext);
+
   return (
     <>
       <div className="Library__Image">
@@ -238,7 +253,6 @@ const LibraryImage = ({
             >
               {tag.title}
             </span>
-          
           ))}
         </div>
 
@@ -246,7 +260,9 @@ const LibraryImage = ({
           width="150"
           height="150"
           loading="lazy"
-          src={getUrlWithPrefix(`/image-library/${image.id}/full/^!150,150/0/default.webp`)}
+          src={getUrlWithPrefix(
+            `/image-library/${image.id}/full/^!150,150/0/default.webp`
+          )}
         />
         <span className="Library__Image__Title">{image.title}</span>
 
@@ -259,7 +275,7 @@ const LibraryImage = ({
           >
             {intl.formatMessage({ id: "CHOOSE" })}
           </button>
-          <div className="flex gap-2">
+          <div className="Library__Image__Actions__Wrapper">
             <button
               className="Library__Image__Tag__Action"
               onClick={() => setIsTagModalOpen(true)}
@@ -287,14 +303,16 @@ const LibraryImage = ({
 const LibraryContent = ({
   limit = 20,
   onSelect,
+  setMode,
 }: {
   limit?: number;
   onSelect: (image: LibraryImageType) => void;
+  setMode: Function;
 }) => {
   const [offset, setOffset] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
   const [tagId, setTagId] = useState<number>();
-  
+
   const {
     data: images = [],
     isFetching,
@@ -324,20 +342,38 @@ const LibraryContent = ({
         />
 
         <TagFilter setTagId={setTagId} />
+
+        <button
+          className="BlockImage__Button"
+          style={{
+            marginTop: "auto",
+            height: "40px",
+          }}
+          onClick={() => setMode("upload")}
+        >
+          {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_TITLE_UPLOAD" })}
+        </button>
       </div>
+
       <div className="Library__Content">
         {isFetching ? (
           <div className="Modal__Content__Loader">
-            <span>{intl.formatMessage({ id: "BlockImage__LIBRARY_SEARCHING" })}</span>
+            <span>
+              {intl.formatMessage({ id: "BlockImage__LIBRARY_SEARCHING" })}
+            </span>
             <i className="Loader fa fa-circle-notch fa-spin"></i>
           </div>
         ) : images.length > 0 ? (
           images?.map((image) => {
-            return <LibraryImage key={image.id} image={image} onSelect={onSelect} />;
+            return (
+              <LibraryImage key={image.id} image={image} onSelect={onSelect} />
+            );
           })
         ) : (
           <div className="Library__NoContent">
-            <span>{intl.formatMessage({ id: "BlockImage__LIBRARY_NO_CONTENT" })}</span>
+            <span>
+              {intl.formatMessage({ id: "BlockImage__LIBRARY_NO_CONTENT" })}
+            </span>
           </div>
         )}
       </div>
@@ -382,38 +418,62 @@ function Library({
 }) {
   const intl = useIntl();
 
+  const [mode, setMode] = useState<"upload" | "library">("library");
+
   return (
     <ReactModal
       isOpen={isOpen}
       onRequestClose={() => setIsOpen(false)}
-      className="Modal-Library"
+      className={mode === "upload" ? "Modal-Upload" : "Modal-Library"}
       ariaHideApp={false}
       overlayClassName="Overlay"
     >
       <div className="Modal__Wrapper">
         <div className="Modal__Header">
-          <button onClick={() => setIsOpen(false)} className="Modal__Header__Close">
+          <button
+            onClick={() => setIsOpen(false)}
+            className="Modal__Header__Close"
+          >
             <XMarkIcon />
           </button>
 
           <div className="Modal__Header__Title">
-            {intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_TITLE" })}
+            {mode === "upload" ? (
+              <button className="mr-2" onClick={() => setMode("library")}>
+                <i className="fas fa-chevron-left"></i>
+              </button>
+            ) : null}
+            {mode === "library"
+              ? intl.formatMessage({ id: "BlockImage__LIBRARY_MODAL_TITLE" })
+              : intl.formatMessage({
+                  id: "BlockImage__LIBRARY_MODAL_TITLE_UPLOAD",
+                })}
           </div>
         </div>
 
         <div className="Modal__Content">
-          <Suspense
-            fallback={
-              <div className="Modal__Content__Loader">
-                <span>{intl.formatMessage({ id: "BlockImage__LIBRARY_LOADING" })}</span>
-                <i className="Loader fa fa-circle-notch fa-spin"></i>
-              </div>
-            }
-          >
-            <ErrorBoundary>
-              <LibraryContent onSelect={onSelect} limit={limit} />
-            </ErrorBoundary>
-          </Suspense>
+          {mode === "library" ? (
+            <Suspense
+              fallback={
+                <div className="Modal__Content__Loader">
+                  <span>
+                    {intl.formatMessage({ id: "BlockImage__LIBRARY_LOADING" })}
+                  </span>
+                  <i className="Loader fa fa-circle-notch fa-spin"></i>
+                </div>
+              }
+            >
+              <ErrorBoundary>
+                <LibraryContent
+                  onSelect={onSelect}
+                  limit={limit}
+                  setMode={setMode}
+                />
+              </ErrorBoundary>
+            </Suspense>
+          ) : (
+            <UploadImage onSelect={onSelect} uploadModes={["local"]} />
+          )}
         </div>
       </div>
     </ReactModal>

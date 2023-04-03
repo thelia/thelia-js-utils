@@ -11,6 +11,27 @@
   overflow: auto;
   border-radius: 8px;
   background-color: white;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 350ms;
+}
+
+.Modal-Upload {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: max-content;
+  width: 50%;
+  max-height: 90%;
+  overflow: auto;
+  border-radius: 8px;
+  background-color: white;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 350ms;
 }
 
 .Modal-Tags {
@@ -137,6 +158,36 @@
   width: 100%;
   top: 0;
   border-radius: 4px;
+}
+
+.Library__Image__Actions__Wrapper {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.Library__Add__Button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-radius: 100%;
+  background-color: #D21919;
+  cursor: pointer;
+}
+
+.Library__Add__Button:disabled {
+  background-color: #EBEBEB;
+  color: #fff;
+}
+
+.Library__Add__Button:enabled:hover {
+  background-color: #FA533C;
+  color: #fff;
+}
+
+.Library__Add__Button:hover {
+  background-color: transparent;
+  color: #222222;
 }
 
 .Library__Image:hover .Library__Image__Actions {

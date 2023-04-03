@@ -87,7 +87,9 @@ const BlockSeparatorComponent = ({
       </div>
 
       <div className="BlockSeparator__Preview">
-        {type === "hr" ? <div className="BlockSeparator__Preview--element"></div> : null}
+        {type === "hr" ? (
+          <div className="BlockSeparator__Preview--element"></div>
+        ) : null}
       </div>
     </div>
   );
@@ -115,9 +117,6 @@ const BlockSeparator = {
     en: "Display a separator",
     es: "Muestra un separador",
     it: "Visualizza un separatore",
-  },
-  image: {
-    default: "https://source.unsplash.com/featured/300x250?nature&blockSeparator",
   },
 };
 

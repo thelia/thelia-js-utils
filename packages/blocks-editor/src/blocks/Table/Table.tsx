@@ -341,9 +341,6 @@ const blockTable: BlockPluginDefinition<BlockTableData> = {
     es: "Mostrar un tabla",
     it: "Mostra un tabella",
   },
-  image: {
-    default: "https://source.unsplash.com/featured/300x250?nature&blockTable",
-  },
 };
 
 export default blockTable;

@@ -1,7 +1,10 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { Input, Select } from "../../components/Inputs";
-import { BlockModuleComponentProps, BlockPluginDefinition } from "../../types/types";
+import {
+  BlockModuleComponentProps,
+  BlockPluginDefinition,
+} from "../../types/types";
 import { ReactComponent as Icon } from "./assets/button.svg";
 import { ReactComponent as LinkIcon } from "../../../assets/svg/link.svg";
 
@@ -20,9 +23,11 @@ const BlockButtonComponent = ({
   const intl = useIntl();
 
   const types = [
-    intl.formatMessage({ id: "PRIMARY" }),
-    intl.formatMessage({ id: "SECONDARY" }),
-    intl.formatMessage({ id: "TERTIARY" }),
+    { label: intl.formatMessage({ id: "PRIMARY" }), value: "primary" },
+    { label: intl.formatMessage({ id: "SECONDARY" }), value: "secondary" },
+    { label: intl.formatMessage({ id: "TERTIARY" }), value: "tertiary" },
+    { label: intl.formatMessage({ id: "QUATERNARY" }), value: "quaternary" },
+    { label: intl.formatMessage({ id: "QUINARY" }), value: "quinary" },
   ];
 
   const [label, setLabel] = useState<string>("");
@@ -70,7 +75,9 @@ const BlockButtonComponent = ({
         <Input
           type="text"
           id="BlockButton-field-text"
-          placeholder={intl.formatMessage({ id: "BlockButton__TEXT_PLACEHOLDER" })}
+          placeholder={intl.formatMessage({
+            id: "BlockButton__TEXT_PLACEHOLDER",
+          })}
           value={label}
           onChange={onChangeLabel}
           onBlur={onBlurLabel}
@@ -83,8 +90,8 @@ const BlockButtonComponent = ({
           label={intl.formatMessage({ id: "BlockButton__TYPE" })}
         >
           {types.map((type, index) => (
-            <option key={index} value={type}>
-              {type}
+            <option key={index} value={type.value}>
+              {type.label}
             </option>
           ))}
         </Select>

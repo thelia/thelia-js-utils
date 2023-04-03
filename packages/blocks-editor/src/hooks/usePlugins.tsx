@@ -19,20 +19,20 @@ import {
 } from "../blocks";
 
 export const TB_DEFAULT_PLUGINS: any = [
+  ...Object.values(Columns).map((colType) => ({ id: nanoid(), ...colType })),
+  { id: nanoid(), ...Group },
   { id: nanoid(), ...Title },
   { id: nanoid(), ...Text },
+  { id: nanoid(), ...Highlight },
+  { id: nanoid(), ...List },
   { id: nanoid(), ...Button },
   { id: nanoid(), ...Separator },
-  { id: nanoid(), ...List },
-  { id: nanoid(), ...Group },
   { id: nanoid(), ...Accordion },
   { id: nanoid(), ...Product },
   { id: nanoid(), ...Category },
   { id: nanoid(), ...Table },
-  { id: nanoid(), ...Highlight },
   { id: nanoid(), ...Raw },
   { id: nanoid(), ...Video },
-  ...Object.values(Columns).map((colType) => ({ id: nanoid(), ...colType })),
 ];
 
 declare const window: { eventTBPlugins: any; TB__PLUGINS: any[] };

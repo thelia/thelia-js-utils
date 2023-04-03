@@ -2,10 +2,7 @@ import { Suspense, useContext, useLayoutEffect } from "react";
 import AddBlocks from "./components/AddBlocks";
 import { BlockContextProvider } from "./providers/BlockContext";
 import BlocksContent from "./components/BlocksContent/BlocksContent";
-import {
-  BlocksGroupProvider,
-  BlocksGroupContext,
-} from "./providers/BlockGroupContext";
+import { BlocksGroupProvider, BlocksGroupContext } from "./providers/BlockGroupContext";
 import { BlocksProvider, useUnlinkContentFromGroup } from "./utils/queries";
 import GroupLocale from "./components/GroupLocale";
 import GroupTitle from "./components/GroupTitle";
@@ -59,7 +56,7 @@ const BlocksEditorHeader = ({
   const { getUrlWithPrefix } = useContext(LocaleContext);
   const unlinkContent = useUnlinkContentFromGroup();
   const intl = useIntl();
-  
+
   const isGroupLinkedToCurrentContent =
     group?.itemBlockGroups?.some(
       (linkedContent) => linkedContent.itemId === (itemId && +itemId)
@@ -68,12 +65,14 @@ const BlocksEditorHeader = ({
   const linkedContentId = group?.itemBlockGroups?.find(
     (linkedContent) => linkedContent.itemId === (itemId && +itemId)
   )?.id;
-  
+
   return (
     <div className="BlocksEditor__Header">
       {backlink ? (
         <div>
-          <a href={getUrlWithPrefix(`/admin/TheliaBlocks`)}>{intl.formatMessage({id: "BlocksEditor__BACK_TO_BLOCKS_LIST"})}</a>
+          <a href={getUrlWithPrefix(`/admin/TheliaBlocks`)}>
+            {intl.formatMessage({ id: "BlocksEditor__BACK_TO_BLOCKS_LIST" })}
+          </a>
         </div>
       ) : null}
       <div className="BlocksEditor__Header__Title">
@@ -92,11 +91,7 @@ const BlocksEditorHeader = ({
         />
 
         {itemConfiguration && !isGroupLinkedToCurrentContent ? (
-          <LinkBlockToItem
-            itemId={itemId}
-            groupId={groupId}
-            itemType={itemType}
-          />
+          <LinkBlockToItem itemId={itemId} groupId={groupId} itemType={itemType} />
         ) : null}
 
         <GroupLocale />

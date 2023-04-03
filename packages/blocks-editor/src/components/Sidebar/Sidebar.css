@@ -11,7 +11,7 @@
 
     &__Toggle {
       &--open {
-        @apply mr-5
+        @apply mr-5;
       }
     }
 
@@ -24,13 +24,13 @@
     @apply flex flex-col gap-2;
 
     &__Wrapper {
-      @apply p-3 h-full;
+      @apply p-3 overflow-auto h-[calc(100vh-114px)];
     }
   }
 
   &__Add {
-    @apply flex items-center bg-pearlMedium hover:bg-pearlLight rounded-md text-mediumCharbon text-sm gap-3 p-2 h-9;
-    
+    @apply flex items-center bg-pearlMedium hover:bg-pearlLight rounded-md text-mediumCharbon text-sm gap-3 p-2 h-9 text-left;
+
     &__Icon {
       @apply w-6;
     }
@@ -48,23 +48,15 @@
     }
   }
 
-  &__Back__Wrapper {
-    @apply flex items-center gap-1 text-greyDark text-sm mb-2;
+  &__Back {
+    @apply flex gap-2 items-center text-greyDark text-sm mb-2 border-b border-b-greyDark;
 
-    i:last-child {
-      order: -1;
-    }
+    &:hover {
+      @apply text-vermillon border-b-vermillon;
 
-    button {
-      @apply underline;
-    }
-
-    button:hover {
-      @apply text-vermillon;
-      
-      + i {
-        @apply text-vermillon
+      i {
+        @apply text-vermillon;
       }
     }
-  } 
+  }
 }

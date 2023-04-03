@@ -51,7 +51,7 @@ const Input = forwardRef(
       placeholder?: string;
       icon?: ReactNode;
       iconAlignment?: "left" | "right";
-      type?: "text" | "password" | "email";
+      type?: "text" | "password" | "email" | "color";
       isValid?: boolean;
       label?: string;
       id: string;

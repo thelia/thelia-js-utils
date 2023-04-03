@@ -4,7 +4,6 @@ import {
   BlockPluginDefinition,
 } from "../../types/types";
 import { ReactComponent as Icon } from "./assets/text.svg";
-
 import "./Text.css";
 import Editor from "./Editor";
 import SearchModal from "./Modal";
@@ -18,19 +17,13 @@ const BlockTextComponent = ({
   data,
   onUpdate,
 }: BlockModuleComponentProps<BlockTextData>) => {
-  const quillRef = useRef<any>(null);
+  const quillRef = useRef(null);
 
-  const [localData, setData] = useState<string>(data.value);
-  const [debouncedData, setdebouncedData] = useState<string>(data.value);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [localData, setData] = useState(data.value);
+  const [debouncedData, setdebouncedData] = useState(data.value);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useDebounce(
-    () => {
-      setdebouncedData(localData);
-    },
-    1000,
-    [localData]
-  );
+  useDebounce(() => setdebouncedData(localData), 1000, [localData]);
 
   useEffect(() => setData(data.value), [data]);
   useEffect(() => onUpdate({ value: debouncedData }), [debouncedData]);
@@ -82,9 +75,6 @@ const Blocktext: BlockPluginDefinition<BlockTextData> = {
     en: "Display a formated text",
     es: "Muestra un texto en formato",
     it: "Visualizza un testo formattato",
-  },
-  image: {
-    default: "https://source.unsplash.com/featured/300x250?nature&blockText",
   },
 };
 

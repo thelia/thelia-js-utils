@@ -280,10 +280,6 @@ const blockCategory: BlockPluginDefinition<BlockCategoryData> = {
     es: "Mostrar un categoría",
     it: "Mostra un categoria",
   },
-  image: {
-    default:
-      "https://source.unsplash.com/featured/300x250?nature&blockCategory",
-  },
 };
 
 export default blockCategory;

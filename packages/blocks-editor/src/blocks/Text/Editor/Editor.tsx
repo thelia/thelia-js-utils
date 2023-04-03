@@ -48,16 +48,13 @@ const EditorToolbar = ({
   ];
 
   return (
-    <div id={toolbarId}>
+    <div id={toolbarId} style={{ marginTop: "10px" }}>
       {editorModules.map((module, index) => (
         <Tippy delay={[500, 0]} content={module.tooltip} key={index}>
           <button className={`ql-${module.name}`} value={module.value} />
         </Tippy>
       ))}
-      <Tippy
-        delay={[500, 0]}
-        content={intl.formatMessage({ id: "INSERT_LINK" })}
-      >
+      <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "INSERT_LINK" })}>
         <button className="search" onClick={() => setIsModalOpen(true)}>
           <LinkIcon style={{ display: "block" }} />
         </button>

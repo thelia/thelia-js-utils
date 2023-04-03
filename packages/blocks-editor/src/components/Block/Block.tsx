@@ -7,6 +7,7 @@ import "./Block.css";
 import { useIntl } from "react-intl";
 import Tippy from "@tippyjs/react";
 import ErrorBoundary from "../ErrorBoundary";
+import { useState } from "react";
 
 const Block = ({
   block,
@@ -20,6 +21,8 @@ const Block = ({
   DndDragHandle: () => JSX.Element;
 }) => {
   const { findBlockIndex, updateBlock } = useBlocksContext();
+
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const intl = useIntl();
 
@@ -61,8 +64,25 @@ const Block = ({
 
   return (
     <div className={`${inLayout ? "NestedBlock" : "Block"}`}>
-      <div className={`${inLayout ? "NestedBlock__Header" : "Block__Header"}`}>
+      <div
+        className={`${inLayout ? "NestedBlock__Header" : "Block__Header"} ${
+          !isCollapsed ? "Block__Header--spacing" : ""
+        }`}
+      >
         <div className="Block__Header__Infos">
+          {!inLayout ? (
+            <button
+              className="Block__Header__Infos__Collapse"
+              onClick={() => setIsCollapsed(!isCollapsed)}
+            >
+              {isCollapsed ? (
+                <i className="fas fa-chevron-down"></i>
+              ) : (
+                <i className="fas fa-chevron-up"></i>
+              )}
+            </button>
+          ) : null}
+
           {!inLayout ? (
             typeof Icon === "function" ? (
               <Icon />
@@ -93,12 +113,19 @@ const Block = ({
           DndDragHandle={DndDragHandle}
         />
       </div>
-      <ErrorBoundary>
-        <Component
-          data={block.data}
-          onUpdate={(data: {}) => updateBlock(block.id, data)}
-        />
-      </ErrorBoundary>
+
+      <div
+        className={`${
+          isCollapsed ? "Block__Content--Collapsed" : "Block__Content--Expanded"
+        }`}
+      >
+        <ErrorBoundary>
+          <Component
+            data={block.data}
+            onUpdate={(data: {}) => updateBlock(block.id, data)}
+          />
+        </ErrorBoundary>
+      </div>
     </div>
   );
 };

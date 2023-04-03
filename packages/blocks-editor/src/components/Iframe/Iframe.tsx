@@ -21,13 +21,26 @@ const Iframe = ({ content }: { content: string }) => {
     }
   }, [ref, content]);
 
-  return (
-    <iframe
-      src="about:blank"
-      frameBorder="0"
-      ref={ref}
-      sandbox="allow-same-origin allow-scripts"
-    />
-  );
+  useEffect(() => {
+    const cancelClick = (event: MouseEvent) => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    };
+
+    const iframe = ref.current;
+
+    if (iframe?.contentWindow) {
+      iframe.contentWindow.addEventListener("click", cancelClick);
+    }
+
+    return () => {
+      if (iframe?.contentWindow) {
+        iframe.contentWindow.removeEventListener("click", cancelClick);
+      }
+    };
+  }, []);
+
+  return <iframe src="about:blank" ref={ref} sandbox="allow-same-origin allow-scripts" />;
 };
+
 export default Iframe;

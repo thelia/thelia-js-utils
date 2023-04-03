@@ -21,14 +21,32 @@
   }
 
   &__Header {
-    @apply flex justify-between mb-8;
+    @apply flex justify-between;
+
+    &--spacing {
+      @apply mb-8;
+    }
 
     &__Infos {
       @apply flex items-center gap-4;
 
+      &__Collapse {
+        @apply h-[30px] w-[30px] flex items-center justify-center text-white rounded-full bg-vermillon enabled:hover:bg-lightVermillon disabled:text-white disabled:bg-mediumGrey;
+      }
+
       &__Title {
         @apply font-extrabold text-xl text-darkCharbon;
       }
+    }
+  }
+
+  &__Content {
+    &--Collapsed {
+      @apply hidden;
+    }
+
+    &--Expanded {
+      @apply block;
     }
   }
 }

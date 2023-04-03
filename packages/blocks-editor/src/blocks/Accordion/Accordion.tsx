@@ -32,18 +32,18 @@ type AccordionData = {
 const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
   const { blockList, moveBlockTo } = useBlocksContext();
   const { DndWrapper, DndWrapElement } = useDragAndDrop();
-  const blockListRef = useRef<{blockList: IBlock[]}>({
-    blockList : []
+  const blockListRef = useRef<{ blockList: IBlock[] }>({
+    blockList: [],
   });
-  
+
   useEffect(() => {
-    blockListRef.current.blockList = blockList ?? []
+    blockListRef.current.blockList = blockList ?? [];
   }, []);
 
   useEffect(() => {
-    if(!isEqual(blockListRef.current.blockList,blockList)) {
+    if (!isEqual(blockListRef.current.blockList, blockList)) {
       onUpdate(blockList);
-      blockListRef.current.blockList = blockList
+      blockListRef.current.blockList = blockList;
     }
   }, [blockList]);
 
@@ -52,13 +52,18 @@ const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
       moveBlockTo(e.source.index, e.destination.index);
     }
   };
-  
+
   return blockList.length > 0 ? (
     <DndWrapper id="main" onDragEnd={onDragEnd}>
       {blockList.map((block, index) => (
         <DndWrapElement key={block.id} id={block.id} index={index}>
           {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
-            <Block DndDragHandle={DndDragHandle} inLayout key={index} block={block} />
+            <Block
+              DndDragHandle={DndDragHandle}
+              inLayout
+              key={index}
+              block={block}
+            />
           )}
         </DndWrapElement>
       ))}
@@ -98,7 +103,11 @@ const AccordionItemComponent = ({
         setOpen={setIsOpen}
         onDelete={onDelete}
       />
-      <div className={`${!open ? "BlockAccordion--closed" : "BlockAccordion__Content"}`}>
+      <div
+        className={`${
+          !open ? "BlockAccordion--closed" : "BlockAccordion__Content"
+        }`}
+      >
         <BlockContextProvider defaultBlocks={item.content}>
           <>
             <div className="flex flex-col gap-6 px-6 pt-4 xl:pt-8 xl:px-10">
@@ -118,7 +127,7 @@ const AccordionItemComponent = ({
                     const nextState = produce(data, (draft) => {
                       draft.group[index].content = columnNewData;
                     });
-                    
+
                     onUpdate({
                       title: item.title,
                       content: nextState.group[index].content,
@@ -164,7 +173,9 @@ const AccordionComponent = ({
                 if (data.group.length > 1) {
                   onUpdate({
                     ...data,
-                    group: data.group.filter((element) => element.id !== item.id),
+                    group: data.group.filter(
+                      (element) => element.id !== item.id
+                    ),
                   });
                 }
               }}
@@ -193,7 +204,10 @@ const AccordionComponent = ({
         onClick={() =>
           onUpdate({
             ...data,
-            group: [...data.group, { id: generateId(), title: "", content: [] }],
+            group: [
+              ...data.group,
+              { id: generateId(), title: "", content: [] },
+            ],
           })
         }
       >
@@ -230,9 +244,6 @@ const Accordion = {
     en: "Display blocks in accordion",
     es: "Affiche des blocks en accordéon",
     it: "Display blocks in accordion",
-  },
-  image: {
-    default: "https://source.unsplash.com/featured/300x250?nature&multiColumns",
   },
 };
 
