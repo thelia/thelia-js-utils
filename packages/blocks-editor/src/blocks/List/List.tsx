@@ -1,11 +1,8 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import {
-  BlockModuleComponentProps,
-  BlockPluginDefinition,
-} from "../../types/types";
+import { BlockModuleComponentProps, BlockPluginDefinition } from "../../utils/types";
 import BlockText, { BlockTextData } from "../Text";
 import { nanoid } from "nanoid";
-import { ReactComponent as Icon } from "../Button/assets/button.svg";
+import { ReactComponent as Icon } from "./assets/list.svg";
 import { Select } from "../../components/Inputs";
 import "./List.css";
 
@@ -55,17 +52,12 @@ function BlockListComponent({
   };
 
   const deleteLine = (id: string) => {
-    const newListItems = listItems.filter(
-      ({ id: currentId }) => currentId !== id
-    );
+    const newListItems = listItems.filter(({ id: currentId }) => currentId !== id);
     setListItems(newListItems);
     onUpdate({ ...data, values: newListItems.map(({ value }) => value) });
   };
 
-  const handleUpdateText = (
-    listItem: ListItemType,
-    textData: BlockTextData
-  ) => {
+  const handleUpdateText = (listItem: ListItemType, textData: BlockTextData) => {
     const newListItems = listItems.map(({ id, value }) => ({
       id,
       value: id === listItem.id ? textData.value : value,
@@ -80,12 +72,7 @@ function BlockListComponent({
   return (
     <div className="BlockList">
       <div className="BlockList__Config">
-        <Select
-          id="type-field"
-          label="Type"
-          value={data.type}
-          onChange={onChangeType}
-        >
+        <Select id="type-field" label="Type" value={data.type} onChange={onChangeType}>
           {types.map(({ label, value }) => (
             <option key={value} value={value}>
               {label}

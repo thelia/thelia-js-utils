@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Plugin } from "../types/types";
+import { Plugin } from "../utils/types";
 import { nanoid } from "nanoid";
 import {
   Accordion,
@@ -20,7 +20,6 @@ import {
 
 export const TB_DEFAULT_PLUGINS: any = [
   ...Object.values(Columns).map((colType) => ({ id: nanoid(), ...colType })),
-  { id: nanoid(), ...Group },
   { id: nanoid(), ...Title },
   { id: nanoid(), ...Text },
   { id: nanoid(), ...Highlight },
@@ -30,6 +29,7 @@ export const TB_DEFAULT_PLUGINS: any = [
   { id: nanoid(), ...Accordion },
   { id: nanoid(), ...Product },
   { id: nanoid(), ...Category },
+  { id: nanoid(), ...Group },
   { id: nanoid(), ...Table },
   { id: nanoid(), ...Raw },
   { id: nanoid(), ...Video },
@@ -41,9 +41,7 @@ window.eventTBPlugins = new CustomEvent("update-tb-plugins");
 export function registerPlugin(plugin: any) {
   if (!window.TB__PLUGINS) window.TB__PLUGINS = [];
 
-  const alreadyExist = window.TB__PLUGINS.find(
-    (p) => p.type.id === plugin.type.id
-  );
+  const alreadyExist = window.TB__PLUGINS.find((p) => p.type.id === plugin.type.id);
 
   if (alreadyExist) return;
 

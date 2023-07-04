@@ -2,11 +2,11 @@ import {
   BlockModuleComponentProps,
   BlockPluginDefinition,
   IBlock,
-} from "../../types/types";
+} from "../../utils/types";
 import { SearchProps, useCategoriesBy } from "../../utils/queries";
 import { Suspense, useEffect, useState } from "react";
 import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
-import { ReactComponent as Icon } from "./assets/product.svg";
+import { ReactComponent as Icon } from "./assets/category.svg";
 import { Input } from "../../components/Inputs";
 import { reorder } from "../../utils/array";
 import { useIntl } from "react-intl";
@@ -18,8 +18,7 @@ export type BlockCategoryData = {
   categoryList: string[];
 };
 
-export type BlockCategoryComponentProps =
-  BlockModuleComponentProps<BlockCategoryData>;
+export type BlockCategoryComponentProps = BlockModuleComponentProps<BlockCategoryData>;
 
 const Category = ({
   categoryId,
@@ -58,9 +57,7 @@ const Category = ({
         />
       )}
       <div className="Category__Infos">
-        <div className="Category__Infos__Title">
-          {category?.[0]?.i18n.title}
-        </div>
+        <div className="Category__Infos__Title">{category?.[0]?.i18n.title}</div>
         <div className="Category__Infos__Ref">#{category?.[0]?.id}</div>
       </div>
 
@@ -135,9 +132,7 @@ const CategorysList = ({
       {categories?.length > 0 ? (
         <>
           {categories
-            ?.filter(
-              (category: any) => !currentCategoryList.includes(category.id)
-            )
+            ?.filter((category: any) => !currentCategoryList.includes(category.id))
             .map((category: any) => (
               <li
                 key={category.id}
@@ -147,9 +142,7 @@ const CategorysList = ({
                 className="CategoryList__Item"
               >
                 <span>{category.i18n.title}</span>
-                <span className="CategoryList__Item__Ref">
-                  #{category.reference}
-                </span>
+                <span className="CategoryList__Item__Ref">#{category.reference}</span>
               </li>
             ))}
         </>
@@ -172,10 +165,7 @@ const CategorysList = ({
   );
 };
 
-function BlockCategoryComponent({
-  data,
-  onUpdate,
-}: BlockCategoryComponentProps) {
+function BlockCategoryComponent({ data, onUpdate }: BlockCategoryComponentProps) {
   const [searchByRef, setSearchByRef] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
   const intl = useIntl();

@@ -8,7 +8,7 @@ import { useBlocksContext } from "../../hooks/useBlockContext";
 import useDragAndDrop from "../../hooks/useDragAndDrop";
 import useWindowSize from "../../hooks/useWindowSize";
 import LayoutHeader from "../../components/LayoutHeader";
-import { BlockModuleComponentProps, IBlock } from "../../types/types";
+import { BlockModuleComponentProps, IBlock } from "../../utils/types";
 import { DropResult } from "react-beautiful-dnd";
 
 import "./MultiColumns.css";
@@ -53,12 +53,7 @@ const NestedColumn = ({ onUpdate }: { onUpdate: Function }) => {
         {blockList.map((block, index) => (
           <DndWrapElement key={block.id} id={block.id} index={index}>
             {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
-              <Block
-                DndDragHandle={DndDragHandle}
-                inLayout
-                key={index}
-                block={block}
-              />
+              <Block DndDragHandle={DndDragHandle} inLayout key={index} block={block} />
             )}
           </DndWrapElement>
         ))}
@@ -120,13 +115,9 @@ const ColumnComponent = ({
         title={`${intl.formatMessage({ id: "COLUMN" })} #${index + 1}`}
         open={open}
         setOpen={setOpen}
-        icon={
-          width > 400 && <ColumnIcon cols={data.length} currentCol={index} />
-        }
+        icon={width > 400 && <ColumnIcon cols={data.length} currentCol={index} />}
       />
-      <div
-        className={`${!open ? "BlockColumn--closed" : "BlockColumn__Content"}`}
-      >
+      <div className={`${!open ? "BlockColumn--closed" : "BlockColumn__Content"}`}>
         <BlockContextProvider defaultBlocks={column}>
           <>
             <NestedColumn

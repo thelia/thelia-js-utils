@@ -1,14 +1,8 @@
-import { BlockPluginDefinition } from "../../types/types";
+import { BlockPluginDefinition } from "../../utils/types";
 import { useIntl } from "react-intl";
 import ErrorBoundary from "../../components/ErrorBoundary";
 import Select from "../../components/Inputs/Select";
-import {
-  createContext,
-  useContext,
-  ChangeEvent,
-  FocusEvent,
-  useState,
-} from "react";
+import { createContext, useContext, ChangeEvent, FocusEvent, useState } from "react";
 import { Input } from "../../components/Inputs";
 import {
   BlockTableComponentProps,
@@ -18,7 +12,7 @@ import {
   ColText,
   RowsColProps,
 } from "./Table.types";
-
+import { ReactComponent as Icon } from "./assets/table.svg";
 import "./Table.css";
 
 const initialData: BlockTableData = {
@@ -111,15 +105,10 @@ function Headers() {
 
   return (
     <div className="BlockTable-headers">
-      <span className="Title">
-        {intl.formatMessage({ id: "BlockTable__HEADER" })}
-      </span>
+      <span className="Title">{intl.formatMessage({ id: "BlockTable__HEADER" })}</span>
       <div className="BlockTable-headersList">
         {colIterable.map((_, index: number) => (
-          <div
-            className="BlockTable-headersListItem"
-            key={`BlockTable-headers-${index}`}
-          >
+          <div className="BlockTable-headersListItem" key={`BlockTable-headers-${index}`}>
             <Input
               label={`Colonne n°${index}`}
               type="text"
@@ -143,8 +132,7 @@ function RowsCol({ rowIndex, colIndex, rowIterable }: RowsColProps) {
 
   const [type, setType] = useState<Col["type"]>(col?.type || "text");
 
-  const defaultLabelValue =
-    col?.type === "link" ? col?.value?.label : col?.value;
+  const defaultLabelValue = col?.type === "link" ? col?.value?.label : col?.value;
   const defaultLinkValue = col?.type === "link" ? col?.value?.link : undefined;
 
   const optionsType = [
@@ -163,8 +151,7 @@ function RowsCol({ rowIndex, colIndex, rowIterable }: RowsColProps) {
     rowIndex: number,
     index: number
   ) => {
-    const rows =
-      data.rows.length > 0 ? [...data.rows] : (rowIterable as Col[][]);
+    const rows = data.rows.length > 0 ? [...data.rows] : (rowIterable as Col[][]);
 
     const currentRow: Col[] = rows[rowIndex] || [];
     const currentCol: Col = currentRow[index];
@@ -201,8 +188,7 @@ function RowsCol({ rowIndex, colIndex, rowIterable }: RowsColProps) {
   ) => {
     if (type !== "link") return;
 
-    const rows =
-      data.rows.length > 0 ? [...data.rows] : (rowIterable as Col[][]);
+    const rows = data.rows.length > 0 ? [...data.rows] : (rowIterable as Col[][]);
 
     const currentRow: Col[] = rows[rowIndex] || [];
     const currentCol: ColLink = currentRow[index] as ColLink;
@@ -274,9 +260,7 @@ function Rows() {
 
   return (
     <div className="BlockTable-rows">
-      <span className="Title">
-        {intl.formatMessage({ id: "BlockTable__ROWS" })}
-      </span>
+      <span className="Title">{intl.formatMessage({ id: "BlockTable__ROWS" })}</span>
       <div className="BlockTable-rowsWrapper">
         {rowIterable.map((_, rowIndex: number) => {
           return (
@@ -326,6 +310,7 @@ const blockTable: BlockPluginDefinition<BlockTableData> = {
   type: moduleType,
   component: BlockTableComponent,
   initialData,
+  icon: Icon,
   title: {
     default: "Table",
     fr: "Tableau",
@@ -333,7 +318,6 @@ const blockTable: BlockPluginDefinition<BlockTableData> = {
     es: "Tabla",
     it: "Tabella",
   },
-  icon: undefined,
   description: {
     default: "Display a table",
     fr: "Affiche une tableau",

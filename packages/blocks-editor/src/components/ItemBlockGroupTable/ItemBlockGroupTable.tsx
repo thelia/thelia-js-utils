@@ -1,6 +1,6 @@
 import Tippy from "@tippyjs/react";
-import { GroupTypeResponse } from "../../types/types";
-import { itemBlockGroupsType } from "../../types/types";
+import { GroupTypeResponse } from "../../utils/types";
+import { itemBlockGroupsType } from "../../utils/types";
 
 import { ReactComponent as DeleteIcon } from "../../../assets/svg/delete.svg";
 import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg";
@@ -21,8 +21,8 @@ const LinkedContentTable = ({
 }) => {
   const mutationDelete = useUnlinkContentFromGroup();
   const intl = useIntl();
-  const {getUrlWithPrefix} = useContext(LocaleContext);
-    
+  const { getUrlWithPrefix } = useContext(LocaleContext);
+
   return (
     <table className="BlocksTable">
       <thead className="BlocksTable__Header">
@@ -60,10 +60,12 @@ const LinkedContentTable = ({
                   >
                     <a
                       className="BlocksTable__Row__Action"
-                      href={getUrlWithPrefix(getContentUrl(
-                        content.itemType as string,
-                        content.itemId as number
-                      )) }
+                      href={getUrlWithPrefix(
+                        getContentUrl(
+                          content.itemType as string,
+                          content.itemId as number
+                        )
+                      )}
                     >
                       <EditIcon />
                     </a>

@@ -1,9 +1,10 @@
 import { nanoid } from "nanoid";
 import { ChangeEvent, FocusEvent, useState } from "react";
 import { Input } from "../../components/Inputs";
-import { BlockModuleComponentProps, IBlock } from "../../types/types";
+import { BlockModuleComponentProps, IBlock } from "../../utils/types";
 import Blocktext from "../Text";
 import "./Highlight.css";
+import { ReactComponent as Icon } from "./assets/highlight.svg";
 
 export type BlockHighlightData = {
   value: string;
@@ -20,9 +21,7 @@ function BlockHighlightComponent({
     onUpdate(newData);
   };
   const [backgroundColor, setBackgroundColor] = useState<string>(
-    data?.style?.backgroundColor ||
-      initialData.style.backgroundColor ||
-      "#ffffff"
+    data?.style?.backgroundColor || initialData.style.backgroundColor || "#ffffff"
   );
 
   const onChangeBackgroundColor = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,11 +52,7 @@ function BlockHighlightComponent({
         />
       </div>
       <div>
-        <Blocktext.component
-          data={data}
-          onUpdate={handleUpdate}
-          id={nanoid()}
-        />
+        <Blocktext.component data={data} onUpdate={handleUpdate} id={nanoid()} />
       </div>
     </div>
   );
@@ -78,6 +73,7 @@ const BlockHighlight = {
   type: moduleType,
   component: BlockHighlightComponent,
   initialData,
+  icon: Icon,
   title: {
     default: "Highlight",
     fr: "Mise en avant",

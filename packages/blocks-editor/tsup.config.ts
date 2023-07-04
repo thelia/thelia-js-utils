@@ -7,7 +7,7 @@ export default defineConfig([
     entry: ["src/index.tsx"],
     clean: false,
     dts: {
-      entry: ["./src/types/types.ts", "./src/index.tsx"],
+      entry: ["./src/utils/types.ts", "./src/index.tsx"],
     },
     sourcemap: true,
     platform: "browser",

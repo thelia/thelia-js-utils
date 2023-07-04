@@ -1,4 +1,4 @@
-import { BlockModuleComponentProps } from "../../types/types";
+import { BlockModuleComponentProps } from "../../utils/types";
 
 export type ColLink = {
   type: "link";

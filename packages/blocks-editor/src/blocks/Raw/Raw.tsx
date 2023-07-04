@@ -1,8 +1,5 @@
 import Modal from "react-modal";
-import {
-  BlockModuleComponentProps,
-  BlockPluginDefinition,
-} from "../../types/types";
+import { BlockModuleComponentProps, BlockPluginDefinition } from "../../utils/types";
 import { ReactComponent as Icon } from "./assets/html.svg";
 import { ReactComponent as WarningPicto } from "../../../assets/svg/html-warning.svg";
 import { ReactComponent as XMarkIcon } from "../../../assets/svg/xmark.svg";
@@ -21,9 +18,7 @@ const WarningModal = ({
   setSaveLocation,
 }: {
   isOpen: boolean;
-  setSaveLocation: (
-    storage: Window["localStorage"] | Window["sessionStorage"]
-  ) => void;
+  setSaveLocation: (storage: Window["localStorage"] | Window["sessionStorage"]) => void;
 }) => {
   const [checked, setChecked] = useState(false);
   const intl = useIntl();
@@ -57,10 +52,7 @@ const WarningModal = ({
               id="display-alert"
               style={{ margin: "0px" }}
             />
-            <label
-              className="BlockRaw__Modal__Content__CBLabel"
-              htmlFor="display-alert"
-            >
+            <label className="BlockRaw__Modal__Content__CBLabel" htmlFor="display-alert">
               {intl.formatMessage({ id: "DO_NOT_SHOW_AGAIN" })}
             </label>
           </div>
@@ -82,10 +74,7 @@ const WarningModal = ({
   );
 };
 
-function BlockRawComponent({
-  data,
-  onUpdate,
-}: BlockModuleComponentProps<BlockRawData>) {
+function BlockRawComponent({ data, onUpdate }: BlockModuleComponentProps<BlockRawData>) {
   const [value, setValue] = useState<string>(data.value);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();

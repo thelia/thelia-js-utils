@@ -9,7 +9,7 @@ import {
 } from "react";
 
 import { BlocksGroupContext } from "./BlockGroupContext";
-import { IBlock } from "../types/types";
+import { IBlock } from "../utils/types";
 import { isEqual } from "lodash";
 import { useGlobalHasChanged } from "../utils/globalState";
 

@@ -1,4 +1,4 @@
-import { Plugin } from "../../types/types";
+import { Plugin } from "../../utils/types";
 import BlockTooltip from "../BlockTooltip";
 import Modal from "react-modal";
 import Tippy from "@tippyjs/react";

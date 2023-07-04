@@ -7,12 +7,12 @@ import { messages, locale } from "./utils/intl";
 import ReactModal from "react-modal";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { LocaleContext, LocaleProvider } from "./providers/LocaleContext";
-import { Locale } from "./types/types";
+import { Locale } from "./utils/types";
 import { toastOptions } from "./utils/toast";
 
 const BlocksListHeader = () => {
   const intl = useIntl();
-  const {getUrlWithPrefix} = useContext(LocaleContext);
+  const { getUrlWithPrefix } = useContext(LocaleContext);
   return (
     <div className="BlocksList__Header">
       <div className="BlocksList__Header__Title">Thelia Blocks</div>
@@ -21,7 +21,10 @@ const BlocksListHeader = () => {
           Ici, un texte expliquant rapidement le fonctionnement des Thelia Blocks. Cela
           permettera aux utilisateurs de comprendre plus facilement l'outil
         </span>
-        <a href={getUrlWithPrefix("/admin/TheliaBlocks/new")} className="BlocksList__Header__Create">
+        <a
+          href={getUrlWithPrefix("/admin/TheliaBlocks/new")}
+          className="BlocksList__Header__Create"
+        >
           {intl.formatMessage({ id: "CREATE" })}
         </a>
       </div>
@@ -42,7 +45,7 @@ const BlocksListContent = () => {
         </div>
         <div className="BlocksList__List__Wrapper">
           <Suspense fallback={<i className="Loader fa fa-circle-notch fa-spin"></i>}>
-            <BlocksTable/>
+            <BlocksTable />
           </Suspense>
         </div>
       </div>
@@ -61,7 +64,6 @@ const BlocksList = ({
   locales: Locale[];
   urlPrefix: string;
 }) => {
-  
   useLayoutEffect(() => {
     if (containerId) {
       ReactModal.setAppElement("#" + containerId);
