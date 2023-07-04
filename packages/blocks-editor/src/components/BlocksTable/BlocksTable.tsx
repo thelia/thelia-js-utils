@@ -1,11 +1,7 @@
 import { useContext, useState } from "react";
 import useCopyToClipboard from "react-use/esm/useCopyToClipboard";
-import { GroupTypeResponse } from "../../types/types";
-import {
-  useDeleteGroup,
-  useDuplicateGroup,
-  useGroups,
-} from "../../utils/queries";
+import { GroupTypeResponse } from "../../utils/types";
+import { useDeleteGroup, useDuplicateGroup, useGroups } from "../../utils/queries";
 import { ReactComponent as DeleteIcon } from "../../../assets/svg/delete.svg";
 import { ReactComponent as CopyIcon } from "../../../assets/svg/copy.svg";
 import { ReactComponent as CodeIcon } from "../../../assets/svg/code.svg";
@@ -19,7 +15,13 @@ import { useIntl } from "react-intl";
 import "./BlocksTable.css";
 import { LocaleContext } from "../../providers/LocaleContext";
 
-const BlocksTableRow = ({ group,getUrlWithPrefix }: { group: GroupTypeResponse,getUrlWithPrefix: Function }) => {
+const BlocksTableRow = ({
+  group,
+  getUrlWithPrefix,
+}: {
+  group: GroupTypeResponse;
+  getUrlWithPrefix: Function;
+}) => {
   const intl = useIntl();
 
   const [copied, copyToClipboard] = useCopyToClipboard();
@@ -47,8 +49,7 @@ const BlocksTableRow = ({ group,getUrlWithPrefix }: { group: GroupTypeResponse,g
               : ""
           }`}
         >
-          {group.itemBlockGroups?.length &&
-          group.itemBlockGroups?.length > 0 ? (
+          {group.itemBlockGroups?.length && group.itemBlockGroups?.length > 0 ? (
             <>
               <button
                 onClick={() => {
@@ -89,8 +90,7 @@ const BlocksTableRow = ({ group,getUrlWithPrefix }: { group: GroupTypeResponse,g
                 </span>
               ))}
               <span>
-                + {group.locales.slice(2).length}{" "}
-                {intl.formatMessage({ id: "OTHER" })}
+                + {group.locales.slice(2).length} {intl.formatMessage({ id: "OTHER" })}
                 {group.locales.slice(2).length > 1 ? "s" : ""}
               </span>
             </>
@@ -105,10 +105,7 @@ const BlocksTableRow = ({ group,getUrlWithPrefix }: { group: GroupTypeResponse,g
       </td>
       <td className="BlocksTable__Row__Actions">
         <div className="BlocksTable__Row__Actions__Wrapper">
-          <Tippy
-            delay={[500, 0]}
-            content={intl.formatMessage({ id: "EDIT_BLOCK" })}
-          >
+          <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "EDIT_BLOCK" })}>
             <a
               className="BlocksTable__Row__Action"
               href={getUrlWithPrefix(`/admin/TheliaBlocks/${group.id}`)}
@@ -116,10 +113,7 @@ const BlocksTableRow = ({ group,getUrlWithPrefix }: { group: GroupTypeResponse,g
               <EditIcon />
             </a>
           </Tippy>
-          <Tippy
-            delay={[500, 0]}
-            content={intl.formatMessage({ id: "DUPLICATE_BLOCK" })}
-          >
+          <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "DUPLICATE_BLOCK" })}>
             <button
               className="BlocksTable__Row__Action"
               onClick={() => {
@@ -133,10 +127,7 @@ const BlocksTableRow = ({ group,getUrlWithPrefix }: { group: GroupTypeResponse,g
               )}
             </button>
           </Tippy>
-          <Tippy
-            delay={[500, 0]}
-            content={intl.formatMessage({ id: "COPY_SHORTCODE" })}
-          >
+          <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "COPY_SHORTCODE" })}>
             <button
               className="BlocksTable__Row__Action"
               onClick={() => {
@@ -155,10 +146,7 @@ const BlocksTableRow = ({ group,getUrlWithPrefix }: { group: GroupTypeResponse,g
               <CodeIcon />
             </button>
           </Tippy>
-          <Tippy
-            delay={[500, 0]}
-            content={intl.formatMessage({ id: "DELETE_BLOCK" })}
-          >
+          <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "DELETE_BLOCK" })}>
             <button
               className="BlocksTable__Row__Action__Delete"
               onClick={() => {
@@ -183,25 +171,17 @@ const BlocksTable = () => {
   const [limit, setLimit] = useState(10);
   const { getUrlWithPrefix } = useContext(LocaleContext);
 
-  const {
-    data: groups = [],
-    isError,
-    isPreviousData,
-  } = useGroups({ limit, offset });
+  const { data: groups = [], isError, isPreviousData } = useGroups({ limit, offset });
 
   const intl = useIntl();
 
   if (groups.length <= 0) {
-    return (
-      <div>{intl.formatMessage({ id: "BlocksList__NO_THELIA_BLOCKS" })}</div>
-    );
+    return <div>{intl.formatMessage({ id: "BlocksList__NO_THELIA_BLOCKS" })}</div>;
   }
 
   if (isError) {
     return (
-      <div>
-        {intl.formatMessage({ id: "BlocksList__ERROR_LOADING_THELIA_BLOCKS" })}
-      </div>
+      <div>{intl.formatMessage({ id: "BlocksList__ERROR_LOADING_THELIA_BLOCKS" })}</div>
     );
   }
 
@@ -213,15 +193,17 @@ const BlocksTable = () => {
             <th scope="col">{intl.formatMessage({ id: "ID" })}</th>
             <th scope="col">{intl.formatMessage({ id: "NAME" })}</th>
             <th scope="col">{intl.formatMessage({ id: "LINKED_CONTENTS" })}</th>
-            <th scope="col">
-              {intl.formatMessage({ id: "AVAILABLE_LOCALES" })}
-            </th>
+            <th scope="col">{intl.formatMessage({ id: "AVAILABLE_LOCALES" })}</th>
             <th scope="col">{intl.formatMessage({ id: "ACTIONS" })}</th>
           </tr>
         </thead>
         <tbody>
           {groups.map((group: GroupTypeResponse) => (
-            <BlocksTableRow group={group} key={group.id} getUrlWithPrefix={getUrlWithPrefix}/>
+            <BlocksTableRow
+              group={group}
+              key={group.id}
+              getUrlWithPrefix={getUrlWithPrefix}
+            />
           ))}
         </tbody>
       </table>

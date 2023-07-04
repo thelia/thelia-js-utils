@@ -1,7 +1,7 @@
 import { useCallback, useContext } from "react";
 
 import { BlockContext } from "../providers/BlockContext";
-import { IBlock } from "../types/types";
+import { IBlock } from "../utils/types";
 import { reorder } from "../utils/array";
 
 export const useBlocksContext = () => {

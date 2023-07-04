@@ -1,10 +1,7 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { Input, Select } from "../../components/Inputs";
-import {
-  BlockModuleComponentProps,
-  BlockPluginDefinition,
-} from "../../types/types";
+import { BlockModuleComponentProps, BlockPluginDefinition } from "../../utils/types";
 import { ReactComponent as Icon } from "./assets/button.svg";
 import { ReactComponent as LinkIcon } from "../../../assets/svg/link.svg";
 

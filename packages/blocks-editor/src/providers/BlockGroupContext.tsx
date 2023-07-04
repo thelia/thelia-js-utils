@@ -1,4 +1,4 @@
-import { GroupTypeResponse, itemBlockGroupsType } from "../types/types";
+import { GroupTypeResponse, itemBlockGroupsType } from "../utils/types";
 import { ReactElement, createContext, useEffect, useState } from "react";
 
 import { useGlobalHasChanged } from "../utils/globalState";

@@ -1,7 +1,7 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { Select } from "../../components/Inputs";
-import { BlockModuleComponentProps } from "../../types/types";
+import { BlockModuleComponentProps } from "../../utils/types";
 import { ReactComponent as Icon } from "./assets/separator.svg";
 
 import "./Separator.css";
@@ -87,9 +87,7 @@ const BlockSeparatorComponent = ({
       </div>
 
       <div className="BlockSeparator__Preview">
-        {type === "hr" ? (
-          <div className="BlockSeparator__Preview--element"></div>
-        ) : null}
+        {type === "hr" ? <div className="BlockSeparator__Preview--element"></div> : null}
       </div>
     </div>
   );

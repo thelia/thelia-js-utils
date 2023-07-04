@@ -6,7 +6,7 @@ import { BlocksGroupProvider, BlocksGroupContext } from "./providers/BlockGroupC
 import { BlocksProvider, useUnlinkContentFromGroup } from "./utils/queries";
 import GroupLocale from "./components/GroupLocale";
 import GroupTitle from "./components/GroupTitle";
-import { Locale } from "./types/types";
+import { Locale } from "./utils/types";
 import { LocaleContext, LocaleProvider } from "./providers/LocaleContext";
 import ReactModal from "react-modal";
 import Sidebar from "./components/Sidebar";

@@ -6,13 +6,13 @@ import BlocksList from "./BlocksList";
 import LinkBlockToItem from "./components/LinkBlockToItem/LinkBlockToItem";
 import { registerPlugin } from "./hooks/usePlugins";
 import { nanoid } from "nanoid";
-import { LocaleContext,LocaleProvider } from "./providers/LocaleContext";
+import { LocaleContext, LocaleProvider } from "./providers/LocaleContext";
 
 export type {
   BlockModuleComponentProps,
   BlockPluginDefinition,
   IBlock,
-} from "./types/types";
+} from "./utils/types";
 
 import * as blocks from "./blocks";
 

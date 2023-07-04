@@ -1,5 +1,5 @@
 import BlockControls from "../BlockControls";
-import { IBlock } from "../../types/types";
+import { IBlock } from "../../utils/types";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { usePlugins } from "../../hooks/usePlugins";
 

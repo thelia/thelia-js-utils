@@ -4,11 +4,11 @@ import Block from "../../components/Block";
 import useDragAndDrop from "../../hooks/useDragAndDrop";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { BlockContextProvider } from "../../providers/BlockContext";
-import { BlockModuleComponentProps, IBlock } from "../../types/types";
+import { BlockModuleComponentProps, IBlock } from "../../utils/types";
 import { useEffect, useRef, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
 import { useIntl } from "react-intl";
-
+import { ReactComponent as Icon } from "./assets/group.svg";
 import "./Group.css";
 import { isEqual } from "lodash";
 
@@ -46,12 +46,7 @@ const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
         {blockList.map((block, index) => (
           <DndWrapElement key={block.id} id={block.id} index={index}>
             {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
-              <Block
-                DndDragHandle={DndDragHandle}
-                inLayout
-                key={index}
-                block={block}
-              />
+              <Block DndDragHandle={DndDragHandle} inLayout key={index} block={block} />
             )}
           </DndWrapElement>
         ))}
@@ -122,6 +117,7 @@ const Group = {
   type: moduleType,
   component: GroupComponent,
   initialData: initialData,
+  icon: Icon,
   title: {
     default: "Group",
     fr: "Groupe",

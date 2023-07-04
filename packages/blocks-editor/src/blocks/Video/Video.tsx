@@ -5,7 +5,7 @@ import {
   BlockModuleComponentProps,
   BlockPluginDefinition,
   Video,
-} from "../../types/types";
+} from "../../utils/types";
 import { getYouTubeID } from "../../utils/youtube";
 import { IframeHTMLAttributes, useEffect, useState } from "react";
 

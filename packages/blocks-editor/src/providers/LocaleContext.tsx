@@ -1,6 +1,6 @@
 import { ReactElement, createContext, useEffect, useState } from "react";
 
-import { Locale } from "../types/types";
+import { Locale } from "../utils/types";
 import { useGlobalHasChanged } from "../utils/globalState";
 import { useIntl } from "react-intl";
 
@@ -14,8 +14,8 @@ export const LocaleContext = createContext<{
   currentLocale: "",
   locales: [],
   setCurrentLocale: () => {},
-  prefix: '',
-  getUrlWithPrefix: () => ''
+  prefix: "",
+  getUrlWithPrefix: () => "",
 });
 
 export function LocaleProvider({
@@ -38,11 +38,7 @@ export function LocaleProvider({
     const url = new URL(window.location as any);
 
     if (hasChanged) {
-      if (
-        !window.confirm(
-          intl.formatMessage({ id: "BlocksEditor__UNSAVED_LEAVE" })
-        )
-      ) {
+      if (!window.confirm(intl.formatMessage({ id: "BlocksEditor__UNSAVED_LEAVE" }))) {
         return;
       }
     }
@@ -73,13 +69,12 @@ export function LocaleProvider({
   }, [params]);
 
   const getUrlWithPrefix = (url: string, overridePrefix?: string): string => {
-    
     let usedPrefix = overridePrefix ?? prefix;
 
-    if (usedPrefix ==='' || typeof usedPrefix === "undefined") return url;
-  
-    return `/${usedPrefix}${url}`
-  }
+    if (usedPrefix === "" || typeof usedPrefix === "undefined") return url;
+
+    return `/${usedPrefix}${url}`;
+  };
 
   return (
     <LocaleContext.Provider

@@ -5,7 +5,7 @@ import useDragAndDrop from "../../hooks/useDragAndDrop";
 import LayoutHeader from "../../components/LayoutHeader";
 import { useBlocksContext } from "../../hooks/useBlockContext";
 import { BlockContextProvider } from "../../providers/BlockContext";
-import { BlockModuleComponentProps, IBlock } from "../../types/types";
+import { BlockModuleComponentProps, IBlock } from "../../utils/types";
 import { ReactComponent as Icon } from "./assets/accordion.svg";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
@@ -58,12 +58,7 @@ const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
       {blockList.map((block, index) => (
         <DndWrapElement key={block.id} id={block.id} index={index}>
           {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
-            <Block
-              DndDragHandle={DndDragHandle}
-              inLayout
-              key={index}
-              block={block}
-            />
+            <Block DndDragHandle={DndDragHandle} inLayout key={index} block={block} />
           )}
         </DndWrapElement>
       ))}
@@ -103,11 +98,7 @@ const AccordionItemComponent = ({
         setOpen={setIsOpen}
         onDelete={onDelete}
       />
-      <div
-        className={`${
-          !open ? "BlockAccordion--closed" : "BlockAccordion__Content"
-        }`}
-      >
+      <div className={`${!open ? "BlockAccordion--closed" : "BlockAccordion__Content"}`}>
         <BlockContextProvider defaultBlocks={item.content}>
           <>
             <div className="flex flex-col gap-6 px-6 pt-4 xl:pt-8 xl:px-10">
@@ -173,9 +164,7 @@ const AccordionComponent = ({
                 if (data.group.length > 1) {
                   onUpdate({
                     ...data,
-                    group: data.group.filter(
-                      (element) => element.id !== item.id
-                    ),
+                    group: data.group.filter((element) => element.id !== item.id),
                   });
                 }
               }}
@@ -204,10 +193,7 @@ const AccordionComponent = ({
         onClick={() =>
           onUpdate({
             ...data,
-            group: [
-              ...data.group,
-              { id: generateId(), title: "", content: [] },
-            ],
+            group: [...data.group, { id: generateId(), title: "", content: [] }],
           })
         }
       >

@@ -3,7 +3,7 @@ import { forwardRef, useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 import ReactQuill, { Quill } from "react-quill";
 import { ReactComponent as LinkIcon } from "../../../../assets/svg/link.svg";
-import { EditorModule } from "../../../types/types";
+import { EditorModule } from "../../../utils/types";
 
 import "./Editor.css";
 
