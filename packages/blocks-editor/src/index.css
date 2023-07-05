@@ -6,19 +6,19 @@
 @tailwind components;
 @tailwind utilities;
 
-i.fa-info-circle {
+.Thelia-Blocks i.fa-info-circle {
   @apply cursor-help mb-1;
 }
 
-i.fa-check {
+.Thelia-Blocks i.fa-check {
   @apply text-greenDark;
 }
 
-button:disabled {
+.Thelia-Blocks button:disabled {
   @apply cursor-not-allowed;
 }
 
-input[type="checkbox"] {
+.Thelia-Blocks input[type="checkbox"] {
   @apply rounded;
 
   &:checked {
@@ -31,15 +31,15 @@ input[type="checkbox"] {
 }
 
 /* Override for Chrome only, this is the default behavior for Firefox and Safari */ 
-input[type="number"]::-webkit-inner-spin-button {
+.Thelia-Blocks input[type="number"]::-webkit-inner-spin-button {
   opacity: 1
 }
 
-label {
+.Thelia-Blocks label {
   @apply tracking-wider mb-1 uppercase text-lightCharbon text-xs select-none;
 }
 
-input::placeholder, textarea::placeholder {
+.Thelia-Blocks input::placeholder, textarea::placeholder {
   @apply text-mediumGrey;  
 }
 

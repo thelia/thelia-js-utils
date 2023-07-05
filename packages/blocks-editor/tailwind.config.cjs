@@ -3,6 +3,7 @@ module.exports = {
     preflight: false,
   },
   content: ["./src/**/*.{ts,jsx,tsx}"],
+  blocklist: ["container"],
   theme: {
     extend: {
       colors: {
