@@ -36,7 +36,7 @@ const BlocksListContent = () => {
   const intl = useIntl();
 
   return (
-    <div className="BlocksList">
+    <div className="BlocksList Thelia-Blocks">
       <Toaster toastOptions={toastOptions} />
       <BlocksListHeader />
       <div className="BlocksList__Wrapper">

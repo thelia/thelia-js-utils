@@ -134,7 +134,7 @@ export default function BlocksEditor({
               itemId={itemId}
               noRedirect={noRedirect}
             >
-              <div className="BlocksEditor">
+              <div className="BlocksEditor Thelia-Blocks">
                 <Toaster toastOptions={toastOptions} />
                 <div className="BlocksEditor__Wrapper">
                   <BlockContextProvider root>
