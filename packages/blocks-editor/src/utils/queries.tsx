@@ -8,8 +8,6 @@ import {
 import { QueryClientProvider, useMutation, useQuery, useQueryClient } from "react-query";
 import { ReactNode, useContext, useEffect, useState } from "react";
 import { fetcher, instance, queryClient } from "@thelia/fetcher";
-
-import { BlockContext } from "../providers/BlockContext";
 import { BlocksGroupContext } from "../providers/BlockGroupContext";
 import { LocaleContext } from "../providers/LocaleContext";
 import toast from "react-hot-toast";
@@ -31,10 +29,10 @@ export function BlocksProvider({ children, api }: { children: ReactNode; api: st
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }
 
-export function useGroups(options?: { limit?: number; offset?: number }) {
+export function useGroups(options?: { limit?: number; offset?: number, title?: string }) {
   const { currentLocale } = useContext(LocaleContext);
 
-  return useQuery<GroupTypeResponse[]>(
+  return useQuery<GroupTypeResponse>(
     ["block_group", options],
     () =>
       fetcher(`/block_group/list`, {
@@ -43,6 +41,7 @@ export function useGroups(options?: { limit?: number; offset?: number }) {
           limit: options?.limit || 10,
           offset: options?.offset || 0,
           locale: currentLocale,
+          ...(options?.title || options?.title === '' ? {title: options.title} : null)
         },
       }),
     {

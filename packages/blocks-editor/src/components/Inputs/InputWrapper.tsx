@@ -9,15 +9,17 @@ const InputWrapper = ({
   error,
   info,
   id,
+  className,
 }: {
   children: ReactNode;
   label?: string;
   error?: string;
+  className?: string;
   info?: ReactNode;
   id: string;
 }) => {
   return (
-    <div className="Input__Wrapper">
+    <div className={`Input__Wrapper ${className}`}>
       <div className="Input__Wrapper__Header">
         {label && <label htmlFor={id}>{label}</label>}
         {info && (

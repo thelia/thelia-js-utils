@@ -1,11 +1,11 @@
 .BlocksList {
 
   &__Wrapper {
-    @apply bg-gradient-to-b from-pearlMedium to-pearlLight p-4 sm:p-8 md:px-32 lg:px-24 xl:px-44 2xl:px-72 flex flex-col;
+    @apply bg-gradient-to-b from-pearlMedium to-pearlLight p-4 sm:p-8 flex flex-col;
   }
 
   &__Header {
-    @apply bg-pearlLight p-4 sm:p-8 md:px-32 lg:px-24 xl:px-44 2xl:px-72 pb-12 pt-10;
+    @apply bg-pearlLight p-4 sm:p-8 pb-12 pt-10;
 
     &__Infos {
       @apply flex justify-between gap-3;
@@ -24,8 +24,24 @@
     }
   }
 
+  &__SearchWrapper {
+    @apply flex items-start lg:items-center justify-between mb-6 gap-4 flex-col lg:flex-row;
+  }
+
   &__Title {
-    @apply font-extrabold text-xl text-darkCharbon mb-10;
+    @apply font-extrabold text-xl text-darkCharbon ;
+  }
+
+  &__Search {
+    @apply  text-lightCharbon ;
+
+    &Icon {
+      @apply absolute top-1/2 right-4 transform -translate-y-1/2 text-red flex;
+
+      svg {
+        @apply w-4 text-red;
+      }
+    }
   }
 
   &__List {

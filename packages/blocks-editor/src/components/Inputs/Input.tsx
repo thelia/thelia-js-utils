@@ -32,6 +32,7 @@ const Input = forwardRef(
       value,
       onChange,
       className = "",
+      classNameWrapper = "",
       emphasize,
       placeholder,
       icon,
@@ -47,6 +48,7 @@ const Input = forwardRef(
       value?: string;
       onChange: (event: ChangeEvent<HTMLInputElement>) => void;
       className?: string;
+      classNameWrapper?: string;
       emphasize?: boolean;
       placeholder?: string;
       icon?: ReactNode;
@@ -61,7 +63,7 @@ const Input = forwardRef(
     ref: Ref<HTMLInputElement>
   ) => {
     return (
-      <InputWrapper id={id} label={label} error={error} info={info}>
+      <InputWrapper id={id} label={label} error={error} info={info} className={classNameWrapper}>
         <div className="Input__Text__Wrapper">
           <input
             ref={ref}
@@ -77,7 +79,7 @@ const Input = forwardRef(
                 : icon && isValid
                 ? "Input__Text--withIcons"
                 : ""
-            }`}
+            } ${className}`}
             placeholder={placeholder}
             {...props}
           />

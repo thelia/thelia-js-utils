@@ -1,6 +1,7 @@
 .BlocksTable {
   @apply w-full text-left rounded-md;
 
+  
   thead {
     @apply text-xs text-greyDark tracking-wider uppercase;
   }
