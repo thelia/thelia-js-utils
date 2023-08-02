@@ -29,7 +29,7 @@ export function BlocksProvider({ children, api }: { children: ReactNode; api: st
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }
 
-export function useGroups(options?: { limit?: number; offset?: number, title?: string }) {
+export function useGroups(options?: { limit?: number; offset?: number, title?: string, order?: string }) {
   const { currentLocale } = useContext(LocaleContext);
 
   return useQuery<GroupTypeResponse>(
@@ -41,6 +41,7 @@ export function useGroups(options?: { limit?: number; offset?: number, title?: s
           limit: options?.limit || 10,
           offset: options?.offset || 0,
           locale: currentLocale,
+          order: options?.order || 'id_reverse',
           ...(options?.title || options?.title === '' ? {title: options.title} : null)
         },
       }),

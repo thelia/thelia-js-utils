@@ -10,6 +10,7 @@ import { ReactComponent as DeleteIcon } from "../../../assets/svg/delete.svg";
 import { ReactComponent as CopyIcon } from "../../../assets/svg/copy.svg";
 import { ReactComponent as CodeIcon } from "../../../assets/svg/code.svg";
 import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg";
+import { ReactComponent as ArrowIcon } from "../../../assets/svg/select-arrow.svg";
 import toast from "react-hot-toast";
 import Tippy from "@tippyjs/react";
 import Modal from "../Modal";
@@ -188,21 +189,25 @@ const BlocksTableRow = ({
   );
 };
 
-const BlocksTable = ({searchQuery : title} : {searchQuery ?: string}) => {
+const BlocksTable = ({ searchQuery: title }: { searchQuery?: string }) => {
   const [limit] = useState(10);
   const [offset, setOffset] = useState(0);
   const { getUrlWithPrefix } = useContext(LocaleContext);
+  const [order, setOrder] = useState("id_reverse");
+  const intl = useIntl();
 
-  const { data, isError, isFetching } = useGroups({ limit, offset,title});
-
+  const { data, isError, isFetching } = useGroups({ limit, offset, title, order });
 
   useEffect(() => {
     setOffset(0);
-  },[title])
+  }, [title]);
 
   const { items: groups = [], pagination_info: pagination } = data || {};
-  
-  const intl = useIntl();
+
+  const sortGroups = (main: string, reverse: string) => {
+    setOrder((prev) =>prev === reverse? main: reverse);
+    setOffset(0)
+  }
 
   if (groups.length <= 0) {
     return (
@@ -210,7 +215,6 @@ const BlocksTable = ({searchQuery : title} : {searchQuery ?: string}) => {
     );
   }
 
-  
   if (isError) {
     return (
       <div>
@@ -221,12 +225,50 @@ const BlocksTable = ({searchQuery : title} : {searchQuery ?: string}) => {
 
   return (
     <>
-      <table className={`BlocksTable ${isFetching ? 'opacity-50 pointer-events-none' : ''}`}>
+      <table
+        className={`BlocksTable ${
+          isFetching ? "opacity-50 pointer-events-none" : ""
+        }`}
+      >
         <thead className="BlocksTable__Header">
           <tr>
             <th scope="col">{intl.formatMessage({ id: "ID" })}</th>
-            <th scope="col">{intl.formatMessage({ id: "NAME" })}</th>
-            <th scope="col">{intl.formatMessage({ id: "UPDATED_DATE" })}</th>
+            <th scope="col">
+              <button
+                type="button"
+                onClick={() =>
+                  sortGroups('title','title_reverse')
+                }
+                className="BlocksTable__Sort"
+              >
+                {intl.formatMessage({ id: "NAME" })}
+                <ArrowIcon
+                  className={
+                    order === "title"
+                      ? "transform origin-center rotate-180"
+                      : ""
+                  }
+                />
+              </button>
+            </th>
+            <th scope="col">
+              <button
+                type="button"
+                onClick={() =>
+                  sortGroups('updated_at','updated_at_reverse')
+                }
+                className="BlocksTable__Sort"
+              >
+                {intl.formatMessage({ id: "UPDATED_DATE" })}
+                <ArrowIcon
+                  className={
+                    order === "updated_at"
+                      ? "transform origin-center rotate-180"
+                      : ""
+                  }
+                />
+              </button>
+            </th>
             <th scope="col">{intl.formatMessage({ id: "LINKED_CONTENTS" })}</th>
             <th scope="col">
               {intl.formatMessage({ id: "AVAILABLE_LOCALES" })}
@@ -244,32 +286,38 @@ const BlocksTable = ({searchQuery : title} : {searchQuery ?: string}) => {
           ))}
         </tbody>
       </table>
-      {pagination && pagination.nbPages !== 1  && (
+      {pagination && pagination.nbPages !== 1 && (
         <div className="Pagination">
           {pagination.currentPage !== 1 && (
-          <button
-            className="Pagination__Button Pagination__Button--previous"
-            onClick={() => setOffset(0)}
-            disabled={offset === 0}
-          >
-            <i className="fa fa-chevron-left"></i>
-          </button>
+            <button
+              className="Pagination__Button Pagination__Button--previous"
+              onClick={() => setOffset(0)}
+              disabled={offset === 0}
+            >
+              <i className="fa fa-chevron-left"></i>
+            </button>
           )}
-          {pagination.currentPage-1 >= 1 && (
+          {pagination.currentPage - 1 >= 1 && (
             <button
               className="Pagination__Button Pagination__Button--page "
-              onClick={() => setOffset(() => Math.max(limit*(pagination.currentPage - 2), 0))}
+              onClick={() =>
+                setOffset(() =>
+                  Math.max(limit * (pagination.currentPage - 2), 0)
+                )
+              }
             >
               {pagination.currentPage - 1}
             </button>
           )}
           <div className="Pagination__Button Pagination__Button--page font-bold">
-            {pagination.currentPage} 
+            {pagination.currentPage}
           </div>
           {pagination.currentPage + 1 <= pagination.nbPages && (
             <button
               className="Pagination__Button Pagination__Button--page "
-              onClick={() => setOffset(() => Math.max(limit*(pagination.currentPage), 0))}
+              onClick={() =>
+                setOffset(() => Math.max(limit * pagination.currentPage, 0))
+              }
             >
               {pagination.currentPage + 1}
             </button>
@@ -277,7 +325,9 @@ const BlocksTable = ({searchQuery : title} : {searchQuery ?: string}) => {
           {pagination.currentPage !== pagination.nbPages && (
             <button
               className="Pagination__Button Pagination__Button--next"
-              onClick={() => setOffset(() => Math.max(limit*(pagination.nbPages-1), 0))}
+              onClick={() =>
+                setOffset(() => Math.max(limit * (pagination.nbPages - 1), 0))
+              }
             >
               <i className="fa fa-chevron-right"></i>
             </button>

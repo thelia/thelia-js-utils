@@ -12,6 +12,9 @@
 
   th {
     @apply p-4 font-normal last:pr-0;
+
+
+
   }
 
   td {
@@ -77,5 +80,9 @@
         @apply text-error enabled:hover:text-redLight disabled:text-mediumGrey;
       }
     }
+  }
+
+  &__Sort {
+    @apply flex items-center justify-start gap-2;
   }
 }
