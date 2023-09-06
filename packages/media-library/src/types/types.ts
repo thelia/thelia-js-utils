@@ -16,6 +16,8 @@ export type LibraryImage = {
   fileName: string;
   title: string;
   tags: ImageTag[];
+  width: string;
+  height: string;
   link?: {
     url: string;
     target?: string;
