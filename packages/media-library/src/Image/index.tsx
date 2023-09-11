@@ -192,6 +192,8 @@ const ImageInfos = ({
 }) => {
   const [title, setTitle] = useState(image.title);
   const [url, setUrl] = useState(image.link?.url || "");
+  const [width, setWidth] = useState(image.width || "");
+  const [height, setHeight] = useState(image.height || "");
 
   const intl = useIntl();
 
@@ -229,6 +231,40 @@ const ImageInfos = ({
           })}
           onChange={(e) => setUrl(e.target.value)}
           onBlur={() => onChange({ link: { url: url } })}
+        />
+      </div>
+      <div>
+        <label>
+          {intl.formatMessage({ id: "BlockImage__WIDTH" })} (
+          {intl.formatMessage({ id: "OPTIONAL" })})
+        </label>
+        <input
+          className="Input__Text"
+          type="text"
+          name="width"
+          value={width}
+          placeholder={intl.formatMessage({
+            id: "BlockImage__WIDTH__PLACEHOLDER",
+          })}
+          onChange={(e) => setWidth(e.target.value)}
+          onBlur={() => onChange({ width })}
+        />
+      </div>
+      <div>
+        <label>
+          {intl.formatMessage({ id: "BlockImage__HEIGHT" })} (
+          {intl.formatMessage({ id: "OPTIONAL" })})
+        </label>
+        <input
+          className="Input__Text"
+          type="text"
+          name="height"
+          value={height}
+          placeholder={intl.formatMessage({
+            id: "BlockImage__HEIGHT__PLACEHOLDER",
+          })}
+          onChange={(e) => setHeight(e.target.value)}
+          onBlur={() => onChange({ height })}
         />
       </div>
     </form>
@@ -367,6 +403,8 @@ const initialData: LibraryImage = {
   id: null,
   title: "",
   fileName: "",
+  width: "",
+  height: "",
   tags: [],
 };
 
