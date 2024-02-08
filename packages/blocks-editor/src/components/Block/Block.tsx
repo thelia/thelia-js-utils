@@ -103,7 +103,7 @@ const Block = ({
                 : "Block__Header__Infos__Title"
             }`}
           >
-            {currentPlugin.title[intl.locale || "default"]}
+            {currentPlugin.title[intl.locale] || currentPlugin.title["default"]}
           </div>
         </div>
         <BlockControls
