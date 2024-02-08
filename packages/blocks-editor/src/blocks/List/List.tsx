@@ -131,6 +131,9 @@ const BlockList: BlockPluginDefinition<BlockListData> = {
     en: "List",
     es: "Lista",
     it: "Lista",
+    cz: "Liste",
+    pl: "Liste",
+    de: "Liste"
   },
   description: {
     default: "Display a list",
@@ -138,6 +141,9 @@ const BlockList: BlockPluginDefinition<BlockListData> = {
     en: "Display a list",
     es: "Mostrar una lista",
     it: "Mostra una lista",
+    cz: "Affiche une liste",
+    pl: "Affiche une liste",
+    de: "Affiche une liste"
   },
 };
 

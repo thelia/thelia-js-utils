@@ -107,6 +107,9 @@ const BlockSeparator = {
     en: "Separator",
     es: "Separador",
     it: "Separatore",
+    cz: "Séparateur",
+    pl: "Séparateur",
+    de: "Séparateur"
   },
   icon: Icon,
   description: {
@@ -115,6 +118,9 @@ const BlockSeparator = {
     en: "Display a separator",
     es: "Muestra un separador",
     it: "Visualizza un separatore",
+    cz: "Affiche un séparateur",
+    pl: "Affiche un séparateur",
+    de: "Affiche un séparateur"
   },
 };
 

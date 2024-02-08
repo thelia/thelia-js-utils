@@ -222,6 +222,10 @@ const Accordion = {
     en: "Accordion",
     es: "Accordión",
     it: "Accordion",
+    cz: "Accordéon",
+    pl: "Accordéon",
+    de: "Accordéon"
+
   },
   icon: Icon,
   description: {
@@ -230,6 +234,9 @@ const Accordion = {
     en: "Display blocks in accordion",
     es: "Affiche des blocks en accordéon",
     it: "Display blocks in accordion",
+    cz: "Affiche des blocs en accordéon",
+    pl: "Affiche des blocs en accordéon",
+    de: "Affiche des blocs en accordéon"
   },
 };
 

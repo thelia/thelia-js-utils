@@ -108,6 +108,9 @@ const blockVideo: BlockPluginDefinition<Video> = {
     en: "Video",
     es: "Video",
     it: "Video",
+    cz: "Vidéo",
+    pl: "Vidéo",
+    de: "Vidéo"
   },
   icon: Icon,
   description: {
@@ -116,6 +119,9 @@ const blockVideo: BlockPluginDefinition<Video> = {
     en: "Display a YouTube video",
     es: "Muestra un video de YouTube",
     it: "Visualizza un video di YouTube",
+    cz: "Affiche une vidéo YouTube",
+    pl: "Affiche une vidéo YouTube",
+    de: "Affiche une vidéo YouTube"
   },
   image: {
     default: "",
