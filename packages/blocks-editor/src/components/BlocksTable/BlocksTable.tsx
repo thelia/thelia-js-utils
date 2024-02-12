@@ -1,11 +1,16 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useCopyToClipboard from "react-use/esm/useCopyToClipboard";
-import { GroupTypeResponse } from "../../utils/types";
-import { useDeleteGroup, useDuplicateGroup, useGroups } from "../../utils/queries";
+import { GroupItem } from "../../utils/types";
+import {
+  useDeleteGroup,
+  useDuplicateGroup,
+  useGroups,
+} from "../../utils/queries";
 import { ReactComponent as DeleteIcon } from "../../../assets/svg/delete.svg";
 import { ReactComponent as CopyIcon } from "../../../assets/svg/copy.svg";
 import { ReactComponent as CodeIcon } from "../../../assets/svg/code.svg";
 import { ReactComponent as EditIcon } from "../../../assets/svg/edit.svg";
+import { ReactComponent as ArrowIcon } from "../../../assets/svg/select-arrow.svg";
 import toast from "react-hot-toast";
 import Tippy from "@tippyjs/react";
 import Modal from "../Modal";
@@ -14,22 +19,23 @@ import { useIntl } from "react-intl";
 
 import "./BlocksTable.css";
 import { LocaleContext } from "../../providers/LocaleContext";
+import dayjs from "dayjs";
 
 const BlocksTableRow = ({
   group,
   getUrlWithPrefix,
 }: {
-  group: GroupTypeResponse;
+  group: GroupItem;
   getUrlWithPrefix: Function;
 }) => {
   const intl = useIntl();
-
+  const { locales = [] } = group;
   const [copied, copyToClipboard] = useCopyToClipboard();
   const mutationDelete = useDeleteGroup();
   const mutationDuplicate = useDuplicateGroup();
 
   const [linkedContents, setLinkedContents] = useState<
-    GroupTypeResponse["itemBlockGroups"]
+    GroupItem["itemBlockGroups"]
   >([]);
   const [isItemBlockModalOpen, setIsItemBlockModalOpen] = useState(false);
 
@@ -41,6 +47,9 @@ const BlocksTableRow = ({
           {group.title || intl.formatMessage({ id: "NO_TITLE" })}
         </a>
       </td>
+      <td className="BlocksTable__Row__Id">
+        {dayjs(group.updatedAt ?? group.createdAt).format("DD/MM/YYYY")}
+      </td>
       <td className="BlocksTable__Row__LinkedContent">
         <div
           className={`BlocksTable__Row__LinkedContent__Wrapper ${
@@ -49,7 +58,8 @@ const BlocksTableRow = ({
               : ""
           }`}
         >
-          {group.itemBlockGroups?.length && group.itemBlockGroups?.length > 0 ? (
+          {group.itemBlockGroups?.length &&
+          group.itemBlockGroups?.length > 0 ? (
             <>
               <button
                 onClick={() => {
@@ -82,20 +92,21 @@ const BlocksTableRow = ({
       </td>
       <td className="BlocksTable__Row__Locales">
         <div className="BlocksTable__Row__Locales__Wrapper">
-          {group.locales.length > 3 ? (
+          {locales.length > 3 ? (
             <>
-              {group.locales.slice(0, 2).map((locale) => (
+              {locales.slice(0, 2).map((locale) => (
                 <span className="Locale" key={locale}>
                   {locale.substring(0, 2)}
                 </span>
               ))}
               <span>
-                + {group.locales.slice(2).length} {intl.formatMessage({ id: "OTHER" })}
-                {group.locales.slice(2).length > 1 ? "s" : ""}
+                + {locales.slice(2).length}{" "}
+                {intl.formatMessage({ id: "OTHER" })}
+                {locales.slice(2).length > 1 ? "s" : ""}
               </span>
             </>
           ) : (
-            group.locales.map((locale) => (
+            locales.map((locale) => (
               <span className="Locale" key={locale}>
                 {locale.substring(0, 2)}
               </span>
@@ -105,7 +116,10 @@ const BlocksTableRow = ({
       </td>
       <td className="BlocksTable__Row__Actions">
         <div className="BlocksTable__Row__Actions__Wrapper">
-          <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "EDIT_BLOCK" })}>
+          <Tippy
+            delay={[500, 0]}
+            content={intl.formatMessage({ id: "EDIT_BLOCK" })}
+          >
             <a
               className="BlocksTable__Row__Action"
               href={getUrlWithPrefix(`/admin/TheliaBlocks/${group.id}`)}
@@ -113,7 +127,10 @@ const BlocksTableRow = ({
               <EditIcon />
             </a>
           </Tippy>
-          <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "DUPLICATE_BLOCK" })}>
+          <Tippy
+            delay={[500, 0]}
+            content={intl.formatMessage({ id: "DUPLICATE_BLOCK" })}
+          >
             <button
               className="BlocksTable__Row__Action"
               onClick={() => {
@@ -127,7 +144,10 @@ const BlocksTableRow = ({
               )}
             </button>
           </Tippy>
-          <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "COPY_SHORTCODE" })}>
+          <Tippy
+            delay={[500, 0]}
+            content={intl.formatMessage({ id: "COPY_SHORTCODE" })}
+          >
             <button
               className="BlocksTable__Row__Action"
               onClick={() => {
@@ -146,7 +166,10 @@ const BlocksTableRow = ({
               <CodeIcon />
             </button>
           </Tippy>
-          <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "DELETE_BLOCK" })}>
+          <Tippy
+            delay={[500, 0]}
+            content={intl.formatMessage({ id: "DELETE_BLOCK" })}
+          >
             <button
               className="BlocksTable__Row__Action__Delete"
               onClick={() => {
@@ -166,39 +189,95 @@ const BlocksTableRow = ({
   );
 };
 
-const BlocksTable = () => {
+const BlocksTable = ({ searchQuery: title }: { searchQuery?: string }) => {
+  const [limit] = useState(10);
   const [offset, setOffset] = useState(0);
-  const [limit, setLimit] = useState(10);
   const { getUrlWithPrefix } = useContext(LocaleContext);
-
-  const { data: groups = [], isError, isPreviousData } = useGroups({ limit, offset });
-
+  const [order, setOrder] = useState("id_reverse");
   const intl = useIntl();
 
+  const { data, isError, isFetching } = useGroups({ limit, offset, title, order });
+
+  useEffect(() => {
+    setOffset(0);
+  }, [title]);
+
+  const { items: groups = [], pagination_info: pagination } = data || {};
+
+  const sortGroups = (main: string, reverse: string) => {
+    setOrder((prev) =>prev === reverse? main: reverse);
+    setOffset(0)
+  }
+
   if (groups.length <= 0) {
-    return <div>{intl.formatMessage({ id: "BlocksList__NO_THELIA_BLOCKS" })}</div>;
+    return (
+      <div>{intl.formatMessage({ id: "BlocksList__NO_THELIA_BLOCKS" })}</div>
+    );
   }
 
   if (isError) {
     return (
-      <div>{intl.formatMessage({ id: "BlocksList__ERROR_LOADING_THELIA_BLOCKS" })}</div>
+      <div>
+        {intl.formatMessage({ id: "BlocksList__ERROR_LOADING_THELIA_BLOCKS" })}
+      </div>
     );
   }
 
   return (
     <>
-      <table className="BlocksTable">
+      <table
+        className={`BlocksTable ${
+          isFetching ? "opacity-50 pointer-events-none" : ""
+        }`}
+      >
         <thead className="BlocksTable__Header">
           <tr>
             <th scope="col">{intl.formatMessage({ id: "ID" })}</th>
-            <th scope="col">{intl.formatMessage({ id: "NAME" })}</th>
+            <th scope="col">
+              <button
+                type="button"
+                onClick={() =>
+                  sortGroups('title','title_reverse')
+                }
+                className="BlocksTable__Sort"
+              >
+                {intl.formatMessage({ id: "NAME" })}
+                <ArrowIcon
+                  className={
+                    order === "title"
+                      ? "transform origin-center rotate-180"
+                      : ""
+                  }
+                />
+              </button>
+            </th>
+            <th scope="col">
+              <button
+                type="button"
+                onClick={() =>
+                  sortGroups('updated_at','updated_at_reverse')
+                }
+                className="BlocksTable__Sort"
+              >
+                {intl.formatMessage({ id: "UPDATED_DATE" })}
+                <ArrowIcon
+                  className={
+                    order === "updated_at"
+                      ? "transform origin-center rotate-180"
+                      : ""
+                  }
+                />
+              </button>
+            </th>
             <th scope="col">{intl.formatMessage({ id: "LINKED_CONTENTS" })}</th>
-            <th scope="col">{intl.formatMessage({ id: "AVAILABLE_LOCALES" })}</th>
+            <th scope="col">
+              {intl.formatMessage({ id: "AVAILABLE_LOCALES" })}
+            </th>
             <th scope="col">{intl.formatMessage({ id: "ACTIONS" })}</th>
           </tr>
         </thead>
         <tbody>
-          {groups.map((group: GroupTypeResponse) => (
+          {groups.map((group: GroupItem) => (
             <BlocksTableRow
               group={group}
               key={group.id}
@@ -207,30 +286,54 @@ const BlocksTable = () => {
           ))}
         </tbody>
       </table>
-
-      <div className="Pagination">
-        <button
-          className="Pagination__Button Pagination__Button--previous"
-          onClick={() => setOffset((old) => Math.max(old - limit, 0))}
-          disabled={offset === 0}
-        >
-          <i className="fa fa-chevron-left"></i>
-        </button>
-        <div className="Pagination__Button Pagination__Button--page">
-          {offset / limit + 1}
+      {pagination && pagination.nbPages !== 1 && (
+        <div className="Pagination">
+          {pagination.currentPage !== 1 && (
+            <button
+              className="Pagination__Button Pagination__Button--previous"
+              onClick={() => setOffset(0)}
+              disabled={offset === 0}
+            >
+              <i className="fa fa-chevron-left"></i>
+            </button>
+          )}
+          {pagination.currentPage - 1 >= 1 && (
+            <button
+              className="Pagination__Button Pagination__Button--page "
+              onClick={() =>
+                setOffset(() =>
+                  Math.max(limit * (pagination.currentPage - 2), 0)
+                )
+              }
+            >
+              {pagination.currentPage - 1}
+            </button>
+          )}
+          <div className="Pagination__Button Pagination__Button--page font-bold">
+            {pagination.currentPage}
+          </div>
+          {pagination.currentPage + 1 <= pagination.nbPages && (
+            <button
+              className="Pagination__Button Pagination__Button--page "
+              onClick={() =>
+                setOffset(() => Math.max(limit * pagination.currentPage, 0))
+              }
+            >
+              {pagination.currentPage + 1}
+            </button>
+          )}
+          {pagination.currentPage !== pagination.nbPages && (
+            <button
+              className="Pagination__Button Pagination__Button--next"
+              onClick={() =>
+                setOffset(() => Math.max(limit * (pagination.nbPages - 1), 0))
+              }
+            >
+              <i className="fa fa-chevron-right"></i>
+            </button>
+          )}
         </div>
-        <button
-          className="Pagination__Button Pagination__Button--next"
-          onClick={() => {
-            if (!isPreviousData && (groups?.length || 0) >= limit) {
-              setOffset((old) => old + limit);
-            }
-          }}
-          disabled={isPreviousData || (groups?.length || 0) < limit}
-        >
-          <i className="fa fa-chevron-right"></i>
-        </button>
-      </div>
+      )}
     </>
   );
 };

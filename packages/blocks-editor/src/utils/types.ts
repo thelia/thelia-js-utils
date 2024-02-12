@@ -58,6 +58,8 @@ export type GroupTypeStore = {
   slug?: string | null;
   locales?: string[];
   itemBlockGroups?: itemBlockGroupsType[];
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type BlockGroupPatch = {
@@ -77,10 +79,22 @@ export type BlockGroupPatch = {
   locale: string;
 };
 
-export type GroupTypeResponse = GroupTypeStore & {
+export type GroupItem = GroupTypeStore & {
   jsonContent: IBlock[];
 };
 
+export type GroupTypeResponse = {
+  items: GroupItem[];
+  pagination_info: PaginationType;
+}
+
+export type PaginationType = {
+  countAllItems: number;
+  currentPage: number;
+  limit: number;
+  nbPages: number;
+  offset: number;
+}
 export type BlockPluginDefinition<TProp = { [key: string]: any }> =
   BlockModuleI18n & {
     readonly type: BlockModuleType;

@@ -1,4 +1,4 @@
-import { Suspense, useContext, useLayoutEffect } from "react";
+import { MouseEvent, SetStateAction, Suspense, useContext, useLayoutEffect, useRef, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { BlocksProvider } from "./utils/queries";
 import BlocksTable from "./components/BlocksTable";
@@ -9,6 +9,9 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { LocaleContext, LocaleProvider } from "./providers/LocaleContext";
 import { Locale } from "./utils/types";
 import { toastOptions } from "./utils/toast";
+import { Input } from "./components/Inputs";
+import { ReactComponent as XMarkIcon } from "../assets/svg/xmark.svg";
+import { ReactComponent as SearchIcon } from "../assets/svg/search.svg";
 
 const BlocksListHeader = () => {
   const intl = useIntl();
@@ -34,18 +37,41 @@ const BlocksListHeader = () => {
 
 const BlocksListContent = () => {
   const intl = useIntl();
+  const [query, setQuery] = useState('');
+  const searchRef = useRef<HTMLInputElement>(null);
 
+  const resetQuery = () => {
+    if(query !== "" && searchRef.current) {
+      setQuery('');
+      searchRef.current.value = '';
+      searchRef.current.focus();
+    }
+  }
   return (
     <div className="BlocksList Thelia-Blocks">
       <Toaster toastOptions={toastOptions} />
       <BlocksListHeader />
       <div className="BlocksList__Wrapper">
-        <div className="BlocksList__Title">
-          {intl.formatMessage({ id: "BlocksList__EXISTING_THELIA_BLOCKS" })}
+        <div className="BlocksList__SearchWrapper">
+          <div className="BlocksList__Title">
+            {intl.formatMessage({ id: "BlocksList__EXISTING_THELIA_BLOCKS" })}
+          </div>
+
+            <div className="relative w-full lg:max-w-sm">
+              <Input
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={intl.formatMessage({ id: "SEARCH_BY_NAME" })}
+              id="BlockProduct-field-product"
+              type="text"
+              ref={searchRef}
+              classNameWrapper='BlocksList__Search'
+            />
+            <button type="button" className="BlocksList__SearchIcon" onClick={() => resetQuery()}>{query !== '' ? <XMarkIcon />:<SearchIcon />}</button>
+            </div>
         </div>
         <div className="BlocksList__List__Wrapper">
           <Suspense fallback={<i className="Loader fa fa-circle-notch fa-spin"></i>}>
-            <BlocksTable />
+            <BlocksTable searchQuery={query}/>
           </Suspense>
         </div>
       </div>

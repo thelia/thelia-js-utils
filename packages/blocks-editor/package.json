@@ -23,6 +23,7 @@
   "dependencies": {
     "@thelia/fetcher": "*",
     "axios": "^0.25",
+    "dayjs": "^1.11.9",
     "nanoid": "^3.1.20",
     "react": "^17.0.2",
     "react-quill": "^2.0.0",

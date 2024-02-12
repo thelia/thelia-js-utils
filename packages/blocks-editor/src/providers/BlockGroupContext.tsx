@@ -5,9 +5,10 @@ import { useGlobalHasChanged } from "../utils/globalState";
 import { useGroup } from "../utils/queries";
 import { useIntl } from "react-intl";
 import { useQueryClient } from "react-query";
+import { GroupItem } from "../../dist/utils/types";
 
 export const BlocksGroupContext = createContext<{
-  group?: GroupTypeResponse;
+  group?: GroupItem;
   editGroup: Function;
   groupId?: number;
   itemType?: string;
