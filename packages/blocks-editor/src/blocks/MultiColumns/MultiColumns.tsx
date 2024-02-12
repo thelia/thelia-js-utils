@@ -162,6 +162,9 @@ const moduleLayout = {
   en: "Columns",
   es: "Columnas",
   it: "Colonne",
+  cz: "Colonnes",
+  pl: "Colonnes",
+  de: "Colonnes"
 };
 
 const moduleType = {
@@ -180,6 +183,9 @@ const Column = {
     en: "Columns",
     es: "Columnas",
     it: "Colonne",
+    cz: "Colonnes",
+    pl: "Colonnes",
+    de: "Colonnes"
   },
   description: {
     default: "Display blocks in multiple columns",
@@ -187,6 +193,9 @@ const Column = {
     en: "Display blocks in multiple columns",
     es: "Mostrar bloques en columnas",
     it: "Mostra i blocchi in colonne",
+    cz: "Affiche des blocks dans différentes colonnes",
+    pl: "Affiche des blocks dans différentes colonnes",
+    de: "Affiche des blocks dans différentes colonnes"
   },
 };
 
@@ -199,6 +208,9 @@ const TwoColumns = {
     en: "2 Columns",
     es: "2 Columnas",
     it: "2 Colonne",
+    cz: "2 Colonnes",
+    pl: "2 Colonnes",
+    de: "2 Colonnes"
   },
   layout: moduleLayout,
   initialData: [[], []],
@@ -215,6 +227,9 @@ const ThreeColumns = {
     en: "3 Columns",
     es: "3 Columnas",
     it: "3 Colonne",
+    cz: "3 Colonnes",
+    pl: "3 Colonnes",
+    de: "3 Colonnes"
   },
   initialData: [[], [], []],
   customIcon: <ColumnIcon asIcon cols={3} />,
@@ -230,6 +245,9 @@ const FourColumns = {
     en: "4 Columns",
     es: "4 Columnas",
     it: "4 Colonne",
+    cz: "4 Colonnes",
+    pl: "4 Colonnes",
+    de: "4 Colonnes"
   },
   initialData: [[], [], [], []],
   customIcon: <ColumnIcon asIcon cols={4} />,
@@ -245,6 +263,9 @@ const FiveColumns = {
     en: "5 Columns",
     es: "5 Columnas",
     it: "5 Colonne",
+    cz: "5 Colonnes",
+    pl: "5 Colonnes",
+    de: "5 Colonnes"
   },
   initialData: [[], [], [], [], []],
   customIcon: <ColumnIcon asIcon cols={5} />,
@@ -260,6 +281,9 @@ const SixColumns = {
     en: "6 Columns",
     es: "6 Columnas",
     it: "6 Colonne",
+    cz: "6 Colonnes",
+    pl: "6 Colonnes",
+    de: "6 Colonnes"
   },
   initialData: [[], [], [], [], [], []],
   customIcon: <ColumnIcon asIcon cols={6} />,

@@ -129,6 +129,9 @@ const blockButton: BlockPluginDefinition<BlockButtonData> = {
     en: "Button",
     es: "Botón",
     it: "Bottone",
+    cz: "Bouton",
+    pl: "Bouton",
+    de: "Bouton"
   },
   icon: Icon,
   description: {
@@ -137,6 +140,9 @@ const blockButton: BlockPluginDefinition<BlockButtonData> = {
     en: "Link to an URL",
     es: "Enlace a una URL",
     it: "Link a un URL",
+    cz: "Lien vers une URL",
+    pl: "Lien vers une URL",
+    de: "Lien vers une URL"
   },
 };
 

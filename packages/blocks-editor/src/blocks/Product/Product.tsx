@@ -250,6 +250,9 @@ const blockProduct: BlockPluginDefinition<BlockProductData> = {
     en: "Product",
     es: "Producto",
     it: "Prodotto",
+    cz: "Produit",
+    pl: "Produit",
+    de: "Produit"
   },
   icon: Icon,
   description: {
@@ -258,6 +261,9 @@ const blockProduct: BlockPluginDefinition<BlockProductData> = {
     en: "Display a product",
     es: "Mostrar un producto",
     it: "Mostra un prodotto",
+    cz: "Affiche un produit",
+    pl: "Affiche un produit",
+    de: "Affiche un produit"
   },
 };
 

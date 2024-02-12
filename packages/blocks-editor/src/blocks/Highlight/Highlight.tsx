@@ -80,6 +80,9 @@ const BlockHighlight = {
     en: "Highlight",
     es: "Destacado",
     it: "Evidenziare",
+    cz: "Mise en avant",
+    pl: "Mise en avant",
+    de: "Mise en avant"
   },
   description: {
     default: "Display a highlighted text",
@@ -87,6 +90,9 @@ const BlockHighlight = {
     en: "Display a highlighted text",
     es: "Muestra un texto resaltado",
     it: "Mostra un testo evidenziato",
+    cz: "Affiche un bloc de texte mis en avant",
+    pl: "Affiche un bloc de texte mis en avant",
+    de: "Affiche un bloc de texte mis en avant"
   },
 };
 

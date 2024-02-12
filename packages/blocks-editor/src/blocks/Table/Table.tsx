@@ -317,13 +317,19 @@ const blockTable: BlockPluginDefinition<BlockTableData> = {
     en: "Table",
     es: "Tabla",
     it: "Tabella",
+    cz: "Tableau",
+    pl: "Tableau",
+    de: "Tableau"
   },
   description: {
     default: "Display a table",
-    fr: "Affiche une tableau",
+    fr: "Affiche un tableau",
     en: "Display a table",
     es: "Mostrar un tabla",
     it: "Mostra un tabella",
+    cz: "Affiche un tableau",
+    pl: "Affiche un tableau",
+    de: "Affiche un tableau"
   },
 };
 

@@ -121,6 +121,9 @@ const BlockTitle: BlockPluginDefinition<BlockTitleData> = {
     en: "Title",
     es: "Titulo",
     it: "Titolo",
+    cz: "Titre",
+    pl: "Titre",
+    de: "Titre"
   },
   icon: Icon,
   description: {
@@ -129,6 +132,9 @@ const BlockTitle: BlockPluginDefinition<BlockTitleData> = {
     en: "Display a title",
     es: "Muestra un titulo",
     it: "Visualizza un titolo",
+    cz: "Affiche un titre",
+    pl: "Affiche un titre",
+    de: "Affiche un titre"
   },
 };
 

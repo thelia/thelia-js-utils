@@ -261,6 +261,9 @@ const blockCategory: BlockPluginDefinition<BlockCategoryData> = {
     en: "Category",
     es: "Categoría",
     it: "Categoria",
+    cz: "Categorie",
+    pl: "Categorie",
+    de: "Categorie"
   },
   icon: Icon,
   description: {
@@ -269,6 +272,9 @@ const blockCategory: BlockPluginDefinition<BlockCategoryData> = {
     en: "Display a category",
     es: "Mostrar un categoría",
     it: "Mostra un categoria",
+    cz: "Affiche une catégorie",
+    pl: "Affiche une catégorie",
+    de: "Affiche une catégorie"
   },
 };
 

@@ -124,6 +124,9 @@ const Group = {
     en: "Group",
     es: "Grupo",
     it: "Gruppo",
+    cz: "Groupe",
+    pl: "Groupe",
+    de: "Groupe"
   },
   description: {
     default: "Group blocks",
@@ -131,6 +134,9 @@ const Group = {
     en: "Group blocks",
     es: "Grupo de bloques",
     it: "Gruppo di blocchi",
+    cz: "Groupe de blocs",
+    pl: "Groupe de blocs",
+    de: "Groupe de blocs"
   },
 };
 

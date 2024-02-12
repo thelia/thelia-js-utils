@@ -60,6 +60,9 @@ const Blocktext: BlockPluginDefinition<BlockTextData> = {
     en: "Text",
     es: "Texto",
     it: "Testo",
+    cz: "Texte",
+    pl: "Texte",
+    de: "Texte"
   },
   icon: Icon,
   description: {
@@ -68,6 +71,9 @@ const Blocktext: BlockPluginDefinition<BlockTextData> = {
     en: "Display a formated text",
     es: "Muestra un texto en formato",
     it: "Visualizza un testo formattato",
+    cz: "Affiche un texte mis en forme",
+    pl: "Affiche un texte mis en forme",
+    de: "Affiche un texte mis en forme"
   },
 };
 

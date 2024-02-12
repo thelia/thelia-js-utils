@@ -153,6 +153,9 @@ const blockRaw: BlockPluginDefinition<BlockRawData> = {
     en: "HTML",
     es: "HTML",
     it: "HTML",
+    cz: "HTML",
+    pl: "HTML",
+    de: "HTML"
   },
   icon: Icon,
   description: {
@@ -161,6 +164,9 @@ const blockRaw: BlockPluginDefinition<BlockRawData> = {
     en: "Raw HTML content",
     es: "Contenido HTML libre",
     it: "Contenuto HTML libero",
+    cz: "Contenu libre HTML",
+    pl: "Contenu libre HTML",
+    de: "Contenu libre HTML"
   },
 };
 
