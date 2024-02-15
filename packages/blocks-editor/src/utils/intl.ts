@@ -736,4 +736,568 @@ export const messages: Record<string, { [key: string]: string }> = {
     URL: "Link",
     CONTENT_GROUP: "Contenuto del gruppo",
   },
+  cz: {
+    BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS:
+      "Création d'un nouveau Thelia Blocks",
+    BlocksEditor__EDIT_A_THELIA_BLOCKS: "Edition d'un Thelia Blocks",
+    BlocksEditor__BACK_TO_BLOCKS_LIST: "Retour à la liste des Thelia Blocks",
+    BlocksEditor__LOADING: "Chargement de Thelia Blocks...",
+    BlocksEditor__UNSAVED_LEAVE:
+      "Les modifications que vous avez apportées ne seront peut-être pas enregistrées.",
+
+    BlocksList__EXISTING_THELIA_BLOCKS: "Thelia Blocks existants",
+    BlocksList__NO_THELIA_BLOCKS:
+      "Vous n'avez pas encore créé de Thelia Blocks",
+    BlocksList__ERROR_LOADING_THELIA_BLOCKS:
+      "Erreur lors du chargement des Thelia Blocks",
+
+    GroupTitle__BLOCK_NAME: "Nom de votre Thelia Blocks",
+    GroupTitle__BLOCK_NAME_PLACEHOLDER:
+      "Indiquez le nom de votre Thelia Blocks",
+    GroupTitle__BLOCK_NAME_INFO:
+      "Ce nom sera utilisé dans le titre de votre Thelia Blocks",
+
+    GroupLocale__BLOCK_LOCALE: "Langue",
+    GroupLocale__BLOCK_LOCALE_INFO:
+      "Sélectionnez la langue de votre Thelia Blocks",
+
+    AddBlocks__COLUMNS_NUMBER: "Choisissez le nombre de colonnes",
+    AddBlocks__DROP_CONTENT:
+      "Glissez-déposez le type de contenu souhaité depuis le menu de droite",
+    AddBlocks__ADD_CONTENT: "Ajouter du contenu",
+    AddBlocks__SELECT_CONTENT: "Choisissez le contenu souhaité",
+
+    BlocksContent__EMPTY_BLOCK:
+      "Vous n'avez pas encore de contenu dans votre Thelia Blocks. Pour commencer, sélectionnez un type de contenu depuis le menu latéral droit.",
+
+    PreviewModal__TITLE: "Aperçu de votre Thelia Blocks",
+
+    HTMLWarningModal__DESCRIPTION:
+      "Ici un petit message pour informer sur l'utilisation de HTML directement dans le back-office. Ce message apparait en pop-in à chaque fois que l'utilisateur ajoute un bloc de HTML.",
+
+    Toast__BLOCK_MUST_HAVE_A_NAME:
+      "Vous devez indiquer un nom pour votre Thelia Blocks",
+    Toast__NO_BLOCKS_TO_DISPLAY:
+      "Vous ne pouvez pas prévisualiser un Thelia Blocks sans contenu",
+    Toast__BLOCK_SAVED: "Votre Thelia Blocks a été enregistré avec succès",
+    Toast__BLOCK_NOT_SAVED:
+      "Une erreur est survenue lors de l'enregistrement de votre Thelia Blocks",
+    Toast__BLOCK_DELETED: "Ce Thelia Blocks a été supprimé avec succès",
+    Toast__BLOCK_NOT_DELETED:
+      "Une erreur est survenue lors de la suppression de ce Thelia Blocks",
+    Toast__ITEM_BLOCK_GROUP_DELETED:
+      "Ce contenu lié a été supprimé avec succès",
+    Toast__ITEM_BLOCK_GROUP_NOT_DELETED:
+      "Une erreur est survenue lors de la suppression de ce contenu lié",
+    Toast__ITEM_BLOCK_GROUP_LINKED: "Ce contenu a été lié avec succès",
+    Toast__ITEM_BLOCK_GROUP_UNLINKED: "Ce contenu a été délié avec succès",
+    Toast__TOOLBAR_PREVIEW_ERROR:
+      "Une erreur est survenue lors de la prévisualisation de votre Thelia Blocks",
+
+    BlockButton__TEXT: "Texte du bouton",
+    BlockButton__TEXT_PLACEHOLDER: "Indiquez le texte du bouton",
+    BlockButton__URL: "URL du bouton",
+    BlockButton__URL_PLACEHOLDER: "Indiquez le lien du bouton",
+    BlockButton__TYPE: "Type de bouton",
+
+    BlockProduct__ADD_PRODUCT: "Ajouter un produit",
+    BlockProduct__PRODUCT_LOADING: "Chargement du produit...",
+
+    BlockCategory__ADD_CATEGORY: "Ajouter un catégorie",
+    BlockCategory__CATEGORY_LOADING: "Chargement du catégorie...",
+
+    BlockSeparator__STYLE: "Style du séparateur",
+    BlockSeparator__SIZE: "Taille du séparateur",
+
+    BlockHTML__HTML_PLACEHOLDER: "Indiquez votre code HTML",
+
+    BlockText__TEXT_PLACEHOLDER: "Votre texte ici",
+    BlockText__TEXT_LINK_MODAL_TITLE: "Sélectionnez un élément à insérer",
+    BlockText__TEXT_INSERT_LINK: "Insérer un lien",
+    BlockText__SEARCH_INFO:
+      "Préfixez votre recherche par un # pour faire une recherche par référence",
+    BlockText__LINK_LABEL: "Titre de votre lien",
+    BlockText__LINK_LABEL_PLACEHOLDER: "Indiquez le titre de votre lien",
+    BlockText__LINK_URL: "URL de votre lien",
+    BlockText__LINK_URL_PLACEHOLDER: "Indiquez le lien de votre lien",
+
+    BlockTitle__TEXT_PLACEHOLDER: "Votre titre ici",
+    BlockTitle__LEVEL: "Niveau du titre",
+
+    BlockVideo__TITLE: "Ajouter une vidéo depuis YouTube",
+    BlockVideo__URL: "URL de la vidéo",
+    BlockVideo__URL_PLACEHOLDER: "Indiquez l'URL de la vidéo",
+
+    BlockAccordion__TITLE: "Titre de l'accordéon",
+    BlockAccordion__TITLE_PLACEHOLDER: "Indiquez le titre de l'accordéon",
+    BlockAccordion__ADD: "Ajouter un accordéon",
+
+    LinkBlockToItem__LINK_GROUP: "Lier un groupe",
+    LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Indiquez le nom du groupe",
+    LinkBlockToItem__UNLINK_GROUP: "Délier ce groupe",
+
+    BlockTable__ROWS: "Lignes",
+    BlockTable__ROW: "Ligne",
+    BlockTable__HEADER: "Entêtes",
+    BlockTable__OPTIONS_TEXT: "Texte",
+    BlockTable__OPTIONS_LINK: "Liens",
+    BlockTable__SELECT_TYPE_LABEL: "Type de champs",
+    BlockTable__FIELD_LABEL_LABEL: "Libellé",
+    BlockTable__FIELD_LABEL_LINK: "Liens",
+    BlockTable__FIELD_TITLE_LAYOUT: "Structure du tableau",
+    BlockTable__FIELD_LABEL_LAYOUT_COL:
+      "Selectionner le nombre de colonne que vous souhaitez.",
+    BlockTable__FIELD_LABEL_LAYOUT_ROW:
+      "Selectionner le nombre de ligne que vous souhaitez.",
+
+    CREATE: "Créer",
+    CONTENTS: "Contenus",
+    BACK: "Retour",
+    UNSUPPORTED_BLOCK: "Ce block n'est pas supporté par Thelia Blocks",
+    UP: "Monter",
+    DOWN: "Descendre",
+    DELETE: "Supprimer",
+    SELECT: "Sélectionnez",
+    FOLD: "Replier",
+    UNFOLD: "Déplier",
+    SAVE: "Enregistrer",
+    SAVING: "Enregistrement...",
+    LOADING: "Chargement...",
+    PREVIEW: "Prévisualiser",
+    COLUMN: "Colonne",
+    PRODUCT_SHEET: "Fiche produit",
+    CATEGORY_SHEET: "Fiche catégorie",
+    NO_RESULTS: "Aucun résultat",
+    FOR: "pour",
+    SEARCH: "Rechercher",
+    SEARCH_BY: "Référence, nom, ...",
+    SEARCH_BY_INFO:
+      "Préfixez votre recherche par un # pour faire une recherche par référence",
+    DO_NOT_SHOW_AGAIN: "Ne plus afficher ce message",
+    I_UNDERSTOOD: "J'ai compris",
+    SPACE: "Espace",
+    BORDER: "Bordure",
+    INSERT_LINK: "Insérer un lien",
+    PRODUCTS: "Produits",
+    FOLDERS: "Dossiers",
+    CATEGORIES: "Catégories",
+    LEVEL: "Niveau",
+    NEUTRAL: "Neutre",
+    DND_INFO: "Faites glisser l'élément pour le déplacer",
+    ACCORDION: "Accordéon",
+    ID: "ID",
+    NAME: "Nom",
+    TYPE: "Type",
+    LINKED_CONTENTS: "contenus liés",
+    NO_LINKED_CONTENTS: "Aucun contenu lié",
+    LINKED_CONTENTS_LIST: "Liste des contenus liés",
+    ACCESS_LINKED_CONTENT: "Accéder à ce contenu",
+    EDIT_LINKED_CONTENT: "Modifier ce contenu",
+    DELETE_LINKED_CONTENT: "Supprimer ce contenu lié",
+    AVAILABLE_LOCALES: "Langues disponibles",
+    ACTIONS: "Actions",
+    TITLE: "Titre",
+    NO_TITLE: "Aucun titre",
+    DUPLICATE_BLOCK: "Dupliquer ce Thelia Blocks",
+    COPY_SHORTCODE: "Copier le shortcode",
+    COPY_ERROR: "Une erreur est survenue lors de la copie du shortcode",
+    COPY_SUCCESS: "copié avec succès",
+    DELETE_BLOCK: "Supprimer ce Thelia Blocks",
+    EDIT_BLOCK: "Editer ce Thelia Blocks",
+    OTHER: "autre",
+    LINK: "Lier",
+    UNLINK: "Délier",
+    INSERT: "Insérer",
+    PRIMARY: "style Primaire",
+    SECONDARY: "style Secondaire",
+    TERTIARY: "style Tertiaire",
+    QUATERNARY: "style 4",
+    QUINARY: "style 5",
+    BOLD: "Gras",
+    ITALIC: "Italique",
+    UNDERLINE: "Souligné",
+    ALIGN_LEFT: "Aligné à gauche",
+    ALIGN_CENTER: "Aligné au centre",
+    ALIGN_RIGHT: "Aligné à droite",
+    ORDERED_LIST: "Liste ordonnée",
+    UNORDERED_LIST: "Liste non ordonnée",
+    URL: "Lien",
+    CONTENT_GROUP: "Contenu du groupe",
+  },
+  pl: {
+    BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS:
+      "Création d'un nouveau Thelia Blocks",
+    BlocksEditor__EDIT_A_THELIA_BLOCKS: "Edition d'un Thelia Blocks",
+    BlocksEditor__BACK_TO_BLOCKS_LIST: "Retour à la liste des Thelia Blocks",
+    BlocksEditor__LOADING: "Chargement de Thelia Blocks...",
+    BlocksEditor__UNSAVED_LEAVE:
+      "Les modifications que vous avez apportées ne seront peut-être pas enregistrées.",
+
+    BlocksList__EXISTING_THELIA_BLOCKS: "Thelia Blocks existants",
+    BlocksList__NO_THELIA_BLOCKS:
+      "Vous n'avez pas encore créé de Thelia Blocks",
+    BlocksList__ERROR_LOADING_THELIA_BLOCKS:
+      "Erreur lors du chargement des Thelia Blocks",
+
+    GroupTitle__BLOCK_NAME: "Nom de votre Thelia Blocks",
+    GroupTitle__BLOCK_NAME_PLACEHOLDER:
+      "Indiquez le nom de votre Thelia Blocks",
+    GroupTitle__BLOCK_NAME_INFO:
+      "Ce nom sera utilisé dans le titre de votre Thelia Blocks",
+
+    GroupLocale__BLOCK_LOCALE: "Langue",
+    GroupLocale__BLOCK_LOCALE_INFO:
+      "Sélectionnez la langue de votre Thelia Blocks",
+
+    AddBlocks__COLUMNS_NUMBER: "Choisissez le nombre de colonnes",
+    AddBlocks__DROP_CONTENT:
+      "Glissez-déposez le type de contenu souhaité depuis le menu de droite",
+    AddBlocks__ADD_CONTENT: "Ajouter du contenu",
+    AddBlocks__SELECT_CONTENT: "Choisissez le contenu souhaité",
+
+    BlocksContent__EMPTY_BLOCK:
+      "Vous n'avez pas encore de contenu dans votre Thelia Blocks. Pour commencer, sélectionnez un type de contenu depuis le menu latéral droit.",
+
+    PreviewModal__TITLE: "Aperçu de votre Thelia Blocks",
+
+    HTMLWarningModal__DESCRIPTION:
+      "Ici un petit message pour informer sur l'utilisation de HTML directement dans le back-office. Ce message apparait en pop-in à chaque fois que l'utilisateur ajoute un bloc de HTML.",
+
+    Toast__BLOCK_MUST_HAVE_A_NAME:
+      "Vous devez indiquer un nom pour votre Thelia Blocks",
+    Toast__NO_BLOCKS_TO_DISPLAY:
+      "Vous ne pouvez pas prévisualiser un Thelia Blocks sans contenu",
+    Toast__BLOCK_SAVED: "Votre Thelia Blocks a été enregistré avec succès",
+    Toast__BLOCK_NOT_SAVED:
+      "Une erreur est survenue lors de l'enregistrement de votre Thelia Blocks",
+    Toast__BLOCK_DELETED: "Ce Thelia Blocks a été supprimé avec succès",
+    Toast__BLOCK_NOT_DELETED:
+      "Une erreur est survenue lors de la suppression de ce Thelia Blocks",
+    Toast__ITEM_BLOCK_GROUP_DELETED:
+      "Ce contenu lié a été supprimé avec succès",
+    Toast__ITEM_BLOCK_GROUP_NOT_DELETED:
+      "Une erreur est survenue lors de la suppression de ce contenu lié",
+    Toast__ITEM_BLOCK_GROUP_LINKED: "Ce contenu a été lié avec succès",
+    Toast__ITEM_BLOCK_GROUP_UNLINKED: "Ce contenu a été délié avec succès",
+    Toast__TOOLBAR_PREVIEW_ERROR:
+      "Une erreur est survenue lors de la prévisualisation de votre Thelia Blocks",
+
+    BlockButton__TEXT: "Texte du bouton",
+    BlockButton__TEXT_PLACEHOLDER: "Indiquez le texte du bouton",
+    BlockButton__URL: "URL du bouton",
+    BlockButton__URL_PLACEHOLDER: "Indiquez le lien du bouton",
+    BlockButton__TYPE: "Type de bouton",
+
+    BlockProduct__ADD_PRODUCT: "Ajouter un produit",
+    BlockProduct__PRODUCT_LOADING: "Chargement du produit...",
+
+    BlockCategory__ADD_CATEGORY: "Ajouter un catégorie",
+    BlockCategory__CATEGORY_LOADING: "Chargement du catégorie...",
+
+    BlockSeparator__STYLE: "Style du séparateur",
+    BlockSeparator__SIZE: "Taille du séparateur",
+
+    BlockHTML__HTML_PLACEHOLDER: "Indiquez votre code HTML",
+
+    BlockText__TEXT_PLACEHOLDER: "Votre texte ici",
+    BlockText__TEXT_LINK_MODAL_TITLE: "Sélectionnez un élément à insérer",
+    BlockText__TEXT_INSERT_LINK: "Insérer un lien",
+    BlockText__SEARCH_INFO:
+      "Préfixez votre recherche par un # pour faire une recherche par référence",
+    BlockText__LINK_LABEL: "Titre de votre lien",
+    BlockText__LINK_LABEL_PLACEHOLDER: "Indiquez le titre de votre lien",
+    BlockText__LINK_URL: "URL de votre lien",
+    BlockText__LINK_URL_PLACEHOLDER: "Indiquez le lien de votre lien",
+
+    BlockTitle__TEXT_PLACEHOLDER: "Votre titre ici",
+    BlockTitle__LEVEL: "Niveau du titre",
+
+    BlockVideo__TITLE: "Ajouter une vidéo depuis YouTube",
+    BlockVideo__URL: "URL de la vidéo",
+    BlockVideo__URL_PLACEHOLDER: "Indiquez l'URL de la vidéo",
+
+    BlockAccordion__TITLE: "Titre de l'accordéon",
+    BlockAccordion__TITLE_PLACEHOLDER: "Indiquez le titre de l'accordéon",
+    BlockAccordion__ADD: "Ajouter un accordéon",
+
+    LinkBlockToItem__LINK_GROUP: "Lier un groupe",
+    LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Indiquez le nom du groupe",
+    LinkBlockToItem__UNLINK_GROUP: "Délier ce groupe",
+
+    BlockTable__ROWS: "Lignes",
+    BlockTable__ROW: "Ligne",
+    BlockTable__HEADER: "Entêtes",
+    BlockTable__OPTIONS_TEXT: "Texte",
+    BlockTable__OPTIONS_LINK: "Liens",
+    BlockTable__SELECT_TYPE_LABEL: "Type de champs",
+    BlockTable__FIELD_LABEL_LABEL: "Libellé",
+    BlockTable__FIELD_LABEL_LINK: "Liens",
+    BlockTable__FIELD_TITLE_LAYOUT: "Structure du tableau",
+    BlockTable__FIELD_LABEL_LAYOUT_COL:
+      "Selectionner le nombre de colonne que vous souhaitez.",
+    BlockTable__FIELD_LABEL_LAYOUT_ROW:
+      "Selectionner le nombre de ligne que vous souhaitez.",
+
+    CREATE: "Créer",
+    CONTENTS: "Contenus",
+    BACK: "Retour",
+    UNSUPPORTED_BLOCK: "Ce block n'est pas supporté par Thelia Blocks",
+    UP: "Monter",
+    DOWN: "Descendre",
+    DELETE: "Supprimer",
+    SELECT: "Sélectionnez",
+    FOLD: "Replier",
+    UNFOLD: "Déplier",
+    SAVE: "Enregistrer",
+    SAVING: "Enregistrement...",
+    LOADING: "Chargement...",
+    PREVIEW: "Prévisualiser",
+    COLUMN: "Colonne",
+    PRODUCT_SHEET: "Fiche produit",
+    CATEGORY_SHEET: "Fiche catégorie",
+    NO_RESULTS: "Aucun résultat",
+    FOR: "pour",
+    SEARCH: "Rechercher",
+    SEARCH_BY: "Référence, nom, ...",
+    SEARCH_BY_INFO:
+      "Préfixez votre recherche par un # pour faire une recherche par référence",
+    DO_NOT_SHOW_AGAIN: "Ne plus afficher ce message",
+    I_UNDERSTOOD: "J'ai compris",
+    SPACE: "Espace",
+    BORDER: "Bordure",
+    INSERT_LINK: "Insérer un lien",
+    PRODUCTS: "Produits",
+    FOLDERS: "Dossiers",
+    CATEGORIES: "Catégories",
+    LEVEL: "Niveau",
+    NEUTRAL: "Neutre",
+    DND_INFO: "Faites glisser l'élément pour le déplacer",
+    ACCORDION: "Accordéon",
+    ID: "ID",
+    NAME: "Nom",
+    TYPE: "Type",
+    LINKED_CONTENTS: "contenus liés",
+    NO_LINKED_CONTENTS: "Aucun contenu lié",
+    LINKED_CONTENTS_LIST: "Liste des contenus liés",
+    ACCESS_LINKED_CONTENT: "Accéder à ce contenu",
+    EDIT_LINKED_CONTENT: "Modifier ce contenu",
+    DELETE_LINKED_CONTENT: "Supprimer ce contenu lié",
+    AVAILABLE_LOCALES: "Langues disponibles",
+    ACTIONS: "Actions",
+    TITLE: "Titre",
+    NO_TITLE: "Aucun titre",
+    DUPLICATE_BLOCK: "Dupliquer ce Thelia Blocks",
+    COPY_SHORTCODE: "Copier le shortcode",
+    COPY_ERROR: "Une erreur est survenue lors de la copie du shortcode",
+    COPY_SUCCESS: "copié avec succès",
+    DELETE_BLOCK: "Supprimer ce Thelia Blocks",
+    EDIT_BLOCK: "Editer ce Thelia Blocks",
+    OTHER: "autre",
+    LINK: "Lier",
+    UNLINK: "Délier",
+    INSERT: "Insérer",
+    PRIMARY: "style Primaire",
+    SECONDARY: "style Secondaire",
+    TERTIARY: "style Tertiaire",
+    QUATERNARY: "style 4",
+    QUINARY: "style 5",
+    BOLD: "Gras",
+    ITALIC: "Italique",
+    UNDERLINE: "Souligné",
+    ALIGN_LEFT: "Aligné à gauche",
+    ALIGN_CENTER: "Aligné au centre",
+    ALIGN_RIGHT: "Aligné à droite",
+    ORDERED_LIST: "Liste ordonnée",
+    UNORDERED_LIST: "Liste non ordonnée",
+    URL: "Lien",
+    CONTENT_GROUP: "Contenu du groupe",
+  },
+  de: {
+    BlocksEditor__CREATE_A_NEW_THELIA_BLOCKS:
+      "Création d'un nouveau Thelia Blocks",
+    BlocksEditor__EDIT_A_THELIA_BLOCKS: "Edition d'un Thelia Blocks",
+    BlocksEditor__BACK_TO_BLOCKS_LIST: "Retour à la liste des Thelia Blocks",
+    BlocksEditor__LOADING: "Chargement de Thelia Blocks...",
+    BlocksEditor__UNSAVED_LEAVE:
+      "Les modifications que vous avez apportées ne seront peut-être pas enregistrées.",
+
+    BlocksList__EXISTING_THELIA_BLOCKS: "Thelia Blocks existants",
+    BlocksList__NO_THELIA_BLOCKS:
+      "Vous n'avez pas encore créé de Thelia Blocks",
+    BlocksList__ERROR_LOADING_THELIA_BLOCKS:
+      "Erreur lors du chargement des Thelia Blocks",
+
+    GroupTitle__BLOCK_NAME: "Nom de votre Thelia Blocks",
+    GroupTitle__BLOCK_NAME_PLACEHOLDER:
+      "Indiquez le nom de votre Thelia Blocks",
+    GroupTitle__BLOCK_NAME_INFO:
+      "Ce nom sera utilisé dans le titre de votre Thelia Blocks",
+
+    GroupLocale__BLOCK_LOCALE: "Langue",
+    GroupLocale__BLOCK_LOCALE_INFO:
+      "Sélectionnez la langue de votre Thelia Blocks",
+
+    AddBlocks__COLUMNS_NUMBER: "Choisissez le nombre de colonnes",
+    AddBlocks__DROP_CONTENT:
+      "Glissez-déposez le type de contenu souhaité depuis le menu de droite",
+    AddBlocks__ADD_CONTENT: "Ajouter du contenu",
+    AddBlocks__SELECT_CONTENT: "Choisissez le contenu souhaité",
+
+    BlocksContent__EMPTY_BLOCK:
+      "Vous n'avez pas encore de contenu dans votre Thelia Blocks. Pour commencer, sélectionnez un type de contenu depuis le menu latéral droit.",
+
+    PreviewModal__TITLE: "Aperçu de votre Thelia Blocks",
+
+    HTMLWarningModal__DESCRIPTION:
+      "Ici un petit message pour informer sur l'utilisation de HTML directement dans le back-office. Ce message apparait en pop-in à chaque fois que l'utilisateur ajoute un bloc de HTML.",
+
+    Toast__BLOCK_MUST_HAVE_A_NAME:
+      "Vous devez indiquer un nom pour votre Thelia Blocks",
+    Toast__NO_BLOCKS_TO_DISPLAY:
+      "Vous ne pouvez pas prévisualiser un Thelia Blocks sans contenu",
+    Toast__BLOCK_SAVED: "Votre Thelia Blocks a été enregistré avec succès",
+    Toast__BLOCK_NOT_SAVED:
+      "Une erreur est survenue lors de l'enregistrement de votre Thelia Blocks",
+    Toast__BLOCK_DELETED: "Ce Thelia Blocks a été supprimé avec succès",
+    Toast__BLOCK_NOT_DELETED:
+      "Une erreur est survenue lors de la suppression de ce Thelia Blocks",
+    Toast__ITEM_BLOCK_GROUP_DELETED:
+      "Ce contenu lié a été supprimé avec succès",
+    Toast__ITEM_BLOCK_GROUP_NOT_DELETED:
+      "Une erreur est survenue lors de la suppression de ce contenu lié",
+    Toast__ITEM_BLOCK_GROUP_LINKED: "Ce contenu a été lié avec succès",
+    Toast__ITEM_BLOCK_GROUP_UNLINKED: "Ce contenu a été délié avec succès",
+    Toast__TOOLBAR_PREVIEW_ERROR:
+      "Une erreur est survenue lors de la prévisualisation de votre Thelia Blocks",
+
+    BlockButton__TEXT: "Texte du bouton",
+    BlockButton__TEXT_PLACEHOLDER: "Indiquez le texte du bouton",
+    BlockButton__URL: "URL du bouton",
+    BlockButton__URL_PLACEHOLDER: "Indiquez le lien du bouton",
+    BlockButton__TYPE: "Type de bouton",
+
+    BlockProduct__ADD_PRODUCT: "Ajouter un produit",
+    BlockProduct__PRODUCT_LOADING: "Chargement du produit...",
+
+    BlockCategory__ADD_CATEGORY: "Ajouter un catégorie",
+    BlockCategory__CATEGORY_LOADING: "Chargement du catégorie...",
+
+    BlockSeparator__STYLE: "Style du séparateur",
+    BlockSeparator__SIZE: "Taille du séparateur",
+
+    BlockHTML__HTML_PLACEHOLDER: "Indiquez votre code HTML",
+
+    BlockText__TEXT_PLACEHOLDER: "Votre texte ici",
+    BlockText__TEXT_LINK_MODAL_TITLE: "Sélectionnez un élément à insérer",
+    BlockText__TEXT_INSERT_LINK: "Insérer un lien",
+    BlockText__SEARCH_INFO:
+      "Préfixez votre recherche par un # pour faire une recherche par référence",
+    BlockText__LINK_LABEL: "Titre de votre lien",
+    BlockText__LINK_LABEL_PLACEHOLDER: "Indiquez le titre de votre lien",
+    BlockText__LINK_URL: "URL de votre lien",
+    BlockText__LINK_URL_PLACEHOLDER: "Indiquez le lien de votre lien",
+
+    BlockTitle__TEXT_PLACEHOLDER: "Votre titre ici",
+    BlockTitle__LEVEL: "Niveau du titre",
+
+    BlockVideo__TITLE: "Ajouter une vidéo depuis YouTube",
+    BlockVideo__URL: "URL de la vidéo",
+    BlockVideo__URL_PLACEHOLDER: "Indiquez l'URL de la vidéo",
+
+    BlockAccordion__TITLE: "Titre de l'accordéon",
+    BlockAccordion__TITLE_PLACEHOLDER: "Indiquez le titre de l'accordéon",
+    BlockAccordion__ADD: "Ajouter un accordéon",
+
+    LinkBlockToItem__LINK_GROUP: "Lier un groupe",
+    LinkBlockToItem__LINK_GROUP_PLACEHOLDER: "Indiquez le nom du groupe",
+    LinkBlockToItem__UNLINK_GROUP: "Délier ce groupe",
+
+    BlockTable__ROWS: "Lignes",
+    BlockTable__ROW: "Ligne",
+    BlockTable__HEADER: "Entêtes",
+    BlockTable__OPTIONS_TEXT: "Texte",
+    BlockTable__OPTIONS_LINK: "Liens",
+    BlockTable__SELECT_TYPE_LABEL: "Type de champs",
+    BlockTable__FIELD_LABEL_LABEL: "Libellé",
+    BlockTable__FIELD_LABEL_LINK: "Liens",
+    BlockTable__FIELD_TITLE_LAYOUT: "Structure du tableau",
+    BlockTable__FIELD_LABEL_LAYOUT_COL:
+      "Selectionner le nombre de colonne que vous souhaitez.",
+    BlockTable__FIELD_LABEL_LAYOUT_ROW:
+      "Selectionner le nombre de ligne que vous souhaitez.",
+
+    CREATE: "Créer",
+    CONTENTS: "Contenus",
+    BACK: "Retour",
+    UNSUPPORTED_BLOCK: "Ce block n'est pas supporté par Thelia Blocks",
+    UP: "Monter",
+    DOWN: "Descendre",
+    DELETE: "Supprimer",
+    SELECT: "Sélectionnez",
+    FOLD: "Replier",
+    UNFOLD: "Déplier",
+    SAVE: "Enregistrer",
+    SAVING: "Enregistrement...",
+    LOADING: "Chargement...",
+    PREVIEW: "Prévisualiser",
+    COLUMN: "Colonne",
+    PRODUCT_SHEET: "Fiche produit",
+    CATEGORY_SHEET: "Fiche catégorie",
+    NO_RESULTS: "Aucun résultat",
+    FOR: "pour",
+    SEARCH: "Rechercher",
+    SEARCH_BY: "Référence, nom, ...",
+    SEARCH_BY_INFO:
+      "Préfixez votre recherche par un # pour faire une recherche par référence",
+    DO_NOT_SHOW_AGAIN: "Ne plus afficher ce message",
+    I_UNDERSTOOD: "J'ai compris",
+    SPACE: "Espace",
+    BORDER: "Bordure",
+    INSERT_LINK: "Insérer un lien",
+    PRODUCTS: "Produits",
+    FOLDERS: "Dossiers",
+    CATEGORIES: "Catégories",
+    LEVEL: "Niveau",
+    NEUTRAL: "Neutre",
+    DND_INFO: "Faites glisser l'élément pour le déplacer",
+    ACCORDION: "Accordéon",
+    ID: "ID",
+    NAME: "Nom",
+    TYPE: "Type",
+    LINKED_CONTENTS: "contenus liés",
+    NO_LINKED_CONTENTS: "Aucun contenu lié",
+    LINKED_CONTENTS_LIST: "Liste des contenus liés",
+    ACCESS_LINKED_CONTENT: "Accéder à ce contenu",
+    EDIT_LINKED_CONTENT: "Modifier ce contenu",
+    DELETE_LINKED_CONTENT: "Supprimer ce contenu lié",
+    AVAILABLE_LOCALES: "Langues disponibles",
+    ACTIONS: "Actions",
+    TITLE: "Titre",
+    NO_TITLE: "Aucun titre",
+    DUPLICATE_BLOCK: "Dupliquer ce Thelia Blocks",
+    COPY_SHORTCODE: "Copier le shortcode",
+    COPY_ERROR: "Une erreur est survenue lors de la copie du shortcode",
+    COPY_SUCCESS: "copié avec succès",
+    DELETE_BLOCK: "Supprimer ce Thelia Blocks",
+    EDIT_BLOCK: "Editer ce Thelia Blocks",
+    OTHER: "autre",
+    LINK: "Lier",
+    UNLINK: "Délier",
+    INSERT: "Insérer",
+    PRIMARY: "style Primaire",
+    SECONDARY: "style Secondaire",
+    TERTIARY: "style Tertiaire",
+    QUATERNARY: "style 4",
+    QUINARY: "style 5",
+    BOLD: "Gras",
+    ITALIC: "Italique",
+    UNDERLINE: "Souligné",
+    ALIGN_LEFT: "Aligné à gauche",
+    ALIGN_CENTER: "Aligné au centre",
+    ALIGN_RIGHT: "Aligné à droite",
+    ORDERED_LIST: "Liste ordonnée",
+    UNORDERED_LIST: "Liste non ordonnée",
+    URL: "Lien",
+    CONTENT_GROUP: "Contenu du groupe",
+  },
 };
