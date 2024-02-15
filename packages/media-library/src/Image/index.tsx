@@ -422,6 +422,9 @@ const blockImage: BlockPluginDefinition<LibraryImage> = {
     en: "Image",
     es: "Imagen",
     it: "Immagine",
+    cz: "Image",
+    pl: "Image",
+    de: "Image"
   },
   description: {
     default: "Display an image",
@@ -429,6 +432,9 @@ const blockImage: BlockPluginDefinition<LibraryImage> = {
     en: "Display an image",
     es: "Mostrar una imagen",
     it: "Mostra un immagine",
+    cz: "Affiche une image",
+    pl: "Affiche une image",
+    de: "Affiche une image"
   },
   icon: Icon,
   image: {
