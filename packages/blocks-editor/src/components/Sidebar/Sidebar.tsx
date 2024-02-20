@@ -71,7 +71,7 @@ const AddButton = ({
           </Tippy>
         )}
 
-        {isSidebarOpen ? plugin.title[intl.locale || "default"] : null}
+        {isSidebarOpen ? plugin.title[intl.locale] || currentPlugin.title["default"] || null : null}
       </button>
     </Tippy>
   );
