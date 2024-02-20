@@ -29,8 +29,11 @@ const AddButton = ({
       content={
         <BlockTooltip
           image={plugin.image?.default}
-          title={plugin.title[intl.locale || "default"]}
-          description={plugin?.description?.[intl.locale || "default"]}
+          title={plugin.title[intl.locale] || plugin.title["default"]}
+          description={
+            plugin?.description?.[intl.locale] ||
+            plugin?.description?.["default"]
+          }
         />
       }
       placement="left"
@@ -38,8 +41,12 @@ const AddButton = ({
     >
       <button
         className={`Sidebar__Add ${
-          isSidebarOpen && plugin?.customIcon ? "Sidebar__Add--withCustomIcon" : ""
-        } ${isSidebarOpen ? "Sidebar__Add--expanded" : "Sidebar__Add--collapsed"}`}
+          isSidebarOpen && plugin?.customIcon
+            ? "Sidebar__Add--withCustomIcon"
+            : ""
+        } ${
+          isSidebarOpen ? "Sidebar__Add--expanded" : "Sidebar__Add--collapsed"
+        }`}
         onClick={() => {
           addBlock({
             id: nanoid(),
@@ -71,7 +78,9 @@ const AddButton = ({
           </Tippy>
         )}
 
-        {isSidebarOpen ? plugin.title[intl.locale] || currentPlugin.title["default"] || null : null}
+        {isSidebarOpen
+          ? plugin.title[intl.locale] || plugin.title["default"] || null
+          : null}
       </button>
     </Tippy>
   );
@@ -85,7 +94,10 @@ const Sidebar = () => {
   const [isDisplayingSubMenu, setIsDisplayingSubMenu] = useState(false);
 
   const availablePLugins = plugins.filter((plugin) => !plugin.internalOnly);
-  const [commonBlocks, layoutPlugins] = partition(availablePLugins, (i) => !i.layout);
+  const [commonBlocks, layoutPlugins] = partition(
+    availablePLugins,
+    (i) => !i.layout
+  );
 
   const layoutPluginsByType = groupBy(
     layoutPlugins,
@@ -137,7 +149,11 @@ const Sidebar = () => {
 
         <ol className="Sidebar__Content">
           {pluginList.map((plugin) => (
-            <AddButton plugin={plugin} isSidebarOpen={isSidebarOpen} key={plugin.id} />
+            <AddButton
+              plugin={plugin}
+              isSidebarOpen={isSidebarOpen}
+              key={plugin.id}
+            />
           ))}
 
           {!isDisplayingSubMenu &&

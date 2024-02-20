@@ -35,7 +35,10 @@ const AddButton = ({
       content={
         <BlockTooltip
           title={plugin.title[intl.locale] || plugin.title["default"]}
-          description={plugin?.description?.[intl.locale] || plugin?.description?.['default']}
+          description={
+            plugin?.description?.[intl.locale] ||
+            plugin?.description?.["default"]
+          }
         />
       }
       delay={[500, 0]}
@@ -76,7 +79,7 @@ const AddButton = ({
             ></i>
           </Tippy>
         )}
-        {plugin.title[intl.locale || "default"]}
+        {plugin.title[intl.locale] || plugin.title["default"]}
       </button>
     </Tippy>
   );
@@ -101,12 +104,17 @@ const AddBlockModal = ({
       className="Modal-TheliaBlocks"
     >
       <div className="AddBlocks__Modal">
-        <button onClick={() => setIsOpen(false)} className="AddBlocks__Modal__Close">
+        <button
+          onClick={() => setIsOpen(false)}
+          className="AddBlocks__Modal__Close"
+        >
           <XMarkIcon className="AddBlocks__Modal__Close__Icon" />
         </button>
         <div className="AddBlocks__Modal__Content">
           <div className="AddBlocks__Modal__Title">{title}</div>
-          <div className="AddBlocks__Modal__BlocksList__Wrapper">{children}</div>
+          <div className="AddBlocks__Modal__BlocksList__Wrapper">
+            {children}
+          </div>
         </div>
       </div>
     </Modal>
@@ -133,7 +141,10 @@ const ModalContent = ({
     availablePLugins = availablePLugins.filter((plugin) => !plugin["layout"]);
   }
 
-  const [commonBlocks, layoutPlugins] = partition(availablePLugins, (i) => !i.layout);
+  const [commonBlocks, layoutPlugins] = partition(
+    availablePLugins,
+    (i) => !i.layout
+  );
   const layoutPluginsByType = groupBy(
     layoutPlugins,
     `layout["${intl.locale || "default"}"]`
