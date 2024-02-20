@@ -2,7 +2,10 @@ import { Suspense, useContext, useLayoutEffect } from "react";
 import AddBlocks from "./components/AddBlocks";
 import { BlockContextProvider } from "./providers/BlockContext";
 import BlocksContent from "./components/BlocksContent/BlocksContent";
-import { BlocksGroupProvider, BlocksGroupContext } from "./providers/BlockGroupContext";
+import {
+  BlocksGroupProvider,
+  BlocksGroupContext,
+} from "./providers/BlockGroupContext";
 import { BlocksProvider, useUnlinkContentFromGroup } from "./utils/queries";
 import GroupLocale from "./components/GroupLocale";
 import GroupTitle from "./components/GroupTitle";
@@ -91,7 +94,11 @@ const BlocksEditorHeader = ({
         />
 
         {itemConfiguration && !isGroupLinkedToCurrentContent ? (
-          <LinkBlockToItem itemId={itemId} groupId={groupId} itemType={itemType} />
+          <LinkBlockToItem
+            itemId={itemId}
+            groupId={groupId}
+            itemType={itemType}
+          />
         ) : null}
 
         <GroupLocale />
@@ -124,7 +131,11 @@ export default function BlocksEditor({
   const { width } = useWindowSize();
 
   return (
-    <IntlProvider messages={messages[locale]} locale={locale}>
+    <IntlProvider
+      locale={locale}
+      defaultLocale="fr"
+      messages={messages[locale] || messages["fr"]}
+    >
       <LocaleProvider locales={locales} prefix={urlPrefix}>
         <BlocksProvider api={apiUrl}>
           <Suspense fallback={<BlocksEditorLoader />}>

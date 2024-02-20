@@ -48,7 +48,9 @@ const FromLocal = ({
     onDropRejected: (rejectedFiles) => {
       rejectedFiles.length > 1
         ? toast.error(intl.formatMessage({ id: "BlockImage__TOAST_MAX_FILE" }))
-        : toast.error(intl.formatMessage({ id: "BlockImage__TOAST_WRONG_FILE_TYPE" }));
+        : toast.error(
+            intl.formatMessage({ id: "BlockImage__TOAST_WRONG_FILE_TYPE" })
+          );
     },
   });
 
@@ -115,7 +117,10 @@ const FromLibrary = ({
   const intl = useIntl();
 
   return (
-    <div className="BlockImage__FromLibrary" style={{ width: isWide ? "100%" : "50%" }}>
+    <div
+      className="BlockImage__FromLibrary"
+      style={{ width: isWide ? "100%" : "50%" }}
+    >
       <div className="BlockImage__FromLibrary__Icon">
         <MediathequeIcon />
       </div>
@@ -161,11 +166,15 @@ const Preview = ({
   return (
     <div className="BlockImage__Preview">
       <img
-        src={getUrlWithPrefix(`/image-library/${id}/full/^!220,220/0/default.webp`)}
+        src={getUrlWithPrefix(
+          `/image-library/${id}/full/^!220,220/0/default.webp`
+        )}
         alt=""
         loading="lazy"
         onError={(e) =>
-          ((e.target as HTMLImageElement).src = `https://via.placeholder.com/220`)
+          ((
+            e.target as HTMLImageElement
+          ).src = `https://via.placeholder.com/220`)
         }
       />
       <div className="BlockImage__Preview__Infos">
@@ -286,7 +295,11 @@ export const UploadImage = ({
   };
 
   return (
-    <IntlProvider messages={messages[locale]} locale={locale}>
+    <IntlProvider
+      locale={locale}
+      defaultLocale="fr"
+      messages={messages[locale] || messages["fr"]}
+    >
       <QueryClientProvider client={queryClient}>
         <div
           className={`BlockImage__Upload__Wrapper ${
@@ -297,7 +310,11 @@ export const UploadImage = ({
             const Component = uploadModesComponents[mode];
 
             return (
-              <Component key={mode} onSelect={onSelect} isWide={uploadModes.length < 2} />
+              <Component
+                key={mode}
+                onSelect={onSelect}
+                isWide={uploadModes.length < 2}
+              />
             );
           })}
         </div>
@@ -306,7 +323,9 @@ export const UploadImage = ({
   );
 };
 
-const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
+const BlockImageComponent = (
+  props: BlockModuleComponentProps<LibraryImage>
+) => {
   const { data, onUpdate } = props;
 
   const [image, setImage] = useState<LibraryImage | null>(null);
@@ -332,7 +351,11 @@ const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => 
     <div className="BlockImage">
       {image && !isEditMode ? (
         <div className="BlockImage__Infos">
-          <Preview id={image.id} fileName={image.fileName} setEditMode={setEditMode} />
+          <Preview
+            id={image.id}
+            fileName={image.fileName}
+            setEditMode={setEditMode}
+          />
           <ImageInfos
             image={image}
             onChange={(values) => {
@@ -375,7 +398,11 @@ const BlockImageComponent = (props: BlockModuleComponentProps<LibraryImage>) => 
 
 const WrappedComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
   return (
-    <IntlProvider messages={messages[locale]} locale={locale}>
+    <IntlProvider
+      locale={locale}
+      defaultLocale="fr"
+      messages={messages[locale] || messages["fr"]}
+    >
       <QueryClientProvider client={queryClient}>
         <Toaster
           toastOptions={{

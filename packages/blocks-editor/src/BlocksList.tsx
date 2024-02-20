@@ -18,8 +18,9 @@ const BlocksListHeader = () => {
       <div className="BlocksList__Header__Title">Thelia Blocks</div>
       <div className="BlocksList__Header__Infos">
         <span className="BlocksList__Header__Description">
-          Ici, un texte expliquant rapidement le fonctionnement des Thelia Blocks. Cela
-          permettera aux utilisateurs de comprendre plus facilement l'outil
+          Ici, un texte expliquant rapidement le fonctionnement des Thelia
+          Blocks. Cela permettera aux utilisateurs de comprendre plus facilement
+          l'outil
         </span>
         <a
           href={getUrlWithPrefix("/admin/TheliaBlocks/new")}
@@ -44,7 +45,9 @@ const BlocksListContent = () => {
           {intl.formatMessage({ id: "BlocksList__EXISTING_THELIA_BLOCKS" })}
         </div>
         <div className="BlocksList__List__Wrapper">
-          <Suspense fallback={<i className="Loader fa fa-circle-notch fa-spin"></i>}>
+          <Suspense
+            fallback={<i className="Loader fa fa-circle-notch fa-spin"></i>}
+          >
             <BlocksTable />
           </Suspense>
         </div>
@@ -73,7 +76,11 @@ const BlocksList = ({
   if (!apiUrl) return null;
 
   return (
-    <IntlProvider locale={locale} messages={messages[locale]}>
+    <IntlProvider
+      locale={locale}
+      defaultLocale="fr"
+      messages={messages[locale] || messages["fr"]}
+    >
       <LocaleProvider locales={locales} prefix={urlPrefix}>
         <BlocksProvider api={apiUrl}>
           <ErrorBoundary>

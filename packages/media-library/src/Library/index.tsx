@@ -487,7 +487,11 @@ export default function WrappedComponent(props: {
   onSelect: (image: LibraryImageType) => void;
 }) {
   return (
-    <IntlProvider messages={messages[locale]} locale={locale}>
+    <IntlProvider
+      locale={locale}
+      defaultLocale="fr"
+      messages={messages[locale] || messages["fr"]}
+    >
       <QueryClientProvider client={queryClient}>
         <Library {...props} />
       </QueryClientProvider>
