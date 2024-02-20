@@ -34,8 +34,8 @@ const AddButton = ({
     <Tippy
       content={
         <BlockTooltip
-          title={plugin.title[intl.locale || "default"]}
-          description={plugin?.description?.[intl.locale || "default"]}
+          title={plugin.title[intl.locale] || plugin.title["default"]}
+          description={plugin?.description?.[intl.locale] || plugin?.description?.['default']}
         />
       }
       delay={[500, 0]}
