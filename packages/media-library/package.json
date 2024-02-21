@@ -1,6 +1,6 @@
 {
   "name": "@thelia/media-library",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "main": "./dist/index.global.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -11,7 +11,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup --format esm,iife --minify --dts",
+    "build": "tsup --format esm,iife --dts",
     "dev": "tsup-node --watch --format esm,iife --dts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },

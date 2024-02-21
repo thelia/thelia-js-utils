@@ -426,7 +426,7 @@ const WrappedComponent = (props: BlockModuleComponentProps<LibraryImage>) => {
   );
 };
 
-const initialData: LibraryImage = {
+export const initialData: LibraryImage = {
   id: null,
   title: "",
   fileName: "",
