@@ -16,6 +16,7 @@ const InsertLink = forwardRef(
 
     const [link, setLink] = useState("");
     const [url, setUrl] = useState("");
+    const [openInNewTab, setOpenInNewTab] = useState(false);
 
     return (
       <>
@@ -45,13 +46,26 @@ const InsertLink = forwardRef(
               label={intl.formatMessage({ id: "BlockText__LINK_URL" })}
               placeholder={intl.formatMessage({ id: "BlockText__LINK_URL_PLACEHOLDER" })}
             />
+            <div className="Search__Content__NewTab">
+              <input
+                type="checkbox"
+                id="Search__Content__NewTab"
+                onChange={() => setOpenInNewTab(!openInNewTab)}
+                checked={openInNewTab}
+              />
+              <label htmlFor="Search__Content__NewTab">
+                {intl.formatMessage({ id: "BlockText__LINK_NEW_TAB" })}
+              </label>
+            </div>
           </div>
 
           <button
             className="Search__Content__InsertButton"
             disabled={!link || !url}
             onClick={() => {
-              ref.current.editor.insertText(cursorIndex, link, "link", url);
+              openInNewTab
+                ? ref.current.editor.insertText(cursorIndex, link, "link", url)
+                : ref.current.editor.insertText(cursorIndex, link, "custom-link", url);
               setIsModalOpen(false);
               setIsSearching(false);
             }}
