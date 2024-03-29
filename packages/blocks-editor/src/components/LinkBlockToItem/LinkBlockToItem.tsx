@@ -30,7 +30,11 @@ function List({
     isError: boolean;
     error: any;
     data: any;
-  } = useGroups();
+  } = useGroups(
+    search && search.length > 3 ? {
+      limit: 10000
+    } : undefined
+  );
 
   const results = data.filter(
     ({ slug }: { slug: GroupTypeStore["slug"] }) =>
