@@ -5,9 +5,12 @@ import { LocaleContext } from "../../providers/LocaleContext";
 import { Select } from "../Inputs";
 
 import "./GroupLocale.css";
+import { useQueryClient } from "react-query";
 
 export default function GroupLocale() {
-  const { locales, currentLocale, setCurrentLocale } = useContext(LocaleContext);
+  const { locales, currentLocale, setCurrentLocale } =
+    useContext(LocaleContext);
+  const queryClient = useQueryClient();
 
   const intl = useIntl();
 
@@ -23,6 +26,7 @@ export default function GroupLocale() {
         id="GroupLocale-field-locale"
         onChange={(e) => {
           setCurrentLocale(e.target.value);
+          queryClient.invalidateQueries("block_group");
         }}
         value={currentLocale}
         label={intl.formatMessage({ id: "GroupLocale__BLOCK_LOCALE" })}
