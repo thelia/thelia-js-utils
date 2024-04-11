@@ -58,7 +58,12 @@ const NestedBlocks = ({ onUpdate }: { onUpdate: Function }) => {
       {blockList.map((block, index) => (
         <DndWrapElement key={block.id} id={block.id} index={index}>
           {({ DndDragHandle }: { DndDragHandle: () => JSX.Element }) => (
-            <Block DndDragHandle={DndDragHandle} inLayout key={index} block={block} />
+            <Block
+              DndDragHandle={DndDragHandle}
+              inLayout
+              key={index}
+              block={block}
+            />
           )}
         </DndWrapElement>
       ))}
@@ -90,6 +95,12 @@ const AccordionItemComponent = ({
 
   const intl = useIntl();
 
+  useEffect(() => {
+    if (item.title !== itemTitle) {
+      setItemTitle(item.title);
+    }
+  }, [item]);
+
   return (
     <div className="BlockAccordion">
       <LayoutHeader
@@ -98,7 +109,11 @@ const AccordionItemComponent = ({
         setOpen={setIsOpen}
         onDelete={onDelete}
       />
-      <div className={`${!open ? "BlockAccordion--closed" : "BlockAccordion__Content"}`}>
+      <div
+        className={`${
+          !open ? "BlockAccordion--closed" : "BlockAccordion__Content"
+        }`}
+      >
         <BlockContextProvider defaultBlocks={item.content}>
           <>
             <div className="flex flex-col gap-6 px-6 pt-4 xl:pt-8 xl:px-10">
@@ -143,6 +158,12 @@ const AccordionComponent = ({
 
   const intl = useIntl();
 
+  useEffect(() => {
+    if (data.title !== title) {
+      setTitle(data.title);
+    }
+  }, [data]);
+
   return (
     <div>
       <Input
@@ -164,7 +185,9 @@ const AccordionComponent = ({
                 if (data.group.length > 1) {
                   onUpdate({
                     ...data,
-                    group: data.group.filter((element) => element.id !== item.id),
+                    group: data.group.filter(
+                      (element) => element.id !== item.id
+                    ),
                   });
                 }
               }}
@@ -193,7 +216,10 @@ const AccordionComponent = ({
         onClick={() =>
           onUpdate({
             ...data,
-            group: [...data.group, { id: generateId(), title: "", content: [] }],
+            group: [
+              ...data.group,
+              { id: generateId(), title: "", content: [] },
+            ],
           })
         }
       >
@@ -224,8 +250,7 @@ const Accordion = {
     it: "Accordion",
     cz: "Accordéon",
     pl: "Accordéon",
-    de: "Accordéon"
-
+    de: "Accordéon",
   },
   icon: Icon,
   description: {
@@ -236,7 +261,7 @@ const Accordion = {
     it: "Display blocks in accordion",
     cz: "Affiche des blocs en accordéon",
     pl: "Affiche des blocs en accordéon",
-    de: "Affiche des blocs en accordéon"
+    de: "Affiche des blocs en accordéon",
   },
 };
 
