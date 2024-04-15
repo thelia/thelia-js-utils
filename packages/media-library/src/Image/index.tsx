@@ -2,6 +2,7 @@ import {
   BlockModuleComponentProps,
   BlockPluginDefinition,
   LocaleContext,
+  components,
 } from "@thelia/blocks-editor";
 import { useContext, useEffect, useState } from "react";
 import { IntlProvider, useIntl } from "react-intl";
@@ -16,6 +17,8 @@ import { QueryClientProvider } from "react-query";
 import { useCreateImage } from "../utils/queries";
 import { Toaster, toast } from "react-hot-toast";
 import { queryClient } from "@thelia/fetcher";
+
+const Select = components.Select;
 
 import "./Image.css";
 
@@ -203,6 +206,7 @@ const ImageInfos = ({
   const [url, setUrl] = useState(image.link?.url || "");
   const [width, setWidth] = useState(image.width || "");
   const [height, setHeight] = useState(image.height || "");
+  const [target, setTarget] = useState(image.target || "");
 
   const intl = useIntl();
 
@@ -241,6 +245,23 @@ const ImageInfos = ({
           onChange={(e) => setUrl(e.target.value)}
           onBlur={() => onChange({ link: { url: url } })}
         />
+      </div>
+      <div>
+        <label>{intl.formatMessage({ id: "BlockImage__TARGET" })}</label>
+
+        <Select
+          id="BlockImage-field-target"
+          value={target}
+          name="linkTarget"
+          onChange={(e) => {
+            setTarget(e.target.value);
+            onChange({ target: e.target.value || "_self" });
+          }}
+          disabled={!url}
+        >
+          <option value="_self">self</option>
+          <option value="_blank">blank</option>
+        </Select>
       </div>
       <div>
         <label>
@@ -433,6 +454,7 @@ export const initialData: LibraryImage = {
   width: "",
   height: "",
   tags: [],
+  target: "_self",
 };
 
 const moduleType = {

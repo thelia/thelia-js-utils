@@ -2,14 +2,14 @@ export type ImageTag = {
   imageTag: {
     id: number;
     imageId: number;
-    tagId: number
-  },
+    tagId: number;
+  };
   tag: {
     id: number;
     title: string;
     colorCode: string;
-  }
-}
+  };
+};
 
 export type LibraryImage = {
   id: number | null;
@@ -22,4 +22,5 @@ export type LibraryImage = {
     url: string;
     target?: string;
   };
+  target: HTMLAnchorElement["target"];
 };

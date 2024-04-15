@@ -1,7 +1,11 @@
 import { useContext, useState } from "react";
 import useCopyToClipboard from "react-use/esm/useCopyToClipboard";
 import { GroupTypeResponse } from "../../utils/types";
-import { useDeleteGroup, useDuplicateGroup, useGroups } from "../../utils/queries";
+import {
+  useDeleteGroup,
+  useDuplicateGroup,
+  useGroups,
+} from "../../utils/queries";
 import { ReactComponent as DeleteIcon } from "../../../assets/svg/delete.svg";
 import { ReactComponent as CopyIcon } from "../../../assets/svg/copy.svg";
 import { ReactComponent as CodeIcon } from "../../../assets/svg/code.svg";
@@ -49,7 +53,8 @@ const BlocksTableRow = ({
               : ""
           }`}
         >
-          {group.itemBlockGroups?.length && group.itemBlockGroups?.length > 0 ? (
+          {group.itemBlockGroups?.length &&
+          group.itemBlockGroups?.length > 0 ? (
             <>
               <button
                 onClick={() => {
@@ -82,7 +87,7 @@ const BlocksTableRow = ({
       </td>
       <td className="BlocksTable__Row__Locales">
         <div className="BlocksTable__Row__Locales__Wrapper">
-          {group.locales.length > 3 ? (
+          {group?.locales && group?.locales?.length > 3 ? (
             <>
               {group.locales.slice(0, 2).map((locale) => (
                 <span className="Locale" key={locale}>
@@ -90,12 +95,13 @@ const BlocksTableRow = ({
                 </span>
               ))}
               <span>
-                + {group.locales.slice(2).length} {intl.formatMessage({ id: "OTHER" })}
+                + {group.locales.slice(2).length}{" "}
+                {intl.formatMessage({ id: "OTHER" })}
                 {group.locales.slice(2).length > 1 ? "s" : ""}
               </span>
             </>
           ) : (
-            group.locales.map((locale) => (
+            (group.locales || []).map((locale) => (
               <span className="Locale" key={locale}>
                 {locale.substring(0, 2)}
               </span>
@@ -105,7 +111,10 @@ const BlocksTableRow = ({
       </td>
       <td className="BlocksTable__Row__Actions">
         <div className="BlocksTable__Row__Actions__Wrapper">
-          <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "EDIT_BLOCK" })}>
+          <Tippy
+            delay={[500, 0]}
+            content={intl.formatMessage({ id: "EDIT_BLOCK" })}
+          >
             <a
               className="BlocksTable__Row__Action"
               href={getUrlWithPrefix(`/admin/TheliaBlocks/${group.id}`)}
@@ -113,7 +122,10 @@ const BlocksTableRow = ({
               <EditIcon />
             </a>
           </Tippy>
-          <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "DUPLICATE_BLOCK" })}>
+          <Tippy
+            delay={[500, 0]}
+            content={intl.formatMessage({ id: "DUPLICATE_BLOCK" })}
+          >
             <button
               className="BlocksTable__Row__Action"
               onClick={() => {
@@ -127,7 +139,10 @@ const BlocksTableRow = ({
               )}
             </button>
           </Tippy>
-          <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "COPY_SHORTCODE" })}>
+          <Tippy
+            delay={[500, 0]}
+            content={intl.formatMessage({ id: "COPY_SHORTCODE" })}
+          >
             <button
               className="BlocksTable__Row__Action"
               onClick={() => {
@@ -146,7 +161,10 @@ const BlocksTableRow = ({
               <CodeIcon />
             </button>
           </Tippy>
-          <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "DELETE_BLOCK" })}>
+          <Tippy
+            delay={[500, 0]}
+            content={intl.formatMessage({ id: "DELETE_BLOCK" })}
+          >
             <button
               className="BlocksTable__Row__Action__Delete"
               onClick={() => {
@@ -171,17 +189,25 @@ const BlocksTable = () => {
   const [limit, setLimit] = useState(10);
   const { getUrlWithPrefix } = useContext(LocaleContext);
 
-  const { data: groups = [], isError, isPreviousData } = useGroups({ limit, offset });
+  const {
+    data: groups = [],
+    isError,
+    isPreviousData,
+  } = useGroups({ limit, offset });
 
   const intl = useIntl();
 
   if (groups.length <= 0) {
-    return <div>{intl.formatMessage({ id: "BlocksList__NO_THELIA_BLOCKS" })}</div>;
+    return (
+      <div>{intl.formatMessage({ id: "BlocksList__NO_THELIA_BLOCKS" })}</div>
+    );
   }
 
   if (isError) {
     return (
-      <div>{intl.formatMessage({ id: "BlocksList__ERROR_LOADING_THELIA_BLOCKS" })}</div>
+      <div>
+        {intl.formatMessage({ id: "BlocksList__ERROR_LOADING_THELIA_BLOCKS" })}
+      </div>
     );
   }
 
@@ -193,7 +219,9 @@ const BlocksTable = () => {
             <th scope="col">{intl.formatMessage({ id: "ID" })}</th>
             <th scope="col">{intl.formatMessage({ id: "NAME" })}</th>
             <th scope="col">{intl.formatMessage({ id: "LINKED_CONTENTS" })}</th>
-            <th scope="col">{intl.formatMessage({ id: "AVAILABLE_LOCALES" })}</th>
+            <th scope="col">
+              {intl.formatMessage({ id: "AVAILABLE_LOCALES" })}
+            </th>
             <th scope="col">{intl.formatMessage({ id: "ACTIONS" })}</th>
           </tr>
         </thead>

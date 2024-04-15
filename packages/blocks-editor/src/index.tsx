@@ -15,6 +15,7 @@ export type {
 } from "./utils/types";
 
 import * as blocks from "./blocks";
+import * as components from "./components";
 
 export {
   BlocksEditor,
@@ -24,5 +25,6 @@ export {
   LocaleContext,
   LocaleProvider,
   blocks,
+  components,
   nanoid as generateId,
 };

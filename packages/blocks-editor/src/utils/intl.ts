@@ -70,6 +70,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockButton__URL: "URL du bouton",
     BlockButton__URL_PLACEHOLDER: "Indiquez le lien du bouton",
     BlockButton__TYPE: "Type de bouton",
+    BlockButton__TARGET: "Type d'ouverture du lien",
 
     BlockProduct__ADD_PRODUCT: "Ajouter un produit",
     BlockProduct__PRODUCT_LOADING: "Chargement du produit...",
@@ -253,6 +254,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockButton__URL: "URL of the button",
     BlockButton__URL_PLACEHOLDER: "Enter the URL of the button",
     BlockButton__TYPE: "Type of the button",
+    BlockButton__TARGET: "Link opening type",
 
     BlockProduct__ADD_PRODUCT: "Add a product",
     BlockProduct__PRODUCT_LOADING: "Loading product...",

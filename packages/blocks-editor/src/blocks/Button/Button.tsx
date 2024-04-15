@@ -1,7 +1,10 @@
 import { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { Input, Select } from "../../components/Inputs";
-import { BlockModuleComponentProps, BlockPluginDefinition } from "../../utils/types";
+import {
+  BlockModuleComponentProps,
+  BlockPluginDefinition,
+} from "../../utils/types";
 import { ReactComponent as Icon } from "./assets/button.svg";
 import { ReactComponent as LinkIcon } from "../../../assets/svg/link.svg";
 
@@ -11,6 +14,7 @@ export type BlockButtonData = {
   label: string;
   url: string;
   type: string;
+  target: HTMLAnchorElement["target"];
 };
 
 const BlockButtonComponent = ({
@@ -27,9 +31,10 @@ const BlockButtonComponent = ({
     { label: intl.formatMessage({ id: "QUINARY" }), value: "quinary" },
   ];
 
-  const [label, setLabel] = useState<string>("");
-  const [type, setType] = useState<string>(data.type);
-  const [url, setUrl] = useState<string>("");
+  const [label, setLabel] = useState<BlockButtonData["label"]>("");
+  const [type, setType] = useState<BlockButtonData["type"]>(data.type);
+  const [url, setUrl] = useState<BlockButtonData["url"]>("");
+  const [target, setTarget] = useState<BlockButtonData["target"]>("_self");
 
   useEffect(() => {
     if (data.url) {
@@ -38,6 +43,9 @@ const BlockButtonComponent = ({
 
     if (data.label) {
       setLabel(data.label);
+    }
+    if (data.target) {
+      setTarget(data.target);
     }
   }, [data]);
 
@@ -64,6 +72,10 @@ const BlockButtonComponent = ({
   const onChangeType = (e: ChangeEvent<HTMLSelectElement>) => {
     setType(e.target.value);
     onUpdate({ ...data, type: e.target.value });
+  };
+  const onChangeTarget = (e: ChangeEvent<HTMLSelectElement>) => {
+    setTarget(e.target.value);
+    onUpdate({ ...data, target: e.target.value });
   };
 
   return (
@@ -94,17 +106,31 @@ const BlockButtonComponent = ({
         </Select>
       </div>
 
-      <Input
-        type="text"
-        id="BlockButton-field-url"
-        placeholder={intl.formatMessage({ id: "BlockButton__URL_PLACEHOLDER" })}
-        value={url}
-        icon={<LinkIcon />}
-        iconAlignment="left"
-        onChange={onChangeUrl}
-        onBlur={onBlurUrl}
-        label={intl.formatMessage({ id: "BlockButton__URL" })}
-      />
+      <div className="BlockButton__Config">
+        <Input
+          type="text"
+          id="BlockButton-field-url"
+          placeholder={intl.formatMessage({
+            id: "BlockButton__URL_PLACEHOLDER",
+          })}
+          value={url}
+          icon={<LinkIcon />}
+          iconAlignment="left"
+          onChange={onChangeUrl}
+          onBlur={onBlurUrl}
+          label={intl.formatMessage({ id: "BlockButton__URL" })}
+        />
+
+        <Select
+          id="BlockButton-field-target"
+          onChange={onChangeTarget}
+          value={target}
+          label={intl.formatMessage({ id: "BlockButton__TARGET" })}
+        >
+          <option value="_self">self</option>
+          <option value="_blank">blank</option>
+        </Select>
+      </div>
     </div>
   );
 };
@@ -113,6 +139,7 @@ const initialData = {
   label: "",
   url: "",
   type: "primary",
+  target: "_self",
 };
 
 const moduleType = {
@@ -131,7 +158,7 @@ const blockButton: BlockPluginDefinition<BlockButtonData> = {
     it: "Bottone",
     cz: "Bouton",
     pl: "Bouton",
-    de: "Bouton"
+    de: "Bouton",
   },
   icon: Icon,
   description: {
@@ -142,7 +169,7 @@ const blockButton: BlockPluginDefinition<BlockButtonData> = {
     it: "Link a un URL",
     cz: "Lien vers une URL",
     pl: "Lien vers une URL",
-    de: "Lien vers une URL"
+    de: "Lien vers une URL",
   },
 };
 
