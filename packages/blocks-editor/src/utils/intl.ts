@@ -75,7 +75,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockProduct__ADD_PRODUCT: "Ajouter un produit",
     BlockProduct__PRODUCT_LOADING: "Chargement du produit...",
 
-    BlockCategory__ADD_CATEGORY: "Ajouter un catégorie",
+    BlockCategory__ADD_CATEGORY: "Ajouter une catégorie",
     BlockCategory__CATEGORY_LOADING: "Chargement du catégorie...",
 
     BlockSeparator__STYLE: "Style du séparateur",
@@ -436,7 +436,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockProduct__ADD_PRODUCT: "Añade un producto",
     BlockProduct__PRODUCT_LOADING: "Cargando producto...",
 
-    BlockCategory__ADD_CATEGORY: "Añade un categoría",
+    BlockCategory__ADD_CATEGORY: "Añade una categoría",
     BlockCategory__CATEGORY_LOADING: "Cargando categoría...",
 
     BlockSeparator__STYLE: "Estilo del separador",
@@ -619,7 +619,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockProduct__ADD_PRODUCT: "Aggiungi un prodotto",
     BlockProduct__PRODUCT_LOADING: "Caricamento del prodotto...",
 
-    BlockCategory__ADD_CATEGORY: "Aggiungi un categoria",
+    BlockCategory__ADD_CATEGORY: "Aggiungi una categoria",
     BlockCategory__CATEGORY_LOADING: "Caricamento del categoria...",
 
     BlockSeparator__STYLE: "Stile del separatore",
