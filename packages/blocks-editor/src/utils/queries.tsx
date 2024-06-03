@@ -7,6 +7,7 @@ import {
 } from "./types";
 import {
   QueryClientProvider,
+  useInfiniteQuery,
   useMutation,
   useQuery,
   useQueryClient,
@@ -22,13 +23,7 @@ import { useBlocksContext } from "../hooks/useBlockContext";
 import { useIntl } from "react-intl";
 import { useGlobalHasChanged } from "./globalState";
 
-export function BlocksProvider({
-  children,
-  api,
-}: {
-  children: ReactNode;
-  api: string;
-}) {
+export function BlocksProvider({ children, api }: { children: ReactNode; api: string }) {
   const [initialized, setInitialized] = useState<boolean>(false);
   useEffect(() => {
     instance.defaults.baseURL = api;
@@ -39,9 +34,7 @@ export function BlocksProvider({
     return null;
   }
 
-  return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }
 
 export function useGroups(options?: { limit?: number; offset?: number }) {
@@ -60,6 +53,31 @@ export function useGroups(options?: { limit?: number; offset?: number }) {
       }),
     {
       keepPreviousData: true,
+    }
+  );
+}
+
+export function useInfiniteGroups(options?: {
+  limit?: number;
+  offset?: number;
+  search: string;
+}) {
+  const { currentLocale } = useContext(LocaleContext);
+
+  return useInfiniteQuery<GroupTypeResponse[]>(
+    ["infinite_block_group", options],
+    ({ pageParam = 0 }) =>
+      fetcher(`/block_group/list`, {
+        method: "GET",
+        params: {
+          limit: 10,
+          offset: pageParam,
+          locale: currentLocale,
+        },
+      }),
+    {
+      getNextPageParam: (lastPage, allPages) =>
+        lastPage.length === 10 ? allPages.length * 10 : undefined,
     }
   );
 }
@@ -170,12 +188,9 @@ export function useCreateOrUpdateGroup() {
 
         if (
           !noRedirect &&
-          window.location.pathname !==
-            getUrlWithPrefix(`/admin/TheliaBlocks/${data.id}`)
+          window.location.pathname !== getUrlWithPrefix(`/admin/TheliaBlocks/${data.id}`)
         ) {
-          window.location.replace(
-            getUrlWithPrefix(`/admin/TheliaBlocks/${data.id}`)
-          );
+          window.location.replace(getUrlWithPrefix(`/admin/TheliaBlocks/${data.id}`));
         } else {
           queryClient.invalidateQueries("block_group");
         }
@@ -235,14 +250,10 @@ export function useDeleteItemBlockGroup() {
     {
       onSuccess: (data, groupId) => {
         queryClient.invalidateQueries(["item_block_group"]);
-        toast.success(
-          intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_DELETED" })
-        );
+        toast.success(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_DELETED" }));
       },
       onError: (error) => {
-        toast.error(
-          intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_NOT_DELETED" })
-        );
+        toast.error(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_NOT_DELETED" }));
       },
     }
   );
@@ -266,9 +277,7 @@ export function useDuplicateGroup() {
     },
     {
       onSuccess: (newGroupId: number) => {
-        window.location.replace(
-          getUrlWithPrefix(`/admin/TheliaBlocks/${newGroupId}`)
-        );
+        window.location.replace(getUrlWithPrefix(`/admin/TheliaBlocks/${newGroupId}`));
       },
     }
   );
@@ -287,15 +296,7 @@ export function useLinkContentToGroup() {
   const intl = useIntl();
   const queryClient = useQueryClient();
   return useMutation(
-    ({
-      id,
-      itemId,
-      itemType,
-    }: {
-      id?: number;
-      itemId?: number;
-      itemType?: string;
-    }) =>
+    ({ id, itemId, itemType }: { id?: number; itemId?: number; itemType?: string }) =>
       fetcher(`/item_block_group`, {
         method: "POST",
         data: {
@@ -308,9 +309,7 @@ export function useLinkContentToGroup() {
       }),
     {
       onSuccess: (data: GroupTypeResponse) => {
-        toast.success(
-          intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_LINKED" })
-        );
+        toast.success(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_LINKED" }));
 
         setGroupId(data.id);
         queryClient.setQueryData(["block_group", data.id, currentLocale], data);
@@ -332,9 +331,7 @@ export function useUnlinkContentFromGroup() {
       }),
     {
       onSuccess: () => {
-        toast.success(
-          intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_UNLINKED" })
-        );
+        toast.success(intl.formatMessage({ id: "Toast__ITEM_BLOCK_GROUP_UNLINKED" }));
 
         resetBlocks();
         resetContext();
@@ -439,11 +436,7 @@ export function useCategoriesBy({ type, value = null }: SearchProps) {
   );
 }
 
-export function useSearchBy({
-  searchIn,
-  type = "title",
-  value = null,
-}: SearchProps) {
+export function useSearchBy({ searchIn, type = "title", value = null }: SearchProps) {
   let params: {
     id: string | null;
     ids: string | null;

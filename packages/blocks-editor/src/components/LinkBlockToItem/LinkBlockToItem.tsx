@@ -1,10 +1,11 @@
-import { useGroups, useLinkContentToGroup } from "../../utils/queries";
-import { Suspense, useRef, useState } from "react";
+import { useGroups, useInfiniteGroups, useLinkContentToGroup } from "../../utils/queries";
+import { Fragment, Suspense, forwardRef, useRef, useState } from "react";
 import { GroupTypeStore } from "../../utils/types";
 import slugify from "../../utils/slugify";
 import { useIntl } from "react-intl";
 import { Input } from "../Inputs";
 import { ReactComponent as LinkIcon } from "../../../assets/svg/link.svg";
+import { useClickAway } from "react-use";
 
 import "./LinkBlockToItem.css";
 
@@ -15,65 +16,95 @@ interface ILinkBlockToItemprops {
   itemType?: string;
 }
 
-function List({
-  search,
-  onClickGroup,
-}: {
-  search: string;
-  onClickGroup: (group: GroupTypeStore) => void;
-}) {
-  const intl = useIntl();
-  const {
-    data,
-  }: {
-    isLoading: boolean;
-    isError: boolean;
-    error: any;
-    data: any;
-  } = useGroups();
+const List = forwardRef(
+  (
+    {
+      search,
+      onClickGroup,
+    }: {
+      search: string;
+      onClickGroup: (group: GroupTypeStore) => void;
+    },
+    ref: any
+  ) => {
+    const intl = useIntl();
+    const {
+      data,
+    }: {
+      isLoading: boolean;
+      isError: boolean;
+      error: any;
+      data: any;
+    } = useGroups();
 
-  const results = data.filter(
-    ({ slug }: { slug: GroupTypeStore["slug"] }) =>
-      slug?.search(new RegExp(slugify(search), "i")) !== -1
-  );
+    const {
+      data: infiniteData,
+      fetchNextPage,
+      hasNextPage,
+      isFetchingNextPage,
+      status,
+    } = useInfiniteGroups();
 
-  return (
-    <ul className="SearchResult">
-      {results.length > 0 ? (
-        results.map((group: GroupTypeStore) => (
-          <li
-            key={group.id}
-            className="SearchResult__Item"
-            onClick={() => onClickGroup(group)}
-          >
-            <span>
-              #{group.id} - {group.title || intl.formatMessage({ id: "NO_TITLE" })}
-            </span>
-          </li>
-        ))
-      ) : search && search.length > 1 ? (
-        <li className="SearchResult__NoResults">
-          <span>
-            {intl.formatMessage({ id: "NO_RESULTS" })}{" "}
-            {search && search.length > 0 ? (
-              <span>
-                {intl.formatMessage({ id: "FOR" })} "
-                <span className="emphasize">{search}</span>"
-              </span>
-            ) : (
-              ""
-            )}
-          </span>
-        </li>
-      ) : null}
-    </ul>
-  );
-}
+    const results = data.filter(
+      ({ slug }: { slug: GroupTypeStore["slug"] }) =>
+        slug?.search(new RegExp(slugify(search), "i")) !== -1
+    );
+
+    const infiniteResults = infiniteData?.pages.map((groups: any) => {
+      return groups.filter(
+        ({ slug }: { slug: GroupTypeStore["slug"] }) =>
+          slug?.search(new RegExp(slugify(search), "i")) !== -1
+      );
+    });
+
+    return (
+      <ul className="SearchResult" ref={ref}>
+        {status === "loading" ? (
+          <i className="fa fa-circle-notch fa-spin"></i>
+        ) : status === "error" ? (
+          <div>Une erreur est survenue</div>
+        ) : (
+          <>
+            {infiniteData?.pages.map((groups: any, index: any) => (
+              <Fragment key={index}>
+                {groups.map((group: any) => (
+                  <li
+                    className="SearchResult__Item"
+                    key={group.id}
+                    onClick={() => onClickGroup(group)}
+                  >
+                    #{group.id} - {group.title || intl.formatMessage({ id: "NO_TITLE" })}{" "}
+                    - {group.slug}
+                  </li>
+                ))}
+              </Fragment>
+            ))}
+            <div className="text-center py-4">
+              <button
+                onClick={() => fetchNextPage()}
+                disabled={!hasNextPage || isFetchingNextPage}
+              >
+                {isFetchingNextPage ? (
+                  <i className="fa fa-circle-notch fa-spin"></i>
+                ) : hasNextPage ? (
+                  <span>Voir plus</span>
+                ) : (
+                  <span>Pas de résultats supplémentaires</span>
+                )}
+              </button>
+            </div>
+          </>
+        )}
+      </ul>
+    );
+  }
+);
 
 function BlockSelector({ itemId, itemType }: Omit<ILinkBlockToItemprops, "apiUrl">) {
   const [search, setSearch] = useState<string>("");
   const [selectedGroup, setSelectedGroup] = useState<GroupTypeStore>();
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
+  const listRef = useRef(null);
   /* const [showWarning, setShowWarning] = useState<boolean>(false); */
 
   const intl = useIntl();
@@ -87,6 +118,10 @@ function BlockSelector({ itemId, itemType }: Omit<ILinkBlockToItemprops, "apiUrl
     setShowSuggestions(false);
     /* setShowWarning(true); */
   };
+
+  useClickAway(listRef, () => {
+    setShowSuggestions(false);
+  });
 
   return (
     <div className="GroupLink__Wrapper">
@@ -118,7 +153,9 @@ function BlockSelector({ itemId, itemType }: Omit<ILinkBlockToItemprops, "apiUrl
               </div>
             }
           >
-            {showSuggestions && <List search={search} onClickGroup={onClickGroup} />}
+            {showSuggestions && (
+              <List search={search} onClickGroup={onClickGroup} ref={listRef} />
+            )}
           </Suspense>
         </div>
 
