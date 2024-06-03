@@ -60,7 +60,7 @@ export function useGroups(options?: { limit?: number; offset?: number }) {
 export function useInfiniteGroups(options?: {
   limit?: number;
   offset?: number;
-  search: string;
+  search?: string;
 }) {
   const { currentLocale } = useContext(LocaleContext);
 
@@ -73,6 +73,7 @@ export function useInfiniteGroups(options?: {
           limit: 10,
           offset: pageParam,
           locale: currentLocale,
+          title: options?.search,
         },
       }),
     {

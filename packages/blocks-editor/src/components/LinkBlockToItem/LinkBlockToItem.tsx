@@ -1,7 +1,6 @@
 import { useGroups, useInfiniteGroups, useLinkContentToGroup } from "../../utils/queries";
-import { Fragment, Suspense, forwardRef, useRef, useState } from "react";
-import { GroupTypeStore } from "../../utils/types";
-import slugify from "../../utils/slugify";
+import { Fragment, Suspense, useRef, useState } from "react";
+import { GroupTypeResponse, GroupTypeStore } from "../../utils/types";
 import { useIntl } from "react-intl";
 import { Input } from "../Inputs";
 import { ReactComponent as LinkIcon } from "../../../assets/svg/link.svg";
@@ -16,110 +15,84 @@ interface ILinkBlockToItemprops {
   itemType?: string;
 }
 
-const List = forwardRef(
-  (
-    {
-      search,
-      onClickGroup,
-    }: {
-      search: string;
-      onClickGroup: (group: GroupTypeStore) => void;
-    },
-    ref: any
-  ) => {
-    const intl = useIntl();
-    const {
-      data,
-    }: {
-      isLoading: boolean;
-      isError: boolean;
-      error: any;
-      data: any;
-    } = useGroups();
+const List = ({
+  search,
+  onClickGroup,
+}: {
+  search: string;
+  onClickGroup: (group: GroupTypeStore) => void;
+}) => {
+  const intl = useIntl();
 
-    const {
-      data: infiniteData,
-      fetchNextPage,
-      hasNextPage,
-      isFetchingNextPage,
-      status,
-    } = useInfiniteGroups();
+  const {
+    data: infiniteData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteGroups({
+    search: search && search.length > 3 ? search : undefined,
+  });
 
-    const results = data.filter(
-      ({ slug }: { slug: GroupTypeStore["slug"] }) =>
-        slug?.search(new RegExp(slugify(search), "i")) !== -1
-    );
-
-    const infiniteResults = infiniteData?.pages.map((groups: any) => {
-      return groups.filter(
-        ({ slug }: { slug: GroupTypeStore["slug"] }) =>
-          slug?.search(new RegExp(slugify(search), "i")) !== -1
-      );
-    });
-
-    return (
-      <ul className="SearchResult" ref={ref}>
-        {status === "loading" ? (
-          <i className="fa fa-circle-notch fa-spin"></i>
-        ) : status === "error" ? (
-          <div>Une erreur est survenue</div>
-        ) : (
-          <>
-            {infiniteData?.pages.map((groups: any, index: any) => (
-              <Fragment key={index}>
-                {groups.map((group: any) => (
-                  <li
-                    className="SearchResult__Item"
-                    key={group.id}
-                    onClick={() => onClickGroup(group)}
-                  >
-                    #{group.id} - {group.title || intl.formatMessage({ id: "NO_TITLE" })}{" "}
-                    - {group.slug}
-                  </li>
-                ))}
-              </Fragment>
-            ))}
-            <div className="text-center py-4">
-              <button
-                onClick={() => fetchNextPage()}
-                disabled={!hasNextPage || isFetchingNextPage}
-              >
-                {isFetchingNextPage ? (
-                  <i className="fa fa-circle-notch fa-spin"></i>
-                ) : hasNextPage ? (
-                  <span>Voir plus</span>
-                ) : (
-                  <span>Pas de résultats supplémentaires</span>
-                )}
-              </button>
-            </div>
-          </>
-        )}
-      </ul>
-    );
-  }
-);
+  return (
+    <ul className="SearchResult">
+      {status === "loading" ? (
+        <i className="fa fa-circle-notch fa-spin"></i>
+      ) : status === "error" ? (
+        <div>Une erreur est survenue</div>
+      ) : (
+        <>
+          {infiniteData?.pages.map((groups: GroupTypeResponse[], index: number) => (
+            <Fragment key={index}>
+              {groups.map((group, index: number) => (
+                <li
+                  className="SearchResult__Item"
+                  key={index}
+                  onClick={() => onClickGroup(group)}
+                >
+                  #{group.id} - {group.title || intl.formatMessage({ id: "NO_TITLE" })}
+                </li>
+              ))}
+            </Fragment>
+          ))}
+          <div className="text-center py-4">
+            <button
+              onClick={() => fetchNextPage()}
+              disabled={!hasNextPage || isFetchingNextPage}
+            >
+              {isFetchingNextPage ? (
+                <i className="fa fa-circle-notch fa-spin"></i>
+              ) : hasNextPage ? (
+                <span>Voir plus</span>
+              ) : (
+                <span>Pas de résultats supplémentaires</span>
+              )}
+            </button>
+          </div>
+        </>
+      )}
+    </ul>
+  );
+};
 
 function BlockSelector({ itemId, itemType }: Omit<ILinkBlockToItemprops, "apiUrl">) {
   const [search, setSearch] = useState<string>("");
   const [selectedGroup, setSelectedGroup] = useState<GroupTypeStore>();
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
-  const listRef = useRef(null);
-  /* const [showWarning, setShowWarning] = useState<boolean>(false); */
+
+  const selectRef = useRef(null);
 
   const intl = useIntl();
 
   const mutation = useLinkContentToGroup();
-  const selectRef = useRef(null);
 
   const onClickGroup = (group: GroupTypeStore) => {
     setSearch(group.title || "");
     setSelectedGroup(group);
     setShowSuggestions(false);
-    /* setShowWarning(true); */
   };
 
-  useClickAway(listRef, () => {
+  useClickAway(selectRef, () => {
     setShowSuggestions(false);
   });
 
@@ -153,9 +126,7 @@ function BlockSelector({ itemId, itemType }: Omit<ILinkBlockToItemprops, "apiUrl
               </div>
             }
           >
-            {showSuggestions && (
-              <List search={search} onClickGroup={onClickGroup} ref={listRef} />
-            )}
+            {showSuggestions && <List search={search} onClickGroup={onClickGroup} />}
           </Suspense>
         </div>
 
