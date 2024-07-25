@@ -38,11 +38,16 @@ export const useBlocksContext = () => {
     }
   }, []);
 
-  const moveBlockTo = useCallback((blockIndex: number, to: number) => {
-    if (typeof to === "number" && to <= blocks.length) {
-      setBlocks((blocks) => [...reorder(blocks, blockIndex, to)]);
-    }
-  }, []);
+  /* We need to have the ‘blocks’ in the dependencies because if we don't,
+     the ‘blocks’ variable in the ‘if’ remains at the initial value of the state. */
+  const moveBlockTo = useCallback(
+    (blockIndex: number, to: number) => {
+      if (typeof to === "number" && to <= blocks.length) {
+        setBlocks((blocks) => [...reorder(blocks, blockIndex, to)]);
+      }
+    },
+    [blocks]
+  );
 
   const resetBlocks = useCallback(() => {
     setBlocks([]);
