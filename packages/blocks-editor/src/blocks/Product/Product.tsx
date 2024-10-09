@@ -18,7 +18,8 @@ export type BlockProductData = {
   productList: string[];
 };
 
-export type BlockProductComponentProps = BlockModuleComponentProps<BlockProductData>;
+export type BlockProductComponentProps =
+  BlockModuleComponentProps<BlockProductData>;
 
 const Product = ({
   productId,
@@ -31,7 +32,10 @@ const Product = ({
   data: BlockProductData;
   onUpdate: Function;
 }) => {
-  const { data: product } = useProductsBy({ type: "ids", value: productId });
+  const { data: product, isFetched } = useProductsBy({
+    type: "ids",
+    value: productId,
+  });
   const intl = useIntl();
 
   return (
@@ -62,7 +66,9 @@ const Product = ({
           onClick={() =>
             onUpdate({
               ...data,
-              productList: [...reorder(data.productList, productIndex, productIndex - 1)],
+              productList: [
+                ...reorder(data.productList, productIndex, productIndex - 1),
+              ],
             })
           }
         >
@@ -74,7 +80,9 @@ const Product = ({
           onClick={() =>
             onUpdate({
               ...data,
-              productList: [...reorder(data.productList, productIndex, productIndex + 1)],
+              productList: [
+                ...reorder(data.productList, productIndex, productIndex + 1),
+              ],
             })
           }
         >
@@ -94,12 +102,24 @@ const Product = ({
       </a>
       <button
         className="Product__Delete"
-        onClick={() =>
+        onClick={() => {
+          if (product.length) {
+            onUpdate({
+              ...data,
+              productList: data.productList.filter((id: string) => {
+                return id != product?.[0]?.id;
+              }),
+            });
+            return;
+          }
+
           onUpdate({
             ...data,
-            productList: data.productList.filter((id: string) => id != product?.[0]?.id),
-          })
-        }
+            productList: data.productList.filter((id: string) => {
+              return id != productId;
+            }),
+          });
+        }}
       >
         <XMarkIcon />
       </button>
@@ -116,6 +136,8 @@ const ProductsList = ({
   const { data: products } = useProductsBy({ type, value });
   const intl = useIntl();
 
+  console.log("products", products, currentProductList);
+
   return (
     <ul className="ProductList">
       {products?.length > 0 ? (
@@ -131,7 +153,9 @@ const ProductsList = ({
                 className="ProductList__Item"
               >
                 <span>{product.i18n.title}</span>
-                <span className="ProductList__Item__Ref">#{product.reference}</span>
+                <span className="ProductList__Item__Ref">
+                  #{product.reference}
+                </span>
               </li>
             ))}
         </>
@@ -252,7 +276,7 @@ const blockProduct: BlockPluginDefinition<BlockProductData> = {
     it: "Prodotto",
     cz: "Produit",
     pl: "Produit",
-    de: "Produit"
+    de: "Produit",
   },
   icon: Icon,
   description: {
@@ -263,7 +287,7 @@ const blockProduct: BlockPluginDefinition<BlockProductData> = {
     it: "Mostra un prodotto",
     cz: "Affiche un produit",
     pl: "Affiche un produit",
-    de: "Affiche un produit"
+    de: "Affiche un produit",
   },
 };
 
