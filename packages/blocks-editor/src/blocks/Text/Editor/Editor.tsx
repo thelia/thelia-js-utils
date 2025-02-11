@@ -54,7 +54,10 @@ const EditorToolbar = ({
           <button className={`ql-${module.name}`} value={module.value} />
         </Tippy>
       ))}
-      <Tippy delay={[500, 0]} content={intl.formatMessage({ id: "INSERT_LINK" })}>
+      <Tippy
+        delay={[500, 0]}
+        content={intl.formatMessage({ id: "INSERT_LINK" })}
+      >
         <button className="search" onClick={() => setIsModalOpen(true)}>
           <LinkIcon style={{ display: "block" }} />
         </button>
@@ -107,7 +110,9 @@ const Editor = forwardRef(
             id: "BlockText__TEXT_PLACEHOLDER",
           })}
           onChange={(value) => {
-            setValue(value);
+            setValue(
+              value.replaceAll(/style="[a-zA-Z0-9:;\.\s\(\)\-\,]*"/gi, "")
+            );
           }}
         />
       </>

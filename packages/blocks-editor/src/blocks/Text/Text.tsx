@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { BlockModuleComponentProps, BlockPluginDefinition } from "../../utils/types";
+import {
+  BlockModuleComponentProps,
+  BlockPluginDefinition,
+} from "../../utils/types";
 import { ReactComponent as Icon } from "./assets/text.svg";
 import "./Text.css";
 import Editor from "./Editor";
 import SearchModal from "./Modal";
 import { useDebounce } from "react-use";
+import { isEqual } from "lodash";
 
 export type BlockTextData = {
   value: string;
@@ -17,13 +21,17 @@ const BlockTextComponent = ({
   const quillRef = useRef(null);
 
   const [localData, setData] = useState(data.value);
-  const [debouncedData, setdebouncedData] = useState(data.value);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useDebounce(() => setdebouncedData(localData), 1000, [localData]);
+  useDebounce(
+    () => {
+      onUpdate({ value: localData });
+    },
+    1000,
+    [localData]
+  );
 
-  useEffect(() => setData(data.value), [data]);
-  useEffect(() => onUpdate({ value: debouncedData }), [debouncedData]);
+  useEffect(() => setData(data.value), [data.value]);
 
   return (
     <div className="BlockText">
@@ -37,7 +45,11 @@ const BlockTextComponent = ({
           />
         </div>
       ) : null}
-      <SearchModal ref={quillRef} isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+      <SearchModal
+        ref={quillRef}
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+      />
     </div>
   );
 };
@@ -62,7 +74,7 @@ const Blocktext: BlockPluginDefinition<BlockTextData> = {
     it: "Testo",
     cz: "Texte",
     pl: "Texte",
-    de: "Texte"
+    de: "Texte",
   },
   icon: Icon,
   description: {
@@ -73,7 +85,7 @@ const Blocktext: BlockPluginDefinition<BlockTextData> = {
     it: "Visualizza un testo formattato",
     cz: "Affiche un texte mis en forme",
     pl: "Affiche un texte mis en forme",
-    de: "Affiche un texte mis en forme"
+    de: "Affiche un texte mis en forme",
   },
 };
 
