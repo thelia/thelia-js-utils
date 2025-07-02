@@ -15,6 +15,7 @@ import { isEqual } from "lodash";
 import "./Accordion.css";
 import { generateId } from "../..";
 import ErrorBoundary from "../../components/ErrorBoundary";
+import BlockTitle, { BlockTitleData } from "../Title/Title";
 
 type AccordionContentData = IBlock[];
 
@@ -150,30 +151,43 @@ const AccordionItemComponent = ({
   );
 };
 
+function formatLegacyTitle(title: string | BlockTitleData) {
+  if (typeof title === "string") {
+    return {
+      ...BlockTitle.initialData,
+      text: title,
+    };
+  }
+
+  return title;
+}
+
 const AccordionComponent = ({
   data,
   onUpdate,
 }: BlockModuleComponentProps<AccordionData>) => {
-  const [title, setTitle] = useState(data.title);
+  const [title, setTitle] = useState<BlockTitleData>(
+    formatLegacyTitle(data.title)
+  );
 
   const intl = useIntl();
 
   useEffect(() => {
-    if (data.title !== title) {
-      setTitle(data.title);
+    if (data.title !== title.text) {
+      setTitle(formatLegacyTitle(data.title));
     }
   }, [data]);
 
   return (
     <div>
-      <Input
+      <BlockTitle.component
         id="title-field"
         label="Titre principal"
         placeholder="Indiquez le titre principal"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        onBlur={() => onUpdate({ ...data, title: title })}
+        data={title}
+        onUpdate={(dataTitle) => onUpdate({ ...data, title: dataTitle })}
       />
+
       <div className="flex flex-col gap-3 my-4">
         {data.group.map((item, index) => (
           <Fragment key={item.id}>
