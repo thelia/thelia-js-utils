@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import ReactQuill, { Quill } from "react-quill";
 import { ReactComponent as LinkIcon } from "../../../../assets/svg/link.svg";
 import { EditorModule } from "../../../utils/types";
+import { registerFormats } from "../utils/quill-formats";
 
 import "./Editor.css";
 
@@ -79,6 +80,8 @@ const Editor = forwardRef(
     },
     ref: any
   ) => {
+    registerFormats();
+
     const icons = Quill.import("ui/icons");
 
     icons["bold"] = '<i class="fas fa-bold"></i>';
