@@ -28,7 +28,7 @@ const TableContext = createContext<BlockTableComponentProps>({
 });
 
 function cleanArray(array: any, length: number) {
-  return array.splice(0, length);
+  return array.slice(0, length);
 }
 
 function LayoutSelector() {
@@ -151,9 +151,9 @@ function RowsCol({ rowIndex, colIndex, rowIterable }: RowsColProps) {
     rowIndex: number,
     index: number
   ) => {
-    const rows = data.rows.length > 0 ? [...data.rows] : (rowIterable as Col[][]);
+    const rows = data.rows.length > 0 ? data.rows.map(row => Array.isArray(row) ? [...row] : []) : (rowIterable as Col[][]);
 
-    const currentRow: Col[] = rows[rowIndex] || [];
+    const currentRow: Col[] = rows[rowIndex] ? [...rows[rowIndex]] : [];
     const currentCol: Col = currentRow[index];
 
     const value: Col =
@@ -170,15 +170,16 @@ function RowsCol({ rowIndex, colIndex, rowIterable }: RowsColProps) {
             value: e.currentTarget.value,
           } as ColText);
 
-    if (currentRow?.[index] === undefined || currentRow?.[index] === null) {
-      currentRow.push(value);
+    const newRow = [...currentRow];
+    if (newRow?.[index] === undefined || newRow?.[index] === null) {
+      newRow.push(value);
     } else {
-      currentRow[index] = value;
+      newRow[index] = value;
     }
 
-    rows[rowIndex] = cleanArray(currentRow, data.colAmount);
-
-    onUpdate({ ...data, rows: cleanArray(rows, data.rowAmount) });
+    const newRows = [...rows];
+    newRows[rowIndex] = cleanArray(newRow, data.colAmount);
+    onUpdate({ ...data, rows: cleanArray(newRows, data.rowAmount) });
   };
 
   const onChangeLinkText = (
@@ -188,9 +189,9 @@ function RowsCol({ rowIndex, colIndex, rowIterable }: RowsColProps) {
   ) => {
     if (type !== "link") return;
 
-    const rows = data.rows.length > 0 ? [...data.rows] : (rowIterable as Col[][]);
+    const rows = data.rows.length > 0 ? data.rows.map(row => Array.isArray(row) ? [...row] : []) : (rowIterable as Col[][]);
 
-    const currentRow: Col[] = rows[rowIndex] || [];
+    const currentRow: Col[] = rows[rowIndex] ? [...rows[rowIndex]] : [];
     const currentCol: ColLink = currentRow[index] as ColLink;
 
     const value: ColLink = {
@@ -201,11 +202,13 @@ function RowsCol({ rowIndex, colIndex, rowIterable }: RowsColProps) {
       },
     };
 
-    currentRow[index] = value;
+    const newRow = [...currentRow];
+    newRow[index] = value;
 
-    rows[rowIndex] = cleanArray(currentRow, data.colAmount);
+    const newRows = [...rows];
+    newRows[rowIndex] = cleanArray(newRow, data.colAmount);
 
-    onUpdate({ ...data, rows: cleanArray(rows, data.rowAmount) });
+    onUpdate({ ...data, rows: cleanArray(newRows, data.rowAmount) });
   };
 
   return (
@@ -252,7 +255,6 @@ function RowsCol({ rowIndex, colIndex, rowIterable }: RowsColProps) {
 function Rows() {
   const { data } = useContext(TableContext);
   const intl = useIntl();
-
   const colIterable = Array.from({ length: data.colAmount });
   const rowIterable = Array.from({ length: data.rowAmount });
 
