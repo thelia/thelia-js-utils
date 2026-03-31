@@ -92,6 +92,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockText__LINK_LABEL_PLACEHOLDER: "Indiquez le titre de votre lien",
     BlockText__LINK_URL: "URL de votre lien",
     BlockText__LINK_URL_PLACEHOLDER: "Indiquez le lien de votre lien",
+    BlockText__LINK_NEW_TAB: "Ouvrir dans un nouvel onglet",
 
     BlockTitle__TEXT_PLACEHOLDER: "Votre titre ici",
     BlockTitle__LEVEL: "Niveau du titre",
@@ -275,6 +276,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockText__LINK_LABEL_PLACEHOLDER: "Enter the label of the link",
     BlockText__LINK_URL: "URL of the link",
     BlockText__LINK_URL_PLACEHOLDER: "Enter the URL of the link",
+    BlockText__LINK_NEW_TAB: "Open in a new tab",
 
     BlockTitle__TEXT_PLACEHOLDER: "Your title here",
     BlockTitle__LEVEL: "Title level",
@@ -453,6 +455,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockText__LINK_LABEL_PLACEHOLDER: "Introduce el label del enlace",
     BlockText__LINK_URL: "URL del enlace",
     BlockText__LINK_URL_PLACEHOLDER: "Introduce la URL del enlace",
+    BlockText__LINK_NEW_TAB: "Abrir en una nueva pestaña",
 
     BlockTitle__TEXT_PLACEHOLDER: "Tu título aquí",
     BlockTitle__LEVEL: "Nivel de título",
@@ -636,6 +639,7 @@ export const messages: Record<string, { [key: string]: string }> = {
     BlockText__LINK_LABEL_PLACEHOLDER: "Inserisci il label del link",
     BlockText__LINK_URL: "URL del link",
     BlockText__LINK_URL_PLACEHOLDER: "Inserisci l'URL del link",
+    BlockText__LINK_NEW_TAB: "Apri in una nuova scheda",
 
     BlockTitle__TEXT_PLACEHOLDER: "Il tuo titolo qui",
     BlockTitle__LEVEL: "Livello del titolo",
